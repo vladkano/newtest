@@ -26,10 +26,6 @@
 
     <dependencies>
         <!-- Тесты -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>ru.stqa.selenium</groupId>

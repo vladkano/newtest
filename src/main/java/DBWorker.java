@@ -25,9 +25,9 @@ public class DBWorker {
             String strSshUser = "rundkvist"; // SSH loging username
             String strSshPassword = "ldvOVHvhj648cYk"; // SSH login password
             String strSshHost = "176.53.182.129"; // hostname or ip or SSH server
-            int nSshPort = 22; // remote SSH host port number
+//            int nSshPort = 22; // remote SSH host port number
             String strRemoteHost = "localhost"; // hostname or ip of your database server
-            int nLocalPort = 33066; // local port number use to bind SSH tunnel
+//            int nLocalPort = 33066; // local port number use to bind SSH tunnel
             int nRemotePort = 33066; // remote port number of your database
             String strDbUser = "db_user"; // database loging username
             String strDbPassword = "db_user_pwd123"; // database login password
@@ -39,10 +39,11 @@ public class DBWorker {
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);
             session.connect();
-            session.setPortForwardingL(nLocalPort, strRemoteHost, nRemotePort);
+            int forwardedPort = session.setPortForwardingL(0, strRemoteHost, nRemotePort);
 
             Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:" + nLocalPort + "/poisondrop", strDbUser,
+            String url = "jdbc:mysql://localhost:" + forwardedPort;
+            con = DriverManager.getConnection(url + "/poisondrop", strDbUser,
                     strDbPassword);
 
         } catch (Exception e) {
