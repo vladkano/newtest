@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
 
+
     <build>
         <plugins>
             <plugin>
@@ -25,6 +26,7 @@
 
     <dependencies>
         <!-- Тесты -->
+
         <dependency>
             <groupId>ru.stqa.selenium</groupId>
             <artifactId>webdriver-factory</artifactId>
@@ -40,6 +42,18 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-edge-driver</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
             <version>3.141.59</version>
         </dependency>
 
@@ -67,13 +81,13 @@
             <artifactId>jsch</artifactId>
             <version>0.1.44-1</version>
         </dependency>
-
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-support</artifactId>
             <version>4.0.0-alpha-4</version>
             <scope>compile</scope>
         </dependency>
+
 
     </dependencies>
 
