@@ -58,8 +58,6 @@ public class EarringsPage {
 
 
 
-
-
     public int countEarrings() {
 
         int id = 0;

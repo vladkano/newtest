@@ -10,7 +10,6 @@ import java.util.List;
 public class Tag {
 
     private WebDriver driver;
-    private DBWorker worker = new DBWorker();
 
 
     public Tag(WebDriver driver) {

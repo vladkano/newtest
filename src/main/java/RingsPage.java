@@ -14,13 +14,13 @@ public class RingsPage {
     private WebDriver driver;
     By showMoreButton = By.xpath("//span[text()='Показать ещё']");
 
-    By ringImageLink = By.xpath("//span[2]//img[@alt='Малое серебряное кольцо-шарик с черным ситаллом, из коллекции Lollipops (18)']");
-    By ringImageHeader = By.xpath("//h1[text()='Малое серебряное кольцо-шарик с черным ситаллом, из коллекции Lollipops (18)']");
+    By ringImageLink = By.xpath("//a[text()='Покрытое серебром кольцо Etty с лазуритом (17,5)']");
+    By ringImageHeader = By.xpath("//h1[text()='Покрытое серебром кольцо Etty с лазуритом (17,5)']");
 
     By ringNameLink = By.xpath("//a[text()='Кольцо Titia с прямоугольными кристаллами (15)']");
     By ringNameHeader = By.xpath("//h1[text()='Кольцо Titia с прямоугольными кристаллами (15)']");
 
-    By ringDesignerLink = By.xpath("//div[@class='catalog-card__designer']/a[@href='/catalog/rings/pokrytoe_serebrom_kolco_etty_s_lazuritom_175']");
+    By ringDesignerLink = By.xpath("//div[@class='catalog-card__designer']/a[text()='Philippe Audibert']");
     By ringDesignerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
 
     public RingsPage(WebDriver driver) {
@@ -34,7 +34,7 @@ public class RingsPage {
     }
 
     public String getRingImageHeader() {
-        return driver.findElement(ringImageHeader).getText();
+        return driver.findElement(ringImageHeader).getAttribute("textContent");
     }
 
     public RingsPage clickOnRingNameLink() {
@@ -203,9 +203,6 @@ public class RingsPage {
 //        System.out.println("метод getPicture: " + text);
         return text;
     }
-
-
-
 
 
 

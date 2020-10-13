@@ -1,13 +1,10 @@
 
-import catalog.ItemCatalog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 import java.util.List;
 
 public class MainCatalogPage {
@@ -28,7 +25,6 @@ public class MainCatalogPage {
        List<WebElement> numbers =  driver.findElements(numberOfItems);
         return this;
     }
-
 
 
     public static void main(String[] args) {
@@ -52,29 +48,5 @@ public class MainCatalogPage {
         worker.getSession().disconnect();
     }
 
-//        try {
-//            Statement statement = worker.getCon().createStatement();
-//            ResultSet resultSet = statement.executeQuery(query);
-//
-//            while (resultSet.next()) {
-//                ItemCatalog catalog = new ItemCatalog();
-//                catalog.setItemName(resultSet.getString("name"));
-//                catalog.setDisignerName(resultSet.getString("designer.name"));
-//                catalog.setPrice(resultSet.getInt("price"));
-//                catalog.setAlias(resultSet.getString("alias"));
-//                catalog.setCreated_at(resultSet.getDate("created_at"));
-//                catalog.setMs_id(resultSet.getString("ms_id"));
-//                catalog.setName(resultSet.getString("name"));
-//                catalog.setShow(resultSet.getInt("show"));
-//                catalog.setUpdated_at(resultSet.getDate("updated_at"));
-//                catalog.setUrl(resultSet.getString("url"));
-
-//                System.out.println(catalog);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        worker.getSession().disconnect();
-//    }
 }
 

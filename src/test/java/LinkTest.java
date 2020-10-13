@@ -118,7 +118,7 @@ public class LinkTest {
         rings = new RingsPage(driver);
         rings.clickOnRingImageLink();
         String heading = rings.getRingImageHeader();
-        Assert.assertEquals("Малое серебряное кольцо-шарик с черным ситаллом, из коллекции Lollipops (18)", heading);
+        Assert.assertEquals("Покрытое серебром кольцо Etty с лазуритом (17,5)", heading);
     }
 
     @Test
