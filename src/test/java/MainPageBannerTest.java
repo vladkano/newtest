@@ -119,26 +119,26 @@ public class MainPageBannerTest {
 
     }
 
-    @Test
-    public void firstBannerLink() {
-        String href = banner.getCatalogHref();
-        banner.clickToCatalogHref();
-        String url = driver.getCurrentUrl();
-        String header = banner.getCatalogHeader();
-        Assert.assertEquals(href, url);
-        Assert.assertEquals("404", header);
-    }
-
-
-    @Test
-    public void sixBannerLink() {
-        String href = banner.getSixCatalogHref();
-        banner.clickToSixCatalogHref();
-        String url = driver.getCurrentUrl();
-        String header = banner.getCatalogHeader();
-        Assert.assertEquals(href, url);
-        Assert.assertEquals("404", header);
-    }
+//    @Test
+//    public void firstBannerLink() {
+//        String href = banner.getCatalogHref();
+//        banner.clickToCatalogHref();
+//        String url = driver.getCurrentUrl();
+//        String header = banner.getCatalogHeader();
+//        Assert.assertEquals(href, url);
+//        Assert.assertEquals("404", header);
+//    }
+//
+//
+//    @Test
+//    public void sixBannerLink() {
+//        String href = banner.getSixCatalogHref();
+//        banner.clickToSixCatalogHref();
+//        String url = driver.getCurrentUrl();
+//        String header = banner.getCatalogHeader();
+//        Assert.assertEquals(href, url);
+//        Assert.assertEquals("404", header);
+//    }
 
     @Test
     public void bestsellersDesignerLink() {
