@@ -72,6 +72,7 @@ public class RingsPage {
 
 
     public int countRings() {
+        worker = new DBWorker();
         int id = 0;
         String query = "SELECT COUNT(*)id from item " +
                 "JOIN designer ON item.designer_id = designer.id " +
@@ -97,6 +98,7 @@ public class RingsPage {
 
 
     public List<String> getNames() {
+        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -125,6 +127,7 @@ public class RingsPage {
 
 
     public List<String> getDesigners() {
+        worker = new DBWorker();
         String designer;
         List<String> text = new ArrayList<>();
         String query = "SELECT designer.name from item " +
@@ -151,6 +154,7 @@ public class RingsPage {
     }
 
     public List<Integer> getPrice() {
+        worker = new DBWorker();
         int price;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT item_sku.price from item " +
@@ -178,6 +182,7 @@ public class RingsPage {
     }
 
     public List<Integer> getPicture() {
+        worker = new DBWorker();
         int id;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT sku_picture_list.id from item " +
