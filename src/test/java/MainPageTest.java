@@ -34,12 +34,17 @@ public class MainPageTest {
         MainPage head = mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
         String heading = head.getSigInHeader();
         Assert.assertEquals("Сервисы", heading);
+        mainPage.deletePhone();
     }
 
     //Авторизация
     @Test
     public void sigInWithPhoneNumber() {
-
+        mainPage.sigInWithPhoneOrEmail("+79126459328");
+        String code = mainPage.getPhonePassword();
+        mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
+        tearDownEach();
+        setUp();
         mainPage.sigInWithPhoneOrEmail("+79126459328");
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);
@@ -99,7 +104,6 @@ public class MainPageTest {
     }
 
 
-
     //Позитивные Тесты email
     //Регистрация email
 
@@ -113,14 +117,14 @@ public class MainPageTest {
         mainPage.deleteEmail();
     }
 
-//    //Авторизация
-//    @Test
-//    public void sigInWithEmail() {
-//        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
-//        String code2 = mainPage.getEmailPassword();
-//        mainPage.sigInWithPassword(code2);
-//        mainPage.deleteEmail();
-//    }
+    //Авторизация
+    @Test
+    public void sigInWithEmail() {
+        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
+        String code2 = mainPage.getEmailPassword();
+        mainPage.sigInWithPassword(code2);
+        mainPage.deleteEmail();
+    }
 
 
     //Негативные Тесты

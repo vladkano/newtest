@@ -72,6 +72,7 @@ public class MainPage {
     }
 
     public void deletePhone() {
+        worker = new DBWorker();
         String query = "delete from user where login=+79126459328";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -93,6 +94,7 @@ public class MainPage {
 
 
     public void deleteEmail() {
+        worker = new DBWorker();
         String query = "delete from user where login=+79500000000";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -113,7 +115,7 @@ public class MainPage {
     }
 
     public String getPhonePassword() {
-
+        worker = new DBWorker();
         String code = null;
         String query = "select code from user_authentication_code where phone=+79126459328 and id=(SELECT MAX(id) FROM user_authentication_code)";
 
@@ -131,7 +133,7 @@ public class MainPage {
 
 
     public String getEmailPassword() {
-
+        worker = new DBWorker();
         String code = null;
         String query = "select code from user_authentication_code where email='rundkvist@poisondrop.ru' and id=(SELECT MAX(id) FROM user_authentication_code)";
 
