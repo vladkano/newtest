@@ -330,7 +330,7 @@ public class Collection {
 //                list.add(name2);
 //                list.add(name3);
 //                list.add(name4);
-                System.out.println(name5+": " + name + name2 + name3 + name4);
+//                System.out.println(name5+": " + name + name2 + name3 + name4);
 //                System.out.println(name5);
 //                System.out.println(name2);
 //                System.out.println(name3);
