@@ -101,7 +101,8 @@ public class BraceletsPage {
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and item_sku.url is not null";
+                "and catalog_id=3 and is_archive = 0 and price != 0 and item_sku.url is not null"+
+                " group by item_sku.id ";
 
         try {
             Statement statement = worker.getCon().createStatement();
@@ -130,7 +131,8 @@ public class BraceletsPage {
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and item_sku.url is not null";
+                "and catalog_id=3 and is_archive = 0 and price != 0 and item_sku.url is not null"+
+                " group by item_sku.id ";
 
         try {
             Statement statement = worker.getCon().createStatement();
@@ -139,14 +141,12 @@ public class BraceletsPage {
                 designer = resultSet.getString("name");
 //                System.out.println(designer);
                 text.add(designer);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         worker.getSession().disconnect();
-
-        System.out.println("метод getDesigner: " + text);
+//        System.out.println("метод getDesigner: " + text);
 
         return text;
     }
@@ -160,7 +160,8 @@ public class BraceletsPage {
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and item_sku.url is not null";
+                "and catalog_id=3 and is_archive = 0 and price != 0 and item_sku.url is not null"+
+                " group by item_sku.id ";
 
         try {
             Statement statement = worker.getCon().createStatement();
@@ -189,7 +190,8 @@ public class BraceletsPage {
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and item_sku.url is not null";
+                "and catalog_id=3 and is_archive = 0 and price != 0 and item_sku.url is not null"+
+                " group by item_sku.id ";
 
         try {
             Statement statement = worker.getCon().createStatement();

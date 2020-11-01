@@ -39,7 +39,7 @@ public class CatalogTest {
     public void numberOfEarrings() {
         driver.get("http://176.53.182.129:8088/catalog/earrings");
         earrings = new EarringsPage(driver);
-        List<WebElement> numbers = driver.findElements(By.xpath("//span[@class='catalog-card__image-hovered']"));
+        List<WebElement> numbers = driver.findElements(By.xpath("//h3[@class='catalog-card__name']"));
         int countOfEarrings = earrings.countEarrings();
         Assert.assertEquals(numbers.size(), countOfEarrings);
     }
@@ -48,7 +48,7 @@ public class CatalogTest {
     public void numberOfNecklaces() {
         driver.get("http://176.53.182.129:8088/catalog/necklaces");
         necklaces = new NecklacesPage(driver);
-        List<WebElement> numbers = driver.findElements(By.xpath("//span[@class='catalog-card__image-hovered']"));
+        List<WebElement> numbers = driver.findElements(By.xpath("//h3[@class='catalog-card__name']"));
         int countOfNecklaces = necklaces.countNecklaces();
         Assert.assertEquals(numbers.size(), countOfNecklaces);
     }
@@ -59,9 +59,9 @@ public class CatalogTest {
         bracelets = new BraceletsPage(driver);
 //        bracelets.clickOnShowMoreButton();
         int countOfBracelets = bracelets.countBracelets();
-        List<WebElement> numbers = driver.findElements(By.xpath("//span[@class='catalog-card__image-hovered']"));
+        List<WebElement> numbers = driver.findElements(By.xpath("//h3[@class='catalog-card__name']"));
 //        List<WebElement> numbers = new WebDriverWait(driver,10,1000).until(
-//                ExpectedConditions.numberOfElementsToBe(By.xpath("//span[@class='catalog-card__image-hovered']"), countOfBracelets));
+//                ExpectedConditions.numberOfElementsToBe(By.xpath("//h3[@class='catalog-card__name']"), countOfBracelets));
         Assert.assertEquals(numbers.size(), countOfBracelets);
     }
 
@@ -75,7 +75,7 @@ public class CatalogTest {
         }
         int countOfRings = rings.countRings();
         List<WebElement> numbers = new WebDriverWait(driver, 10, 1000).until(
-                ExpectedConditions.numberOfElementsToBe(By.xpath("//span[@class='catalog-card__image-hovered']"), countOfRings));
+                ExpectedConditions.numberOfElementsToBe(By.xpath("//h3[@class='catalog-card__name']"), countOfRings));
         Assert.assertEquals(numbers.size(), countOfRings);
     }
 
@@ -288,7 +288,7 @@ public class CatalogTest {
         Collections.sort(sqlList);
         int sqlSize = sqlList.size();
 //        System.out.println("sql size :" + sqlSize);
-        System.out.println("from sql: " + sqlList);
+//        System.out.println("from sql: " + sqlList);
 
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//h3[@class='catalog-card__name']"));
@@ -299,7 +299,7 @@ public class CatalogTest {
             siteSize = siteList.size();
         }
 //        System.out.println("site size :" + siteSize);
-        System.out.println("from site: " + siteList);
+//        System.out.println("from site: " + siteList);
 
         //сравниваем 1,11 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assert.assertEquals(siteSize, sqlSize);

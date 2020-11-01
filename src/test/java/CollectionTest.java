@@ -36,7 +36,7 @@ public class CollectionTest {
     @Test
     public void countOfCollectionItems() {
         List<String> namesItems = collection.getNamesItems();
-        System.out.println(namesItems);
+//        System.out.println(namesItems);
         List<WebElement> site = driver.findElements(By.xpath("//div[@class='catalog-card__modifications']"));
         Assert.assertEquals(namesItems.size(), site.size());
     }

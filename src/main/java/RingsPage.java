@@ -58,8 +58,6 @@ public class RingsPage {
     }
 
 
-
-
     public RingsPage clickOnShowMoreButton() {
 
         ((JavascriptExecutor) driver).executeScript(
@@ -67,8 +65,6 @@ public class RingsPage {
 
         return this;
     }
-
-
 
 
     public int countRings() {
@@ -96,7 +92,6 @@ public class RingsPage {
     }
 
 
-
     public List<String> getNames() {
         worker = new DBWorker();
         String name;
@@ -106,7 +101,8 @@ public class RingsPage {
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
-                "and catalog_id=1 and is_archive = 0 and price != 0 and item_sku.url is not null";
+                "and catalog_id=1 and is_archive = 0 and price != 0 and item_sku.url is not null" +
+                " group by item_sku.id ";
 
         try {
             Statement statement = worker.getCon().createStatement();
@@ -210,7 +206,6 @@ public class RingsPage {
     }
 
 
-
 //    public static void main(String[] args) {
 //
 ////        String query = "SELECT COUNT(*) id from item where catalog_id=1 and is_archive = 0";
@@ -238,7 +233,6 @@ public class RingsPage {
 //        }
 //        worker.getSession().disconnect();
 //    }
-
 
 
 }
