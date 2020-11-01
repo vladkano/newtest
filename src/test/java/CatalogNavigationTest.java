@@ -36,7 +36,7 @@ public class CatalogNavigationTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<WebElement> numbers = driver.findElements(By.xpath("//span[@class='catalog-card__image-hovered']"));
+        List<WebElement> numbers = driver.findElements(By.xpath("//h3[@class='catalog-card__name']"));
         Assert.assertEquals(96, numbers.size());
     }
 
@@ -96,7 +96,7 @@ public class CatalogNavigationTest {
     public void pageNumber48() {
         driver.get("http://176.53.182.129:8088/catalog/rings");
         navigation = new CatalogNavigation(driver);
-        List<WebElement> numbers = driver.findElements(By.xpath("//span[@class='catalog-card__image-hovered']"));
+        List<WebElement> numbers = driver.findElements(By.xpath("//h3[@class='catalog-card__name']"));
         Assert.assertEquals(48, numbers.size());
     }
 
