@@ -1,5 +1,4 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,30 +6,38 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainPageBannerTest {
 
     private WebDriver driver;
     private MainPageBanner banner;
+    //private String getUrl = "http://176.53.182.129:8088/";
+    //private String getUrl = "http://176.53.181.34:8088/";
+    private String getUrl = "https://poisondrop.ru/";
 
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-//        WebDriverManager.edgedriver().setup();
-//        driver = new EdgeDriver();
-//        WebDriverManager.firefoxdriver().setup();
-//        driver = new FirefoxDriver();
-
+        WebDriverManager.firefoxdriver().setup();
+        WebDriverManager.edgedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(true);
+        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+        driver = new ChromeDriver(options);
+//        driver = new FirefoxDriver(options);
+//        driver = new EdgeDriver(options);
+        driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get("http://176.53.182.129:8088/");
         banner = new MainPageBanner(driver);
     }
 
@@ -38,7 +45,7 @@ public class MainPageBannerTest {
     @Test
     public void mainBannerIsVisible() {
         List<WebElement> mainBanner = driver.findElements(By.xpath("//div[@class='banner main-banner']"));
-        Assert.assertEquals(1, mainBanner.size());
+        assertEquals(1, mainBanner.size());
     }
 
     @Test
@@ -50,7 +57,7 @@ public class MainPageBannerTest {
             listBanners.add(textBanner);
         }
         List<String> sqlList = banner.listOfBanners();
-        Assert.assertEquals(sqlList, listBanners);
+        assertEquals(sqlList, listBanners);
     }
 
 
@@ -65,7 +72,7 @@ public class MainPageBannerTest {
             bestsellers.add(textBanner);
         }
         List<String> sqlList = banner.listOfBests();
-        Assert.assertEquals(sqlList, bestsellers);
+        assertEquals(sqlList, bestsellers);
     }
 
     @Test
@@ -78,7 +85,7 @@ public class MainPageBannerTest {
             bestsellers.add(textBanner);
         }
         List<String> sqlList = banner.listOfDesigners();
-        Assert.assertEquals(sqlList, bestsellers);
+        assertEquals(sqlList, bestsellers);
     }
 
     @Test
@@ -94,7 +101,7 @@ public class MainPageBannerTest {
             bestsellers.add(price);
         }
         List<Integer> sqlList = banner.listPriceOfBests();
-        Assert.assertEquals(sqlList, bestsellers);
+        assertEquals(sqlList, bestsellers);
     }
 
     //Отображение блока Shop The Look
@@ -102,7 +109,7 @@ public class MainPageBannerTest {
     public void shopTheLookIsVisible() {
         int banners = driver.findElements(By.xpath("//div[@class='banner']//h3[@class='banner__title']")).size();
         boolean visible = banners > 0;
-        Assert.assertEquals(true, visible);
+        assertEquals(true, visible);
     }
 
 
@@ -114,31 +121,31 @@ public class MainPageBannerTest {
         banner.clickToMainCatalogHref();
         String header = banner.getMainCatalogHeader();
         String url = driver.getCurrentUrl();
-        Assert.assertEquals(href, url);
-        Assert.assertEquals("ВСЕ УКРАШЕНИЯ", header);
+        assertEquals(href, url);
+        assertEquals("Все украшения", header);
 
     }
 
-//    @Test
-//    public void firstBannerLink() {
-//        String href = banner.getCatalogHref();
-//        banner.clickToCatalogHref();
-//        String url = driver.getCurrentUrl();
-//        String header = banner.getCatalogHeader();
-//        Assert.assertEquals(href, url);
-//        Assert.assertEquals("404", header);
-//    }
-//
-//
-//    @Test
-//    public void sixBannerLink() {
-//        String href = banner.getSixCatalogHref();
-//        banner.clickToSixCatalogHref();
-//        String url = driver.getCurrentUrl();
-//        String header = banner.getCatalogHeader();
-//        Assert.assertEquals(href, url);
-//        Assert.assertEquals("404", header);
-//    }
+    @Test
+    public void firstBannerLink() {
+        String href = banner.getCatalogHref();
+        banner.clickToCatalogHref();
+        String url = driver.getCurrentUrl();
+        String header = banner.getMainCatalogHeader();
+        assertEquals(href, url);
+        assertEquals("Все украшения", header);
+    }
+
+
+    @Test
+    public void sixBannerLink() {
+        String href = banner.getSixCatalogHref();
+        banner.clickToSixCatalogHref();
+        String url = driver.getCurrentUrl();
+        String header = banner.getMainCatalogHeader();
+        assertEquals(href, url);
+        assertEquals("Все украшения", header);
+    }
 
     @Test
     public void bestsellersDesignerLink() {
@@ -146,7 +153,7 @@ public class MainPageBannerTest {
         String designerName = banner.getDesignerName();
         banner.clickToDesignerButton();
         String header = banner.getDesignerHeader();
-        Assert.assertEquals(designerName, header);
+        assertEquals(designerName, header);
     }
 
     @Test
@@ -154,7 +161,7 @@ public class MainPageBannerTest {
         String name = banner.getName();
         banner.clickToBestsellerNameButton();
         String header = banner.getBestsellerNameHeader();
-        Assert.assertEquals(name, header);
+        assertEquals(name, header);
     }
 
 

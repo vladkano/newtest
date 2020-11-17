@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,34 +30,46 @@ public class Tag {
     }
 
     public String getRingsTag() {
-        return driver.findElement(ringsTag).getText().toLowerCase();
+        List<WebElement> elements = driver.findElements(tag);
+        return elements.get(0).getAttribute("textContent");
     }
 
     public String getSecondRingsTag() {
-        return driver.findElement(ringsSecondTag).getText().toLowerCase();
+        List<WebElement> elements = driver.findElements(tag);
+        return elements.get(1).getAttribute("textContent");
     }
+
 
     public String getEarringsTag() {
-        return driver.findElement(earringsTag).getText().toLowerCase();
+        List<WebElement> elements = driver.findElements(tag);
+        return elements.get(0).getAttribute("textContent");
     }
 
-    public String getBraceletsTag() {
-        return driver.findElement(braceletsTag).getText().toLowerCase();
+    public String getBroshiTag() {
+        List<WebElement> elements = driver.findElements(tag);
+        return elements.get(0).getAttribute("textContent");
     }
 
     public String getNecklacesTag() {
-        return driver.findElement(necklacesTag).getText().toLowerCase();
+        List<WebElement> elements = driver.findElements(tag);
+        return elements.get(0).getAttribute("textContent");
     }
 
 
     public String nameEarringsTags() {
         DBWorker worker = new DBWorker();
         String tags = "";
-        String query = "SELECT item_tag.name from item_sku " +
+        String query = "SELECT  item_tag.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
-                "where item_sku.name = 'Пусеты August из золота с изумрудом (0,08 ct, 0.23 г)'";
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4))" +
+                "and catalog_id=1 and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -68,66 +81,83 @@ public class Tag {
             e.printStackTrace();
         }
 //        System.out.println(name);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return tags;
     }
 
-    public String nameBraceletsTags() {
+    public String nameBroshiTags() {
         DBWorker worker = new DBWorker();
         String tags = "";
-        String query = "SELECT item_tag.name from item_sku " +
+        String query = "SELECT  item_tag.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
-                "where item_sku.name = 'Слейв-браслет из серебра (14)'";
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4))" +
+                "and catalog_id=4 and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 tags = resultSet.getString("name");
-//                System.out.println(name);
+                System.out.println(tags);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 //        System.out.println(name);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return tags;
     }
 
-    public List<String> nameOfRingTags() {
+    public String nameOfRingTags() {
         DBWorker worker = new DBWorker();
-        List<String> name = new ArrayList<>();
-        String tags;
-        String query = "SELECT item_tag.name from item_sku " +
+        String tags = "";
+        String query = "SELECT  item_tag.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
-                "where item_sku.name = 'Позолоченное кольцо-лицо в фактуре (16)'";
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4))" +
+                "and catalog_id=5 and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 tags = resultSet.getString("name");
-                name.add(tags);
+//                name.add(tags);
 //                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 //        System.out.println(name);
-        worker.getSession().disconnect();
-        return name;
+        //worker.getSession().disconnect();
+        return tags;
     }
 
     public String nameNecklacesTags() {
         DBWorker worker = new DBWorker();
         String tags = "";
-        String query = "SELECT item_tag.name from item_sku " +
+        String query = "SELECT  item_tag.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
-                "where item_sku.name = 'Позолоченное кольцо на мизинец, из коллекции Initials (15, Шрифт №2)'";
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4))" +
+                "and catalog_id=2 and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -139,36 +169,38 @@ public class Tag {
             e.printStackTrace();
         }
 //        System.out.println(name);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return tags;
     }
 
 
     public static void main(String[] args) {
+
         DBWorker worker = new DBWorker();
-        String name;
-        String tagName;
-        String query = "SELECT item_tag.name from item_sku " +
+        String tags = "";
+        String query = "SELECT  item_tag.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
-                "where item_sku.name = 'Позолоченное кольцо-лицо в фактуре (16)'";
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4))" +
+                "and catalog_id=1 and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-//              tagName = resultSet.getString("name");
-                System.out.println(name);
-//                System.out.println(tagName);
+                tags = resultSet.getString("name");
+//                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-//        System.out.println(name);
-        worker.getSession().disconnect();
+        System.out.println(tags);
+        //worker.getSession().disconnect();
 
     }
 

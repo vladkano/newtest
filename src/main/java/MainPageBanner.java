@@ -67,7 +67,7 @@ public class MainPageBanner {
     }
 
     public String getMainCatalogHeader() {
-        return driver.findElement(mainCatalogHeader).getText();
+        return driver.findElement(mainCatalogHeader).getAttribute("textContent");
     }
 
 
@@ -122,7 +122,7 @@ public class MainPageBanner {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return listBanners;
     }
 
@@ -148,7 +148,7 @@ public class MainPageBanner {
             e.printStackTrace();
         }
 //        System.out.println(list);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return list;
     }
 
@@ -174,7 +174,7 @@ public class MainPageBanner {
         }
 
 //        System.out.println(list);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return list;
     }
 
@@ -201,7 +201,7 @@ public class MainPageBanner {
             e.printStackTrace();
         }
 //        System.out.println(list);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
 
         return list;
     }
@@ -236,6 +236,6 @@ public class MainPageBanner {
         }
 
         System.out.println(list);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
     }
 }

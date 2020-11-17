@@ -32,9 +32,9 @@ public class Basket {
     By cartCount = By.xpath("//div[@class='text-on-icon page-header__cart']/span");
 
 
-
     public Basket clickToItemButton() {
         String firstItem = this.findFirstItem();
+//        System.out.println(firstItem);
         driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")).click();
         return this;
     }
@@ -76,7 +76,8 @@ public class Basket {
     }
 
     public Basket clickToCatalogButton() {
-        driver.findElement(catalogButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(catalogButton));
         return this;
     }
 
@@ -90,7 +91,8 @@ public class Basket {
     }
 
     public Basket clickToCartFromNew() {
-        driver.findElement(newCatalogButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(newCatalogButton));
         return this;
     }
 
@@ -102,7 +104,8 @@ public class Basket {
         List<String> list = new ArrayList<>();
         String query = "SELECT name from item_sku " +
                 "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
-                "where balance - reserve >0";
+                "where balance - reserve >0" +
+                " group by item_sku.id";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -116,8 +119,8 @@ public class Basket {
             e.printStackTrace();
         }
 
-//        System.out.println(list);
-        worker.getSession().disconnect();
+//        System.out.println(list.get(1));
+//        ////worker.getSession().disconnect();
         return list.get(1);
     }
 
@@ -142,32 +145,28 @@ public class Basket {
         }
 
 //        System.out.println(list);
-        worker.getSession().disconnect();
+        ////worker.getSession().disconnect();
         return list.get(2);
     }
 
     public Integer getBalance() {
         DBWorker worker = new DBWorker();
         String name;
-        Integer balance, reserve, itog;
-        Map<String, Integer> hashMap = new HashMap<String, Integer>();
-        String query = "SELECT name, balance, reserve  from item_sku " +
-                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
-                "where balance - reserve >0";
+        Map<String, Integer> hashMap = new HashMap<>();
+        String query = "SELECT item_sku.name, balance, reserve, sum(balance) - sum(reserve) as sum  from storage_stock " +
+                "JOIN item_sku ON storage_stock.sku_id = item_sku.id " +
+                "where balance - reserve >0" +
+                " group by item_sku.id";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
                 name = resultSet.getString("name");
-                balance = resultSet.getInt("balance");
-                reserve = resultSet.getInt("reserve");
-                itog = balance- reserve;
-//                list.add(name);
-                hashMap.put(name, itog);
+                int summa = resultSet.getInt("sum");
+                hashMap.put(name, summa);
 //                System.out.println(name);
 //                System.out.println(itog);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -175,21 +174,83 @@ public class Basket {
         String firstItem = this.findFirstItem();
         Integer i = hashMap.get(firstItem);
 //        System.out.println(hashMap);
-        worker.getSession().disconnect();
+        ////worker.getSession().disconnect();
         return i;
     }
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
+//        DBWorker worker = new DBWorker();
+//        String name;
+//        List<String> list = new ArrayList<>();
+//        String query = "SELECT name from item_sku " +
+//                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
+//                "where balance - reserve >0" +
+//                " group by item_sku.id";
+//        try {
+//            Statement statement = worker.getCon().createStatement();
+//            ResultSet resultSet = statement.executeQuery(query);
+//
+//            while (resultSet.next()) {
+//                name = resultSet.getString("name");
+//                list.add(name);
+////                System.out.println(name);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println(list);
+//        ////worker.getSession().disconnect();
+
+
+//        DBWorker worker = new DBWorker();
+//        String name;
+//        Integer balance, reserve, itog;
+//
+//        List<String> list = new ArrayList<>();
+//        Map<String, Integer> hashMap = new HashMap<String, Integer>();
+//        String query = "SELECT name, balance, reserve  from item_sku " +
+//                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
+//                "where balance - reserve >0" +
+//                " group by item_sku.id";
+//        try {
+//            Statement statement = worker.getCon().createStatement();
+//            ResultSet resultSet = statement.executeQuery(query);
+//
+//            while (resultSet.next()) {
+//                name = resultSet.getString("name");
+//                balance = resultSet.getInt("balance");
+//                reserve = resultSet.getInt("reserve");
+//
+//                itog = balance- reserve;
+////                list.add(name);
+//
+//                hashMap.put(name, itog);
+////                System.out.println(name);
+////                System.out.println(itog);
+//
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String firstItem = Basket.findFirstItem();
+//        Integer i = hashMap.get(firstItem);
+//        System.out.println(hashMap);
+//        System.out.println(i);
+        ////worker.getSession().disconnect();
+
+
         DBWorker worker = new DBWorker();
         String name;
         Integer balance, reserve, itog;
-
-        List<String> list = new ArrayList<>();
-        Map<String, Integer> hashMap = new HashMap<String, Integer>();
-        String query = "SELECT name, balance, reserve  from item_sku " +
-                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
-                "where balance - reserve >0";
+        Map<String, Integer> hashMap = new HashMap<>();
+        String query = "SELECT item_sku.name, balance, reserve, sum(balance) - sum(reserve) as sum  from storage_stock "
+                +
+                "JOIN item_sku ON storage_stock.sku_id = item_sku.id " +
+                "where balance - reserve >0" +
+                " group by item_sku.id";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -198,23 +259,19 @@ public class Basket {
                 name = resultSet.getString("name");
                 balance = resultSet.getInt("balance");
                 reserve = resultSet.getInt("reserve");
+                int summa = resultSet.getInt("sum");
+                itog = balance - reserve;
+                hashMap.put(name, summa);
 
-                itog = balance- reserve;
-//                list.add(name);
-
-                hashMap.put(name, itog);
-//                System.out.println(name);
+//                System.out.println(summa);
 //                System.out.println(itog);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        String firstItem = Basket.findFirstItem();
-        Integer i = hashMap.get(firstItem);
         System.out.println(hashMap);
+        String firstItem = Basket.findFirstItem();
+        Integer i = hashMap.get("Золотистые пусеты с кристаллами");
         System.out.println(i);
-        worker.getSession().disconnect();
     }
 }

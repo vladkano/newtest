@@ -47,12 +47,14 @@ public class Size {
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
                 "and is_archive = 0 and price != 0 and item_sku.url is not null " +
-                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14,5'" +
+                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14,5' and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
                 " group by item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -65,7 +67,7 @@ public class Size {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
 
 //        System.out.println(text.size());
 //        System.out.println(text);
@@ -78,12 +80,14 @@ public class Size {
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
                 "and is_archive = 0 and price != 0 and item_sku.url is not null " +
-                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '15,5'" +
+                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '15,5' and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
                 " group by item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -96,7 +100,7 @@ public class Size {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
 
 //        System.out.println(text.size());
 //        System.out.println(text);
@@ -109,12 +113,14 @@ public class Size {
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
                 "and is_archive = 0 and price != 0 and item_sku.url is not null " +
-                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = 'Универсальный'" +
+                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = 'Универсальный' and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
                 " group by item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -127,7 +133,7 @@ public class Size {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
 
 //        System.out.println(text.size());
 //        System.out.println(text);
@@ -141,12 +147,14 @@ public class Size {
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
                 "and is_archive = 0 and price != 0 and item_sku.url is not null " +
-                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14,5'" +
+                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = 'Универсальный' and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
                 " group by item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -159,7 +167,7 @@ public class Size {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
 
         System.out.println(text.size());
         System.out.println(text);

@@ -137,7 +137,7 @@ public class Collection {
         }
 
 //        System.out.println(list);
-        worker.getSession().disconnect();
+//        //worker.getSession().disconnect();
 
         return list;
     }
@@ -184,7 +184,7 @@ public class Collection {
         }
 
 //        System.out.println(list);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
 
         return list;
     }
@@ -236,7 +236,7 @@ public class Collection {
         String itog = first + replStr1;
 
 //        System.out.println(itog);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return itog;
     }
 
@@ -288,70 +288,97 @@ public class Collection {
         String itog = first + replStr12 + replStr1;
 
 //        System.out.println(itog);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return itog;
     }
 
     public static void main(String[] args) {
-        String name;
-        String name2;
-        String name3;
-        String name4;
-        String name5 = null;
-//        Integer price;
+        DBWorker worker = new DBWorker();
 
+        String name;
         List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
-                "JOIN item ON catalog.id = item.catalog_id " +
-                "JOIN item_sku ON item_sku.item_id = item.id " +
+        String query = "SELECT DISTINCT item_sku.name from item_sku " +
+                "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN item_collection_consist ON item.id = item_collection_consist.item_id " +
                 "JOIN item_collection_characteristic_value ON item_collection_consist.item_collection_characteristic_value_id = item_collection_characteristic_value.id " +
                 "JOIN item_collection_characteristic ON item_collection_consist.item_collection_characteristic_id = item_collection_characteristic.id " +
                 "JOIN item_collection ON item_collection_consist.item_collection_id = item_collection.id " +
                 "where item_collection_consist.item_collection_characteristic_id!=0 and item_collection_consist.item_collection_characteristic_value_id != 0" +
-                " and item_collection_consist.item_collection_id != 0 and item_sku.name='Малое серебряное кольцо-шарик с черным ситаллом, из коллекции Lollipops (18)'"
-                +
-                " group by item_collection_consist.id ";
+                " and item_collection_consist.item_collection_id != 0" +
+                " ORDER BY item_sku.item_id DESC LIMIT 40";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                name = resultSet.getString("url");
-                name2 = resultSet.getString("item_collection.url");
-                name3 = resultSet.getString("item_collection_characteristic.url");
-                name4 = resultSet.getString("item_collection_characteristic_value.url");
-                name5 = resultSet.getString("item_sku.name");
-//                price = resultSet.getInt("price");
+                name = resultSet.getString("name");
+                list.add(name);
 
-
-                String a = "http://176.53.182.129:8088/catalog/";
-                list.add(a + name + "/" + name2 + "?" + name3 + "=" + name4);
-//                list.add(name2);
-//                list.add(name3);
-//                list.add(name4);
-//                System.out.println(name5+": " + name + name2 + name3 + name4);
-//                System.out.println(name5);
-//                System.out.println(name2);
-//                System.out.println(name3);
-//                System.out.println(name4);
+                System.out.println(name);
 //                System.out.println(price);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        System.out.println(list);
-        String first = list.get(0);
-        String second = list.get(1);
-        String third = list.get(2);
-        second = second.substring(second.indexOf('?'));
-        String replStr1 = second.replace('?', '&');
-        third = third.substring(third.indexOf('?'));
-        String replStr12 = third.replace('?', '&');
-        String itog = first + replStr12 + replStr1;
-
-        System.out.println(itog);
-        worker.getSession().disconnect();
+//        String name;
+//        String name2;
+//        String name3;
+//        String name4;
+//        String name5 = null;
+////        Integer price;
+//
+//        List<String> list = new ArrayList<>();
+//        String query = "SELECT item_sku.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
+//                "JOIN item ON catalog.id = item.catalog_id " +
+//                "JOIN item_sku ON item_sku.item_id = item.id " +
+//                "JOIN item_collection_consist ON item.id = item_collection_consist.item_id " +
+//                "JOIN item_collection_characteristic_value ON item_collection_consist.item_collection_characteristic_value_id = item_collection_characteristic_value.id " +
+//                "JOIN item_collection_characteristic ON item_collection_consist.item_collection_characteristic_id = item_collection_characteristic.id " +
+//                "JOIN item_collection ON item_collection_consist.item_collection_id = item_collection.id " +
+//                "where item_collection_consist.item_collection_characteristic_id!=0 and item_collection_consist.item_collection_characteristic_value_id != 0" +
+//                " and item_collection_consist.item_collection_id != 0 and item_sku.name='Малое серебряное кольцо-шарик с черным ситаллом, из коллекции Lollipops (18)'"
+//                +
+//                " group by item_collection_consist.id ";
+//        try {
+//            Statement statement = worker.getCon().createStatement();
+//            ResultSet resultSet = statement.executeQuery(query);
+//
+//            while (resultSet.next()) {
+//                name = resultSet.getString("url");
+//                name2 = resultSet.getString("item_collection.url");
+//                name3 = resultSet.getString("item_collection_characteristic.url");
+//                name4 = resultSet.getString("item_collection_characteristic_value.url");
+//                name5 = resultSet.getString("item_sku.name");
+////                price = resultSet.getInt("price");
+//
+//
+//                String a = "http://176.53.182.129:8088/catalog/";
+//                list.add(a + name + "/" + name2 + "?" + name3 + "=" + name4);
+////                list.add(name2);
+////                list.add(name3);
+////                list.add(name4);
+////                System.out.println(name5+": " + name + name2 + name3 + name4);
+////                System.out.println(name5);
+////                System.out.println(name2);
+////                System.out.println(name3);
+////                System.out.println(name4);
+////                System.out.println(price);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println(list);
+//        String first = list.get(0);
+//        String second = list.get(1);
+//        String third = list.get(2);
+//        second = second.substring(second.indexOf('?'));
+//        String replStr1 = second.replace('?', '&');
+//        third = third.substring(third.indexOf('?'));
+//        String replStr12 = third.replace('?', '&');
+//        String itog = first + replStr12 + replStr1;
+//
+//        System.out.println(itog);
+        //worker.getSession().disconnect();
     }
 }
