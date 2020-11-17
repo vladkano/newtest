@@ -1,12 +1,15 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LinkTest {
 
@@ -15,15 +18,25 @@ public class LinkTest {
     private static NecklacesPage necklaces;
     private static BraceletsPage bracelets;
     private static RingsPage rings;
-
+    private static BroochesPage brooches;
+    //private String getUrl = "http://176.53.182.129:8088/catalog/";
+    //private String getUrl = "http://176.53.181.34:8088/catalog/";
+    private String getUrl = "https://poisondrop.ru/catalog/";
 
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        WebDriverManager.firefoxdriver().setup();
+        WebDriverManager.edgedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(true);
+        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+        driver = new ChromeDriver(options);
+//        driver = new FirefoxDriver(options);
+//        driver = new EdgeDriver(options);
+        driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-
     }
 
     //Поверяем работу 3-х ссылок по каждому типу товаров на переход к товару:
@@ -31,112 +44,153 @@ public class LinkTest {
 
     @Test
     public void imageLinkOfBracelets() {
-        driver.get("http://176.53.182.129:8088/catalog/bracelets");
+        driver.get(getUrl + "braslety");
         bracelets = new BraceletsPage(driver);
+        String header = bracelets.getBraceletImageHeader();
         bracelets.clickOnBraceletImageLink();
-        String heading = bracelets.getBraceletImageHeader();
-        Assert.assertEquals("Браслет из белого золота с розовыми сапфирами (17 см, 1,61 ct)", heading);
+        String heading = bracelets.getBraceletHeader();
+        assertEquals(header, heading);
     }
 
     @Test
     public void nameLinkOfBracelets() {
-        driver.get("http://176.53.182.129:8088/catalog/bracelets");
+        driver.get(getUrl + "braslety");
         bracelets = new BraceletsPage(driver);
+        String header = bracelets.getBraceletNameHeader();
         bracelets.clickOnBraceletNameLink();
-        String heading = bracelets.getBraceletNameHeader();
-        Assert.assertEquals("Браслет «Донатс» (XL)", heading);
+        String heading = bracelets.getBraceletHeader();
+        assertEquals(header, heading);
     }
 
     @Test
     public void designerLinkOfBracelets() {
-        driver.get("http://176.53.182.129:8088/catalog/bracelets");
+        driver.get(getUrl + "braslety");
         bracelets = new BraceletsPage(driver);
+        String header = bracelets.getBraceletDesignerHeader();
         bracelets.clickOnBraceletDesignerLink();
-        String heading = bracelets.getbraceletDesignerHeader();
-        Assert.assertEquals("LAV'Z", heading);
+        String heading = bracelets.getDesignerHeader();
+        assertEquals(header, heading);
     }
 
     @Test
     public void imageLinkOfEarrings() {
-        driver.get("http://176.53.182.129:8088/catalog/earrings");
+        driver.get(getUrl + "sergi");
         earrings = new EarringsPage(driver);
-        earrings.clickOnEarringsImageLink();
-        String heading = earrings.getEarringsImageHeader();
-        Assert.assertEquals("Незамкнутые серьги-кольца из белого золота с бриллиантами (0,06 ct)", heading);
+        String header = earrings.getImageHeader();
+        earrings.clickOnImageLink();
+        String heading = earrings.getHeader();
+        assertEquals(header, heading);
     }
 
     @Test
     public void nameLinkOfEarrings() {
-        driver.get("http://176.53.182.129:8088/catalog/earrings");
+        driver.get(getUrl + "sergi");
         earrings = new EarringsPage(driver);
-        earrings.clickOnEarringsNameLink();
-        String heading = earrings.getEarringsNameHeader();
-        Assert.assertEquals("Серьги-скрепки из золота с крупными рубинами, из коллекции Out of office (0,424 ct, 3/3)", heading);
+        String header = earrings.getNameHeader();
+        earrings.clickOnNameLink();
+        String heading = earrings.getHeader();
+        assertEquals(header, heading);
     }
 
     @Test
     public void designerLinkOfEarrings() {
-        driver.get("http://176.53.182.129:8088/catalog/earrings");
+        driver.get(getUrl + "sergi");
         earrings = new EarringsPage(driver);
-        earrings.clickOnEarringsDesignerLink();
-        String heading = earrings.getEarringsDesignerHeader();
-        Assert.assertEquals("Meadowlark", heading);
+        String header = earrings.getDesignerHeader();
+        earrings.clickOnDesignerLink();
+        String heading = earrings.getNextDesignerHeader();
+        assertEquals(header, heading);
     }
-
 
     @Test
     public void imageLinkOfNecklaces() {
-        driver.get("http://176.53.182.129:8088/catalog/necklaces");
+        driver.get(getUrl + "braslety");
         necklaces = new NecklacesPage(driver);
-        necklaces.clickOnNecklacesImageLink();
-        String heading = necklaces.getNecklacesImageHeader();
-        Assert.assertEquals("Позолоченное кольцо на мизинец, из коллекции Initials (15, Шрифт №2)", heading);
+        String header = necklaces.getImageHeader();
+        necklaces.clickOnImageLink();
+        String heading = necklaces.getHeader();
+        assertEquals(header, heading);
     }
 
     @Test
     public void nameLinkOfNecklaces() {
-        driver.get("http://176.53.182.129:8088/catalog/necklaces");
+        driver.get(getUrl + "braslety");
         necklaces = new NecklacesPage(driver);
-        necklaces.clickOnNecklacesNameLink();
-        String heading = necklaces.getNecklacesNameHeader();
-        Assert.assertEquals("Сотуар из белого золота с лунным камнем (6,24 ct)", heading);
+        String header = necklaces.getNameHeader();
+        necklaces.clickOnNameLink();
+        String heading = necklaces.getHeader();
+        assertEquals(header, heading);
     }
 
     @Test
     public void designerLinkOfNecklaces() {
-        driver.get("http://176.53.182.129:8088/catalog/necklaces");
+        driver.get(getUrl + "braslety");
         necklaces = new NecklacesPage(driver);
-        necklaces.clickOnNecklacesDesignerLink();
-        String heading = necklaces.getNecklacesDesignerHeader();
-        Assert.assertEquals("35.02", heading);
+        String header = necklaces.getDesignerHeader();
+        necklaces.clickOnDesignerLink();
+        String heading = necklaces.getNextDesignerHeader();
+        assertEquals(header, heading);
     }
 
 
     @Test
     public void imageLinkOfRings() {
-        driver.get("http://176.53.182.129:8088/catalog/rings");
+        driver.get(getUrl + "koltsa");
         rings = new RingsPage(driver);
-        rings.clickOnRingImageLink();
-        String heading = rings.getRingImageHeader();
-        Assert.assertEquals("Покрытое серебром кольцо Etty с лазуритом (17,5)", heading);
+        String header = rings.getImageHeader();
+        rings.clickOnImageLink();
+        String heading = rings.getHeader();
+        assertEquals(header, heading);
     }
 
     @Test
     public void nameLinkOfRings() {
-        driver.get("http://176.53.182.129:8088/catalog/rings");
+        driver.get(getUrl + "koltsa");
         rings = new RingsPage(driver);
-        rings.clickOnRingNameLink();
-        String heading = rings.getRingNameHeader();
-        Assert.assertEquals("Кольцо Titia с прямоугольными кристаллами (15)", heading);
+        String header = rings.getNameHeader();
+        rings.clickOnNameLink();
+        String heading = rings.getHeader();
+        assertEquals(header, heading);
     }
 
     @Test
     public void designerLinkOfRings() {
-        driver.get("http://176.53.182.129:8088/catalog/rings");
+        driver.get(getUrl + "koltsa");
         rings = new RingsPage(driver);
-        rings.clickOnRingDesignerLink();
-        String heading = rings.getRingDesignerHeader();
-        Assert.assertEquals("Philippe Audibert", heading);
+        String header = rings.getDesignerHeader();
+        rings.clickOnDesignerLink();
+        String heading = rings.getNextDesignerHeader();
+        assertEquals(header, heading);
+    }
+
+    @Test
+    public void imageLinkOfBrooches() {
+        driver.get(getUrl + "broshi");
+        brooches = new BroochesPage(driver);
+        String header = brooches.getImageHeader();
+        brooches.clickOnImageLink();
+        String heading = brooches.getHeader();
+        assertEquals(header, heading);
+    }
+
+    @Test
+    public void nameLinkOfBrooches() {
+        driver.get(getUrl + "broshi");
+        brooches = new BroochesPage(driver);
+        String header = brooches.getNameHeader();
+        brooches.clickOnNameLink();
+        String heading = brooches.getHeader();
+        assertEquals(header, heading);
+    }
+
+    @Test
+    public void designerLinkOfBrooches() {
+        driver.get(getUrl + "broshi");
+        brooches = new BroochesPage(driver);
+        String header = brooches.getDesignerHeader();
+        brooches.clickOnDesignerLink();
+        String heading = brooches.getNextDesignerHeader();
+        assertEquals(header, heading);
     }
 
     @AfterEach

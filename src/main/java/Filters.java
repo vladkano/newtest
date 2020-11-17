@@ -24,12 +24,14 @@ public class Filters {
     By allRingsButton = By.xpath("//span[text()='Все кольца']");
     By allNecklacesButton = By.xpath("//span[text()='Все колье']");
     By allBraceletsButton = By.xpath("//span[text()='Все браслеты']");
+    By allBroochesButton = By.xpath("//span[text()='Все броши']");
     By priceButton = By.xpath("//div[text()='Цена']");
     By resetButton = By.xpath("//div[@class='filters__clear']");
     By earringsButton = By.xpath("//div[text()='Серьги']");
     By ringsButton = By.xpath("//div[text()='Кольца']");
     By necklacesButton = By.xpath("//div[text()='Колье']");
     By braceletsButton = By.xpath("//div[text()='Браслеты']");
+    By broochesButton = By.xpath("//div[text()='Броши']");
 
 
     By countHeader = By.xpath("//div[@class='filters__total-count']");
@@ -61,6 +63,11 @@ public class Filters {
         return this;
     }
 
+    public Filters clickToAllBroochesButton() {
+        driver.findElement(allBroochesButton).click();
+        return this;
+    }
+
     public Filters clickToPriceButton() {
         driver.findElement(priceButton).click();
         return this;
@@ -71,23 +78,38 @@ public class Filters {
         return this;
     }
 
+//    public Filters clickToEarringsButton() {
+//        driver.findElement(earringsButton).click();
+//        return this;
+//    }
+
     public Filters clickToEarringsButton() {
-        driver.findElement(earringsButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(earringsButton));
         return this;
     }
 
     public Filters clickToRingsButton() {
-        driver.findElement(ringsButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(ringsButton));
         return this;
     }
 
     public Filters clickToNecklacesButton() {
-        driver.findElement(necklacesButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(necklacesButton));
         return this;
     }
 
     public Filters clickToBraceletsButton() {
-        driver.findElement(braceletsButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(braceletsButton));
+        return this;
+    }
+
+    public Filters clickToBroochesButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(broochesButton));
         return this;
     }
 
@@ -117,7 +139,7 @@ public class Filters {
         }
 
 //        System.out.println(list);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return list.get(1);
     }
 
@@ -142,7 +164,7 @@ public class Filters {
         }
 
 //        System.out.println(list);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return list.get(2);
     }
 
@@ -175,7 +197,7 @@ public class Filters {
         String firstItem = this.findFirstItem();
         Integer i = hashMap.get(firstItem);
 //        System.out.println(hashMap);
-        worker.getSession().disconnect();
+        //worker.getSession().disconnect();
         return i;
     }
 
@@ -203,18 +225,18 @@ public class Filters {
 //                list.add(name);
 
                 hashMap.put(name, itog);
-//                System.out.println(name);
-//                System.out.println(itog);
+                System.out.println(name);
+                System.out.println(itog);
 
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        String firstItem = Basket.findFirstItem();
-        Integer i = hashMap.get(firstItem);
+//        String firstItem = Basket.findFirstItem();
+//        Integer i = hashMap.get(firstItem);
         System.out.println(hashMap);
-        System.out.println(i);
-        worker.getSession().disconnect();
+//        System.out.println(i);
+        //worker.getSession().disconnect();
     }
 }

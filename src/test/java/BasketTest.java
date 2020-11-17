@@ -1,29 +1,41 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
 public class BasketTest {
+
     private WebDriver driver;
     private Basket basket;
+    //private String getUrl = "http://176.53.182.129:8088/catalog/";
+    //private String getUrl = "http://176.53.181.34:8088/catalog/";
+    private String getUrl = "https://poisondrop.ru/catalog/";
 
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-//        WebDriverManager.edgedriver().setup();
-//        driver = new EdgeDriver();
-//        WebDriverManager.firefoxdriver().setup();
-//        driver = new FirefoxDriver();
-
+        WebDriverManager.firefoxdriver().setup();
+        WebDriverManager.edgedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(true);
+        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+        driver = new ChromeDriver(options);
+//        driver = new FirefoxDriver(options);
+//        driver = new EdgeDriver(options);
+        driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("http://176.53.182.129:8088/catalog");
+//        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         basket = new Basket(driver);
     }
 
@@ -33,7 +45,7 @@ public class BasketTest {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         String number = basket.getBasketNumber();
-        Assert.assertEquals("1", number);
+        assertEquals("1", number);
     }
 
     @Test
@@ -42,7 +54,7 @@ public class BasketTest {
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
         String number = basket.getBasketNumber();
-        Assert.assertEquals("2", number);
+        assertEquals("2", number);
     }
 
     @Test
@@ -52,18 +64,18 @@ public class BasketTest {
         basket.clickToPlusBasketButton();
         basket.clickToMinusBasketButton();
         String number = basket.getBasketNumber();
-        Assert.assertEquals("1", number);
+        assertEquals("1", number);
     }
 
 
-    //Проверка того, что нельзя положить в корзину больше товара, чем есть на остатках.
+    //    Проверка того, что нельзя положить в корзину больше товара, чем есть на остатках.
     @Test
     public void balanceItem() {
         Integer balance = basket.getBalance();
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         Integer dataMax = basket.getDataMax();
-        Assert.assertEquals(balance, dataMax);
+        assertEquals(balance, dataMax);
     }
 
 
@@ -76,19 +88,18 @@ public class BasketTest {
             basket.clickToPlusBasketButton();
         }
         Integer number = Integer.valueOf(basket.getBasketNumber());
-        Assert.assertEquals(balance, number);
+        assertEquals(balance, number);
     }
 
 
     //Кнопка "Перейти в корзину" ведет на http://176.53.182.129:8088/cart
-
     @Test
     public void checkHref() {
         basket.clickToAnotherItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         String url = driver.getCurrentUrl();
-        Assert.assertEquals("http://176.53.182.129:8088/cart", url);
+        assertEquals("https://poisondrop.ru/cart", url);
     }
 
 
@@ -108,7 +119,7 @@ public class BasketTest {
         basket.clickToBasketButton();
         basket.clickToCatalogButton();
         String cartCount = basket.getCartCount();
-        Assert.assertEquals("2", cartCount);
+        assertEquals("2", cartCount);
     }
 
     //Ссылка со значком корзины на всех страницах сайта ведет на http://176.53.182.129:8088/cart
@@ -116,7 +127,7 @@ public class BasketTest {
     public void checkCartHref() {
         basket.clickToCart();
         String url = driver.getCurrentUrl();
-        Assert.assertEquals("http://176.53.182.129:8088/cart", url);
+        assertEquals("https://poisondrop.ru/cart", url);
     }
 
     @Test
@@ -124,11 +135,12 @@ public class BasketTest {
         basket.clickToCartFromNew();
         basket.clickToCart();
         String url = driver.getCurrentUrl();
-        Assert.assertEquals("http://176.53.182.129:8088/cart", url);
+        assertEquals("https://poisondrop.ru/cart", url);
     }
 
     @AfterEach
     public void tearDownEach() {
         driver.quit();
     }
+
 }

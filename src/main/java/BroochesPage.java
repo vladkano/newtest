@@ -9,10 +9,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NecklacesPage {
+public class BroochesPage {
 
-    private static DBWorker worker = new DBWorker();
     private WebDriver driver;
+    private DBWorker worker;
+
+    public BroochesPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     By imageLink = By.xpath("//picture/img");
     By nameLink = By.xpath("//h3[@class='catalog-card__name']");
@@ -21,23 +25,19 @@ public class NecklacesPage {
     By nameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
     By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
 
-    public NecklacesPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public NecklacesPage clickOnImageLink() {
+    public BroochesPage clickOnImageLink() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(imageLink));
         return this;
     }
 
-    public NecklacesPage clickOnNameLink() {
+    public BroochesPage clickOnNameLink() {
         List<WebElement> elements = driver.findElements(nameLink);
         elements.get(1).click();
         return this;
     }
 
-    public NecklacesPage clickOnDesignerLink() {
+    public BroochesPage clickOnDesignerLink() {
         List<WebElement> elements = driver.findElements(designerLink);
         elements.get(2).click();
         return this;
@@ -67,7 +67,7 @@ public class NecklacesPage {
     }
 
 
-    public int countNecklaces() {
+    public int countBrooches() {
         worker = new DBWorker();
         int id = 0;
         String query = "SELECT COUNT(*)id from item " +
@@ -76,8 +76,9 @@ public class NecklacesPage {
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=2 and is_archive = 0 and price != 0" +
+                "and catalog_id=4 and is_archive = 0 and price != 0" +
                 " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 ";
+
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -93,6 +94,7 @@ public class NecklacesPage {
         return id;
     }
 
+
     public List<String> getNames() {
         worker = new DBWorker();
         String name;
@@ -104,7 +106,7 @@ public class NecklacesPage {
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=2 and is_archive = 0 and price != 0" +
+                "and catalog_id=4 and is_archive = 0 and price != 0" +
                 " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
                 " group by item_sku.id ";
 
@@ -125,6 +127,7 @@ public class NecklacesPage {
         return text;
     }
 
+
     public List<String> getDesigners() {
         worker = new DBWorker();
         String designer;
@@ -136,9 +139,10 @@ public class NecklacesPage {
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=2 and is_archive = 0 and price != 0" +
+                "and catalog_id=4 and is_archive = 0 and price != 0" +
                 " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
                 " group by item_sku.id ";
+
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -146,11 +150,13 @@ public class NecklacesPage {
                 designer = resultSet.getString("name");
 //                System.out.println(designer);
                 text.add(designer);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         //worker.getSession().disconnect();
+
 //        System.out.println("метод getDesigner: " + text);
 
         return text;
@@ -167,9 +173,10 @@ public class NecklacesPage {
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=2 and is_archive = 0 and price != 0" +
+                "and catalog_id=4 and is_archive = 0 and price != 0" +
                 " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
                 " group by item_sku.id ";
+
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -177,7 +184,6 @@ public class NecklacesPage {
                 price = resultSet.getInt("price");
 //                System.out.println(price);
                 text.add(price);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -188,31 +194,29 @@ public class NecklacesPage {
     }
 
 
-//    public static void main(String[] args) {
-//
-////        String query = "SELECT COUNT(*) id from item where catalog_id=2 and is_archive = 0";
-//        String query = "SELECT COUNT(*)id from item " +
-//                "JOIN designer ON item.designer_id = designer.id " +
-//                "JOIN item_sku ON item.id = item_sku.item_id " +
-//                "where catalog_id=2 and is_archive = 0 and price != 0 and item_sku.url is not null";
-//
-////
-////        String query = "SELECT COUNT(*) id from item " +
-////                "JOIN designer ON item.designer_id = designer.id " +
-////                "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_sku.item_id and price != 0 and item_sku.url is not null)" +
-////                " and catalog_id=2 and is_archive = 0";
-//
-//        try {
-//            Statement statement = worker.getCon().createStatement();
-//            ResultSet resultSet = statement.executeQuery(query);
-//
-//            while (resultSet.next()) {
-//                int id = resultSet.getInt("id");
-//                System.out.println(id);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        //worker.getSession().disconnect();
-//    }
+    public static void main(String[] args) {
+        DBWorker worker = new DBWorker();
+        int id = 0;
+        String query = "SELECT COUNT(*)id from item " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                "and catalog_id=4 and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //worker.getSession().disconnect();
+        System.out.println(id);
+    }
 }
