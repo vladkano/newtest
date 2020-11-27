@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

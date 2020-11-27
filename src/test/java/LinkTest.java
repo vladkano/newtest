@@ -1,3 +1,4 @@
+import catalogPages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,7 @@ public class LinkTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         WebDriverManager.firefoxdriver().setup();
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");

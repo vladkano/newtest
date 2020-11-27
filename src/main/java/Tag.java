@@ -1,11 +1,11 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Tag {
@@ -33,12 +33,6 @@ public class Tag {
         List<WebElement> elements = driver.findElements(tag);
         return elements.get(0).getAttribute("textContent");
     }
-
-    public String getSecondRingsTag() {
-        List<WebElement> elements = driver.findElements(tag);
-        return elements.get(1).getAttribute("textContent");
-    }
-
 
     public String getEarringsTag() {
         List<WebElement> elements = driver.findElements(tag);

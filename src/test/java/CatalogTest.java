@@ -1,3 +1,5 @@
+import catalogPages.*;
+import filters.Filters;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
@@ -56,7 +58,7 @@ public class CatalogTest {
         driver.get(getUrl + "braslety");
         bracelets = new BraceletsPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = bracelets.getDesigners();
         int sqlSize = sqlList.size();
@@ -76,7 +78,7 @@ public class CatalogTest {
         driver.get(getUrl + "sergi");
         earrings = new EarringsPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = earrings.getDesigners();
         int sqlSize = sqlList.size();
@@ -105,7 +107,7 @@ public class CatalogTest {
         driver.get(getUrl + "kole");
         necklaces = new NecklacesPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = necklaces.getDesigners();
         int sqlSize = sqlList.size();
@@ -125,7 +127,7 @@ public class CatalogTest {
         driver.get(getUrl + "koltsa");
         rings = new RingsPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = rings.getDesigners();
         int sqlSize = sqlList.size();
@@ -145,7 +147,7 @@ public class CatalogTest {
         driver.get(getUrl + "broshi");
         brooches = new BroochesPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = brooches.getDesigners();
         int sqlSize = sqlList.size();
@@ -167,7 +169,7 @@ public class CatalogTest {
         driver.get(getUrl + "braslety");
         bracelets = new BraceletsPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = bracelets.getNames();
         int sqlSize = sqlList.size();
@@ -188,7 +190,7 @@ public class CatalogTest {
         driver.get(getUrl + "sergi");
         earrings = new EarringsPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = earrings.getNames();
         int sqlSize = sqlList.size();
@@ -209,7 +211,7 @@ public class CatalogTest {
         driver.get(getUrl + "kole");
         necklaces = new NecklacesPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = necklaces.getNames();
         int sqlSize = sqlList.size();
@@ -230,7 +232,7 @@ public class CatalogTest {
         driver.get(getUrl + "koltsa");
         rings = new RingsPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = rings.getNames();
         int sqlSize = sqlList.size();
@@ -251,7 +253,7 @@ public class CatalogTest {
         driver.get(getUrl + "broshi");
         brooches = new BroochesPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = brooches.getNames();
         int sqlSize = sqlList.size();
@@ -271,7 +273,7 @@ public class CatalogTest {
     @Test
     public void pictureOfBracelets() {
         driver.get(getUrl + "braslety");
-//        bracelets = new BraceletsPage(driver);
+//        bracelets = new catalogPages.BraceletsPage(driver);
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='page__content']//img"));
         for (WebElement text : elements) {
             String s = text.getText();
@@ -284,7 +286,7 @@ public class CatalogTest {
     @Test
     public void pictureOfEarrings() {
         driver.get(getUrl + "sergi");
-//        earrings = new EarringsPage(driver);
+//        earrings = new catalogPages.EarringsPage(driver);
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='page__content']//img"));
         for (WebElement text : elements) {
             String s = text.getText();
@@ -297,7 +299,7 @@ public class CatalogTest {
     @Test
     public void pictureOfNecklaces() {
         driver.get(getUrl + "kole");
-//        necklaces = new NecklacesPage(driver);
+//        necklaces = new catalogPages.NecklacesPage(driver);
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='page__content']//img"));
         for (WebElement text : elements) {
             String s = text.getText();
@@ -310,7 +312,7 @@ public class CatalogTest {
     @Test
     public void pictureOfRings() {
         driver.get(getUrl + "koltsa");
-//        rings = new RingsPage(driver);
+//        rings = new catalogPages.RingsPage(driver);
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='page__content']//img"));
         for (WebElement text : elements) {
             String s = text.getText();
@@ -323,7 +325,7 @@ public class CatalogTest {
     @Test
     public void pictureOfBrooches() throws InterruptedException {
         driver.get(getUrl + "broshi");
-//        brooches = new BroochesPage(driver);
+//        brooches = new catalogPages.BroochesPage(driver);
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='page__content']//img"));
         for (WebElement text : elements) {
             String s = text.getText();
@@ -334,19 +336,19 @@ public class CatalogTest {
     }
 
 
-    //Кол-во намименований в базе и на странице, проверка по цене.
+    //Кол-во наименований в базе и на странице, проверка по цене.
     @Test
     public void priceOfBracelets() {
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "braslety");
         bracelets = new BraceletsPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = bracelets.getPrice();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='catalog-card__price price-block']//b[@class='price-block__price']"));
+        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -365,12 +367,12 @@ public class CatalogTest {
         driver.get(getUrl + "sergi");
         earrings = new EarringsPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = earrings.getPrice();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='catalog-card__price price-block']//b[@class='price-block__price']"));
+        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -389,12 +391,12 @@ public class CatalogTest {
         driver.get(getUrl + "kole");
         necklaces = new NecklacesPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = necklaces.getPrice();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='catalog-card__price price-block']//b[@class='price-block__price']"));
+        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -413,12 +415,12 @@ public class CatalogTest {
         driver.get(getUrl + "koltsa");
         rings = new RingsPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = rings.getPrice();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='catalog-card__price price-block']//b[@class='price-block__price']"));
+        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -437,12 +439,12 @@ public class CatalogTest {
         driver.get(getUrl + "broshi");
         brooches = new BroochesPage(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = brooches.getPrice();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='catalog-card__price price-block']//b[@class='price-block__price']"));
+        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");

@@ -1,6 +1,9 @@
+package filters;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -78,7 +81,7 @@ public class Filters {
         return this;
     }
 
-//    public Filters clickToEarringsButton() {
+//    public filters.Filters clickToEarringsButton() {
 //        driver.findElement(earringsButton).click();
 //        return this;
 //    }
@@ -143,30 +146,6 @@ public class Filters {
         return list.get(1);
     }
 
-    public static String findAnotherItem() {
-        DBWorker worker = new DBWorker();
-        String name;
-        List<String> list = new ArrayList<>();
-        String query = "SELECT name from item_sku " +
-                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
-                "where balance - reserve >0";
-        try {
-            Statement statement = worker.getCon().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                name = resultSet.getString("name");
-                list.add(name);
-//                System.out.println(name);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-//        System.out.println(list);
-        //worker.getSession().disconnect();
-        return list.get(2);
-    }
 
     public Integer getBalance() {
         DBWorker worker = new DBWorker();

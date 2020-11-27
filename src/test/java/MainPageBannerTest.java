@@ -1,4 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import mainPage.MainPageBanner;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class MainPageBannerTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         WebDriverManager.firefoxdriver().setup();
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");

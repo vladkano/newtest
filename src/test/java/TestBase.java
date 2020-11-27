@@ -20,30 +20,20 @@ public class TestBase {
 
     @BeforeEach
     public void start() {
-        if (tlDriver.get() != null) {
-            driver = tlDriver.get();
-            wait = new WebDriverWait(driver, 10);
-            return;
-        }
 
-        driver= new ChromeDriver();
-        tlDriver.set(driver);
-        wait = new WebDriverWait(driver, 10);
-
-
-//        WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
+        WebDriverManager.chromedriver().setup();
+        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
-//        ChromeOptions options = new ChromeOptions();
-////        options.setHeadless(true);
-//        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-//        driver = new ChromeDriver(options);
-////        driver = new FirefoxDriver(options);
-////        driver = new EdgeDriver(options);
-//
-//        driver.get(getUrl);
-//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//        driver.manage().window().maximize();
+        ChromeOptions options = new ChromeOptions();
+//        options.setHeadless(true);
+        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+        driver = new ChromeDriver(options);
+//        driver = new FirefoxDriver(options);
+//        driver = new EdgeDriver(options);
+
+        driver.get(getUrl);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
 
         Runtime.getRuntime().addShutdownHook(
                 new Thread(() -> { driver.quit(); driver = null; }));

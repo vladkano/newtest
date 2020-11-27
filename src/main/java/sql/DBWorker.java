@@ -1,9 +1,9 @@
-import com.jcraft.jsch.JSch;
+package sql;
+
 import com.jcraft.jsch.Session;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Properties;
 
 public class DBWorker {
 

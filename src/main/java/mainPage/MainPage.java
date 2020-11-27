@@ -1,8 +1,9 @@
+package mainPage;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,50 +45,33 @@ public class MainPage {
     public static void main(String[] args) {
         DBWorker worker = new DBWorker();
 //        String query = "select * from user where login=+79501978905";
-
+//
 //        String query = "select code from user_authentication_code where phone=+79501978905 and id=(SELECT MAX(id) FROM user_authentication_code)";
 
-//        String query = "select code from user_authentication_code where email='rundkvist@poisondrop.ru' and id=(SELECT MAX(id) FROM user_authentication_code)";
-//
-//        try {
-//            Statement statement = worker.getCon().createStatement();
-//            ResultSet resultSet = statement.executeQuery(query);
-//            while (resultSet.next()) {
-////                int id = resultSet.getInt("id");
-////                String phone = resultSet.getString("phone");
-//                String code = resultSet.getString("code");
-////                User user = new User();
-////                user.setId(resultSet.getInt("id"));
-////                user.setUser_id(resultSet.getInt("user_id"));
-////                user.setPhone(resultSet.getString("phone"));
-////                user.setIs_verified(resultSet.getInt("is_verified"));
-////                user.setCreated_at(resultSet.getDate("created_at"));
-////                user.setUpdated_at(resultSet.getDate("updated_at"));
-////                System.out.println(id);
-//                System.out.println(code);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        worker.getSession().disconnect();
-        worker = new DBWorker();
-        String query = "delete from user where login=+79501978905";
+        String query = "select code from user_authentication_code where email='rundkvist@poisondrop.ru' and id=(SELECT MAX(id) FROM user_authentication_code)";
+
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
+//                int id = resultSet.getInt("id");
+//                String phone = resultSet.getString("phone");
+                String code = resultSet.getString("code");
+//                mainPage.User user = new mainPage.User();
+//                user.setId(resultSet.getInt("id"));
 //                user.setUser_id(resultSet.getInt("user_id"));
 //                user.setPhone(resultSet.getString("phone"));
 //                user.setIs_verified(resultSet.getInt("is_verified"));
 //                user.setCreated_at(resultSet.getDate("created_at"));
 //                user.setUpdated_at(resultSet.getDate("updated_at"));
-                System.out.println(user);
+//                System.out.println(id);
+                System.out.println(code);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+//        worker.getSession().disconnect();
+
     }
 
     public void deletePhone() {

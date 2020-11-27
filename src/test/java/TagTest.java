@@ -23,7 +23,7 @@ public class TagTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         WebDriverManager.firefoxdriver().setup();
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
@@ -116,7 +116,7 @@ public class TagTest {
 //        tags.add(output);
 //        tags.add(outputSecond);
 //        System.out.println(firstTag);
-       String tagsFromSql = tag.nameOfRingTags();
+        String tagsFromSql = tag.nameOfRingTags();
 //        System.out.println(tags);
         assertEquals(tagsFromSql, output);
     }

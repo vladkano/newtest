@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +24,8 @@ public class Basket {
     By minusBasketButton = By.xpath("//button[@class='counter__button counter__button_minus']");
     By basketButton = By.xpath("//span[text()='Перейти в корзину']");
     By catalogButton = By.xpath("//li/a[text()='Все украшения']");
-    By newCatalogButton = By.xpath("//a[@href='/catalog/new']");
-    By cartCountButton = By.xpath("//a[@aria-label='Корзина']");
+    By newCatalogButton = By.xpath("//a[@href='/catalog/new/']");
+    By cartCountButton = By.xpath("//a[@href='/cart']");
 
 
     By plus2 = By.xpath("//input[@name='quantity']");
@@ -102,10 +103,16 @@ public class Basket {
         DBWorker worker = new DBWorker();
         String name;
         List<String> list = new ArrayList<>();
-        String query = "SELECT name from item_sku " +
-                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
-                "where balance - reserve >0" +
-                " group by item_sku.id";
+        String query = "SELECT item_sku.name from item " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                " and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " group by item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -128,9 +135,16 @@ public class Basket {
         DBWorker worker = new DBWorker();
         String name;
         List<String> list = new ArrayList<>();
-        String query = "SELECT name from item_sku " +
-                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
-                "where balance - reserve >0";
+        String query = "SELECT item_sku.name from item " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                " and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " group by item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -173,105 +187,43 @@ public class Basket {
         }
         String firstItem = this.findFirstItem();
         Integer i = hashMap.get(firstItem);
-//        System.out.println(hashMap);
+//        System.out.println(firstItem);
         ////worker.getSession().disconnect();
         return i;
     }
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-//        DBWorker worker = new DBWorker();
-//        String name;
-//        List<String> list = new ArrayList<>();
-//        String query = "SELECT name from item_sku " +
-//                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
-//                "where balance - reserve >0" +
-//                " group by item_sku.id";
-//        try {
-//            Statement statement = worker.getCon().createStatement();
-//            ResultSet resultSet = statement.executeQuery(query);
-//
-//            while (resultSet.next()) {
-//                name = resultSet.getString("name");
-//                list.add(name);
-////                System.out.println(name);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println(list);
-//        ////worker.getSession().disconnect();
-
-
-//        DBWorker worker = new DBWorker();
-//        String name;
-//        Integer balance, reserve, itog;
-//
-//        List<String> list = new ArrayList<>();
-//        Map<String, Integer> hashMap = new HashMap<String, Integer>();
-//        String query = "SELECT name, balance, reserve  from item_sku " +
-//                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
-//                "where balance - reserve >0" +
-//                " group by item_sku.id";
-//        try {
-//            Statement statement = worker.getCon().createStatement();
-//            ResultSet resultSet = statement.executeQuery(query);
-//
-//            while (resultSet.next()) {
-//                name = resultSet.getString("name");
-//                balance = resultSet.getInt("balance");
-//                reserve = resultSet.getInt("reserve");
-//
-//                itog = balance- reserve;
-////                list.add(name);
-//
-//                hashMap.put(name, itog);
-////                System.out.println(name);
-////                System.out.println(itog);
-//
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        String firstItem = Basket.findFirstItem();
-//        Integer i = hashMap.get(firstItem);
-//        System.out.println(hashMap);
-//        System.out.println(i);
-        ////worker.getSession().disconnect();
-
-
         DBWorker worker = new DBWorker();
         String name;
-        Integer balance, reserve, itog;
-        Map<String, Integer> hashMap = new HashMap<>();
-        String query = "SELECT item_sku.name, balance, reserve, sum(balance) - sum(reserve) as sum  from storage_stock "
-                +
-                "JOIN item_sku ON storage_stock.sku_id = item_sku.id " +
-                "where balance - reserve >0" +
-                " group by item_sku.id";
+        List<String> list = new ArrayList<>();
+        String query = "SELECT item_sku.name from item " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                " and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " group by item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
                 name = resultSet.getString("name");
-                balance = resultSet.getInt("balance");
-                reserve = resultSet.getInt("reserve");
-                int summa = resultSet.getInt("sum");
-                itog = balance - reserve;
-                hashMap.put(name, summa);
-
-//                System.out.println(summa);
-//                System.out.println(itog);
+                list.add(name);
+//                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(hashMap);
-        String firstItem = Basket.findFirstItem();
-        Integer i = hashMap.get("Золотистые пусеты с кристаллами");
-        System.out.println(i);
+
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+        System.out.println(list.get(2));
+//        ////worker.getSession().disconnect();
+
     }
 }

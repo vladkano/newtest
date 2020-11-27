@@ -1,3 +1,5 @@
+package mainPage;
+
 import java.util.Date;
 
 public class User {

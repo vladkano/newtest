@@ -1,3 +1,5 @@
+import catalogPages.*;
+import filters.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,9 +42,9 @@ public class FiltersTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         WebDriverManager.firefoxdriver().setup();
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -81,7 +83,7 @@ public class FiltersTest {
 //        System.out.println("site size :" + siteSize);
 //        System.out.println("from site: " + siteList);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -89,7 +91,7 @@ public class FiltersTest {
     }
 
     @Test
-    public void typeOfItemRings()  {
+    public void typeOfItemRings() {
         rings = new RingsPage(driver);
         filters.clickToFilterButton();
         filters.clickToAllRingsButton();
@@ -107,7 +109,7 @@ public class FiltersTest {
             siteList.add(s);
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -134,7 +136,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -161,7 +163,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -188,7 +190,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -218,7 +220,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -246,7 +248,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -273,7 +275,7 @@ public class FiltersTest {
             siteList.add(s);
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -301,7 +303,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -331,7 +333,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -358,7 +360,7 @@ public class FiltersTest {
             siteList.add(s);
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -400,7 +402,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -428,7 +430,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -456,7 +458,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -484,7 +486,7 @@ public class FiltersTest {
             siteList.add(s);
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -513,7 +515,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -542,7 +544,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -570,7 +572,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -597,7 +599,7 @@ public class FiltersTest {
             siteList.add(s);
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -627,7 +629,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -655,7 +657,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -682,7 +684,7 @@ public class FiltersTest {
             siteList.add(s);
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -747,7 +749,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -771,7 +773,7 @@ public class FiltersTest {
             siteList.add(s);
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -796,7 +798,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -821,7 +823,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
@@ -846,7 +848,7 @@ public class FiltersTest {
             siteSize = siteList.size();
         }
         String countHeader = filters.getCountHeader();
-        Integer numberOnly= Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));

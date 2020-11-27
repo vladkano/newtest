@@ -68,7 +68,7 @@ public class BasketTest {
     }
 
 
-    //    Проверка того, что нельзя положить в корзину больше товара, чем есть на остатках.
+    //Проверка того, что нельзя положить в корзину больше товара, чем есть на остатках.
     @Test
     public void balanceItem() {
         Integer balance = basket.getBalance();
@@ -77,7 +77,6 @@ public class BasketTest {
         Integer dataMax = basket.getDataMax();
         assertEquals(balance, dataMax);
     }
-
 
     @Test
     public void checkBalance() {
@@ -90,7 +89,6 @@ public class BasketTest {
         Integer number = Integer.valueOf(basket.getBasketNumber());
         assertEquals(balance, number);
     }
-
 
     //Кнопка "Перейти в корзину" ведет на http://176.53.182.129:8088/cart
     @Test

@@ -1,6 +1,9 @@
+package mainPage;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,12 +28,10 @@ public class MainPageBanner {
     By sixCatalogHref = By.xpath("//div[@class='banner']//a[@aria-labelledby='banner-6']");
     By bestsellerNameButton = By.xpath("//*[@id='tns1-item1']//span");
 
-
     By designerButtonHeader = By.xpath("//*[@id='tns1-item5']//div[@class='catalog-card__designer']/a");
     By nameButtonHeader = By.xpath("//*[@id='tns1-item1']//h3[@class='catalog-card__name']/a");
     By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
     By mainCatalogHeader = By.xpath("//li[@class='main-menu__list-item']/a[text()='Все украшения']");
-    By catalogHeader = By.xpath("//div[@class='code']");
     By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
 
     //находит элемент на странице перекрытый другими элементами и кликает на него
@@ -43,7 +44,7 @@ public class MainPageBanner {
     public MainPageBanner clickToDesignerButton() {
         driver.findElement(designerButton).click();
         return this;
-   }
+    }
 
     public String getDesignerName() {
         return driver.findElement(designerButtonHeader).getAttribute("textContent");
@@ -78,10 +79,6 @@ public class MainPageBanner {
     public MainPageBanner clickToCatalogHref() {
         driver.findElement(catalogHref).click();
         return this;
-    }
-
-    public String getCatalogHeader() {
-        return driver.findElement(catalogHeader).getText();
     }
 
     public String getSixCatalogHref() {

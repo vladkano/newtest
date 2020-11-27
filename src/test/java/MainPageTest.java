@@ -1,5 +1,6 @@
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import mainPage.MainPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ public class MainPageTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         WebDriverManager.firefoxdriver().setup();
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
 //        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
@@ -63,14 +64,14 @@ public class MainPageTest {
     //Авторизация
     @Test
     public void sigInWithPhoneNumber() {
-//        mainPage.sigInWithPhoneOrEmail("+79501978905");
-//        String code = mainPage.getPhonePassword();
-//        mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
-//        tearDownEach();
-//        setUp();
-//        mainPage.sigInWithPhoneOrEmail("+79501978905");
-//        String code2 = mainPage.getPhonePassword();
-//        mainPage.sigInWithPassword(code2);
+        mainPage.sigInWithPhoneOrEmail("+79501978905");
+        String code = mainPage.getPhonePassword();
+        mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
+        tearDownEach();
+        setUp();
+        mainPage.sigInWithPhoneOrEmail("+79501978905");
+        String code2 = mainPage.getPhonePassword();
+        mainPage.sigInWithPassword(code2);
         mainPage.deletePhone();
     }
 
@@ -192,6 +193,6 @@ public class MainPageTest {
 
     @AfterEach
     public void tearDownEach() {
-//        driver.quit();
+        driver.quit();
     }
 }

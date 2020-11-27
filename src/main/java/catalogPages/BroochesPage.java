@@ -1,7 +1,10 @@
+package catalogPages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,34 +67,6 @@ public class BroochesPage {
 
     public String getNextDesignerHeader() {
         return driver.findElement(designerHeader).getText();
-    }
-
-
-    public int countBrooches() {
-        worker = new DBWorker();
-        int id = 0;
-        String query = "SELECT COUNT(*)id from item " +
-                "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
-                "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=4 and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 ";
-
-        try {
-            Statement statement = worker.getCon().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                id = resultSet.getInt("id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //worker.getSession().disconnect();
-
-        return id;
     }
 
 
@@ -164,9 +139,9 @@ public class BroochesPage {
 
     public List<Integer> getPrice() {
         worker = new DBWorker();
-        int price;
+        int price, discount;
         List<Integer> text = new ArrayList<>();
-        String query = "SELECT item_sku.price from item " +
+        String query = "SELECT item_sku.price, (price * discount/100) as discount from item " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -176,14 +151,16 @@ public class BroochesPage {
                 "and catalog_id=4 and is_archive = 0 and price != 0" +
                 " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
                 " group by item_sku.id ";
-
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 price = resultSet.getInt("price");
-//                System.out.println(price);
-                text.add(price);
+                discount =  resultSet.getInt("discount");
+                int priceNew = price - discount;
+//                System.out.println(discount);
+                text.add(priceNew);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
