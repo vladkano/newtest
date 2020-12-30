@@ -33,10 +33,10 @@ public class MainPageTest {
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        WebDriverManager.firefoxdriver().setup();
+//        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -50,73 +50,73 @@ public class MainPageTest {
     //Позитивные Тесты
     //Регистрация
 
-    @Test
-    public void registrationWithPhoneNumber() {
-        mainPage.sigInWithPhoneOrEmail("+79501978905");
-        String code = mainPage.getPhonePassword();
-        MainPage head = mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
-        String heading = head.getSigInHeader();
-        mainPage.deletePhone();
-        assertEquals("Test Name", heading);
-
-    }
+//    @Test
+//    public void registrationWithPhoneNumber() {
+//        mainPage.sigInWithPhoneOrEmail("+79501978905");
+//        String code = mainPage.getPhonePassword();
+//        MainPage head = mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
+//        String heading = head.getSigInHeader();
+//        mainPage.deletePhone();
+//        assertEquals("Test Name", heading);
+//
+//    }
 
     //Авторизация
     @Test
     public void sigInWithPhoneNumber() {
-        mainPage.sigInWithPhoneOrEmail("+79501978905");
-        String code = mainPage.getPhonePassword();
-        mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
-        tearDownEach();
-        setUp();
-        mainPage.sigInWithPhoneOrEmail("+79501978905");
+//        mainPage.sigInWithPhoneOrEmail("+79501978905");
+//        String code = mainPage.getPhonePassword();
+//        mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
+//        tearDownEach();
+//        setUp();
+        mainPage.sigInWithPhoneOrEmail("+79126459328");
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);
-        mainPage.deletePhone();
+//        mainPage.deletePhone();
     }
 
 
     //Негативные Тесты
     //Регистрация
 
-    @Test
-    public void registrationWithoutCode() {
-        mainPage.sigInWithPhoneOrEmail("+79501978905");
-        MainPage head = mainPage.registerWithPhoneNumber("", "test13@mail.com", "Test Name");
-        String heading = head.getIncorrectCodeHeader();
-        assertEquals("Необходимо указать код подтверждения", heading);
-    }
-
-
-    @Test
-    public void registrationWithoutEmail() {
-        mainPage.sigInWithPhoneOrEmail("+79501978905");
-        String code = mainPage.getPhonePassword();
-        MainPage head = mainPage.registerWithPhoneNumber(code, "", "Test Name");
-        String heading = head.getIncorrectEmailHeader();
-        assertEquals("Необходимо указать электронную почту", heading);
-    }
-
-    @Test
-    public void registrationWithoutName() {
-        mainPage.sigInWithPhoneOrEmail("+79501978905");
-        String code = mainPage.getPhonePassword();
-        MainPage head = mainPage.registerWithPhoneNumber(code, "test13@mail.com", "");
-        String heading = head.getIncorrectNameHeader();
-        assertEquals("Необходимо указать имя", heading);
-    }
-
-
-    //    -------------------- Проверить почему он валится 1-2 раза за 10 запусков
-    @Test
-    public void registrationWithoutConsent() {
-        mainPage.sigInWithPhoneOrEmail("+79501978905");
-        String code = mainPage.getPhonePassword();
-        MainPage head = mainPage.registerWithoutConsent(code, "test13@mail.com", "Test Name");
-        String heading = head.getNoConsentHeader();
-        assertEquals("Нужно согласиться на обработку персональных данных", heading);
-    }
-//    -------------------- Проверить почему он валится 1-2 раза за 10 запусков
+//    @Test
+//    public void registrationWithoutCode() {
+//        mainPage.sigInWithPhoneOrEmail("+79501978905");
+//        MainPage head = mainPage.registerWithPhoneNumber("", "test13@mail.com", "Test Name");
+//        String heading = head.getIncorrectCodeHeader();
+//        assertEquals("Необходимо указать код подтверждения", heading);
+//    }
+//
+//
+//    @Test
+//    public void registrationWithoutEmail() {
+//        mainPage.sigInWithPhoneOrEmail("+79501978905");
+//        String code = mainPage.getPhonePassword();
+//        MainPage head = mainPage.registerWithPhoneNumber(code, "", "Test Name");
+//        String heading = head.getIncorrectEmailHeader();
+//        assertEquals("Необходимо указать электронную почту", heading);
+//    }
+//
+//    @Test
+//    public void registrationWithoutName() {
+//        mainPage.sigInWithPhoneOrEmail("+79501978905");
+//        String code = mainPage.getPhonePassword();
+//        MainPage head = mainPage.registerWithPhoneNumber(code, "test13@mail.com", "");
+//        String heading = head.getIncorrectNameHeader();
+//        assertEquals("Необходимо указать имя", heading);
+//    }
+//
+//
+//    //    -------------------- Проверить почему он валится 1-2 раза за 10 запусков
+//    @Test
+//    public void registrationWithoutConsent() {
+//        mainPage.sigInWithPhoneOrEmail("+79501978905");
+//        String code = mainPage.getPhonePassword();
+//        MainPage head = mainPage.registerWithoutConsent(code, "test13@mail.com", "Test Name");
+//        String heading = head.getNoConsentHeader();
+//        assertEquals("Нужно согласиться на обработку персональных данных", heading);
+//    }
+////    -------------------- Проверить почему он валится 1-2 раза за 10 запусков
 
 
     //Авторизация
@@ -131,15 +131,15 @@ public class MainPageTest {
     //Позитивные Тесты email
     //Регистрация email
 
-    @Test
-    public void registrationWithEmail() {
-        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
-        String code = mainPage.getEmailPassword();
-        MainPage head = mainPage.registerWithEmail(code, "+79500000000", "Test Name");
-        String heading = head.getSigInHeader();
-        assertEquals("Test Name", heading);
-        mainPage.deleteEmail();
-    }
+//    @Test
+//    public void registrationWithEmail() {
+//        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
+//        String code = mainPage.getEmailPassword();
+//        MainPage head = mainPage.registerWithEmail(code, "+79500000000", "Test Name");
+//        String heading = head.getSigInHeader();
+//        assertEquals("Test Name", heading);
+//        mainPage.deleteEmail();
+//    }
 
     //Авторизация
     @Test
@@ -147,48 +147,48 @@ public class MainPageTest {
         mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
         String code2 = mainPage.getEmailPassword();
         mainPage.sigInWithPassword(code2);
-        mainPage.deleteEmail();
+//        mainPage.deleteEmail();
     }
 
 
     //Негативные Тесты
     //Регистрация Email
 
-    @Test
-    public void emailRegistrationWithoutCode() {
-        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
-        MainPage head = mainPage.registerWithEmail("", "+79500000000", "Test Name");
-        String heading = head.getIncorrectCodeHeader();
-        assertEquals("Необходимо указать код подтверждения", heading);
-    }
-
-
-    @Test
-    public void registrationWithoutPhone() {
-        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
-        String code = mainPage.getEmailPassword();
-        MainPage head = mainPage.registerWithEmail(code, "", "Test Name");
-        String heading = head.getIncorrectPhoneHeader();
-        assertEquals("Необходимо указать телефон", heading);
-    }
-
-    @Test
-    public void emailRegistrationWithoutName() {
-        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
-        String code = mainPage.getEmailPassword();
-        MainPage head = mainPage.registerWithEmail(code, "+79500000000", "");
-        String heading = head.getIncorrectNameHeader();
-        assertEquals("Необходимо указать имя", heading);
-    }
-
-    @Test
-    public void emailRegistrationWithoutConsent() {
-        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
-        String code = mainPage.getEmailPassword();
-        MainPage head = mainPage.emailRegisterWithoutConsent(code, "+79500000000", "Test Name");
-        String heading = head.getNoConsentHeader();
-        assertEquals("Нужно согласиться на обработку персональных данных", heading);
-    }
+//    @Test
+//    public void emailRegistrationWithoutCode() {
+//        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
+//        MainPage head = mainPage.registerWithEmail("", "+79500000000", "Test Name");
+//        String heading = head.getIncorrectCodeHeader();
+//        assertEquals("Необходимо указать код подтверждения", heading);
+//    }
+//
+//
+//    @Test
+//    public void registrationWithoutPhone() {
+//        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
+//        String code = mainPage.getEmailPassword();
+//        MainPage head = mainPage.registerWithEmail(code, "", "Test Name");
+//        String heading = head.getIncorrectPhoneHeader();
+//        assertEquals("Необходимо указать телефон", heading);
+//    }
+//
+//    @Test
+//    public void emailRegistrationWithoutName() {
+//        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
+//        String code = mainPage.getEmailPassword();
+//        MainPage head = mainPage.registerWithEmail(code, "+79500000000", "");
+//        String heading = head.getIncorrectNameHeader();
+//        assertEquals("Необходимо указать имя", heading);
+//    }
+//
+//    @Test
+//    public void emailRegistrationWithoutConsent() {
+//        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
+//        String code = mainPage.getEmailPassword();
+//        MainPage head = mainPage.emailRegisterWithoutConsent(code, "+79500000000", "Test Name");
+//        String heading = head.getNoConsentHeader();
+//        assertEquals("Нужно согласиться на обработку персональных данных", heading);
+//    }
 
 
     @AfterEach

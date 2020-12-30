@@ -31,6 +31,8 @@ public class Basket {
     By plus2 = By.xpath("//input[@name='quantity']");
     By max = By.xpath("//div[@class='counter']");
     By cartCount = By.xpath("//div[@class='text-on-icon page-header__cart']/span");
+    By inBasket = By.xpath("//span[text()='В корзине']");
+
 
 
     public Basket clickToItemButton() {
@@ -72,6 +74,8 @@ public class Basket {
     }
 
     public Basket clickToBasketButton() {
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(basketButton));
         driver.findElement(basketButton).click();
         return this;
     }
@@ -97,6 +101,10 @@ public class Basket {
         return this;
     }
 
+    public String getInBasketHeader() {
+        return driver.findElement(inBasket).getAttribute("textContent");
+    }
+
 
     //SQL
     public static String findFirstItem() {
@@ -111,8 +119,8 @@ public class Basket {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
                 " and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-                " group by item_sku.id ";
+                " and item_sku.url is not null  and catalog.show !=0 and balance > 0" +
+                "  group by item_sku.created_at DESC, item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -128,7 +136,7 @@ public class Basket {
 
 //        System.out.println(list.get(1));
 //        ////worker.getSession().disconnect();
-        return list.get(1);
+        return list.get(2);
     }
 
     public static String findAnotherItem() {
@@ -143,8 +151,8 @@ public class Basket {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
                 " and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-                " group by item_sku.id ";
+                " and item_sku.url is not null  and catalog.show !=0 and balance > 0" +
+                "  group by item_sku.created_at DESC, item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -169,7 +177,7 @@ public class Basket {
         Map<String, Integer> hashMap = new HashMap<>();
         String query = "SELECT item_sku.name, balance, reserve, sum(balance) - sum(reserve) as sum  from storage_stock " +
                 "JOIN item_sku ON storage_stock.sku_id = item_sku.id " +
-                "where balance - reserve >0" +
+                "where balance - reserve >0 and storage_id !=1" +
                 " group by item_sku.id";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -187,13 +195,15 @@ public class Basket {
         }
         String firstItem = this.findFirstItem();
         Integer i = hashMap.get(firstItem);
-//        System.out.println(firstItem);
+        System.out.println(firstItem);
+        System.out.println(i);
         ////worker.getSession().disconnect();
         return i;
     }
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
+
         DBWorker worker = new DBWorker();
         String name;
         List<String> list = new ArrayList<>();
@@ -205,8 +215,8 @@ public class Basket {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
                 " and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-                " group by item_sku.id ";
+                " and item_sku.url is not null  and catalog.show !=0 and balance > 0" +
+                "  group by item_sku.created_at DESC, item_sku.id";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -223,7 +233,8 @@ public class Basket {
         System.out.println(list.get(0));
         System.out.println(list.get(1));
         System.out.println(list.get(2));
-//        ////worker.getSession().disconnect();
+        System.out.println(list.get(3));
+        worker.getSession().disconnect();
 
     }
 }

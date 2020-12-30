@@ -26,8 +26,8 @@ public class CatalogNavigationTest {
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        WebDriverManager.firefoxdriver().setup();
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.firefoxdriver().setup();
+//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
@@ -59,7 +59,7 @@ public class CatalogNavigationTest {
     //Проверка отсутствия кнопки "Показать ещё", отображается только если в разделе больше 48 продуктов
     @Test
     public void showMoreNotVisible() {
-        driver.get(getUrl + "?type=pechatki");
+        driver.get(getUrl + "?type_product=klipsy");
         int numbers = driver.findElements(By.xpath("//span[text()='Показать ещё']")).size();
         assertEquals(0, numbers);
     }
@@ -67,9 +67,9 @@ public class CatalogNavigationTest {
     //Проверка отсутствия кнопки "Показать ещё" при переходе на последнюю страницу каталога
     @Test
     public void showMoreLastPage() {
-        driver.get(getUrl + "?catalog=broshi");
+        driver.get(getUrl + "broshi");
         navigation.clickOnShowMoreButton();
-        navigation.clickOnShowMoreButton();
+//        navigation.clickOnShowMoreButton();
         int numbers = driver.findElements(By.xpath("//span[text()='Показать ещё']")).size();
         assertEquals(0, numbers);
     }

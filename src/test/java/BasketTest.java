@@ -25,7 +25,7 @@ public class BasketTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         WebDriverManager.firefoxdriver().setup();
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
@@ -101,8 +101,14 @@ public class BasketTest {
     }
 
 
-    //Если товар уже находится в корзине, в карточке товара отображается кнопка "В корзине"(НЕ РЕАЛИЗОВАНО)
-
+    //Если товар уже находится в корзине, в карточке товара отображается кнопка "В корзине"
+    @Test
+    public void inBasket() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        String header = basket.getInBasketHeader();
+        assertEquals("В корзине", header);
+    }
 
     //Значок корзины на всех страницах сайта отображает количество товаров в корзине
     //кладем в корзину 2 разных товара, затем переходим на страницу каталога и проверяем что в корзине отображается верное число товаров

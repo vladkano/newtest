@@ -1,7 +1,4 @@
-import catalogPages.BraceletsPage;
-import catalogPages.EarringsPage;
-import catalogPages.NecklacesPage;
-import catalogPages.RingsPage;
+import catalog.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,31 +18,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CollectionTest {
 
 
-    //Полностью переделать, есть баги, которые сейчас на исправлении
-
     private static WebDriver driver;
     private static Collection collection;
-    private static EarringsPage earrings;
-    private static NecklacesPage necklaces;
-    private static BraceletsPage bracelets;
-    private static RingsPage rings;
+    private static Earrings earrings;
+    private static Necklaces necklaces;
+    private static Bracelets bracelets;
+    private static Rings rings;
+    private static Brooches brooches;
     //private String getUrl = "http://176.53.182.129:8088/catalog/";
     //private String getUrl = "http://176.53.181.34:8088/catalog/";
     private String getUrl = "https://poisondrop.ru/catalog/";
-    private By link = By.xpath("//a[@class='product-variant__link']");
-
-//    public List<WebElement> getListOfLinks() {
-//        List<WebElement> site = driver.findElements(By.xpath("//div[@class=\"catalog-card catalog__card\"]//a[text()='Покрытое серебром кольцо Etty с лазуритом (17,5)']/following::span"));
-//        return site;
-//    }
+    private By linkOfCollection = By.xpath("//ul[@class='product-modification__variants']//a");
 
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         WebDriverManager.firefoxdriver().setup();
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -63,7 +54,7 @@ public class CollectionTest {
         driver.get(getUrl);
         List<String> namesItems = collection.getNamesItems();
 //        System.out.println(namesItems);
-        List<WebElement> site = driver.findElements(By.xpath("//div[@class='catalog-card__modifications']/preceding::div[@class='catalog-card__description']/h3[@class='catalog-card__name']"));
+        List<WebElement> site = driver.findElements(By.xpath("//h3[@class='catalog-card__name']"));
         assertEquals(namesItems.get(0), site.get(0).getAttribute("textContent"));
     }
 
@@ -92,8 +83,49 @@ public class CollectionTest {
 
     @Test
     public void firstLinkOfBracelets() {
+        bracelets = new Bracelets(driver);
         driver.get(getUrl + "braslety");
         String linkFromSql = bracelets.getFirstLinkOfCollection();
+        String href = collection.getHref();
+        collection.clickOnFirstHref();
+        String url = driver.getCurrentUrl();
+//        System.out.println(linkFromSql);
+//        System.out.println(href);
+//        System.out.println(url);
+//        System.out.println(href);
+        assertEquals(linkFromSql, href);
+        assertEquals(url, href);
+    }
+
+    @Test
+    public void firstLinkOfBrooches() {
+        brooches = new Brooches(driver);
+        driver.get(getUrl + "broshi");
+        String linkFromSql = brooches.getFirstLinkOfCollection();
+        String href = collection.getHref();
+        collection.clickOnFirstHref();
+        String url = driver.getCurrentUrl();
+//        assertEquals(linkFromSql, href);
+        assertEquals(url, href);
+    }
+
+    @Test
+    public void firstLinkOfEarrings() {
+        earrings = new Earrings(driver);
+        driver.get(getUrl + "sergi");
+        String linkFromSql = earrings.getFirstLinkOfCollection();
+        String href = collection.getHref();
+        collection.clickOnFirstHref();
+        String url = driver.getCurrentUrl();
+//        assertEquals(linkFromSql, href);
+        assertEquals(url, href);
+    }
+
+    @Test
+    public void firstLinkOfNecklaces() {
+        necklaces = new Necklaces(driver);
+        driver.get(getUrl + "kole");
+        String linkFromSql = necklaces.getFirstLinkOfCollection();
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
@@ -101,119 +133,79 @@ public class CollectionTest {
         assertEquals(url, href);
     }
 
+    @Test
+    public void firstLinkOfRings() {
+        rings = new Rings(driver);
+        driver.get(getUrl + "koltsa");
+        String linkFromSql = rings.getFirstLinkOfCollection();
+        String href = collection.getHref();
+        collection.clickOnFirstHref();
+        String url = driver.getCurrentUrl();
+        assertEquals(linkFromSql, href);
+        assertEquals(url, href);
+    }
 
-    //Проверка что под стоимостью, отображаются ссылки на другие товары в коллекции:
+    //Проверка, что под товаром ссылки на другие товары коллекции не дублируются
+    @Test
+    public void checkDoubleMain() {
+        driver.get(getUrl);
+        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
+        Set<WebElement> set = new HashSet(listOfLinks);
+        boolean check = set.size() == listOfLinks.size();
+//        System.out.println(set.size());
+//        System.out.println(listOfLinks.size());
+        assertEquals(true, check);
+    }
 
-//    @Test
-//    public void checkALink() {
-//        List<WebElement> listOfLinks = getListOfLinks();
-//        String s = listOfLinks.get(0).getAttribute("textContent");
-//        assertEquals("A", s);
-//    }
+    @Test
+    public void checkDoubleBracelets() {
+        bracelets = new Bracelets(driver);
+        driver.get(getUrl + "braslety");
+        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
+        Set<WebElement> set = new HashSet(listOfLinks);
+        boolean check = set.size() == listOfLinks.size();
+        assertEquals(true, check);
+    }
 
-//    @Test
-//    public void checkBLink() {
-//        List<WebElement> listOfLinks = getListOfLinks();
-//        String s = listOfLinks.get(2).getAttribute("textContent");
-//        assertEquals("B", s);
-//    }
-//
-//    @Test
-//    public void checkRedLink() {
-//        List<WebElement> listOfLinks = getListOfLinks();
-//        String s = listOfLinks.get(4).getAttribute("textContent");
-//        assertEquals("Красный", s);
-//    }
-//
-//    @Test
-//    public void checkGoldLink() {
-//        List<WebElement> listOfLinks = getListOfLinks();
-//        String s = listOfLinks.get(6).getAttribute("textContent");
-//        assertEquals("Золото", s);
-//    }
-//
-//    @Test
-//    public void checkSilverLink() {
-//        List<WebElement> listOfLinks = getListOfLinks();
-//        String s = listOfLinks.get(8).getAttribute("textContent");
-//        assertEquals("Серебро", s);
-//    }
+    @Test
+    public void checkDoubleBrooches() {
+        brooches = new Brooches(driver);
+        driver.get(getUrl + "broshi");
+        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
+        Set<WebElement> set = new HashSet(listOfLinks);
+        boolean check = set.size() == listOfLinks.size();
+        assertEquals(true, check);
+    }
 
+    @Test
+    public void checkDoubleEarrings() {
+        earrings = new Earrings(driver);
+        driver.get(getUrl + "sergi");
+        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
+        Set<WebElement> set = new HashSet(listOfLinks);
+        boolean check = set.size() == listOfLinks.size();
+        assertEquals(true, check);
+    }
 
-//    //Проверка, что под товаром ссылки на другие товары коллекции не дублируются
-//    @Test
-//    public void checkDoubleA() {
-//        List<WebElement> listOfLinks = driver.findElements(By.xpath("//div[3]/div[2]/div[3]/div/div[1]/ul/li/span[text()='A']"));
-//        boolean check = listOfLinks.size() <= 2;
-//        System.out.println(listOfLinks.size());
-//        assertEquals(true, check);
-//    }
-//
-//    @Test
-//    public void checkDoubleB() {
-//        List<WebElement> listOfLinks = driver.findElements(By.xpath("//div[3]/div[2]/div[3]/div/div[1]/ul/li/span[text()='B']"));
-//        boolean check = listOfLinks.size() <= 2;
-//        System.out.println(listOfLinks.size());
-//        assertEquals(true, check);
-//    }
-//
-//    @Test
-//    public void checkDoubleRed() {
-//        List<WebElement> listOfLinks = driver.findElements(By.xpath("//div[3]/div[2]/div[3]/div/div[contains(@class, 'color')]/ul/li/span[text()='Красный']"));
-//        boolean check = listOfLinks.size() <= 1;
-//        System.out.println(listOfLinks.size());
-//        assertEquals(true, check);
-//    }
-//
-//    @Test
-//    public void checkDoubleSilver() {
-//        List<WebElement> listOfLinks = driver.findElements(By.xpath("//div[3]/div[2]/div[3]/div/div[contains(@class, 'picture')]/ul/li/span[text()='Серебро']"));
-//        boolean check = listOfLinks.size() <= 1;
-//        System.out.println(listOfLinks.size());
-//        assertEquals(true, check);
-//    }
-//
-//    @Test
-//    public void checkDoubleGold() {
-//        List<WebElement> listOfLinks = driver.findElements(By.xpath("//div[3]/div[2]/div[3]/div/div[contains(@class, 'picture')]/ul/li/span[text()='Золото']"));
-//        boolean check = listOfLinks.size() <= 1;
-//        System.out.println(listOfLinks.size());
-//        assertEquals(true, check);
-//    }
-//
-//    //Проверка, что под товаром ссылки на другие предметы коллекции работают корректно
-//
-//    @Test
-//    public void checkLinkPhilippeAudibert() {
-//        String link = collection.getLinkLinkPhilippeAudibertText();
-//        collection.clickOnLinkPhilippeAudibert();
-//        String url = driver.getCurrentUrl();
-//        assertEquals(link, url);
-//    }
-//
-//    @Test
-//    public void checkLinkLAV() {
-//        String link = collection.getLinkLAVText();
-//        collection.clickOnLinkLAV();
-//        String url = driver.getCurrentUrl();
-//        assertEquals(link, url);
-//    }
-//
-//    @Test
-//    public void checkLinkAvgvst() {
-//        String link = collection.getLinkAvgvstText();
-//        collection.clickOnAvgvst();
-//        String url = driver.getCurrentUrl();
-//        assertEquals(link, url);
-//    }
-//
-//    @Test
-//    public void checkLinkLisaSmith() {
-//        String link = collection.getLinkLisaSmith();
-//        collection.clickOnLisaSmith();
-//        String url = driver.getCurrentUrl();
-//        assertEquals(link, url);
-//    }
+    @Test
+    public void checkDoubleNecklaces() {
+        necklaces = new Necklaces(driver);
+        driver.get(getUrl + "kole");
+        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
+        Set<WebElement> set = new HashSet(listOfLinks);
+        boolean check = set.size() == listOfLinks.size();
+        assertEquals(true, check);
+    }
+
+    @Test
+    public void checkDoubleRings() {
+        rings = new Rings(driver);
+        driver.get(getUrl + "koltsa");
+        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
+        Set<WebElement> set = new HashSet(listOfLinks);
+        boolean check = set.size() == listOfLinks.size();
+        assertEquals(true, check);
+    }
 
     @AfterEach
     public void tearDownEach() {

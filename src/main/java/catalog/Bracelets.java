@@ -1,4 +1,4 @@
-package catalogPages;
+package catalog;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BraceletsPage {
+public class Bracelets {
 
     private static DBWorker worker = new DBWorker();
     private WebDriver driver;
@@ -21,35 +21,35 @@ public class BraceletsPage {
     By showMoreButton = By.xpath("//span[text()='Показать ещё']");
 
     By braceletImageLink = By.xpath("//picture/img");
-    By braceletNameLink = By.xpath("//h3[@class='catalog-card__name']");
+    By braceletNameLink = By.xpath("//h3[@class='catalog-card__name']/a");
     By braceletDesignerLink = By.xpath("//div[@class='catalog-card__designer']/a");
 
     By braceletHeader = By.xpath("//h1[@class='product-main-info__product-name']");
     By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
 
 
-    public BraceletsPage(WebDriver driver) {
+    public Bracelets(WebDriver driver) {
         this.driver = driver;
     }
 
 
-    public BraceletsPage clickOnBraceletImageLink() {
+    public Bracelets clickOnBraceletImageLink() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(braceletImageLink));
         return this;
     }
 
-    public BraceletsPage(By showMoreButton) {
+    public Bracelets(By showMoreButton) {
         this.showMoreButton = showMoreButton;
     }
 
-    public BraceletsPage clickOnBraceletNameLink() {
+    public Bracelets clickOnBraceletNameLink() {
         List<WebElement> elements = driver.findElements(braceletNameLink);
         elements.get(1).click();
         return this;
     }
 
-    public BraceletsPage clickOnBraceletDesignerLink() {
+    public Bracelets clickOnBraceletDesignerLink() {
         List<WebElement> elements = driver.findElements(braceletDesignerLink);
         elements.get(2).click();
         return this;
@@ -79,7 +79,7 @@ public class BraceletsPage {
     }
 
 
-    public BraceletsPage clickOnShowMoreButton() {
+    public Bracelets clickOnShowMoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(showMoreButton));
         return this;
@@ -159,7 +159,7 @@ public class BraceletsPage {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
                 "and catalog_id=3 and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " and item_sku.url is not null and storage_id != 1 and catalog.show !=0 and balance > 0" +
                 " group by item_sku.id ";
 
         try {
@@ -213,47 +213,6 @@ public class BraceletsPage {
     }
 
     //Вытаскиваем все браслеты, которые входят в коллекции
-    public List<String> getNamesOfCollection() {
-        DBWorker worker = new DBWorker();
-
-        String name;
-        List<String> list = new ArrayList<>();
-        String query = "SELECT DISTINCT item_sku.name from item_sku " +
-                "JOIN item ON item_sku.item_id = item.id " +
-                "JOIN item_collection_consist ON item.id = item_collection_consist.item_id " +
-                "JOIN item_collection_characteristic_value ON item_collection_consist.item_collection_characteristic_value_id = item_collection_characteristic_value.id " +
-                "JOIN item_collection_characteristic ON item_collection_consist.item_collection_characteristic_id = item_collection_characteristic.id " +
-                "JOIN item_collection ON item_collection_consist.item_collection_id = item_collection.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where item_collection_consist.item_collection_characteristic_id!=0 and item_collection_consist.item_collection_characteristic_value_id != 0 " +
-                "and item_collection_consist.item_collection_id != 0 " +
-                "and EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=3 and is_archive = 0 and price != 0" +
-                "and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0 " +
-                "group by item_sku.id ";
-        try {
-            Statement statement = worker.getCon().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                name = resultSet.getString("name");
-                list.add(name);
-
-//                System.out.println(name);
-//                System.out.println(price);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(list);
-//        //worker.getSession().disconnect();
-
-        return list;
-    }
-
     //Вытаскиваем ссылку
     public String getFirstLinkOfCollection() {
         DBWorker worker = new DBWorker();
@@ -270,10 +229,12 @@ public class BraceletsPage {
                 "JOIN item_collection_characteristic_value ON item_collection_consist.item_collection_characteristic_value_id = item_collection_characteristic_value.id " +
                 "JOIN item_collection_characteristic ON item_collection_consist.item_collection_characteristic_id = item_collection_characteristic.id " +
                 "JOIN item_collection ON item_collection_consist.item_collection_id = item_collection.id " +
-                "where item_collection_consist.item_collection_characteristic_id!=0 and item_collection_consist.item_collection_characteristic_value_id != 0" +
-                " and item_collection_consist.item_collection_id != 0 and catalog_id=3"
-                +
-                " group by item_collection_consist.id ";
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                "and catalog_id=3 and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0 " +
+                "order by item_sku.id";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -305,40 +266,28 @@ public class BraceletsPage {
     }
 
     public static void main(String[] args) {
-        DBWorker worker = new DBWorker();
-        String name;
-        String name2;
-        String name3;
-        String name4;
+        worker = new DBWorker();
+        int id = 0;
+        String query = "SELECT COUNT(*)id from item " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                "and catalog_id=3 and is_archive = 0 and price != 0" +
+                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 ";
 
-        List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
-                "JOIN item ON catalog.id = item.catalog_id " +
-                "JOIN item_sku ON item_sku.item_id = item.id " +
-                "JOIN item_collection_consist ON item.id = item_collection_consist.item_id " +
-                "JOIN item_collection_characteristic_value ON item_collection_consist.item_collection_characteristic_value_id = item_collection_characteristic_value.id " +
-                "JOIN item_collection_characteristic ON item_collection_consist.item_collection_characteristic_id = item_collection_characteristic.id " +
-                "JOIN item_collection ON item_collection_consist.item_collection_id = item_collection.id " +
-                "where item_collection_consist.item_collection_characteristic_id!=0 and item_collection_consist.item_collection_characteristic_value_id != 0" +
-                " and item_collection_consist.item_collection_id != 0 and catalog_id=3"
-                +
-                " group by item_collection_consist.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                name = resultSet.getString("url");
-                name2 = resultSet.getString("item_collection.url");
-                name3 = resultSet.getString("item_collection_characteristic.url");
-                name4 = resultSet.getString("item_collection_characteristic_value.url");
-
-                list.add(getUrl + name + "/" + name2 + "/?" + name3 + "=" + name4);
-                System.out.println(name + name2 + name3 + name4);
+                id = resultSet.getInt("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(id);
     }
 
 }

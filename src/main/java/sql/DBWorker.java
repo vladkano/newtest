@@ -1,9 +1,11 @@
 package sql;
 
+import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 public class DBWorker {
 
@@ -21,16 +23,91 @@ public class DBWorker {
 
     public DBWorker() {
 
+        //БОЙ
         try {
+            String strSshUser = "rundkvist"; // SSH loging username
+            String strSshHost = "176.53.181.34";
+            String strRemoteHost = "localhost"; // hostname or ip of your database server
+            int nRemotePort = 3306; // remote port number of your database
+            String strDbUser = "pd_prod_user"; // database loging username
+            String strDbPassword = "cGXIH452yfgYTus@%yt"; // database login password
+
+            final JSch jsch = new JSch();
+            jsch.addIdentity("C:\\Users\\Квист\\.ssh\\id_rsa");
+            session = jsch.getSession(strSshUser, strSshHost, 10022);
+            final Properties config = new Properties();
+            config.put("StrictHostKeyChecking", "no");
+            session.setConfig(config);
+            session.connect();
+            int forwardedPort = session.setPortForwardingL(0, strRemoteHost, nRemotePort);
+
             Class.forName("org.mariadb.jdbc.Driver");
-            String url = "jdbc:mysql://176.53.181.34/new_poisondrop";
-            String username = "pd_prod_user";
-            String password = "cGXIH452yfgYTus@%yt";
-            con = DriverManager.getConnection(url, username, password);
+            String url = "jdbc:mysql://localhost:" + forwardedPort;
+            con = DriverManager.getConnection(url + "/new_poisondrop", strDbUser,
+                    strDbPassword);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+//        Тест
+//        try {
+//            String strSshUser = "rundkvist"; // SSH loging username
+//            String strSshPassword = "ldvOVHvhj648cYk"; // SSH login password
+////            String strSshPassword = "bhoVH3209Udhovdfr66Jdf99"; // SSH login password
+//            String strSshHost = "176.53.182.129"; // hostname or ip or SSH server
+////            String strSshHost = "176.53.181.34";
+////            int nSshPort = 22; // remote SSH host port number
+//            String strRemoteHost = "localhost"; // hostname or ip of your database server
+////            int nLocalPort = 33066; // local port number use to bind SSH tunnel
+//            int nRemotePort = 33066; // remote port number of your database
+//            String strDbUser = "db_user"; // database loging username
+//            String strDbPassword = "db_user_pwd123"; // database login password
+//
+//            final JSch jsch = new JSch();
+//            session = jsch.getSession(strSshUser, strSshHost, 22);
+//            session.setPassword(strSshPassword);
+//            final Properties config = new Properties();
+//            config.put("StrictHostKeyChecking", "no");
+//            session.setConfig(config);
+//            session.connect();
+//            int forwardedPort = session.setPortForwardingL(0, strRemoteHost, nRemotePort);
+//
+//            Class.forName("org.mariadb.jdbc.Driver");
+//            String url = "jdbc:mysql://localhost:" + forwardedPort;
+//            con = DriverManager.getConnection(url + "/poisondrop", strDbUser,
+//                    strDbPassword);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        try {
+//            Class.forName("org.mariadb.jdbc.Driver");
+//            String url = "jdbc:mysql://176.53.181.34/new_poisondrop";
+//            String username = "pd_prod_user";
+//            String password = "cGXIH452yfgYTus@%yt";
+//            con = DriverManager.getConnection(url, username, password);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 

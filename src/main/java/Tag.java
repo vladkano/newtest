@@ -98,7 +98,7 @@ public class Tag {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 tags = resultSet.getString("name");
-                System.out.println(tags);
+//                System.out.println(tags);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,7 +181,7 @@ public class Tag {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4))" +
                 "and catalog_id=1 and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
+                " and item_sku.url is not null and catalog.show !=0 and balance > 0" +
                 " LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();

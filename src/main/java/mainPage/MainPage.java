@@ -46,9 +46,10 @@ public class MainPage {
         DBWorker worker = new DBWorker();
 //        String query = "select * from user where login=+79501978905";
 //
-//        String query = "select code from user_authentication_code where phone=+79501978905 and id=(SELECT MAX(id) FROM user_authentication_code)";
+        String query = "select code from user_authentication_code where phone=+79126459328 and id=(SELECT MAX(id) FROM user_authentication_code)";
 
-        String query = "select code from user_authentication_code where email='rundkvist@poisondrop.ru' and id=(SELECT MAX(id) FROM user_authentication_code)";
+
+//        String query = "select code from user_authentication_code where email='rundkvist@poisondrop.ru' and id=(SELECT MAX(id) FROM user_authentication_code)";
 
         try {
             Statement statement = worker.getCon().createStatement();
@@ -120,7 +121,7 @@ public class MainPage {
     public String getPhonePassword() {
         worker = new DBWorker();
         String code = null;
-        String query = "select code from user_authentication_code where phone=+79501978905 and id=(SELECT MAX(id) FROM user_authentication_code)";
+        String query = "select code from user_authentication_code where phone=+79126459328 and id=(SELECT MAX(id) FROM user_authentication_code)";
 
         try {
             Statement statement = worker.getCon().createStatement();
@@ -289,4 +290,6 @@ public class MainPage {
     public String getNoConsentHeader() {
         return driver.findElement(noConsentHeader).getText();
     }
+
+
 }

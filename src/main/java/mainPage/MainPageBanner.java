@@ -3,6 +3,7 @@ package mainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import sql.DBWorker;
 
 import java.sql.ResultSet;
@@ -24,9 +25,10 @@ public class MainPageBanner {
     By carouselButton = By.xpath("//button[@aria-label='Carousel Page 2']");
     By designerButton = By.xpath("//*[@id='tns1-item5']//span");
     By mainCatalogHref = By.xpath("//div[@class='banner main-banner']//a[@class ='banner__link']");
-    By catalogHref = By.xpath("//div[@class='banner']//a[@aria-labelledby='banner-1']");
-    By sixCatalogHref = By.xpath("//div[@class='banner']//a[@aria-labelledby='banner-6']");
+    //    By catalogHref = By.xpath("//div[@class='banner']//a[@aria-labelledby='banner-1']");
+//    By sixCatalogHref = By.xpath("//div[@class='banner']//a[@aria-labelledby='banner-6']");
     By bestsellerNameButton = By.xpath("//*[@id='tns1-item1']//span");
+    By countOfBanners = By.xpath("//div[@class='banner__content']/a");
 
     By designerButtonHeader = By.xpath("//*[@id='tns1-item5']//div[@class='catalog-card__designer']/a");
     By nameButtonHeader = By.xpath("//*[@id='tns1-item1']//h3[@class='catalog-card__name']/a");
@@ -73,20 +75,30 @@ public class MainPageBanner {
 
 
     public String getCatalogHref() {
-        return driver.findElement(catalogHref).getAttribute("href");
+        List<WebElement> banners = driver.findElements(countOfBanners);
+        WebElement first = banners.get(0);
+        return first.getAttribute("href");
     }
 
     public MainPageBanner clickToCatalogHref() {
-        driver.findElement(catalogHref).click();
+        List<WebElement> banners = driver.findElements(countOfBanners);
+        WebElement first = banners.get(0);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", first);
         return this;
+
     }
 
     public String getSixCatalogHref() {
-        return driver.findElement(sixCatalogHref).getAttribute("href");
+        List<WebElement> banners = driver.findElements(countOfBanners);
+        WebElement six = banners.get(5);
+        return six.getAttribute("href");
     }
 
     public MainPageBanner clickToSixCatalogHref() {
-        driver.findElement(sixCatalogHref).click();
+        List<WebElement> banners = driver.findElements(countOfBanners);
+        WebElement six = banners.get(5);
+        six.click();
         return this;
     }
 
@@ -101,26 +113,23 @@ public class MainPageBanner {
 
 
     //SQL
-    public List<String> listOfBanners() {
-        String bannerName;
-        List<String> listBanners = new ArrayList<>();
-        String query = "SELECT  name from main_page_blocks "
-                + "where `show` = 1 " +
-                "group by position " +
+    public Integer listOfBanners() {
+        DBWorker worker = new DBWorker();
+        Integer count = 0;
+        String query = "SELECT count(url) as countURL from main_page_blocks " +
+                "where `show` = 1 " +
                 "LIMIT 12";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-
             while (resultSet.next()) {
-                bannerName = resultSet.getString("name");
-                listBanners.add(bannerName);
+                count = resultSet.getInt("countURL");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-        return listBanners;
+//        System.out.println(count);
+        return count;
     }
 
 
@@ -207,32 +216,19 @@ public class MainPageBanner {
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
         DBWorker worker = new DBWorker();
-        String name;
-//        Integer price;
-
-        List<String> list = new ArrayList<>();
-        String query = "SELECT designer.name from designer " +
-                "JOIN item ON item.designer_id = designer.id " +
-                "JOIN item_sku ON item_sku.item_id = item.id " +
-                "JOIN bestsellers ON bestsellers.sku_id = item_sku.id " +
-                "group by position " + "LIMIT 5";
+        Integer count = 0;
+        String query = "SELECT count(url) as countURL from main_page_blocks " +
+                "where `show` = 1 " +
+                "LIMIT 12";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-//                price = resultSet.getInt("price");
-                list.add(name);
-
-                System.out.println(name);
-//                System.out.println(price);
+                count = resultSet.getInt("countURL");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        System.out.println(list);
-        //worker.getSession().disconnect();
+        System.out.println(count);
     }
 }

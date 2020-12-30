@@ -24,11 +24,13 @@ public class MainPageBannerTest {
     //private String getUrl = "http://176.53.182.129:8088/";
     //private String getUrl = "http://176.53.181.34:8088/";
     private String getUrl = "https://poisondrop.ru/";
+    private By countOfBanners = By.xpath("//div[@class='banner']//h3[@class='banner__title']");
+
 
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        WebDriverManager.firefoxdriver().setup();
+//        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
@@ -51,14 +53,8 @@ public class MainPageBannerTest {
 
     @Test
     public void bannersIsVisible() {
-        List<String> listBanners = new ArrayList<>();
-        List<WebElement> banners = driver.findElements(By.xpath("//div[@class='banner']//h3[@class='banner__title']"));
-        for (WebElement name : banners) {
-            String textBanner = name.getText();
-            listBanners.add(textBanner);
-        }
-        List<String> sqlList = banner.listOfBanners();
-        assertEquals(sqlList, listBanners);
+        List<WebElement> banners = driver.findElements(countOfBanners);
+        assertEquals(banner.listOfBanners(), banners.size());
     }
 
 
@@ -108,7 +104,7 @@ public class MainPageBannerTest {
     //Отображение блока Shop The Look
     @Test
     public void shopTheLookIsVisible() {
-        int banners = driver.findElements(By.xpath("//div[@class='banner']//h3[@class='banner__title']")).size();
+        int banners = driver.findElements(countOfBanners).size();
         boolean visible = banners > 0;
         assertEquals(true, visible);
     }

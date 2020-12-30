@@ -27,31 +27,34 @@ public class Collection {
     By linkLAV = By.xpath("//li/a[@href='/catalog/rings/poisontoday?bukva=b&cvet=krasnyi&pokrytie=serebro']");
     By linkAvgvst = By.xpath("//li/a[@href='/catalog/rings/poisontoday?bukva=a&pokrytie=zoloto']");
     By linkLisaSmith = By.xpath("//li/a[@href='/catalog/rings/poisontoday?bukva=b&pokrytie=serebro']");
+    By href = By.xpath("//div[@class='catalog-card catalog__card']/a");
 
     By linkHeader = By.xpath("//h1[@class='product-main-info__product-name']");
     By secondLinkHeader = By.xpath("//h1[text()='Кольцо из серебра с сапфиром, из коллекции Nebula (15)']");
 
 
+
+
     public String getHref() {
-        List<WebElement> castButtons = driver.findElements(By.xpath("//li[@class='product-variant']/a"));
+        List<WebElement> castButtons = driver.findElements(href);
         return castButtons.get(0).getAttribute("href");
     }
 
 
     public Collection clickOnFirstHref() {
-        List<WebElement> castButtons = driver.findElements(By.xpath("//li[@class='product-variant']/a"));
+        List<WebElement> castButtons = driver.findElements(href);
         castButtons.get(0).click();
         return this;
     }
 
     public String getSecondHref() {
-        List<WebElement> castButtons = driver.findElements(By.xpath("//li[@class='product-variant']/a"));
+        List<WebElement> castButtons = driver.findElements(href);
         return castButtons.get(1).getAttribute("href");
     }
 
 
     public Collection clickOnSecondHref() {
-        List<WebElement> castButtons = driver.findElements(By.xpath("//li[@class='product-variant']/a"));
+        List<WebElement> castButtons = driver.findElements(href);
         castButtons.get(1).click();
         return this;
     }
@@ -135,7 +138,7 @@ public class Collection {
             e.printStackTrace();
         }
 
-        System.out.println(list);
+//        System.out.println(list);
 //        //worker.getSession().disconnect();
 
         return list;

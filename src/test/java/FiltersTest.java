@@ -1,4 +1,4 @@
-import catalogPages.*;
+import catalog.*;
 import filters.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -26,13 +26,13 @@ public class FiltersTest {
     private Colors colors;
     private Size size;
     private Designers designers;
-    private static EarringsPage earrings;
-    private static NecklacesPage necklaces;
-    private static BraceletsPage bracelets;
-    private static RingsPage rings;
-    private static BroochesPage brooches;
+    private static Earrings earrings;
+    private static Necklaces necklaces;
+    private static Bracelets bracelets;
+    private static Rings rings;
+    private static Brooches brooches;
     private List<String> siteList = new ArrayList<>();
-    private By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
+    private By numberOfItem = By.xpath("//h3[@class='catalog-card__name']/a");
     //private String getUrl = "http://176.53.182.129:8088/catalog/";
     //private String getUrl = "http://176.53.181.34:8088/catalog/";
     private String getUrl = "https://poisondrop.ru/catalog/";
@@ -61,7 +61,7 @@ public class FiltersTest {
     //ТИП ИЗДЕЛИЯ
     @Test
     public void typeOfItemEarrings() {
-        earrings = new EarringsPage(driver);
+        earrings = new Earrings(driver);
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
         filters.clickToFilterButton();
@@ -92,7 +92,7 @@ public class FiltersTest {
 
     @Test
     public void typeOfItemRings() {
-        rings = new RingsPage(driver);
+        rings = new Rings(driver);
         filters.clickToFilterButton();
         filters.clickToAllRingsButton();
         filters.clickToFilterButton();
@@ -118,7 +118,7 @@ public class FiltersTest {
 
     @Test
     public void typeOfItemNecklaces() {
-        necklaces = new NecklacesPage(driver);
+        necklaces = new Necklaces(driver);
         filters.clickToFilterButton();
         filters.clickToAllNecklacesButton();
         filters.clickToFilterButton();
@@ -145,7 +145,7 @@ public class FiltersTest {
 
     @Test
     public void typeOfItemBracelets() {
-        bracelets = new BraceletsPage(driver);
+        bracelets = new Bracelets(driver);
         filters.clickToFilterButton();
         filters.clickToAllBraceletsButton();
 //        filters.clickToFilterButton();
@@ -172,7 +172,7 @@ public class FiltersTest {
 
     @Test
     public void typeOfItemBrooches() {
-        brooches = new BroochesPage(driver);
+        brooches = new Brooches(driver);
         filters.clickToFilterButton();
         filters.clickToAllBroochesButton();
         filters.clickToFilterButton();
@@ -696,7 +696,7 @@ public class FiltersTest {
     //Внутри фильтра
     @Test
     public void resetFilter() throws InterruptedException {
-        earrings = new EarringsPage(driver);
+        earrings = new Earrings(driver);
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
         Thread.sleep(2000);
@@ -733,7 +733,7 @@ public class FiltersTest {
     //Тесты кнопок с фильтрами(шаблоны фильтров)
     @Test
     public void filterButtonEarrings() {
-        earrings = new EarringsPage(driver);
+        earrings = new Earrings(driver);
         filters.clickToEarringsButton();
         try {
             Thread.sleep(3000);
@@ -758,7 +758,7 @@ public class FiltersTest {
 
     @Test
     public void filterButtonRings() {
-        rings = new RingsPage(driver);
+        rings = new Rings(driver);
         filters.clickToRingsButton();
         try {
             Thread.sleep(3000);
@@ -782,7 +782,7 @@ public class FiltersTest {
 
     @Test
     public void filterButtonNecklaces() {
-        necklaces = new NecklacesPage(driver);
+        necklaces = new Necklaces(driver);
         filters.clickToNecklacesButton();
         try {
             Thread.sleep(3000);
@@ -807,7 +807,7 @@ public class FiltersTest {
 
     @Test
     public void filterButtonBracelets() {
-        bracelets = new BraceletsPage(driver);
+        bracelets = new Bracelets(driver);
         filters.clickToBraceletsButton();
         try {
             Thread.sleep(3000);
@@ -832,7 +832,7 @@ public class FiltersTest {
 
     @Test
     public void filterButtonBrooches() {
-        brooches = new BroochesPage(driver);
+        brooches = new Brooches(driver);
         filters.clickToBroochesButton();
         try {
             Thread.sleep(3000);

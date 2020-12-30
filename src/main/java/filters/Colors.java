@@ -1,6 +1,7 @@
 package filters;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import sql.DBWorker;
 
@@ -27,7 +28,8 @@ public class Colors {
 
 
     public Colors clickToColorButton() {
-        driver.findElement(colorButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(colorButton));
         return this;
     }
 
@@ -47,7 +49,8 @@ public class Colors {
     }
 
     public Colors clickToRodiiButton() {
-        driver.findElement(rodiiButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(rodiiButton));
         return this;
     }
 
