@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -22,6 +23,7 @@ public class LinkTest {
     private static Rings rings;
     private static Brooches brooches;
     private static Pirsing pirsing;
+
     //private String getUrl = "http://176.53.182.129:8088/catalog/";
     //private String getUrl = "http://176.53.181.34:8088/catalog/";
     private String getUrl = "https://poisondrop.ru/catalog/";
@@ -39,7 +41,8 @@ public class LinkTest {
 //        driver = new EdgeDriver(options);
         driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+//        driver.manage().window().maximize();
     }
 
     //Поверяем работу 3-х ссылок по каждому типу товаров на переход к товару:

@@ -44,7 +44,9 @@ public class MainPageBanner {
     }
 
     public MainPageBanner clickToDesignerButton() {
-        driver.findElement(designerButton).click();
+//        driver.findElement(designerButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(designerButton));
         return this;
     }
 
@@ -98,12 +100,15 @@ public class MainPageBanner {
     public MainPageBanner clickToSixCatalogHref() {
         List<WebElement> banners = driver.findElements(countOfBanners);
         WebElement six = banners.get(5);
-        six.click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", six);
         return this;
     }
 
     public MainPageBanner clickToBestsellerNameButton() {
-        driver.findElement(bestsellerNameButton).click();
+//        driver.findElement(bestsellerNameButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(bestsellerNameButton));
         return this;
     }
 

@@ -26,6 +26,7 @@ public class MainPageTest {
 
     private WebDriver driver;
     private MainPage mainPage;
+
     //private String getUrl = "http://176.53.182.129:8088/";
     //private String getUrl = "http://176.53.181.34:8088/";
     private String getUrl = "https://poisondrop.ru/";

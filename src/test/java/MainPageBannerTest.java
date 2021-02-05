@@ -21,10 +21,12 @@ public class MainPageBannerTest {
 
     private WebDriver driver;
     private MainPageBanner banner;
+    private By countOfBanners = By.xpath("//div[@class='banner']//h3[@class='banner__title']");
+
     //private String getUrl = "http://176.53.182.129:8088/";
     //private String getUrl = "http://176.53.181.34:8088/";
     private String getUrl = "https://poisondrop.ru/";
-    private By countOfBanners = By.xpath("//div[@class='banner']//h3[@class='banner__title']");
+
 
 
     @BeforeEach

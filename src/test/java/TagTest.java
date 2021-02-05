@@ -15,6 +15,7 @@ public class TagTest {
 
     private WebDriver driver;
     private Tag tag;
+
     //private String getUrl = "http://176.53.182.129:8088/catalog/";
     //private String getUrl = "http://176.53.181.34:8088/catalog/";
     private String getUrl = "https://poisondrop.ru/catalog/";
@@ -47,7 +48,7 @@ public class TagTest {
 
     @Test
     public void tagIsVisibleBracelets() {
-        driver.get(getUrl + "broshi");
+        driver.get(getUrl + "braslety");
         tag = new Tag(driver);
         String firstTag = tag.getTag();
         assertEquals("DEMI-FINE", firstTag);

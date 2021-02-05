@@ -1,3 +1,4 @@
+import filters.Filters;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ public class BasketTest {
 
     private WebDriver driver;
     private Basket basket;
+    private Filters filters;
     //private String getUrl = "http://176.53.182.129:8088/catalog/";
     //private String getUrl = "http://176.53.181.34:8088/catalog/";
     private String getUrl = "https://poisondrop.ru/catalog/";
@@ -39,7 +41,8 @@ public class BasketTest {
         basket = new Basket(driver);
     }
 
-    //Проверяем работают ли кнопки корзины
+    //Проверяем работают ли кнопки корзины на разных типах товаров
+    //Обычный товар без размера
     @Test
     public void inBasketButton() {
         basket.clickToItemButton();
@@ -60,6 +63,106 @@ public class BasketTest {
     @Test
     public void minusButton() {
         basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToPlusBasketButton();
+        basket.clickToMinusBasketButton();
+        String number = basket.getBasketNumber();
+        assertEquals("1", number);
+    }
+
+    //Обычный товар с размером
+    @Test
+    public void inBasketButtonWithSize() {
+        filters = new Filters(driver);
+        filters.clickToRingsButton();
+        basket.clickToRingButton();
+        basket.clickToItemInBasketButton();
+        String number = basket.getBasketNumber();
+        assertEquals("1", number);
+    }
+
+    @Test
+    public void plusButtonWithSize() {
+        filters = new Filters(driver);
+        filters.clickToRingsButton();
+        basket.clickToRingButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToPlusBasketButton();
+        String number = basket.getBasketNumber();
+        assertEquals("2", number);
+    }
+
+    @Test
+    public void minusButtonWithSize() {
+        filters = new Filters(driver);
+        filters.clickToRingsButton();
+        basket.clickToRingButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToPlusBasketButton();
+        basket.clickToMinusBasketButton();
+        String number = basket.getBasketNumber();
+        assertEquals("1", number);
+    }
+
+
+    //Товар из коллекции без размера
+    @Test
+    public void inBasketButtonWithCollection() {
+        basket.clickOnFirstCollection();
+        basket.clickToItemInBasketButton();
+        String number = basket.getBasketNumber();
+        assertEquals("1", number);
+    }
+
+    @Test
+    public void plusButtonWithCollection() {
+        basket.clickOnFirstCollection();
+        basket.clickToItemInBasketButton();
+        basket.clickToPlusBasketButton();
+        String number = basket.getBasketNumber();
+        assertEquals("2", number);
+    }
+
+    @Test
+    public void minusButtonWithCollection() {
+        basket.clickOnFirstCollection();
+        basket.clickToItemInBasketButton();
+        basket.clickToPlusBasketButton();
+        basket.clickToMinusBasketButton();
+        String number = basket.getBasketNumber();
+        assertEquals("1", number);
+    }
+
+
+
+
+    //Товар из коллекции c размером
+    @Test
+    public void inBasketButtonWithCollectionAndSize() {
+        filters = new Filters(driver);
+        filters.clickToRingsButton();
+        basket.clickOnFirstCollection();
+        basket.clickToItemInBasketButton();
+        String number = basket.getBasketNumber();
+        assertEquals("1", number);
+    }
+
+    @Test
+    public void plusButtonWithCollectionAndSize() {
+        filters = new Filters(driver);
+        filters.clickToRingsButton();
+        basket.clickOnFirstCollection();
+        basket.clickToItemInBasketButton();
+        basket.clickToPlusBasketButton();
+        String number = basket.getBasketNumber();
+        assertEquals("2", number);
+    }
+
+    @Test
+    public void minusButtonWithCollectionAndSize() {
+        filters = new Filters(driver);
+        filters.clickToRingsButton();
+        basket.clickOnFirstCollection();
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
         basket.clickToMinusBasketButton();

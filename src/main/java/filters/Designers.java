@@ -1,6 +1,7 @@
 package filters;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import sql.DBWorker;
 
@@ -25,7 +26,8 @@ public class Designers {
 
 
     public Designers clickToDesignersButton() {
-        driver.findElement(designersButton).click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click()", driver.findElement(designersButton));
         return this;
     }
 
@@ -35,7 +37,9 @@ public class Designers {
     }
 
     public Designers clickToJewlryButton() {
-        driver.findElement(jewlryButton).click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click()", driver.findElement(jewlryButton));
+//        driver.findElement(jewlryButton).click();
         return this;
     }
 

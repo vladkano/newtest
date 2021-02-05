@@ -25,10 +25,13 @@ public class CollectionTest {
     private static Bracelets bracelets;
     private static Rings rings;
     private static Brooches brooches;
+    private By linkOfCollection = By.xpath("//ul[@class='product-modification__variants']//a");
+
     //private String getUrl = "http://176.53.182.129:8088/catalog/";
     //private String getUrl = "http://176.53.181.34:8088/catalog/";
     private String getUrl = "https://poisondrop.ru/catalog/";
-    private By linkOfCollection = By.xpath("//ul[@class='product-modification__variants']//a");
+
+
 
     @BeforeEach
     public void setUp() {

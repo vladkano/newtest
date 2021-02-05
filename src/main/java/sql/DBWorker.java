@@ -24,6 +24,7 @@ public class DBWorker {
     public DBWorker() {
 
         //БОЙ
+
         try {
             String strSshUser = "rundkvist"; // SSH loging username
             String strSshHost = "176.53.181.34";
@@ -51,7 +52,7 @@ public class DBWorker {
         }
 
 
-//        Тест
+       //Тест
 //        try {
 //            String strSshUser = "rundkvist"; // SSH loging username
 //            String strSshPassword = "ldvOVHvhj648cYk"; // SSH login password

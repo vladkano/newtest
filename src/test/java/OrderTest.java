@@ -15,10 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class OrderTest {
     private WebDriver driver;
     private Basket basket;
-    private OrderPage order;
+    private Order order;
+
+    //бой
+    private final String getUrl = "https://poisondrop.ru/catalog/";
+
+    //тест
 //    private String getUrl = "http://176.53.182.129:8088/catalog/";
-    //private String getUrl = "http://176.53.181.34:8088/catalog/";
-    private String getUrl = "https://poisondrop.ru/catalog/";
+
+    //старый адрес теста
+    //private String getUrl = "http://176.53.181.34:8088/catalog/";orderWithNoPayAndPhone
 
     @BeforeEach
     public void setUp() {
@@ -36,7 +42,7 @@ public class OrderTest {
 //        driver.manage().window().maximize();
         driver.manage().window().setSize(new Dimension(1920, 1080));
         basket = new Basket(driver);
-        order = new OrderPage(driver);
+        order = new Order(driver);
     }
 
     //Проверка перехода к оплате заказа на сайте, способ доставки: доставка курьером

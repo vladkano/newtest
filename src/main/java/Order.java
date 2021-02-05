@@ -1,10 +1,7 @@
 
-import mainPage.MainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import sql.DBWorker;
@@ -12,14 +9,13 @@ import sql.DBWorker;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Set;
 
-public class OrderPage {
+public class Order {
     private WebDriver driver;
     static DBWorker worker = new DBWorker();
 
 
-    public OrderPage(WebDriver driver) {
+    public Order(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -41,7 +37,7 @@ public class OrderPage {
     By searchbox = By.xpath("//input[@id='searchbox']");
 
 
-    By addCommentButton = By.xpath("//*[@id=\"orderForm\"]/div/div[5]/div/textarea");
+    By addCommentButton = By.xpath("//button[text()='Добавить комментарий к заказу']");
 //    By addCommentButton = By.cssSelector(".order-summary__comment-trigger");
 
     By authPassword = By.xpath("//div[@class='verify-form__row']/input[@name='code']");
@@ -63,6 +59,7 @@ public class OrderPage {
     By searchboxButton = By.xpath("//div[@class='combobox searchbox']/span");
     By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6601-054\"); return false;']");
     By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
+    By paperButton = By.xpath("//span[text()='Бумажный']");
 
 
     //headers
@@ -80,91 +77,93 @@ public class OrderPage {
         return driver.findElement(orderHeader).getAttribute("textContent");
     }
 
-    public OrderPage typePhone(String phone) {
+    public Order typePhone(String phone) {
         driver.findElement(orderPhone).sendKeys(phone);
         return this;
     }
 
-    public OrderPage typeEmail(String email) {
+    public Order typeEmail(String email) {
         driver.findElement(orderEmail).sendKeys(email);
         return this;
     }
 
-    public OrderPage typeFio(String fio) {
+    public Order typeFio(String fio) {
         driver.findElement(orderFio).sendKeys(fio);
         return this;
     }
 
-    public OrderPage typeCity(String city) {
+    public Order typeCity(String city) {
         driver.findElement(orderCity).sendKeys(city);
         return this;
     }
 
-    public OrderPage typeStreet(String street) {
+    public Order typeStreet(String street) {
         driver.findElement(orderStreet).sendKeys(street);
         return this;
     }
 
-    public OrderPage typeHouse(String house) {
+    public Order typeHouse(String house) {
         driver.findElement(orderHouse).sendKeys(house);
         return this;
     }
 
-    public OrderPage typeApartment(String apartment) {
+    public Order typeApartment(String apartment) {
         driver.findElement(orderApartment).sendKeys(apartment);
         return this;
     }
 
-    public OrderPage typeFrontDoor(String frontDoor) {
+    public Order typeFrontDoor(String frontDoor) {
         driver.findElement(orderFrontDoor).sendKeys(frontDoor);
         return this;
     }
 
-    public OrderPage typeFloor(String floor) {
+    public Order typeFloor(String floor) {
         driver.findElement(orderFloor).sendKeys(floor);
         return this;
     }
 
-    public OrderPage typeHouseCode(String houseCode) {
+    public Order typeHouseCode(String houseCode) {
         driver.findElement(orderHouseCode).sendKeys(houseCode);
         return this;
     }
 
-    public OrderPage typeCommentForCourier(String commentForCourier) {
+    public Order typeCommentForCourier(String commentForCourier) {
         driver.findElement(orderCommentForCourier).sendKeys(commentForCourier);
         return this;
     }
 
-    public OrderPage typeComment(String comment) {
+    public Order typeComment(String comment) {
         driver.findElement(orderComment).sendKeys(comment);
         return this;
     }
 
-    public OrderPage clickOnPayButton() {
+    public Order clickOnPayButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(payButton));
         return this;
     }
 
-    public OrderPage clickOnOrderButton() {
+    public Order clickOnOrderButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(orderButton));
 //        driver.findElement(orderButton).click();
         return this;
     }
 
-    public OrderPage clickOnAddAdresButton() {
-        driver.findElement(addAdresButton).click();
+    public Order clickOnAddAdresButton() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click()", driver.findElement(addAdresButton));
+//        driver.findElement(addAdresButton).click();
         return this;
     }
 
-    public OrderPage clickOnAddCommentButton() {
+    public Order clickOnAddCommentButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(addCommentButton));
         return this;
     }
 
-    public OrderPage typePassword(String password) {
+    public Order typePassword(String password) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(authPassword));
         driver.findElement(authPassword).sendKeys(password);
@@ -173,122 +172,130 @@ public class OrderPage {
         return this;
     }
 
-    public OrderPage clickOnConfirmButton() {
+    public Order clickOnConfirmButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(confirmButton));
         return this;
     }
 
-    public OrderPage clickOnWhatsAppButton() {
+    public Order clickOnWhatsAppButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(whatsAppButton));
         return this;
     }
 
-    public OrderPage clickOnPhoneButton() {
+    public Order clickOnPhoneButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(phoneButton));
         return this;
     }
 
-    public OrderPage clickOnSmsButton() {
+    public Order clickOnSmsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(smsButton));
         return this;
     }
 
-    public OrderPage clickOnCompanyStoreButton() {
+    public Order clickOnCompanyStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(companyStoreButton));
         return this;
     }
 
-    public OrderPage clickOnPickPointButton() {
+    public Order clickOnPickPointButton() {
         driver.findElement(pickPointButton).click();
         return this;
     }
 
-    public OrderPage clickOnSelectPostomatButton() {
+    public Order clickOnSelectPostomatButton() {
         driver.findElement(selectPostomatButton).click();
         return this;
     }
 
-    public OrderPage clickOnSearchboxButton() {
+    public Order clickOnSearchboxButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(searchboxButton));
 //        driver.findElement(searchboxButton).click();
         return this;
     }
 
-    public OrderPage clickOnMetropolisStoreButton() {
+    public Order clickOnMetropolisStoreButton() {
         driver.findElement(metropolisStoreButton).click();
         return this;
     }
 
-    public OrderPage clickOnRedBridgeStoreButton() {
+    public Order clickOnRedBridgeStoreButton() {
         driver.findElement(redBridgeStoreButton).click();
         return this;
     }
 
-    public OrderPage clickOnAtriumStoreButton() {
+    public Order clickOnAtriumStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(atriumStoreButton));
 //        driver.findElement(atriumStoreButton).click();
         return this;
     }
 
-    public OrderPage clickOnInternationalButton() {
+    public Order clickOnInternationalButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(internationalButton));
 //        driver.findElement(internationalButton).click();
         return this;
     }
 
-    public OrderPage typeCountry(String country) {
+    public Order typeCountry(String country) {
         driver.findElement(orderCountry).sendKeys(country);
         return this;
     }
 
-    public OrderPage typeInternationalCity(String internationalCity) {
+    public Order typeInternationalCity(String internationalCity) {
         driver.findElement(orderInternationalCity).sendKeys(internationalCity);
         return this;
     }
 
-    public OrderPage typeInternationalAddress(String internationalAddress) {
+    public Order typeInternationalAddress(String internationalAddress) {
         driver.findElement(orderInternationalAddress).sendKeys(internationalAddress);
         return this;
     }
 
-    public OrderPage clickOnNoPayButton() {
+    public Order clickOnNoPayButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(noPayButton));
         return this;
     }
 
-    public OrderPage confirmWithPassword(String password) {
+    public Order confirmWithPassword(String password) {
         this.typePassword(password);
         this.clickOnConfirmButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage typeSearchbox(String search) {
+    public Order typeSearchbox(String search) {
         driver.findElement(searchbox).sendKeys(search);
         return this;
     }
 
-    public OrderPage clickOnRodonitButton() {
+    public Order clickOnRodonitButton() {
         driver.findElement(rodonitButton).click();
         return this;
     }
 
-    public OrderPage clickOnSelectButton() {
+    public Order clickOnSelectButton() {
         driver.findElement(selectButton).click();
         return this;
     }
 
+    public Order clickOnPaperButton() {
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(paperButton));
+//        driver.findElement(paperButton).click();
+        return this;
+    }
+
     //Курьер
-    public OrderPage orderWithAllStrings(String phone, String email, String fio, String city, String street, String house, String apartment,
-                                         String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public Order orderWithAllStrings(String phone, String email, String fio, String city, String street, String house, String apartment,
+                                     String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -306,11 +313,11 @@ public class OrderPage {
 //        jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 //        this.clickOnAddCommentButton();
 //        this.typeComment(comment);
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithWhatsApp(String phone, String email, String fio, String city, String street, String house, String apartment,
-                                       String frontDoor, String floor, String houseCode, String commentForCourier) {
+    public Order orderWithWhatsApp(String phone, String email, String fio, String city, String street, String house, String apartment,
+                                   String frontDoor, String floor, String houseCode, String commentForCourier) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -326,12 +333,12 @@ public class OrderPage {
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
 
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
     //Заказы без оплаты
-    public OrderPage orderWithNoPayAndPhone(String phone, String email, String fio, String city, String street, String house, String apartment,
-                                            String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public Order orderWithNoPayAndPhone(String phone, String email, String fio, String city, String street, String house, String apartment,
+                                        String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -347,11 +354,11 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnPhoneButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithNoPayAndWA(String phone, String email, String fio, String city, String street, String house, String apartment,
-                                         String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public Order orderWithNoPayAndWA(String phone, String email, String fio, String city, String street, String house, String apartment,
+                                     String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -367,41 +374,41 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
     //Цветной:
-    public OrderPage orderWithCompanyStoreTsvetnoy(String phone, String email, String fio) {
+    public Order orderWithCompanyStoreTsvetnoy(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnPhoneButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithCompanyStoreTsvetnoyWA(String phone, String email, String fio) {
+    public Order orderWithCompanyStoreTsvetnoyWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithCompanyStoreTsvetnoySms(String phone, String email, String fio) {
+    public Order orderWithCompanyStoreTsvetnoySms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage tsvetnoyWithNoPayAndPhone(String phone, String email, String fio) {
+    public Order tsvetnoyWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -409,10 +416,10 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnPhoneButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage tsvetnoyWithNoPayAndWA(String phone, String email, String fio) {
+    public Order tsvetnoyWithNoPayAndWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -420,10 +427,10 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage tsvetnoyWithNoPayAndSms(String phone, String email, String fio) {
+    public Order tsvetnoyWithNoPayAndSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -431,12 +438,12 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnSmsButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
 
     //Метрополис:
-    public OrderPage orderWithCompanyStoreMetropolisPhone(String phone, String email, String fio) {
+    public Order orderWithCompanyStoreMetropolisPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -444,10 +451,10 @@ public class OrderPage {
         this.clickOnMetropolisStoreButton();
         this.clickOnPhoneButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithCompanyStoreMetropolisWA(String phone, String email, String fio) {
+    public Order orderWithCompanyStoreMetropolisWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -455,10 +462,10 @@ public class OrderPage {
         this.clickOnMetropolisStoreButton();
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithCompanyStoreMetropolisSms(String phone, String email, String fio) {
+    public Order orderWithCompanyStoreMetropolisSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -466,11 +473,11 @@ public class OrderPage {
         this.clickOnMetropolisStoreButton();
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
 
-    public OrderPage metropolisWithNoPayAndPhone(String phone, String email, String fio) {
+    public Order metropolisWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -479,10 +486,10 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnPhoneButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage metropolisWithNoPayAndWA(String phone, String email, String fio) {
+    public Order metropolisWithNoPayAndWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -491,10 +498,10 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage metropolisWithNoPayAndSms(String phone, String email, String fio) {
+    public Order metropolisWithNoPayAndSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -503,11 +510,11 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnSmsButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
     //Атриум:
-    public OrderPage orderWithCompanyStoreAtriumPhone(String phone, String email, String fio) {
+    public Order orderWithCompanyStoreAtriumPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -515,10 +522,10 @@ public class OrderPage {
         this.clickOnAtriumStoreButton();
         this.clickOnPhoneButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithCompanyStoreAtriumWA(String phone, String email, String fio) {
+    public Order orderWithCompanyStoreAtriumWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -526,10 +533,10 @@ public class OrderPage {
         this.clickOnAtriumStoreButton();
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithCompanyStoreAtriumSms(String phone, String email, String fio) {
+    public Order orderWithCompanyStoreAtriumSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -537,11 +544,11 @@ public class OrderPage {
         this.clickOnAtriumStoreButton();
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
 
-    public OrderPage atriumWithNoPayAndPhone(String phone, String email, String fio) {
+    public Order atriumWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -550,10 +557,10 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnPhoneButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage atriumWithNoPayAndWA(String phone, String email, String fio) {
+    public Order atriumWithNoPayAndWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -562,10 +569,10 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage atriumWithNoPayAndSMS(String phone, String email, String fio) {
+    public Order atriumWithNoPayAndSMS(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -574,12 +581,12 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnSmsButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
 
     //У Красного моста:
-    public OrderPage orderWithredBridgePhone(String phone, String email, String fio) {
+    public Order orderWithredBridgePhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -587,10 +594,10 @@ public class OrderPage {
         this.clickOnRedBridgeStoreButton();
         this.clickOnPhoneButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithredBridgeWA(String phone, String email, String fio) {
+    public Order orderWithredBridgeWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -598,10 +605,10 @@ public class OrderPage {
         this.clickOnRedBridgeStoreButton();
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithredBridgeSms(String phone, String email, String fio) {
+    public Order orderWithredBridgeSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -609,10 +616,10 @@ public class OrderPage {
         this.clickOnRedBridgeStoreButton();
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage redBridgeWithNoPayAndPhone(String phone, String email, String fio) {
+    public Order redBridgeWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -621,10 +628,10 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnPhoneButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage redBridgeWithNoPayAndWA(String phone, String email, String fio) {
+    public Order redBridgeWithNoPayAndWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -633,10 +640,10 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage redBridgeWithNoPayAndSms(String phone, String email, String fio) {
+    public Order redBridgeWithNoPayAndSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -645,12 +652,12 @@ public class OrderPage {
         this.clickOnNoPayButton();
         this.clickOnSmsButton();
         this.clickOnOrderButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
 
     //Доставить в другую страну:
-    public OrderPage internationalWithPhone(String phone, String email, String fio, String country, String internationalCity, String internationalAddress) {
+    public Order internationalWithPhone(String phone, String email, String fio, String country, String internationalCity, String internationalAddress) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -660,10 +667,10 @@ public class OrderPage {
         this.typeInternationalAddress(internationalAddress);
         this.clickOnPhoneButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage internationalWithWhatsApp(String phone, String email, String fio, String country, String internationalCity, String internationalAddress) {
+    public Order internationalWithWhatsApp(String phone, String email, String fio, String country, String internationalCity, String internationalAddress) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -673,10 +680,10 @@ public class OrderPage {
         this.typeInternationalAddress(internationalAddress);
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
 
-    public OrderPage orderWithPickPointPhone(String phone, String email, String fio, String search) {
+    public Order orderWithPickPointPhone(String phone, String email, String fio, String search) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -696,8 +703,160 @@ public class OrderPage {
         this.clickOnSelectButton();
         this.clickOnPhoneButton();
         this.clickOnPayButton();
-        return new OrderPage(driver);
+        return new Order(driver);
     }
+
+
+    //Сертификаты:
+    public Order elCertificateWithPhone(String phone, String email, String fio, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order elCertificateWithWA(String phone, String email, String fio, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnWhatsAppButton();
+        //скрол вниз страницы
+//        JavascriptExecutor jse = (JavascriptExecutor) driver;
+//        jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order certificateWithPhone(String phone, String email, String fio, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    //Бумажный
+    public Order certificateWithPhone(String phone, String email, String fio, String city, String street, String house, String apartment,
+                                        String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnPaperButton();
+        this.typeCity(city);
+        this.typeStreet(street);
+        this.typeHouse(house);
+        this.typeApartment(apartment);
+        this.clickOnAddAdresButton();
+        this.typeFrontDoor(frontDoor);
+        this.typeFloor(floor);
+        this.typeHouseCode(houseCode);
+        this.typeCommentForCourier(commentForCourier);
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order certificateWithWA(String phone, String email, String fio, String city, String street, String house, String apartment,
+                                      String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnPaperButton();
+        this.typeCity(city);
+        this.typeStreet(street);
+        this.typeHouse(house);
+        this.typeApartment(apartment);
+        this.clickOnAddAdresButton();
+        this.typeFrontDoor(frontDoor);
+        this.typeFloor(floor);
+        this.typeHouseCode(houseCode);
+        this.typeCommentForCourier(commentForCourier);
+        this.clickOnWhatsAppButton();
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order certificateWithTsvetnoyAndPhone(String phone, String email, String fio, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnPaperButton();
+        this.clickOnCompanyStoreButton();
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order certificateWithMetropolisAndWA(String phone, String email, String fio, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnPaperButton();
+        this.clickOnCompanyStoreButton();
+        this.clickOnMetropolisStoreButton();
+        this.clickOnWhatsAppButton();
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order certificateWithAtriumAndSMS(String phone, String email, String fio, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnPaperButton();
+        this.clickOnCompanyStoreButton();
+        this.clickOnAtriumStoreButton();
+        this.clickOnSmsButton();
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order certificateWithRedBridgeAndPhone(String phone, String email, String fio, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnPaperButton();
+        this.clickOnCompanyStoreButton();
+        this.clickOnRedBridgeStoreButton();
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    //Доставить в другую страну:
+    public Order certificateWithInternationalAndPhone(String phone, String email, String fio, String country,
+                                                      String internationalCity, String internationalAddress, String comment) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnPaperButton();
+        this.clickOnInternationalButton();
+        this.typeCountry(country);
+        this.typeInternationalCity(internationalCity);
+        this.typeInternationalAddress(internationalAddress);
+        this.clickOnWhatsAppButton();
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
 
 
     //SQL

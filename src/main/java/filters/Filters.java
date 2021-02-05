@@ -77,7 +77,8 @@ public class Filters {
     }
 
     public Filters clickToResetButton() {
-        driver.findElement(resetButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(resetButton));
         return this;
     }
 
