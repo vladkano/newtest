@@ -27,7 +27,7 @@ public class WishListTest {
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        WebDriverManager.firefoxdriver().setup();
+//        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);

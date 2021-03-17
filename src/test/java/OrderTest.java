@@ -18,13 +18,13 @@ public class OrderTest {
     private Order order;
 
     //бой
-    private final String getUrl = "https://poisondrop.ru/catalog/";
+    private final String getUrl = "https://poisondrop.ru/catalog/?utm_source=test_order&utm_medium=cpc&utm_campaign=test_order";
 
     //тест
 //    private String getUrl = "http://176.53.182.129:8088/catalog/";
 
     //старый адрес теста
-    //private String getUrl = "http://176.53.181.34:8088/catalog/";orderWithNoPayAndPhone
+    //private String getUrl = "http://176.53.181.34:8088/catalog/";
 
     @BeforeEach
     public void setUp() {
@@ -52,7 +52,7 @@ public class OrderTest {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Москва", "ул. Авиационная", "63", "2", "2", "2", "2", "Test Comment", "Test");
+                "г Нижний Новгород, ул Ефремова, д 10", "2", "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -65,7 +65,7 @@ public class OrderTest {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithWhatsApp("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Москва", "ул. Авиационная", "63", "2", "2", "2", "2", "Test Comment");
+                "г Санкт-Петербург, пр-кт Просвещения, д 10", "2", "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -279,7 +279,7 @@ public class OrderTest {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Москва", "ул. Авиационная", "63", "2", "2", "2", "2", "Test Comment", "Тест");
+                "Краснодарский край, г Сочи, ул Горького, д 87", "2а", "", "1", "нет", "Test Comment2");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -292,7 +292,7 @@ public class OrderTest {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Москва", "ул. Авиационная", "63", "2", "2", "2", "2", "Test Comment", "Тест");
+                "г Москва, Рублёвское шоссе, д 1", "", "", "", "", "Test Comment VIP");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();

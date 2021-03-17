@@ -32,14 +32,14 @@ public class Designers {
     }
 
     public Designers clickToSinitsynButton() {
-        driver.findElement(sinitsynButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(sinitsynButton));
         return this;
     }
 
     public Designers clickToJewlryButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(jewlryButton));
-//        driver.findElement(jewlryButton).click();
         return this;
     }
 
@@ -53,16 +53,17 @@ public class Designers {
         DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item_sku " +
-                "JOIN item ON item_sku.item_id = item.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and item_sku.url is not null " +
-                "and designer.name = 'Aleksandr Sinitsyn' and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-                " group by item_sku.id ";
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and designer.name = 'Aleksandr Sinitsyn' " +
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -83,16 +84,17 @@ public class Designers {
         DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item_sku " +
-                "JOIN item ON item_sku.item_id = item.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and item_sku.url is not null " +
-                "and designer.name = 'Prosto Jewlry' and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-                " group by item_sku.id ";
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and designer.name = 'Prosto Jewlry' " +
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -113,16 +115,17 @@ public class Designers {
         DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item_sku " +
-                "JOIN item ON item_sku.item_id = item.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and item_sku.url is not null " +
-                "and designer.name = 'Avgvst' and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-                " group by item_sku.id ";
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and designer.name = 'Avgvst' " +
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);

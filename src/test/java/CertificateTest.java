@@ -3,6 +3,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -22,23 +23,22 @@ public class CertificateTest {
 
     //private String getUrl = "http://176.53.182.129:8088/certificate/";
     //private String getUrl = "http://176.53.181.34:8088/certificate/";
-    private String getUrl = "https://poisondrop.ru/certificate/";
+    private String getUrl = "https://poisondrop.ru/certificate/?utm_source=test_order&utm_medium=cpc&utm_campaign=test_order";
 
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        WebDriverManager.firefoxdriver().setup();
+//        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
         driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-//        driver.manage().window().setSize(new Dimension(1920, 1080));
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         certificate = new Certificate(driver);
     }
 
@@ -98,7 +98,7 @@ public class CertificateTest {
 
     @Test
     public void secondSectionOrder() {
-        certificate.secondSectionOrder("rundkvist@poisondrop.ru");
+        certificate.secondSectionOrder("Вася","Петя","rundkvist@poisondrop.ru", "Всего всего!");
         String number = certificate.getBasketNumber();
         assertEquals("1", number);
     }
@@ -174,7 +174,7 @@ public class CertificateTest {
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         order.certificateWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Москва", "ул. Авиационная", "63", "2", "2", "2", "2", "Test Comment", "Тест");
+                "г Калининград, ул Пушкина, д 4", "2", "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -186,12 +186,11 @@ public class CertificateTest {
     public void orderWithCertificateAndWA() {
         basket = new Basket(driver);
         order = new Order(driver);
-
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         order.certificateWithWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Москва", "ул. Авиационная", "63", "2", "2", "2", "2", "Test Comment", "Тест");
+                "г Самара, пр-кт Волжский, д 10А", "2", "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -282,8 +281,119 @@ public class CertificateTest {
 
 
     //Проверка перехода к оплате заказа на сайте, тип сертификата 2
+    @Test()
+    public void orderWithElCertificateEmailAndPhone() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        certificate.secondSectionOrder("Вася","Петя","rundkvist@poisondrop.ru", "Всего всего!");
+        String number = certificate.getBasketNumber();
+        basket.clickToBasketButton();
+        order.elCertificateWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "TEST");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("1", number);
+        assertEquals("Заплатить", header);
+    }
+
+    @Test()
+    public void orderWithElCertificateEmailAndWA() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        certificate.secondSectionOrder("Вася","Петя","rundkvist@poisondrop.ru", "Всего всего!");
+        String number = certificate.getBasketNumber();
+        basket.clickToBasketButton();
+        order.elCertificateWithWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "TEST");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("1", number);
+        assertEquals("Заплатить", header);
+    }
 
     //Проверка оформления заказа на сайте, тип сертификата 3
+    //Бумажный
+
+    //Способ доставки: Доставка курьером
+    @Test()
+    public void noPayOrderWithCertificateAndPhone() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        certificate.thirdSectionOrder("Всего всего!");
+        String number = certificate.getBasketNumber();
+        basket.clickToBasketButton();
+        order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+                "г Казань, ул Узорная, д 15", "2", "2", "2", "2", "Test Comment", "Тест");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getOrderHeader();
+        assertEquals("1", number);
+        assertEquals("Мы приняли ваш заказ", header);
+    }
+
+    //Способ доставки: Цветной+ВА
+    @Test()
+    public void noPayOrderTsvetnoyWithCertificateAndWA() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        certificate.thirdSectionOrder("Всего всего!");
+        String number = certificate.getBasketNumber();
+        basket.clickToBasketButton();
+        order.certificateWithNoPayTsvetnoyAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getOrderHeader();
+        assertEquals("1", number);
+        assertEquals("Мы приняли ваш заказ", header);
+    }
+
+    //Способ доставки: Метрополис+СМС
+    @Test()
+    public void noPayOrderMetropolisWithCertificateAndSMS() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        certificate.thirdSectionOrder("Всего всего!");
+        String number = certificate.getBasketNumber();
+        basket.clickToBasketButton();
+        order.certificateWithNoPayMetropolisAndSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getOrderHeader();
+        assertEquals("1", number);
+        assertEquals("Мы приняли ваш заказ", header);
+    }
+
+    //Способ доставки: Атриум+телефон
+    @Test()
+    public void noPayOrderAtriumWithCertificateAndPhone() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        certificate.thirdSectionOrder("Всего всего!");
+        String number = certificate.getBasketNumber();
+        basket.clickToBasketButton();
+        order.certificateWithNoPayAtriumAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getOrderHeader();
+        assertEquals("1", number);
+        assertEquals("Мы приняли ваш заказ", header);
+    }
+
+    //Способ доставки: У Красного моста+ВА
+    @Test()
+    public void noPayOrderRedBridgeWithCertificateAndWA() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        certificate.thirdSectionOrder("Всего всего!");
+        String number = certificate.getBasketNumber();
+        basket.clickToBasketButton();
+        order.certificateWithNoPayRedBridgeAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getOrderHeader();
+        assertEquals("1", number);
+        assertEquals("Мы приняли ваш заказ", header);
+    }
 
     @AfterEach
     public void tearDownEach() {

@@ -53,6 +53,7 @@ public class DBWorker {
 
 
        //Тест
+
 //        try {
 //            String strSshUser = "rundkvist"; // SSH loging username
 //            String strSshPassword = "ldvOVHvhj648cYk"; // SSH login password

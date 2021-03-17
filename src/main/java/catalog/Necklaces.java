@@ -75,15 +75,48 @@ public class Necklaces {
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=2 and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-                " group by item_sku.id ";
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
+                "and item_sku.url is not null and balance > 0 " +
+                "group by item_catalog_position.position" ;
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+//                System.out.println(name);
+                text.add(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //worker.getSession().disconnect();
+//        System.out.println("метод getNames: " + text);
+
+        return text;
+    }
+
+    public List<String> getNamesForFilters() {
+        worker = new DBWorker();
+        String name;
+        List<String> text = new ArrayList<>();
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 " +
+                "group by item_catalog_position.position" ;
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -106,15 +139,16 @@ public class Necklaces {
         String designer;
         List<String> text = new ArrayList<>();
         String query = "SELECT designer.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=2 and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-                " group by item_sku.id ";
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
+                "and item_sku.url is not null and balance > 0 " +
+                "group by item_catalog_position.position" ;
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -137,15 +171,16 @@ public class Necklaces {
         int price, discount;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT item_sku.price, (price * discount/100) as discount from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=2 and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-                " group by item_sku.id ";
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
+                "and item_sku.url is not null and balance > 0 " +
+                "group by item_catalog_position.position" ;
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);

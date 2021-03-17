@@ -34,15 +34,16 @@ public class CatalogNavigation {
 
     public int countRings() {
         int id = 0;
-        String query = "SELECT COUNT(DISTINCT item_sku.id) as count from item_sku " +
-                "JOIN item ON item.id = item_sku.item_id " +
+        String query = "SELECT COUNT(distinct item_catalog_position.item_id) as count from item_catalog_position " +
+                "JOIN item ON item.id = item_catalog_position.item_id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=5 and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and item_sku.show != 0 and catalog.show !=0 and balance > 0";
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -62,15 +63,17 @@ public class CatalogNavigation {
     public static void main(String[] args) {
         List<String> text = new ArrayList<>();
         int id = 0;
-        String query = "SELECT COUNT(DISTINCT item_sku.id) as count from item_sku " +
-                "JOIN item ON item.id = item_sku.item_id " +
+        String query = "SELECT COUNT(distinct item_catalog_position.item_id) as count from item_catalog_position " +
+                "JOIN item ON item.id = item_catalog_position.item_id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and catalog_id=5 and is_archive = 0 and price != 0" +
-                " and item_sku.url is not null and storage_id != 1 and catalog.show !=0 and balance > 0";
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 ";
+
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -82,9 +85,10 @@ public class CatalogNavigation {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        worker.getSession().disconnect();
-
         System.out.println(id);
+        worker.getSession().disconnect();
+
+
     }
 
 

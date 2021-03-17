@@ -29,14 +29,23 @@ public class Certificate {
     By thirdSectionMinusButton = By.xpath("//div[@class='certificate-text-form__counter certificate-page__counter counter']/button[@class='counter__button counter__button_minus']");
     By thirdSectionOrderButton = By.xpath("//div[@class='certificate-text-form__wrap']//span[text()='Заказать']");
 
-    By receiverEmail = By.xpath("//input[@name='receiver-email']");
-
 
     By perfectGiftValue = By.xpath("//div[@class='certificate-value-form__counter certificate-page__counter counter']//input[@name='certificate-value']");
     By secondSectionValue = By.xpath("//div[@class='certificate-gift-form__counter certificate-page__counter counter']//input[@name='certificate-value']");
     By thirdSectionValue = By.xpath("//div[@class='certificate-text-form__counter certificate-page__counter counter']//input[@name='certificate-value']");
     By checkValue = By.xpath("//input[@name='quantity']");
     By certificatesButton = By.xpath("//a[text()='Сертификаты']");
+
+    By receiverName = By.xpath("//input[@id='receiverName']");
+    By senderName = By.xpath("//input[@id='senderName']");
+    By receiverEmail = By.xpath("//input[@id='receiverEmail']");
+    By postcardWishes = By.xpath("//textarea[@id='postcardWishes']");
+
+    By certificateWishes = By.xpath("//textarea[@name='certificate-wishes']");
+
+
+
+
 
     public String getPerfectGiftSection() {
         return driver.findElement(perfectGiftSection).getText();
@@ -124,20 +133,48 @@ public class Certificate {
         return driver.findElement(checkValue).getAttribute("value");
     }
 
+
+    public Certificate typeReceiverName(String komu) {
+        driver.findElement(receiverName).sendKeys(komu);
+        return this;
+    }
+
+    public Certificate typeSenderName(String kogo) {
+        driver.findElement(senderName).sendKeys(kogo);
+        return this;
+    }
+
     public Certificate typeEmail(String email) {
         driver.findElement(receiverEmail).sendKeys(email);
         return this;
     }
 
-    public Certificate secondSectionOrder(String email) {
+    public Certificate typePostcardWishes(String wishes) {
+        driver.findElement(postcardWishes).sendKeys(wishes);
+        return this;
+    }
+
+    public Certificate typeCertificateWishes(String bestWishes) {
+        driver.findElement(certificateWishes).sendKeys(bestWishes);
+        return this;
+    }
+
+    public Certificate secondSectionOrder(String komu, String kogo, String email, String wishes) {
+        this.typeReceiverName(komu);
+        this.typeSenderName(kogo);
         this.typeEmail(email);
+        this.typePostcardWishes(wishes);
         this.clickToSecondSectionOrderButton();
         return new Certificate(driver);
     }
 
+    public Certificate thirdSectionOrder(String bestWishes) {
+        this.typeCertificateWishes(bestWishes);
+        this.clickToThirdSectionOrderButton();
+        return new Certificate(driver);
+    }
 
-
-    public Certificate clickToСertificatesButton() {
+    public Certificate clickToСertificatButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(certificatesButton));
         return this;

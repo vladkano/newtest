@@ -1,3 +1,4 @@
+
 import catalog.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -10,7 +11,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +33,6 @@ public class CollectionTest {
     //private String getUrl = "http://176.53.182.129:8088/catalog/";
     //private String getUrl = "http://176.53.181.34:8088/catalog/";
     private String getUrl = "https://poisondrop.ru/catalog/";
-
 
 
     @BeforeEach
@@ -56,7 +58,6 @@ public class CollectionTest {
     public void countOfCollectionItems() {
         driver.get(getUrl);
         List<String> namesItems = collection.getNamesItems();
-//        System.out.println(namesItems);
         List<WebElement> site = driver.findElements(By.xpath("//h3[@class='catalog-card__name']"));
         assertEquals(namesItems.get(0), site.get(0).getAttribute("textContent"));
     }
@@ -73,16 +74,17 @@ public class CollectionTest {
         assertEquals(url, href);
     }
 
-    @Test
-    public void secondLinkOfItems() {
-        driver.get(getUrl);
-        String linkFromSql = collection.getSecondLink();
-        String href = collection.getSecondHref();
-        collection.clickOnSecondHref();
-        String url = driver.getCurrentUrl();
-        assertEquals(linkFromSql, href);
-        assertEquals(url, href);
-    }
+    //Переделать
+//    @Test
+//    public void secondLinkOfItems() {
+//        driver.get(getUrl);
+//        String linkFromSql = collection.getSecondLink();
+//        String href = collection.getSecondHref();
+//        collection.clickOnSecondHref();
+//        String url = driver.getCurrentUrl();
+//        assertEquals(linkFromSql, href);
+//        assertEquals(url, href);
+//    }
 
     @Test
     public void firstLinkOfBracelets() {
@@ -92,10 +94,6 @@ public class CollectionTest {
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
-//        System.out.println(linkFromSql);
-//        System.out.println(href);
-//        System.out.println(url);
-//        System.out.println(href);
         assertEquals(linkFromSql, href);
         assertEquals(url, href);
     }

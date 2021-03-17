@@ -47,22 +47,26 @@ public class Filters {
     }
 
     public Filters clickToAllRingsButton() {
-        driver.findElement(allRingsButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(allRingsButton));
         return this;
     }
 
     public Filters clickToAllEarringsButton() {
-        driver.findElement(allEarringsButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(allEarringsButton));
         return this;
     }
 
     public Filters clickToAllNecklacesButton() {
-        driver.findElement(allNecklacesButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(allNecklacesButton));
         return this;
     }
 
     public Filters clickToAllBraceletsButton() {
-        driver.findElement(allBraceletsButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(allBraceletsButton));
         return this;
     }
 
@@ -72,7 +76,8 @@ public class Filters {
     }
 
     public Filters clickToPriceButton() {
-        driver.findElement(priceButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(priceButton));
         return this;
     }
 
@@ -96,6 +101,7 @@ public class Filters {
     public Filters clickToRingsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(ringsButton));
+//        driver.findElement(ringsButton).click();
         return this;
     }
 

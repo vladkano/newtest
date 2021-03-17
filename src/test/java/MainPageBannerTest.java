@@ -122,7 +122,6 @@ public class MainPageBannerTest {
         String url = driver.getCurrentUrl();
         assertEquals(href, url);
         assertEquals("Все украшения", header);
-
     }
 
     @Test

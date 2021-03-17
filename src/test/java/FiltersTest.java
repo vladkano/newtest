@@ -34,6 +34,7 @@ public class FiltersTest {
     private List<String> siteList = new ArrayList<>();
     private By numberOfItem = By.xpath("//h3[@class='catalog-card__name']/a");
     private int siteSize;
+    private CatalogNavigation navigation;
 
     //private String getUrl = "http://176.53.182.129:8088/catalog/";
     //private String getUrl = "http://176.53.181.34:8088/catalog/";
@@ -43,7 +44,7 @@ public class FiltersTest {
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        WebDriverManager.firefoxdriver().setup();
+//        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
@@ -72,7 +73,7 @@ public class FiltersTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<String> sqlList = earrings.getNames();
+        List<String> sqlList = earrings.getNamesForFilters();
         int sqlSize = sqlList.size();
 //        System.out.println("sql size :" + sqlSize);
 //        System.out.println("from sql: " + sqlList);
@@ -103,7 +104,7 @@ public class FiltersTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<String> sqlList = rings.getNames();
+        List<String> sqlList = rings.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -129,7 +130,7 @@ public class FiltersTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<String> sqlList = necklaces.getNames();
+        List<String> sqlList = necklaces.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -148,15 +149,29 @@ public class FiltersTest {
     @Test
     public void typeOfItemBracelets() {
         bracelets = new Bracelets(driver);
+        navigation = new CatalogNavigation(driver);
+
         filters.clickToFilterButton();
         filters.clickToAllBraceletsButton();
 //        filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        List<String> sqlList = bracelets.getNames();
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        for (int i = 0; i <17; i++ ) {
+//            navigation.clickOnShowMoreButton();
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+
+
+        List<String> sqlList = bracelets.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -168,6 +183,7 @@ public class FiltersTest {
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
+//        assertEquals(sqlList.subList(0, 832), siteList.subList(0, 834));
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
@@ -200,7 +216,6 @@ public class FiltersTest {
     }
 
     //МАТЕРИАЛЫ
-    //Есть материалы
     @Test
     public void getPearl() {
         material = new Material(driver);
@@ -467,7 +482,7 @@ public class FiltersTest {
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
-    //Тип покрытия
+    //Тип покрытия:
     @Test
     public void getRhodium() {
         colors = new Colors(driver);
@@ -495,7 +510,6 @@ public class FiltersTest {
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
-    //Тип покрытия
     @Test
     public void getPinkGold() {
         colors = new Colors(driver);
@@ -742,7 +756,7 @@ public class FiltersTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<String> sqlList = earrings.getNames();
+        List<String> sqlList = earrings.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -767,7 +781,7 @@ public class FiltersTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<String> sqlList = rings.getNames();
+        List<String> sqlList = rings.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -791,7 +805,7 @@ public class FiltersTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<String> sqlList = necklaces.getNames();
+        List<String> sqlList = necklaces.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -816,7 +830,7 @@ public class FiltersTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<String> sqlList = bracelets.getNames();
+        List<String> sqlList = bracelets.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -841,7 +855,7 @@ public class FiltersTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<String> sqlList = brooches.getNames();
+        List<String> sqlList = brooches.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {

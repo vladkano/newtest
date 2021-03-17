@@ -29,13 +29,13 @@ public class CatalogTest {
     private static Brooches brooches;
     private static Pirsing pirsing;
     private static Man man;
+    private static CatalogNavigation navigation;
     private By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
     private By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image-hovered']");
     private final int numberOfFoto = 48;
     private Filters filters;
     private List<String> siteList = new ArrayList<>();
     private int siteSize = 0;
-
 
 
     //private String getUrl = "http://176.53.182.129:8088/catalog/";
@@ -167,9 +167,8 @@ public class CatalogTest {
         }
         //сравниваем размеры и содержание списков
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size()));
     }
-
 
 
     @Test
@@ -189,7 +188,7 @@ public class CatalogTest {
         }
         //сравниваем размеры и содержание списков
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, siteList.size()));
+        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
     @Test
@@ -207,9 +206,10 @@ public class CatalogTest {
             String s = text.getText();
             siteList.add(s);
         }
+
         //сравниваем размеры и содержание списков
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, siteList.size()));
+        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
     //Кол-во намименование в базе и на странице, выборочная проверка по наименованию
@@ -272,8 +272,6 @@ public class CatalogTest {
         }
         //сравниваем 1,11 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-        System.out.println(sqlSize);
-        System.out.println(numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(10), siteList.get(10));
     }
@@ -294,10 +292,10 @@ public class CatalogTest {
             siteList.add(s);
         }
         //сравниваем 1,11 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(10), siteList.get(10));
+        assertEquals(sqlSize, numberOnly);
+//        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        assertEquals(sqlList.get(0), siteList.get(0));
+        assertEquals(sqlList.get(10), siteList.get(10));
     }
 
     @Test
@@ -344,22 +342,45 @@ public class CatalogTest {
 
     @Test
     public void namesOfManItems() {
-        driver.get(getUrl + "men/");
+        navigation = new CatalogNavigation(driver);
         man = new Man(driver);
+        driver.get(getUrl + "men/");
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = man.getNames();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        navigation.clickOnShowMoreButton();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        navigation.clickOnShowMoreButton();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        navigation.clickOnShowMoreButton();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, siteList.size()));
+        //сравниваем 1,11 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        assertEquals(sqlSize, numberOnly);
+        System.out.println(sqlList);
+        System.out.println(siteList);
+        assertEquals(sqlList, siteList);
+//        assertEquals(sqlList.get(0), siteList.get(0));
+//        assertEquals(sqlList.get(10), siteList.get(10));
     }
 
     //Проверяем отображение картинок и их количество.
@@ -412,19 +433,22 @@ public class CatalogTest {
     }
 
     @Test
-    public void pictureOfBrooches()  {
+    public void pictureOfBrooches() {
+        brooches = new Brooches(driver);
         driver.get(getUrl + "broshi");
+        List<String> sqlList = brooches.getNames();
+        int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
             siteSize = siteList.size();
         }
-        assertEquals(numberOfFoto, siteSize);
+        assertEquals(sqlSize, siteSize);
     }
 
     @Test
-    public void pictureOfPirsing()  {
+    public void pictureOfPirsing() {
         pirsing = new Pirsing(driver);
         driver.get(getUrl + "pirsing");
         List<String> sqlList = pirsing.getNames();
@@ -435,11 +459,11 @@ public class CatalogTest {
             siteList.add(s);
             siteSize = siteList.size();
         }
-        assertEquals(sqlSize*2, siteSize);
+        assertEquals(numberOfFoto, siteSize);
     }
 
     @Test
-    public void pictureOfManItems()  {
+    public void pictureOfManItems() {
         driver.get(getUrl + "men");
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
@@ -568,7 +592,7 @@ public class CatalogTest {
         }
         //сравниваем размеры и содержание списков
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
+        assertEquals(sqlList.subList(0, sqlList.size()), priceList.subList(0, priceList.size()));
     }
 
     @Test
