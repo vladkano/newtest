@@ -461,7 +461,7 @@ public class Designers {
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(50) + "'" +
+                "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(10) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position" ;
         try {

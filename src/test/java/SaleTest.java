@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,18 +20,7 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SaleTest {
-
-    private static WebDriver driver;
-    private Sale sale;
-    private Filters filters;
-    private List<String> siteList = new ArrayList<>();
-    private By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
-    private List<Integer> priceList = new ArrayList<>();
-
-    //private String getUrl = "http://176.53.182.129:8088/catalog/sale/";
-    //private String getUrl = "http://176.53.181.34:8088/catalog/sale/";
-    private String getUrl = "https://poisondrop.ru/catalog/sale/";
+public class SaleTest extends TestBase{
 
     @BeforeEach
     public void setUp() {
@@ -44,8 +34,8 @@ public class SaleTest {
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get(getUrl);
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+        driver.get(getUrl + "catalog/sale/");
         sale = new Sale(driver);
         filters = new Filters(driver);
     }
@@ -138,7 +128,7 @@ public class SaleTest {
         //sql:
         List<Integer> sqlList = sale.getSale();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//span[@class='price-block__sale']"));
+        List<WebElement> elements = driver.findElements(By.xpath("//span[@class='price-block__discount']"));
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");

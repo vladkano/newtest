@@ -29,10 +29,13 @@ public class MainPage {
     By authPassword = By.id("authCode");
     By authEmailPassword = By.xpath("//input[@id='authCode']");
     By authPhone = By.id("authPhone");
+    By exitButton = By.xpath("//span[text()='Выход']");
+
 
 
     //headers
-    By sigInHeader = By.xpath("//a[text()='Сервисы']");
+
+    By sigInHeader = By.xpath("//a[@href='/profile?section=personalData']/span");
     By incorrectSigInHeader = By.xpath("//p[@class='message popup-auth__message message_error']");
     By incorrectCodeHeader = By.xpath("//p[text()='Необходимо указать код подтверждения']");
     By incorrectEmailHeader = By.xpath("//p[text()='Необходимо указать электронную почту']");
@@ -121,7 +124,7 @@ public class MainPage {
     public String getPhonePassword() {
         worker = new DBWorker();
         String code = null;
-        String query = "select code from user_authentication_code where phone=+79126459328 and id=(SELECT MAX(id) FROM user_authentication_code)";
+        String query = "select code from user_authentication_code where id=(SELECT MAX(id) FROM user_authentication_code)";
 
         try {
             Statement statement = worker.getCon().createStatement();
@@ -139,7 +142,7 @@ public class MainPage {
     public String getEmailPassword() {
         worker = new DBWorker();
         String code = null;
-        String query = "select code from user_authentication_code where email='rundkvist@poisondrop.ru' and id=(SELECT MAX(id) FROM user_authentication_code)";
+        String query = "select code from user_authentication_code where id=(SELECT MAX(id) FROM user_authentication_code)";
 
         try {
             Statement statement = worker.getCon().createStatement();
@@ -156,6 +159,13 @@ public class MainPage {
 
 
 //    ---Методы и хедеры--------
+
+
+    public MainPage clickOnExitButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(exitButton));
+        return this;
+    }
 
     public MainPage clickOnSigInButton() {
         driver.findElement(sigInButton).click();
@@ -259,16 +269,16 @@ public class MainPage {
 
 
 
+    public String getSigOutHeader() {
+        return driver.findElement(sigInButton).getText();
+    }
+
     public String getIncorrectSigInHeader() {
         return driver.findElement(incorrectSigInHeader).getText();
     }
 
     public String getSigInHeader() {
-
-        return driver.findElement(By.xpath("//a[@href=\"/profile?section=personalData\"]")).getAttribute("textContent");
-//        WebDriverWait wait = (new WebDriverWait(driver, 10));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Сервисы']")));
-//        return driver.findElement(sigInHeader).getText();
+        return driver.findElement(sigInHeader).getAttribute("textContent");
     }
 
     public String getIncorrectEmailHeader() {
@@ -290,6 +300,7 @@ public class MainPage {
     public String getNoConsentHeader() {
         return driver.findElement(noConsentHeader).getText();
     }
+
 
 
 }

@@ -71,7 +71,8 @@ public class Filters {
     }
 
     public Filters clickToAllBroochesButton() {
-        driver.findElement(allBroochesButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(allBroochesButton));
         return this;
     }
 

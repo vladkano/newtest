@@ -34,12 +34,14 @@ public class Colors {
     }
 
     public Colors clickToGreenButton() {
-        driver.findElement(greenButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(greenButton));
         return this;
     }
 
     public Colors clickToBlueButton() {
-        driver.findElement(blueButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(blueButton));
         return this;
     }
 
@@ -56,7 +58,8 @@ public class Colors {
     }
 
     public Colors clickToPinkGoldButton() {
-        driver.findElement(pinkGoldButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(pinkGoldButton));
         return this;
     }
 

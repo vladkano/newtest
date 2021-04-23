@@ -6,7 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -20,27 +20,7 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CatalogTest {
-    private static WebDriver driver;
-    private static Earrings earrings;
-    private static Necklaces necklaces;
-    private static Bracelets bracelets;
-    private static Rings rings;
-    private static Brooches brooches;
-    private static Pirsing pirsing;
-    private static Man man;
-    private static CatalogNavigation navigation;
-    private By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
-    private By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image-hovered']");
-    private final int numberOfFoto = 48;
-    private Filters filters;
-    private List<String> siteList = new ArrayList<>();
-    private int siteSize = 0;
-
-
-    //private String getUrl = "http://176.53.182.129:8088/catalog/";
-    //private String getUrl = "http://176.53.181.34:8088/catalog/";
-    private String getUrl = "https://poisondrop.ru/catalog/";
+public class CatalogTest extends TestBase{
 
     @BeforeEach
     public void setUp() {
@@ -53,17 +33,15 @@ public class CatalogTest {
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-//        driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         filters = new Filters(driver);
     }
 
     //Кол-во намименований в базе и на странице, проверка по наименованию дезайнера
     @Test
     public void designersOfBracelets() {
-        driver.get(getUrl + "braslety");
+        driver.get(getUrl + "catalog/braslety");
         bracelets = new Bracelets(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -83,7 +61,7 @@ public class CatalogTest {
 
     @Test
     public void designersOfEarrings() {
-        driver.get(getUrl + "sergi");
+        driver.get(getUrl + "catalog/sergi");
         earrings = new Earrings(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -112,7 +90,7 @@ public class CatalogTest {
 
     @Test
     public void designersOfNecklaces() {
-        driver.get(getUrl + "kole");
+        driver.get(getUrl + "catalog/kole");
         necklaces = new Necklaces(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -132,7 +110,7 @@ public class CatalogTest {
 
     @Test
     public void designersOfRings() {
-        driver.get(getUrl + "koltsa");
+        driver.get(getUrl + "catalog/koltsa");
         rings = new Rings(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -152,7 +130,7 @@ public class CatalogTest {
 
     @Test
     public void designersOfBrooches() {
-        driver.get(getUrl + "broshi");
+        driver.get(getUrl + "catalog/broshi");
         brooches = new Brooches(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -173,7 +151,7 @@ public class CatalogTest {
 
     @Test
     public void designersOfРirsing() {
-        driver.get(getUrl + "pirsing");
+        driver.get(getUrl + "catalog/pirsing");
         pirsing = new Pirsing(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -193,7 +171,7 @@ public class CatalogTest {
 
     @Test
     public void designersOfManItems() {
-        driver.get(getUrl + "men");
+        driver.get(getUrl + "catalog/men");
         man = new Man(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -215,7 +193,7 @@ public class CatalogTest {
     //Кол-во намименование в базе и на странице, выборочная проверка по наименованию
     @Test
     public void namesOfBracelets() {
-        driver.get(getUrl + "braslety");
+        driver.get(getUrl + "catalog/braslety");
         bracelets = new Bracelets(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -236,7 +214,7 @@ public class CatalogTest {
 
     @Test
     public void namesOfEarrings() {
-        driver.get(getUrl + "sergi");
+        driver.get(getUrl + "catalog/sergi");
         earrings = new Earrings(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -257,7 +235,7 @@ public class CatalogTest {
 
     @Test
     public void namesOfNecklaces() {
-        driver.get(getUrl + "kole");
+        driver.get(getUrl + "catalog/kole");
         necklaces = new Necklaces(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -278,7 +256,7 @@ public class CatalogTest {
 
     @Test
     public void namesOfRings() {
-        driver.get(getUrl + "koltsa");
+        driver.get(getUrl + "catalog/koltsa");
         rings = new Rings(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -300,7 +278,7 @@ public class CatalogTest {
 
     @Test
     public void namesOfBrooches() {
-        driver.get(getUrl + "broshi");
+        driver.get(getUrl + "catalog/broshi");
         brooches = new Brooches(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -321,7 +299,7 @@ public class CatalogTest {
 
     @Test
     public void namesOfPirsing() {
-        driver.get(getUrl + "pirsing");
+        driver.get(getUrl + "catalog/pirsing");
         pirsing = new Pirsing(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -344,7 +322,7 @@ public class CatalogTest {
     public void namesOfManItems() {
         navigation = new CatalogNavigation(driver);
         man = new Man(driver);
-        driver.get(getUrl + "men/");
+        driver.get(getUrl + "catalog/men/");
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
@@ -386,7 +364,7 @@ public class CatalogTest {
     //Проверяем отображение картинок и их количество.
     @Test
     public void pictureOfBracelets() {
-        driver.get(getUrl + "braslety");
+        driver.get(getUrl + "catalog/braslety");
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -398,7 +376,7 @@ public class CatalogTest {
 
     @Test
     public void pictureOfEarrings() {
-        driver.get(getUrl + "sergi");
+        driver.get(getUrl + "catalog/sergi");
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -410,7 +388,7 @@ public class CatalogTest {
 
     @Test
     public void pictureOfNecklaces() {
-        driver.get(getUrl + "kole");
+        driver.get(getUrl + "catalog/kole");
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -422,7 +400,7 @@ public class CatalogTest {
 
     @Test
     public void pictureOfRings() {
-        driver.get(getUrl + "koltsa");
+        driver.get(getUrl + "catalog/koltsa");
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -435,7 +413,7 @@ public class CatalogTest {
     @Test
     public void pictureOfBrooches() {
         brooches = new Brooches(driver);
-        driver.get(getUrl + "broshi");
+        driver.get(getUrl + "catalog/broshi");
         List<String> sqlList = brooches.getNames();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfPictures);
@@ -450,7 +428,7 @@ public class CatalogTest {
     @Test
     public void pictureOfPirsing() {
         pirsing = new Pirsing(driver);
-        driver.get(getUrl + "pirsing");
+        driver.get(getUrl + "catalog/pirsing");
         List<String> sqlList = pirsing.getNames();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfPictures);
@@ -464,7 +442,7 @@ public class CatalogTest {
 
     @Test
     public void pictureOfManItems() {
-        driver.get(getUrl + "men");
+        driver.get(getUrl + "catalog/men");
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -478,7 +456,7 @@ public class CatalogTest {
     @Test
     public void priceOfBracelets() {
         List<Integer> priceList = new ArrayList<>();
-        driver.get(getUrl + "braslety");
+        driver.get(getUrl + "catalog/braslety");
         bracelets = new Bracelets(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -502,7 +480,7 @@ public class CatalogTest {
     @Test
     public void priceOfEarrings() {
         List<Integer> priceList = new ArrayList<>();
-        driver.get(getUrl + "sergi");
+        driver.get(getUrl + "catalog/sergi");
         earrings = new Earrings(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -526,7 +504,7 @@ public class CatalogTest {
     @Test
     public void priceOfNecklaces() {
         List<Integer> priceList = new ArrayList<>();
-        driver.get(getUrl + "kole");
+        driver.get(getUrl + "catalog/kole");
         necklaces = new Necklaces(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -550,7 +528,7 @@ public class CatalogTest {
     @Test
     public void priceOfRings() {
         List<Integer> priceList = new ArrayList<>();
-        driver.get(getUrl + "koltsa");
+        driver.get(getUrl + "catalog/koltsa");
         rings = new Rings(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -574,7 +552,7 @@ public class CatalogTest {
     @Test
     public void priceOfBrooches() {
         List<Integer> priceList = new ArrayList<>();
-        driver.get(getUrl + "broshi");
+        driver.get(getUrl + "catalog/broshi");
         brooches = new Brooches(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -598,7 +576,7 @@ public class CatalogTest {
     @Test
     public void priceOfPirsing() {
         List<Integer> priceList = new ArrayList<>();
-        driver.get(getUrl + "pirsing");
+        driver.get(getUrl + "catalog/pirsing");
         pirsing = new Pirsing(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -622,7 +600,7 @@ public class CatalogTest {
     @Test
     public void priceOfManItems() {
         List<Integer> priceList = new ArrayList<>();
-        driver.get(getUrl + "men");
+        driver.get(getUrl + "catalog/men");
         man = new Man(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));

@@ -11,11 +11,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Designers {
+public class DesignersFilter {
 
     private WebDriver driver;
 
-    public Designers(WebDriver driver) {
+
+    public DesignersFilter(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -25,26 +26,27 @@ public class Designers {
     By avgvstButton = By.xpath("//span[text()='Avgvst']");
 
 
-    public Designers clickToDesignersButton() {
+    public DesignersFilter clickToDesignersButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(designersButton));
         return this;
     }
 
-    public Designers clickToSinitsynButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(sinitsynButton));
+    public DesignersFilter clickToSinitsynButton() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click()", driver.findElement(sinitsynButton));
         return this;
     }
 
-    public Designers clickToJewlryButton() {
+    public DesignersFilter clickToJewlryButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(jewlryButton));
         return this;
     }
 
-    public Designers clickToAvgvstButton() {
-        driver.findElement(avgvstButton).click();
+    public DesignersFilter clickToAvgvstButton() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click()", driver.findElement(avgvstButton));
         return this;
     }
 

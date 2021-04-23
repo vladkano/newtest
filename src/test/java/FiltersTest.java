@@ -5,41 +5,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FiltersTest {
-
-    private WebDriver driver;
-    private Filters filters;
-    private Material material;
-    private Colors colors;
-    private Size size;
-    private Designers designers;
-    private static Earrings earrings;
-    private static Necklaces necklaces;
-    private static Bracelets bracelets;
-    private static Rings rings;
-    private static Brooches brooches;
-    private List<String> siteList = new ArrayList<>();
-    private By numberOfItem = By.xpath("//h3[@class='catalog-card__name']/a");
-    private int siteSize;
-    private CatalogNavigation navigation;
-
-    //private String getUrl = "http://176.53.182.129:8088/catalog/";
-    //private String getUrl = "http://176.53.181.34:8088/catalog/";
-    private String getUrl = "https://poisondrop.ru/catalog/";
-
+public class FiltersTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
@@ -52,10 +29,9 @@ public class FiltersTest {
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-        driver.get(getUrl);
+        driver.get(getUrl + "catalog/");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-
         filters = new Filters(driver);
     }
 
@@ -68,11 +44,11 @@ public class FiltersTest {
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         List<String> sqlList = earrings.getNamesForFilters();
         int sqlSize = sqlList.size();
 //        System.out.println("sql size :" + sqlSize);
@@ -90,7 +66,7 @@ public class FiltersTest {
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        assertEquals(sqlList.get(1), siteList.get(1));
     }
 
     @Test
@@ -99,11 +75,6 @@ public class FiltersTest {
         filters.clickToFilterButton();
         filters.clickToAllRingsButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = rings.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -125,11 +96,6 @@ public class FiltersTest {
         filters.clickToFilterButton();
         filters.clickToAllNecklacesButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = necklaces.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -150,27 +116,8 @@ public class FiltersTest {
     public void typeOfItemBracelets() {
         bracelets = new Bracelets(driver);
         navigation = new CatalogNavigation(driver);
-
         filters.clickToFilterButton();
         filters.clickToAllBraceletsButton();
-//        filters.clickToFilterButton();
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        for (int i = 0; i <17; i++ ) {
-//            navigation.clickOnShowMoreButton();
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-
-
         List<String> sqlList = bracelets.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -194,12 +141,7 @@ public class FiltersTest {
         filters.clickToFilterButton();
         filters.clickToAllBroochesButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        List<String> sqlList = brooches.getNames();
+        List<String> sqlList = brooches.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -223,11 +165,6 @@ public class FiltersTest {
         material.clickToMaterialButton();
         material.clickToZemcugButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = material.getListOfZemcug();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -251,11 +188,6 @@ public class FiltersTest {
         material.clickToMaterialButton();
         material.clickToKristallyButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = material.getListOfKristally();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -268,7 +200,7 @@ public class FiltersTest {
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
+        assertEquals(sqlList.get(1), siteList.get(1));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
@@ -279,11 +211,6 @@ public class FiltersTest {
         material.clickToMaterialButton();
         material.clickToKamenButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = material.getListOfKamen();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -306,11 +233,6 @@ public class FiltersTest {
         material.clickToMaterialButton();
         material.clickToStekloButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = material.getListOfSteklo();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -335,14 +257,8 @@ public class FiltersTest {
         material.clickToMaterialButton();
         material.clickToBronzeButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = material.getListOfBronze();
         int sqlSize = sqlList.size();
-
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getAttribute("textContent");
@@ -364,11 +280,6 @@ public class FiltersTest {
         material.clickToMaterialButton();
         material.clickToSilverButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = material.getListOfSilver();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -405,11 +316,6 @@ public class FiltersTest {
         colors.clickToColorButton();
         colors.clickToGreenButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = colors.getListOfGreenColor();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -422,7 +328,7 @@ public class FiltersTest {
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
+        assertEquals(sqlList.get(1), siteList.get(1));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
@@ -433,11 +339,6 @@ public class FiltersTest {
         colors.clickToColorButton();
         colors.clickToBlueButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = colors.getListOfBlueColor();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -461,11 +362,6 @@ public class FiltersTest {
         colors.clickToColorButton();
         colors.clickToMixButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = colors.getListOfMixColor();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -490,11 +386,6 @@ public class FiltersTest {
         colors.clickToColorButton();
         colors.clickToRodiiButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = colors.getListOfRodii();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -517,11 +408,6 @@ public class FiltersTest {
         colors.clickToColorButton();
         colors.clickToPinkGoldButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = colors.getListOfPinkGold();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -539,104 +425,84 @@ public class FiltersTest {
     }
 
     //Размер кольца
-//    @Test
-//    public void getFirstSize() {
-//        size = new Size(driver);
-//        filters.clickToFilterButton();
-//        size.clickToSizeButton();
-//        size.clickToFirstSizeButton();
-//        filters.clickToFilterButton();
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        List<String> sqlList = size.getListOfFirstSize();
-//        int sqlSize = sqlList.size();
-//        List<WebElement> elements = driver.findElements(numberOfItem);
-//        for (WebElement text : elements) {
-//            String s = text.getAttribute("textContent");
-//            siteList.add(s);
-//            siteSize = siteList.size();
-//        }
-//        String countHeader = filters.getCountHeader();
-//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(2), siteList.get(2));
-//    }
-//
-//    @Test
-//    public void getSecondSize() {
-//        size = new Size(driver);
-//        filters.clickToFilterButton();
-//        size.clickToSizeButton();
-//        size.clickToSecondSizeButton();
-//        filters.clickToFilterButton();
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        List<String> sqlList = size.getListOfSecondSize();
-//        int sqlSize = sqlList.size();
-//        List<WebElement> elements = driver.findElements(numberOfItem);
-//        for (WebElement text : elements) {
-//            String s = text.getAttribute("textContent");
-//            siteList.add(s);
-//            siteSize = siteList.size();
-//        }
-//        String countHeader = filters.getCountHeader();
-//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(2), siteList.get(2));
-//    }
-//
-//    @Test
-//    public void getUniversalSize() {
-//        size = new Size(driver);
-//        filters.clickToFilterButton();
-//        size.clickToSizeButton();
-//        size.clickToUniversalSizeButton();
-//        filters.clickToFilterButton();
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        List<String> sqlList = size.getListOfUniversalSize();
-//        int sqlSize = sqlList.size();
-//        List<WebElement> elements = driver.findElements(numberOfItem);
-//        for (WebElement text : elements) {
-//            String s = text.getAttribute("textContent");
-//            siteList.add(s);
-//        }
-//        String countHeader = filters.getCountHeader();
-//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(2), siteList.get(2));
-//    }
+    @Test
+    public void getFirstSize() {
+        size = new Size(driver);
+        filters.clickToFilterButton();
+        size.clickToSizeButton();
+        size.clickToFirstSizeButton();
+        filters.clickToFilterButton();
+        List<String> sqlList = size.getListOfFirstSize();
+        int sqlSize = sqlList.size();
+        List<WebElement> elements = driver.findElements(numberOfItem);
+        for (WebElement text : elements) {
+            String s = text.getAttribute("textContent");
+            siteList.add(s);
+            siteSize = siteList.size();
+        }
+        String countHeader = filters.getCountHeader();
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlSize, numberOnly);
+        assertEquals(sqlList.get(0), siteList.get(0));
+        assertEquals(sqlList.get(2), siteList.get(2));
+    }
+
+    @Test
+    public void getSecondSize() {
+        size = new Size(driver);
+        filters.clickToFilterButton();
+        size.clickToSizeButton();
+        size.clickToSecondSizeButton();
+        filters.clickToFilterButton();
+        List<String> sqlList = size.getListOfSecondSize();
+        int sqlSize = sqlList.size();
+        List<WebElement> elements = driver.findElements(numberOfItem);
+        for (WebElement text : elements) {
+            String s = text.getAttribute("textContent");
+            siteList.add(s);
+            siteSize = siteList.size();
+        }
+        String countHeader = filters.getCountHeader();
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlSize, numberOnly);
+        assertEquals(sqlList.get(0), siteList.get(0));
+        assertEquals(sqlList.get(2), siteList.get(2));
+    }
+
+    @Test
+    public void getUniversalSize() {
+        size = new Size(driver);
+        filters.clickToFilterButton();
+        size.clickToSizeButton();
+        size.clickToUniversalSizeButton();
+        filters.clickToFilterButton();
+        List<String> sqlList = size.getListOfUniversalSize();
+        int sqlSize = sqlList.size();
+        List<WebElement> elements = driver.findElements(numberOfItem);
+        for (WebElement text : elements) {
+            String s = text.getAttribute("textContent");
+            siteList.add(s);
+        }
+        String countHeader = filters.getCountHeader();
+        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlSize, numberOnly);
+        assertEquals(sqlList.get(0), siteList.get(0));
+        assertEquals(sqlList.get(2), siteList.get(2));
+    }
 
 
     //Дизайнеры
     @Test
     public void getSinitsyn() {
-        designers = new Designers(driver);
+        designersFilter = new DesignersFilter(driver);
         filters.clickToFilterButton();
-        designers.clickToDesignersButton();
-        designers.clickToSinitsynButton();
+        designersFilter.clickToDesignersButton();
+        designersFilter.clickToSinitsynButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        List<String> sqlList = designers.getListOfSinitsyn();
+        List<String> sqlList = designersFilter.getListOfSinitsyn();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -654,17 +520,12 @@ public class FiltersTest {
 
     @Test
     public void getProstoJewlry() {
-        designers = new Designers(driver);
+        designersFilter = new DesignersFilter(driver);
         filters.clickToFilterButton();
-        designers.clickToDesignersButton();
-        designers.clickToJewlryButton();
+        designersFilter.clickToDesignersButton();
+        designersFilter.clickToJewlryButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        List<String> sqlList = designers.getListOfJewlry();
+        List<String> sqlList = designersFilter.getListOfJewlry();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -682,17 +543,12 @@ public class FiltersTest {
 
     @Test
     public void getAvgvst() {
-        designers = new Designers(driver);
+        designersFilter = new DesignersFilter(driver);
         filters.clickToFilterButton();
-        designers.clickToDesignersButton();
-        designers.clickToAvgvstButton();
+        designersFilter.clickToDesignersButton();
+        designersFilter.clickToAvgvstButton();
         filters.clickToFilterButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        List<String> sqlList = designers.getListOfAvgvst();
+        List<String> sqlList = designersFilter.getListOfAvgvst();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -715,16 +571,15 @@ public class FiltersTest {
         earrings = new Earrings(driver);
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
-        Thread.sleep(2000);
+        Thread.sleep(500);
         String countHeader = filters.getCountHeader();
         filters.clickToResetButton();
-        Thread.sleep(2000);
+        Thread.sleep(500);
         String countHeader2 = filters.getCountHeader();
         boolean b = countHeader.equals(countHeader2);
-//        System.out.println(countHeader);
-//        System.out.println(countHeader2);
         assertEquals(false, b);
     }
+
 
     //Выйдя из фильтра
     @Test
@@ -738,12 +593,8 @@ public class FiltersTest {
         Thread.sleep(500);
         String countHeader2 = filters.getCountHeader();
         boolean b = countHeader.equals(countHeader2);
-//        System.out.println(countHeader);
-//        System.out.println(countHeader2);
         assertEquals(false, b);
     }
-
-    //При перезагрузке кнопка сбросить пропадает запостил баг
 
 
     //Тесты кнопок с фильтрами(шаблоны фильтров)
@@ -751,11 +602,6 @@ public class FiltersTest {
     public void filterButtonEarrings() {
         earrings = new Earrings(driver);
         filters.clickToEarringsButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = earrings.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -769,18 +615,13 @@ public class FiltersTest {
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        assertEquals(sqlList.get(1), siteList.get(1));
     }
 
     @Test
     public void filterButtonRings() {
         rings = new Rings(driver);
         filters.clickToRingsButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = rings.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -800,11 +641,6 @@ public class FiltersTest {
     public void filterButtonNecklaces() {
         necklaces = new Necklaces(driver);
         filters.clickToNecklacesButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = necklaces.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -825,11 +661,6 @@ public class FiltersTest {
     public void filterButtonBracelets() {
         bracelets = new Bracelets(driver);
         filters.clickToBraceletsButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = bracelets.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -850,11 +681,6 @@ public class FiltersTest {
     public void filterButtonBrooches() {
         brooches = new Brooches(driver);
         filters.clickToBroochesButton();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<String> sqlList = brooches.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);

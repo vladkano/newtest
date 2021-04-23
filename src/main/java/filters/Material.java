@@ -35,7 +35,8 @@ public class Material {
     }
 
     public Material clickToZemcugButton() {
-        driver.findElement(zemcugButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(zemcugButton));
         return this;
     }
 
@@ -58,7 +59,8 @@ public class Material {
     }
 
     public Material clickToBronzeButton() {
-        driver.findElement(bronzeButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(bronzeButton));
         return this;
     }
 

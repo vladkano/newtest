@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import sections.Wishlist;
 
@@ -14,14 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class WishListTest {
-
-    private WebDriver driver;
-    private Wishlist wishlist;
-
-    //private String getUrl = "http://176.53.182.129:8088/";
-    //private String getUrl = "http://176.53.181.34:8088/";
-    private String getUrl = "https://poisondrop.ru/";
+public class WishListTest extends TestBase{
 
 
     @BeforeEach
@@ -37,6 +29,8 @@ public class WishListTest {
 //        driver = new EdgeDriver();
         driver.get(getUrl+ "catalog/");
         wishlist = new Wishlist(driver);
+        basket = new Basket(driver);
+        basket.clickToOkButton();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
@@ -58,7 +52,7 @@ public class WishListTest {
     }
 
 
-    //перенос из избранного в корзину
+    //перенос из избранного в корзину(там пока баг)
 
     @AfterEach
     public void tearDownEach() {

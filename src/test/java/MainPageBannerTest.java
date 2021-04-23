@@ -17,17 +17,7 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MainPageBannerTest {
-
-    private WebDriver driver;
-    private MainPageBanner banner;
-    private By countOfBanners = By.xpath("//div[@class='banner']//h3[@class='banner__title']");
-
-    //private String getUrl = "http://176.53.182.129:8088/";
-    //private String getUrl = "http://176.53.181.34:8088/";
-    private String getUrl = "https://poisondrop.ru/";
-
-
+public class MainPageBannerTest extends TestBase{
 
     @BeforeEach
     public void setUp() {
@@ -58,7 +48,6 @@ public class MainPageBannerTest {
         List<WebElement> banners = driver.findElements(countOfBanners);
         assertEquals(banner.listOfBanners(), banners.size());
     }
-
 
     //Отображение блока бестселлеров на главной странице в правильном порядке
     @Test
@@ -113,9 +102,10 @@ public class MainPageBannerTest {
 
 
     //ссылки: переход на верную страницу
-
     @Test
     public void mainBannerLink() {
+        basket = new Basket(driver);
+        basket.clickToOkButton();
         String href = banner.getMainCatalogHref();
         banner.clickToMainCatalogHref();
         String header = banner.getMainCatalogHeader();
@@ -133,7 +123,6 @@ public class MainPageBannerTest {
         assertEquals(href, url);
         assertEquals("Все украшения", header);
     }
-
 
     @Test
     public void sixBannerLink() {

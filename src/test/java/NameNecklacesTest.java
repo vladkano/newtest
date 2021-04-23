@@ -2,6 +2,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,18 +11,11 @@ import sections.NameNecklaces;
 
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class NameNecklacesTest {
-    private WebDriver driver;
-    private NameNecklaces nameNecklaces;
-    private Basket basket;
-    private Order order;
-
-    //private String getUrl = "http://176.53.182.129:8088/namenecklaceconstructor/";
-    //private String getUrl = "http://176.53.181.34:8088/namenecklaceconstructor/";
-    private String getUrl = "https://poisondrop.ru/namenecklaceconstructor?utm_source=test_order&utm_medium=cpc&utm_campaign=test_order";
+public class NameNecklacesTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
@@ -34,20 +28,22 @@ public class NameNecklacesTest {
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-        driver.get(getUrl);
+        driver.get(getUrl + "namenecklaceconstructor");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         nameNecklaces = new NameNecklaces(driver);
+        basket = new Basket(driver);
+        basket.clickToOkButton();
     }
 
     //Проверяем работает ли кнопка заказать
     //Первый тип подвески
-//    @Test
-//    public void firstTypeOrderButton() {
-//        nameNecklaces.firstTypeOrder("Тест");
-//        String number = nameNecklaces.getBasketNumber();
-//        assertEquals("1", number);
-//    }
+    @Test
+    public void firstTypeOrderButton() {
+        nameNecklaces.firstTypeOrder("Тест");
+        String number = nameNecklaces.getBasketNumber();
+        assertEquals("1", number);
+    }
 
     //Второй тип подвески
     @Test
@@ -161,8 +157,7 @@ public class NameNecklacesTest {
     }
 
 
-    //Проверка перехода к оплате заказа на сайте.
-
+    //Проверка перехода к оплате заказа на сайте и количества товаров в корзине.
     //Первый тип подвески
     @Test()
     public void orderWithFirstTypeNecklaceAndCourierDelivery() {
@@ -224,6 +219,91 @@ public class NameNecklacesTest {
         assertEquals("1", number);
         assertEquals("Заплатить", header);
     }
+
+    @Test()
+    public void orderWithFirstTypeNecklaceAndInternational() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        nameNecklaces.firstTypeOrder("Тест");
+        String number = nameNecklaces.getBasketNumber();
+        basket.clickToBasketButton();
+        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+                "Ямайка", "Кингстон", "Цветочный переулок дом 2");
+        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        boolean pr = finalPrice > price;
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals(true, pr);
+        assertEquals("1", number);
+        assertEquals("Заплатить", header);
+    }
+
+    //Второй тип подвески
+    @Test()
+    public void orderWithSecondTypeNecklaceAndInternational() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        nameNecklaces.secondTypeOrder("Test");
+        String number = nameNecklaces.getBasketNumber();
+        basket.clickToBasketButton();
+        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+                "Италия", "Рим", "Гладиаторов дом 20м");
+        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        boolean pr = finalPrice > price;
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals(true, pr);
+        assertEquals("1", number);
+        assertEquals("Заплатить", header);
+    }
+
+    //Третий тип подвески
+    @Test()
+    public void orderWithThirdTypeNecklaceAndInternational() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        nameNecklaces.thirdTypeOrder("ThirdTest");
+        String number = nameNecklaces.getBasketNumber();
+        basket.clickToBasketButton();
+        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+                "Испания", "Мадрид", "Хамон стрит");
+        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        boolean pr = finalPrice > price;
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals(true, pr);
+        assertEquals("1", number);
+        assertEquals("Заплатить", header);
+    }
+
+
+    //Заказы без оплаты
+    //Тестовый заказ без оплаты, способ доставки: доставка курьером, подвеска дешевле 5000(Платаная доставка):
+    //Первый тип подвески(остальные типы подвесок от 5500 рублей)
+    @Test()
+    public void orderWithPaidDelivery() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        nameNecklaces.firstTypeOrder("Платно");
+        basket.clickToBasketButton();
+        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        boolean pr = finalPrice > price;
+        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+                "Краснодарский край, г Сочи, ул Горького, д 87", "2а", "", "1", "нет", "Paid delivery");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getOrderHeader();
+        assertEquals(true, pr);
+        assertEquals("Мы приняли ваш заказ", header);
+    }
+
 
     @AfterEach
     public void tearDownEach() {

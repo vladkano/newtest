@@ -1,4 +1,5 @@
 
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +10,10 @@ import sql.DBWorker;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.$;
+
 
 public class Order {
     private WebDriver driver;
@@ -63,11 +68,22 @@ public class Order {
     By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
     By paperButton = By.xpath("//span[text()='Бумажный']");
 
+    By firstPrice = By.xpath("//span[@class='price-block__price']");
+    By finalPrice = By.xpath("//span[@class='order-summary__value order-summary__value_final']");
+
+
 
     //headers
     By payHeader = By.xpath("//span[text()='Заплатить']");
     By orderHeader = By.xpath("//span[text()='Мы приняли ваш заказ']");
 
+    public String getFirstPrice() {
+        return driver.findElement(firstPrice).getText();
+    }
+
+    public String getFinalPrice() {
+        return driver.findElement(finalPrice).getText();
+    }
 
     public String getPayHeader() {
         return driver.findElement(payHeader).getText();

@@ -143,8 +143,7 @@ public class MainPageBanner {
         List<String> list = new ArrayList<>();
         String query = "SELECT name from item_sku " +
                 "JOIN bestsellers ON bestsellers.sku_id = item_sku.id " +
-                "group by position " +
-                "LIMIT 12";
+                "group by bestsellers.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -170,7 +169,7 @@ public class MainPageBanner {
                 "JOIN item ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item_sku.item_id = item.id " +
                 "JOIN bestsellers ON bestsellers.sku_id = item_sku.id " +
-                "group by position " + "LIMIT 12";
+                "group by bestsellers.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -196,8 +195,7 @@ public class MainPageBanner {
 
         String query = "SELECT price from item_sku " +
                 "JOIN bestsellers ON bestsellers.sku_id = item_sku.id " +
-                "group by position " +
-                "LIMIT 12";
+                "group by bestsellers.id";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -221,19 +219,24 @@ public class MainPageBanner {
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
         DBWorker worker = new DBWorker();
-        Integer count = 0;
-        String query = "SELECT count(url) as countURL from main_page_blocks " +
-                "where `show` = 1 " +
-                "LIMIT 12";
+        String name;
+        List<String> list = new ArrayList<>();
+        String query = "SELECT name from item_sku " +
+                "JOIN bestsellers ON bestsellers.sku_id = item_sku.id " +
+                "group by bestsellers.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
+
             while (resultSet.next()) {
-                count = resultSet.getInt("countURL");
+                name = resultSet.getString("name");
+                list.add(name);
+
+                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(count);
+        worker.getSession().disconnect();
     }
 }

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,13 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CatalogNavigationTest {
-    private WebDriver driver;
-    private CatalogNavigation navigation;
-    private By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
-    //private String getUrl = "http://176.53.182.129:8088/catalog/";
-    //private String getUrl = "http://176.53.181.34:8088/catalog/";
-    private String getUrl = "https://poisondrop.ru/catalog/";
+public class CatalogNavigationTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
@@ -34,10 +28,8 @@ public class CatalogNavigationTest {
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-        driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         navigation = new CatalogNavigation(driver);
     }
 
@@ -45,7 +37,7 @@ public class CatalogNavigationTest {
     //Кол-во единиц на странице после нажатия кнопки "Показать ещё"
     @Test()
     public void numberOfItem() {
-        driver.get(getUrl + "koltsa");
+        driver.get(getUrl + "catalog/koltsa");
         navigation.clickOnShowMoreButton();
         try {
             Thread.sleep(1000);
@@ -59,7 +51,7 @@ public class CatalogNavigationTest {
     //Проверка отсутствия кнопки "Показать ещё", отображается только если в разделе больше 48 продуктов
     @Test
     public void showMoreNotVisible() {
-        driver.get(getUrl + "?type_product=klipsy");
+        driver.get(getUrl + "catalog/?type_product=klipsy");
         int numbers = driver.findElements(By.xpath("//span[text()='Показать ещё']")).size();
         assertEquals(0, numbers);
     }
@@ -67,9 +59,9 @@ public class CatalogNavigationTest {
     //Проверка отсутствия кнопки "Показать ещё" при переходе на последнюю страницу каталога
     @Test
     public void showMoreLastPage() {
-        driver.get(getUrl + "pirsing");
+        driver.get(getUrl + "trend/mixmatch/");
         navigation.clickOnShowMoreButton();
-//        navigation.clickOnShowMoreButton();
+        navigation.clickOnShowMoreButton();
         int numbers = driver.findElements(By.xpath("//span[text()='Показать ещё']")).size();
         assertEquals(0, numbers);
     }
@@ -78,7 +70,7 @@ public class CatalogNavigationTest {
     //Кол-во страниц в каталоге колец
     @Test
     public void numberOfPages() {
-        driver.get(getUrl + "koltsa");
+        driver.get(getUrl + "catalog/koltsa");
         double count = Math.ceil((double) navigation.countRings() / 48);
         int countOfRings = (int) count;
         int numberOfPages = Integer.parseInt(navigation.getNumberOfPages());
@@ -88,7 +80,7 @@ public class CatalogNavigationTest {
     //На странице 48 продуктов
     @Test()
     public void pageNumber48() {
-        driver.get(getUrl + "koltsa");
+        driver.get(getUrl + "catalog/koltsa");
         List<WebElement> numbers = driver.findElements(numberOfItem);
         assertEquals(48, numbers.size());
     }

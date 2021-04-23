@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
@@ -14,14 +14,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class BasketTest {
-
-    private WebDriver driver;
-    private Basket basket;
-    private Filters filters;
-    //private String getUrl = "http://176.53.182.129:8088/catalog/";
-    //private String getUrl = "http://176.53.181.34:8088/catalog/";
-    private String getUrl = "https://poisondrop.ru/catalog/";
+public class BasketTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
@@ -34,11 +27,11 @@ public class BasketTest {
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-        driver.get(getUrl);
+        driver.get(getUrl + "catalog");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//        driver.manage().window().maximize();
         driver.manage().window().setSize(new Dimension(1920, 1080));
         basket = new Basket(driver);
+        basket.clickToOkButton();
     }
 
     //Проверяем работают ли кнопки корзины на разных типах товаров
@@ -108,6 +101,8 @@ public class BasketTest {
     //Товар из коллекции без размера
     @Test
     public void inBasketButtonWithCollection() {
+        filters = new Filters(driver);
+        filters.clickToEarringsButton();
         basket.clickOnFirstCollection();
         basket.clickToItemInBasketButton();
         String number = basket.getBasketNumber();
@@ -116,6 +111,7 @@ public class BasketTest {
 
     @Test
     public void plusButtonWithCollection() {
+        filters = new Filters(driver);
         basket.clickOnFirstCollection();
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
@@ -125,6 +121,8 @@ public class BasketTest {
 
     @Test
     public void minusButtonWithCollection() {
+        filters = new Filters(driver);
+        filters.clickToEarringsButton();
         basket.clickOnFirstCollection();
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
@@ -132,8 +130,6 @@ public class BasketTest {
         String number = basket.getBasketNumber();
         assertEquals("1", number);
     }
-
-
 
 
     //Товар из коллекции c размером
@@ -193,14 +189,14 @@ public class BasketTest {
         assertEquals(balance, number);
     }
 
-    //Кнопка "Перейти в корзину" ведет на http://176.53.182.129:8088/cart
+    //Кнопка "Перейти в корзину" ведет на getUrl + "cart"
     @Test
     public void checkHref() {
         basket.clickToAnotherItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         String url = driver.getCurrentUrl();
-        assertEquals("https://poisondrop.ru/cart", url);
+        assertEquals(getUrl + "cart", url);
     }
 
 
@@ -229,12 +225,13 @@ public class BasketTest {
         assertEquals("2", cartCount);
     }
 
-    //Ссылка со значком корзины на всех страницах сайта ведет на http://176.53.182.129:8088/cart
+    //Ссылка со значком корзины на всех страницах сайта ведет на getUrl + "cart"
     @Test
     public void checkCartHref() {
+
         basket.clickToCart();
         String url = driver.getCurrentUrl();
-        assertEquals("https://poisondrop.ru/cart", url);
+        assertEquals( getUrl + "cart", url);
     }
 
     @Test
@@ -242,7 +239,7 @@ public class BasketTest {
         basket.clickToCartFromNew();
         basket.clickToCart();
         String url = driver.getCurrentUrl();
-        assertEquals("https://poisondrop.ru/cart", url);
+        assertEquals(getUrl + "cart", url);
     }
 
     @AfterEach

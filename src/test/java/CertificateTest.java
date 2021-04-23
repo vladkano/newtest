@@ -12,18 +12,10 @@ import sections.Certificate;
 
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CertificateTest {
-
-    private WebDriver driver;
-    private Certificate certificate;
-    private Basket basket;
-    private Order order;
-
-    //private String getUrl = "http://176.53.182.129:8088/certificate/";
-    //private String getUrl = "http://176.53.181.34:8088/certificate/";
-    private String getUrl = "https://poisondrop.ru/certificate/?utm_source=test_order&utm_medium=cpc&utm_campaign=test_order";
+public class CertificateTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
@@ -36,10 +28,12 @@ public class CertificateTest {
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-        driver.get(getUrl);
+        driver.get(getUrl + "certificate/");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
         certificate = new Certificate(driver);
+        basket = new Basket(driver);
+        basket.clickToOkButton();
     }
 
     //Проверяем отображение секциий
@@ -98,7 +92,7 @@ public class CertificateTest {
 
     @Test
     public void secondSectionOrder() {
-        certificate.secondSectionOrder("Вася","Петя","rundkvist@poisondrop.ru", "Всего всего!");
+        certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
         String number = certificate.getBasketNumber();
         assertEquals("1", number);
     }
@@ -133,7 +127,6 @@ public class CertificateTest {
     public void orderWithElCertificateAndPhone() {
         basket = new Basket(driver);
         order = new Order(driver);
-
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
@@ -149,7 +142,6 @@ public class CertificateTest {
     public void orderWithElCertificateAndWA() {
         basket = new Basket(driver);
         order = new Order(driver);
-
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
@@ -263,6 +255,7 @@ public class CertificateTest {
     }
 
     //Способ доставки: Доставить в другую страну + ВА
+    //Проверяем изменение цены с учетом доставки, кол-во сертификатов в корзине и оформление заказа
     @Test()
     public void orderWithCertificateInternationalAndWA() {
         basket = new Basket(driver);
@@ -270,11 +263,15 @@ public class CertificateTest {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
+        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         order.certificateWithInternationalAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "США", "Нью-Йорк", "Трамп стрит 11", "Тест");
+        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
+        assertEquals(true, pr);
         assertEquals("1", number);
         assertEquals("Заплатить", header);
     }
@@ -285,7 +282,7 @@ public class CertificateTest {
     public void orderWithElCertificateEmailAndPhone() {
         basket = new Basket(driver);
         order = new Order(driver);
-        certificate.secondSectionOrder("Вася","Петя","rundkvist@poisondrop.ru", "Всего всего!");
+        certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         order.elCertificateWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "TEST");
@@ -300,7 +297,7 @@ public class CertificateTest {
     public void orderWithElCertificateEmailAndWA() {
         basket = new Basket(driver);
         order = new Order(driver);
-        certificate.secondSectionOrder("Вася","Петя","rundkvist@poisondrop.ru", "Всего всего!");
+        certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         order.elCertificateWithWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "TEST");
@@ -315,6 +312,7 @@ public class CertificateTest {
     //Бумажный
 
     //Способ доставки: Доставка курьером
+    //Номинал 6000 рублей
     @Test()
     public void noPayOrderWithCertificateAndPhone() {
         basket = new Basket(driver);
@@ -327,6 +325,31 @@ public class CertificateTest {
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
+        assertEquals("1", number);
+        assertEquals("Мы приняли ваш заказ", header);
+    }
+
+    //Способ доставки: Доставка курьером
+    //Номинал 4000 рублей с платной доставкой
+    //Проверяем изменение цены с учетом доставки, кол-во сертификатов в корзине и оформление заказа
+    @Test()
+    public void noPayOrderWithCertificateAndPhonePaidDelivery() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        certificate.clickToFirstSectionMinusButton();
+        certificate.clickToFirstSectionMinusButton();
+        certificate.thirdSectionOrder("Всего всего!");
+        String number = certificate.getBasketNumber();
+        basket.clickToBasketButton();
+        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        boolean pr = finalPrice > price;
+        order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+                "г Казань, ул Узорная, д 15", "2", "2", "2", "2", "Test Comment123", "Тест 123");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getOrderHeader();
+        assertEquals(true, pr);
         assertEquals("1", number);
         assertEquals("Мы приняли ваш заказ", header);
     }
