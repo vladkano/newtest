@@ -1,19 +1,11 @@
-import api.EndpointUrl;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import config.TestConfig;
+import config.TestEndpoints;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import static io.restassured.RestAssured.*;
 
-import static io.restassured.RestAssured.given;
-import static java.net.HttpURLConnection.HTTP_OK;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ApiTest extends TestBase {
+public class ApiTest extends TestConfig {
 
 //    private static String requestBody = "{\n" +
 //            "  \"title\": \"foo\",\n" +
@@ -44,7 +36,6 @@ public class ApiTest extends TestBase {
 //    }
 
 
-
 //    @Test
 //    public void test(){
 //        RestAssured.baseURI = getUrl;
@@ -59,16 +50,29 @@ public class ApiTest extends TestBase {
 
 
     @Test
-    public void test(){
-        RestAssured.baseURI = getUrl;
-
-        Map<String, Object> map =  new HashMap<>();
-
-        map.put("ident_method", "PHONE");
-        map.put("login", "+79063327418");
-        System.out.println(map);
+    public void test() {
+        given()
+                .log().all().
+                when().get("sergi").
+                then().
+                log().all();
 
     }
 
+    @Test
+    public void testWithSergi() {
+        get(TestEndpoints.SERGI)
+                .then().log().all();
+    }
+
+    @Test
+    public void getInByJSON() {
+        String body = "{ident_method: \"PHONE\", login: \"+79501978905\"}";
+        given().
+                body(body).
+                when().
+                post(TestEndpoints.SERGI).
+                then();
+    }
 
 }

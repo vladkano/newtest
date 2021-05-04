@@ -266,87 +266,7 @@ public class SectionsTest extends TestBase{
     }
 
 
-
-
-    //Новинки(На доработке):
-
-    //Кол-во намименование в базе и на странице, выборочная проверка по наименованию
-    @Test
-    public void namesOfNewItems() {
-        driver.get(getUrl + "catalog/new/");
-        newItems = new NewItems(driver);
-        filters = new Filters(driver);
-        //sql:
-        List<String> sqlList = newItems.getNames();
-        //site:
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getText();
-            siteList.add(s);
-        }
-        //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-
-        //сравниваем содержание и порядок списков
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(7), siteList.get(7));
-//        assertEquals(sqlList.get(46), siteList.get(46));
-    }
-
-    //Проверка по наименованию дезайнера
-    @Test
-    public void designersOfNewItems() {
-        driver.get(getUrl + "catalog/new/");
-        newItems = new NewItems(driver);
-        //sql:
-        List<String> sqlList = newItems.getDesigners();
-        //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
-        for (WebElement text : elements) {
-            String s = text.getText();
-            siteList.add(s);
-        }
-        //сравниваем содержание списков
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
-    }
-
-    //Проверка на соответствие цены на сайте цене в базе.
-    @Test
-    public void priceOfNewItems() {
-        List<Integer> priceList = new ArrayList<>();
-        driver.get(getUrl + "catalog/new/");
-        newItems = new NewItems(driver);
-        //sql:
-        List<Integer> sqlList = newItems.getPrice();
-        //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
-        for (WebElement text : elements) {
-            String s = text.getText();
-            String replace = s.replace(" ", "");
-            String result = replace.replaceAll("[^A-Za-z0-9]", "");
-            Integer price = parseInt(result);
-            priceList.add(price);
-        }
-        //сравниваем содержание списков
-        assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
-    }
-
-    //Проверяем отображение картинок и их количество.
-    @Test
-    public void pictureOfNewItems() {
-        driver.get(getUrl + "catalog/new/");
-        List<WebElement> elements = driver.findElements(numberOfPictures);
-        for (WebElement text : elements) {
-            String s = text.getText();
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
-        assertEquals(numberOfFoto, siteSize);
-    }
-
-
     //Золото и серебро:
-
     //Кол-во намименование в базе и на странице, выборочная проверка по наименованию
     @Test
     public void namesOfJewelry() {
@@ -567,7 +487,7 @@ public class SectionsTest extends TestBase{
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(7), siteList.get(7));
-        assertEquals(sqlList.get(47), siteList.get(47));
+        assertEquals(sqlList.get(sqlSize-1), siteList.get(numberOnly-1));
     }
 
     @Test

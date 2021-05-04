@@ -76,7 +76,6 @@ public class Pirsing {
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +

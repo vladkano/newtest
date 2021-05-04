@@ -35,15 +35,16 @@ public class Sale {
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'sale' and discount is not null " +
+                "and is_archive = 0 and price != 0 " +
+                "and section = 'catalog' " +
+                "and subsection = 'sale' " +
+                "and discount is not null " +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -190,26 +191,27 @@ public class Sale {
     }
 
     public static void main(String[] args) {
-        int discount;
-        List<Integer> text = new ArrayList<>();
-        String query = "SELECT item_sku.discount from item " +
+        String name;
+        List<String> text = new ArrayList<>();
+        String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'sale' and discount is not null " +
+                "and is_archive = 0 and price != 0 " +
+                "and section = 'catalog' " +
+                "and subsection = 'sale' " +
+                "and discount is not null " +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                discount = resultSet.getInt("discount");
-                System.out.println(discount);
-                text.add(discount);
+                name = resultSet.getString("name");
+                System.out.println(name);
+                text.add(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();

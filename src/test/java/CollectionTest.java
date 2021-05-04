@@ -77,7 +77,7 @@ public class CollectionTest extends TestBase{
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
-//        assertEquals(linkFromSql, href);
+        assertEquals(linkFromSql, href);
         assertEquals(url, href);
     }
 
@@ -89,7 +89,7 @@ public class CollectionTest extends TestBase{
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
-//        assertEquals(linkFromSql, href);
+        assertEquals(linkFromSql, href);
         assertEquals(url, href);
     }
 

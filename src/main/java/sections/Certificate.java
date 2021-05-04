@@ -73,7 +73,8 @@ public class Certificate {
     }
 
     public Certificate clickToFirstSectionMinusButton() {
-        driver.findElement(firstSectionMinusButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(firstSectionMinusButton));
         return this;
     }
 

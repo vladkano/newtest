@@ -86,7 +86,8 @@ public class Trends {
     }
 
     public Trends clickToMainHref() {
-        driver.findElement(mainHref).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(mainHref));
         return this;
     }
 

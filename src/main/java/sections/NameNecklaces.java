@@ -87,7 +87,8 @@ public class NameNecklaces {
     }
 
     public NameNecklaces clickToGildingButton() {
-        driver.findElement(gildingButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(gildingButton));
         return this;
     }
 

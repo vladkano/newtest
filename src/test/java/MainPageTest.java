@@ -70,7 +70,7 @@ public class MainPageTest extends TestBase {
 
     //Авторизация
     @Test
-    public void sigInWithPhoneNumber() {
+    public void signInWithPhoneNumber() {
         mainPage.sigInWithPhoneOrEmail("+79126459328");
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);
@@ -79,7 +79,7 @@ public class MainPageTest extends TestBase {
     }
 
     @Test
-    public void sigInWithEmail() {
+    public void signInWithEmail() {
         mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
         String code2 = mainPage.getEmailPassword();
         mainPage.sigInWithPassword(code2);
@@ -163,7 +163,7 @@ public class MainPageTest extends TestBase {
     //Авторизация
     //Телефон
     @Test
-    public void sigInWithIncorrectPhoneNumber() {
+    public void signInWithIncorrectPhoneNumber() {
         MainPage head = mainPage.sigInWithPhoneOrEmail("+7912645932");
         String heading = head.getIncorrectSigInHeader();
         assertEquals("+7912645932 - Not valid phone number.", heading);
@@ -181,7 +181,7 @@ public class MainPageTest extends TestBase {
 
     //Разлогин
     @Test
-    public void sigOut() {
+    public void signOut() {
         mainPage.sigInWithPhoneOrEmail("+79126459328");
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);

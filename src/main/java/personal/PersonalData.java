@@ -51,7 +51,9 @@ public class PersonalData {
     }
 
     public PersonalData clickOnDeliveryAddress() {
-        driver.findElement(profileDeliveryAddress).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(profileDeliveryAddress));
+//        driver.findElement(profileDeliveryAddress).click();
         driver.findElement(profileDeliveryAddress).clear();
         return this;
     }

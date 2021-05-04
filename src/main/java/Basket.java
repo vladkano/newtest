@@ -56,7 +56,6 @@ public class Basket {
 
     public Basket clickToItemButton() {
         String firstItem = this.findFirstItemMoreThan5000();
-//        System.out.println(firstItem);
         driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")).click();
         return this;
     }
@@ -72,14 +71,12 @@ public class Basket {
         String anotherItem = this.findFirstItemLasseThan5000();
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + anotherItem + "']")));
-//        driver.findElement(By.xpath("//a[text()=" + "'" + anotherItem + "']")).click();
         return this;
     }
 
     public Basket clickToItemInBasketButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(itemInBasketButton));
-//        driver.findElement(itemInBasketButton).click();
         return this;
     }
 
@@ -105,9 +102,6 @@ public class Basket {
 
     public Basket clickToBasketButton() {
         driver.findElement(basketButton).click();
-//        ((JavascriptExecutor) driver).executeScript(
-//                "arguments[0].click();", driver.findElement(basketButton));
-
         return this;
     }
 
@@ -165,9 +159,6 @@ public class Basket {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-//        System.out.println(list.get(1));
-//        ////worker.getSession().disconnect();
         return list.get(0);
     }
 
@@ -198,9 +189,6 @@ public class Basket {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-//        System.out.println(list.get(1));
-//        ////worker.getSession().disconnect();
         return list.get(3);
     }
 
@@ -231,9 +219,6 @@ public class Basket {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-//        System.out.println(list);
-        ////worker.getSession().disconnect();
         return list.get(0);
     }
 
@@ -264,9 +249,6 @@ public class Basket {
         }
         String firstItem = this.findFirstItemMoreThan5000();
         Integer i = hashMap.get(firstItem);
-//        System.out.println(firstItem);
-//        System.out.println(i);
-        ////worker.getSession().disconnect();
         return i;
     }
 

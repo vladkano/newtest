@@ -308,6 +308,27 @@ public class CertificateTest extends TestBase {
         assertEquals("Заплатить", header);
     }
 
+
+
+    //2 тип сертификата без заполненного поля "пожелания"(https://poisondrop.atlassian.net/browse/PD-812)
+    //Бумажный
+    @Test()
+    public void orderWithElCertificateEmailWithoutWishes() {
+        basket = new Basket(driver);
+        order = new Order(driver);
+        certificate.secondSectionOrder("", "", "rundkvist@poisondrop.ru", "");
+        String number = certificate.getBasketNumber();
+        basket.clickToBasketButton();
+        order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+                "г Казань, ул Узорная, д 15", "2", "2", "2", "2", "Test Comment", "Тест");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getOrderHeader();
+        assertEquals("1", number);
+        assertEquals("Мы приняли ваш заказ", header);
+    }
+
+
     //Проверка оформления заказа на сайте, тип сертификата 3
     //Бумажный
 

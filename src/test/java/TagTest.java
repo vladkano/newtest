@@ -43,7 +43,7 @@ public class TagTest extends TestBase{
         driver.get(getUrl + "catalog/braslety");
         tag = new Tag(driver);
         String firstTag = tag.getTag();
-        assertEquals("DEMI-FINE", firstTag);
+        assertEquals("ЭКСКЛЮЗИВ", firstTag);
     }
 
     @Test

@@ -13,12 +13,10 @@ import java.util.List;
 
 public class TestBase {
 
-    public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
     WebDriver driver;
     Basket basket;
     Filters filters;
     CatalogNavigation navigation;
-    By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
     Earrings earrings;
     Necklaces necklaces;
     Bracelets bracelets;
@@ -26,13 +24,8 @@ public class TestBase {
     Brooches brooches;
     Pirsing pirsing;
     Man man;
-    By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image-hovered']");
-    final int numberOfFoto = 48;
-    List<String> siteList = new ArrayList<>();
-    int siteSize = 0;
     Certificate certificate;
     Order order;
-    By linkOfCollection = By.xpath("//ul[@class='product-modification__variants']//a");
     Collection collection;
     Material material;
     Colors colors;
@@ -40,10 +33,8 @@ public class TestBase {
     DesignersFilter designersFilter;
     Designers designers;
     MainPageBanner banner;
-    By countOfBanners = By.xpath("//div[@class='banner']//h3[@class='banner__title']");
     NameNecklaces nameNecklaces;
     Sale sale;
-    List<Integer> priceList = new ArrayList<>();
     NewItems newItems;
     Jewelry jewelry;
     Trends trends;
@@ -51,14 +42,22 @@ public class TestBase {
     Shops shops;
     Footer footer;
     Wishlist wishlist;
-    By namesOfTrends = By.xpath("//h4");
-    By numberOfDesigners = By.xpath("//li[@class='index-designers__name']/a");
     Tag tag;
-    By trendBanners = By.xpath("//span[@class='picture']");
     MainPage mainPage;
     PersonalData personalData;
 
+    By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
+    By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image-hovered']");
+    By linkOfCollection = By.xpath("//ul[@class='product-modification__variants']//a");
+    By countOfBanners = By.xpath("//div[@class='banner']//h3[@class='banner__title']");
+    By namesOfTrends = By.xpath("//h4");
+    By numberOfDesigners = By.xpath("//li[@class='index-designers__name']/a");
+    By trendBanners = By.xpath("//span[@class='picture']");
 
+    List<String> siteList = new ArrayList<>();
+    List<Integer> priceList = new ArrayList<>();
+    int siteSize = 0;
+    final int numberOfFoto = 48;
 
 
     //Бой
