@@ -594,7 +594,7 @@ public class Order {
 
 
     //У Красного моста:
-    public Order orderWithredBridgePhone(String phone, String email, String fio) {
+    public Order orderWithRedBridgePhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -605,7 +605,7 @@ public class Order {
         return new Order(driver);
     }
 
-    public Order orderWithredBridgeWA(String phone, String email, String fio) {
+    public Order orderWithRedBridgeWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -616,7 +616,7 @@ public class Order {
         return new Order(driver);
     }
 
-    public Order orderWithredBridgeSms(String phone, String email, String fio) {
+    public Order orderWithRedBridgeSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
