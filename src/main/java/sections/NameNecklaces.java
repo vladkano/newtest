@@ -50,7 +50,8 @@ public class NameNecklaces {
     }
 
     public NameNecklaces clickToThirdTypeButton() {
-        driver.findElement(thirdTypeButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(thirdTypeButton));
         return this;
     }
 
@@ -61,7 +62,8 @@ public class NameNecklaces {
     }
 
     public NameNecklaces clickToThirdFontButton() {
-        driver.findElement(thirdFontButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(thirdFontButton));
         return this;
     }
 

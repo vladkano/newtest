@@ -210,7 +210,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithredBridgePhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithRedBridgePhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -222,7 +222,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithredBridgeWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithRedBridgeWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -234,7 +234,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithredBridgeSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithRedBridgeSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
