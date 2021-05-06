@@ -38,7 +38,7 @@ public class CatalogTest extends TestBase{
         filters = new Filters(driver);
     }
 
-    //Кол-во намименований в базе и на странице, проверка по наименованию дезайнера
+    //Кол-во намименований в базе и на странице, проверка по наименованию дизайнера
     @Test
     public void designersOfBracelets() {
         driver.get(getUrl + "catalog/braslety");
@@ -68,23 +68,17 @@ public class CatalogTest extends TestBase{
         //sql:
         List<String> sqlList = earrings.getDesigners();
         int sqlSize = sqlList.size();
-//        System.out.println("sql size :" + sqlSize);
-//        System.out.println("from sql: " + sqlList);
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-//        System.out.println("site size :" + siteSize);
-//        System.out.println("from site: " + siteList);
         //сравниваем размеры и содержание списков
         SoftAssertions s = new SoftAssertions();
         s.assertThat(numberOnly).isEqualTo(sqlSize);
         s.assertThat(siteList.subList(0, 47)).isEqualTo(sqlList.subList(0, 47));
         s.assertAll();
-//        assertEquals(sqlSize + " товаров", countHeader);
-//        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
 
     }
 
@@ -184,8 +178,7 @@ public class CatalogTest extends TestBase{
             String s = text.getText();
             siteList.add(s);
         }
-
-        //сравниваем размеры и содержание списков
+        //сравниваем содержание списков
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
@@ -195,40 +188,32 @@ public class CatalogTest extends TestBase{
     public void namesOfBracelets() {
         driver.get(getUrl + "catalog/braslety");
         bracelets = new Bracelets(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = bracelets.getNames();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем 1,9 и последние элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(7), siteList.get(7));
+        assertEquals(sqlList.get(8), siteList.get(8));
     }
 
     @Test
     public void namesOfEarrings() {
         driver.get(getUrl + "catalog/sergi");
         earrings = new Earrings(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = earrings.getNames();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,2 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем 1,2 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(1), siteList.get(1));
     }
@@ -237,19 +222,15 @@ public class CatalogTest extends TestBase{
     public void namesOfNecklaces() {
         driver.get(getUrl + "catalog/kole");
         necklaces = new Necklaces(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = necklaces.getNames();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,11 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем 1,11 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(10), siteList.get(10));
     }
@@ -258,20 +239,15 @@ public class CatalogTest extends TestBase{
     public void namesOfRings() {
         driver.get(getUrl + "catalog/koltsa");
         rings = new Rings(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = rings.getNames();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,11 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        //сравниваем 1,11 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(10), siteList.get(10));
     }
@@ -280,19 +256,15 @@ public class CatalogTest extends TestBase{
     public void namesOfBrooches() {
         driver.get(getUrl + "catalog/broshi");
         brooches = new Brooches(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = brooches.getNames();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,11 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем 1,11 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(10), siteList.get(10));
     }
@@ -301,19 +273,15 @@ public class CatalogTest extends TestBase{
     public void namesOfPirsing() {
         driver.get(getUrl + "catalog/pirsing");
         pirsing = new Pirsing(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = pirsing.getNames();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,11 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем 1,11 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(10), siteList.get(10));
     }
@@ -323,42 +291,16 @@ public class CatalogTest extends TestBase{
         navigation = new CatalogNavigation(driver);
         man = new Man(driver);
         driver.get(getUrl + "catalog/men/");
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = man.getNames();
-        int sqlSize = sqlList.size();
         //site:
-        navigation.clickOnShowMoreButton();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        navigation.clickOnShowMoreButton();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        navigation.clickOnShowMoreButton();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,11 элементы и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-        System.out.println(sqlList);
-        System.out.println(siteList);
+        //сравниваем элементы списков.
         assertEquals(sqlList, siteList);
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(10), siteList.get(10));
     }
 
     //Проверяем отображение картинок и их количество.
@@ -429,8 +371,6 @@ public class CatalogTest extends TestBase{
     public void pictureOfPirsing() {
         pirsing = new Pirsing(driver);
         driver.get(getUrl + "catalog/pirsing");
-        List<String> sqlList = pirsing.getNames();
-        int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -458,11 +398,8 @@ public class CatalogTest extends TestBase{
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "catalog/braslety");
         bracelets = new Bracelets(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = bracelets.getPrice();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
@@ -472,8 +409,7 @@ public class CatalogTest extends TestBase{
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
@@ -506,11 +442,8 @@ public class CatalogTest extends TestBase{
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "catalog/kole");
         necklaces = new Necklaces(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = necklaces.getPrice();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
@@ -520,8 +453,7 @@ public class CatalogTest extends TestBase{
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
@@ -530,11 +462,8 @@ public class CatalogTest extends TestBase{
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "catalog/koltsa");
         rings = new Rings(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = rings.getPrice();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
@@ -544,8 +473,7 @@ public class CatalogTest extends TestBase{
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
@@ -554,11 +482,8 @@ public class CatalogTest extends TestBase{
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "catalog/broshi");
         brooches = new Brooches(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = brooches.getPrice();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
@@ -568,8 +493,7 @@ public class CatalogTest extends TestBase{
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, sqlList.size()), priceList.subList(0, priceList.size()));
     }
 
@@ -578,11 +502,8 @@ public class CatalogTest extends TestBase{
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "catalog/pirsing");
         pirsing = new Pirsing(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = pirsing.getPrice();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
@@ -592,8 +513,7 @@ public class CatalogTest extends TestBase{
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
@@ -602,11 +522,8 @@ public class CatalogTest extends TestBase{
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "catalog/men");
         man = new Man(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = man.getPrice();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
@@ -616,8 +533,7 @@ public class CatalogTest extends TestBase{
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 

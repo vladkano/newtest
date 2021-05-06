@@ -103,12 +103,10 @@ public class Bracelets {
 
 
     public List<String> getNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
@@ -135,12 +133,10 @@ public class Bracelets {
     }
 
     public List<String> getNamesForFilters() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
@@ -168,7 +164,6 @@ public class Bracelets {
 
 
     public List<String> getDesigners() {
-        worker = new DBWorker();
         String designer;
         List<String> text = new ArrayList<>();
         String query = "SELECT designer.name from item " +
@@ -201,12 +196,10 @@ public class Bracelets {
     }
 
     public List<Integer> getPrice() {
-        worker = new DBWorker();
         int price, discount;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT item_sku.price, (price * discount/100) as discount from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
