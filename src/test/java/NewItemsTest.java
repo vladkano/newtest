@@ -10,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import sections.NewItems;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -39,8 +38,7 @@ public class NewItemsTest extends TestBase{
         basket.clickToOkButton();
     }
 
-    //Новинки(На доработке):
-    //Кол-во намименование в базе и на странице, выборочная проверка по наименованию
+    //Кол-во намименование в базе и на странице, проверка по наименованию
     @Test
     public void namesOfNewItems() {
         String countHeader = filters.getCountHeader();
@@ -54,14 +52,12 @@ public class NewItemsTest extends TestBase{
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-
         //сравниваем содержание и порядок списков
-//        assertEquals(sqlSize, numberOnly);
+        assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Проверка по наименованию дезайнера
+    //Проверка по наименованию дизайнера
     @Test
     public void designersOfNewItems() {
         //sql:
