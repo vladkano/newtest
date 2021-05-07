@@ -3,6 +3,7 @@ import mainPage.MainPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
@@ -11,8 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//Переписать с учетом того, что телефоны удалять нельзя(
-//пока есть затыки, одноразовые телефоны появляются не каждый день, нужно заходить как минимум на 2 сайта возвращатся на поизон и вставлять данные)
 
 //одноразовый телефон
 //https://onlinesim.ru/
@@ -20,8 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //одноразовая почта
 //https://temp-mail.org/ru/
+//https://www.crazymailing.com/ru/
 
 public class MainPageTest extends TestBase {
+
+    int a = 0; // Начальное значение диапазона - "от"
+    int b = 9999; // Конечное значение диапазона - "до"
 
     @BeforeEach
     public void setUp() {
@@ -36,7 +39,7 @@ public class MainPageTest extends TestBase {
 //        driver = new EdgeDriver(options);
         driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         mainPage = new MainPage(driver);
         basket = new Basket(driver);
         basket.clickToOkButton();
@@ -44,28 +47,54 @@ public class MainPageTest extends TestBase {
 
     //Позитивные Тесты
     //Регистрация телефон
-//    @Test
-//    public void registrationWithPhoneNumber() {
-//        mainPage.sigInWithPhoneOrEmail("+79501978905");
-//        String code = mainPage.getPhonePassword();
-//        MainPage head = mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
-//        String heading = head.getSigInHeader();
-//        mainPage.deletePhone();
-//        assertEquals("Test Name", heading);
-//
-//    }
+    @Test
+    public void registrationWithPhoneNumber() {
+        int random_number = a + (int) (Math.random() * b);
+        System.out.println("Случайное число: " + random_number);
+
+        //телефон
+        driver.get("https://onlinesim.ru/");
+        String phoneFromSite = mainPage.getPhoneFromSite();
+        System.out.println("phone: " + phoneFromSite);
+
+        //почта
+        driver.get("https://www.crazymailing.com/ru/");
+        String mailFromSite = mainPage.getMailFromSite();
+        System.out.println("mail: " + mailFromSite);
+
+        //заполняем форму
+        driver.get(getUrl);
+        mainPage.sigInWithPhoneOrEmail(phoneFromSite);
+        String code = mainPage.getPhonePassword();
+        MainPage head = mainPage.registerWithPhoneNumber(code, mailFromSite, "Test Phone" + random_number);
+        String heading = head.getSigInHeader();
+        assertEquals("Test Phone" + random_number, heading);
+    }
 
     //Регистрация email
-//    @Test
-//    public void registrationWithEmail() {
-//        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
-//        String code = mainPage.getEmailPassword();
-//        MainPage head = mainPage.registerWithEmail(code, "+79500000000", "Test Name");
-//        String heading = head.getSigInHeader();
-//        assertEquals("Test Name", heading);
-//        mainPage.deleteEmail();
-//    }
+    @Test
+    public void registrationWithEmail() {
+        int random_number = a + (int) (Math.random() * b);
+        System.out.println("Случайное число: " + random_number);
 
+        //телефон
+        driver.get("https://onlinesim.ru/");
+        String phoneFromSite = mainPage.getPhoneFromSite2();
+        System.out.println("phone: " + phoneFromSite);
+
+        //почта
+        driver.get("https://www.crazymailing.com/ru/");
+        String mailFromSite = mainPage.getMailFromSite();
+        System.out.println("mail: " + mailFromSite);
+
+        //заполняем форму
+        driver.get(getUrl);
+        mainPage.sigInWithPhoneOrEmail(mailFromSite);
+        String code = mainPage.getEmailPassword();
+        MainPage head = mainPage.registerWithEmail(code, phoneFromSite, "Test Mail" + random_number);
+        String heading = head.getSigInHeader();
+        assertEquals("Test Mail" + random_number, heading);
+    }
 
 
     //Авторизация
@@ -118,7 +147,7 @@ public class MainPageTest extends TestBase {
     public void registrationWithoutConsent() {
         mainPage.sigInWithPhoneOrEmail("+79956766482");
         String code = mainPage.getPhonePassword();
-        MainPage head = mainPage.registerWithPhoneNumber(code, "test13@mail.com", "Test Name");
+        MainPage head = mainPage.registerWithoutConsent(code, "test13@mail.com", "Test Name");
         String heading = head.getNoConsentHeader();
         assertEquals("Нужно согласиться на обработку персональных данных", heading);
     }
@@ -155,7 +184,7 @@ public class MainPageTest extends TestBase {
     public void emailRegistrationWithoutConsent() {
         mainPage.sigInWithPhoneOrEmail("owenkvist1@outlook.com");
         String code = mainPage.getEmailPassword();
-        MainPage head = mainPage.registerWithEmail(code, "+79500000000", "Test Name");
+        MainPage head = mainPage.emailRegisterWithoutConsent(code, "+79500000000", "Test Name");
         String heading = head.getNoConsentHeader();
         assertEquals("Нужно согласиться на обработку персональных данных", heading);
     }
@@ -189,9 +218,6 @@ public class MainPageTest extends TestBase {
         String heading = mainPage.getSigOutHeader();
         assertEquals("Вход", heading);
     }
-
-
-
 
 
     @AfterEach
