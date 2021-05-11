@@ -3,6 +3,8 @@ package mainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import sql.DBWorker;
 
 import java.sql.ResultSet;
@@ -13,7 +15,8 @@ public class MainPage {
 
     private WebDriver driver;
     private DBWorker worker = new DBWorker();
-
+    int a = 0; // Начальное значение диапазона - "от"
+    int b = 99; // Конечное значение диапазона - "до"
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -32,7 +35,10 @@ public class MainPage {
     By exitButton = By.xpath("//span[text()='Выход']");
     By phoneFromSite = By.xpath("//li[3]/div[@class='free-num__numbers-text']");
     By phoneFromSite2 = By.xpath("//li[2]/div[@class='free-num__numbers-text']");
-    By mailFromSite = By.id("email_addr");
+//    By mailFromSite = By.id("email_addr");
+    By mailFromSite = By.id("mail");
+    By copyButton = By.id("click-to-copy");
+
 
 
     //headers
@@ -61,8 +67,19 @@ public class MainPage {
         return driver.findElement(phoneFromSite2).getAttribute("textContent");
     }
 
+    public String getPhoneFromSite3() {
+        int random_number = a + (int) (Math.random() * b);
+        return driver.findElement(By.xpath("//tr[" + random_number + "]/td[@class='text-left']/a/b")).getAttribute("textContent");
+    }
+
+//    public String getMailFromSite() {
+//        return driver.findElement(mailFromSite).getAttribute("textContent");
+//    }
+
     public String getMailFromSite() {
-        return driver.findElement(mailFromSite).getAttribute("textContent");
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(copyButton));
+        return driver.findElement(mailFromSite).getAttribute("value");
     }
 
     public MainPage clickOnExitButton() {

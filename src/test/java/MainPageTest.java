@@ -53,12 +53,14 @@ public class MainPageTest extends TestBase {
         System.out.println("Случайное число: " + random_number);
 
         //телефон
-        driver.get("https://onlinesim.ru/");
-        String phoneFromSite = mainPage.getPhoneFromSite();
+//        driver.get("https://onlinesim.ru/");
+        driver.get("https://ru.inethere.com/virtual-number/receive-free-sms/russia/");
+        String phoneFromSite = mainPage.getPhoneFromSite3();
         System.out.println("phone: " + phoneFromSite);
 
         //почта
-        driver.get("https://www.crazymailing.com/ru/");
+//        driver.get("https://www.crazymailing.com/ru/");
+        driver.get("https://temp-mail.org/ru/");
         String mailFromSite = mainPage.getMailFromSite();
         System.out.println("mail: " + mailFromSite);
 
@@ -78,12 +80,15 @@ public class MainPageTest extends TestBase {
         System.out.println("Случайное число: " + random_number);
 
         //телефон
-        driver.get("https://onlinesim.ru/");
-        String phoneFromSite = mainPage.getPhoneFromSite2();
+//        driver.get("https://onlinesim.ru/");
+        driver.get("https://ru.inethere.com/virtual-number/receive-free-sms/russia/");
+        String phoneFromSite = mainPage.getPhoneFromSite3();
         System.out.println("phone: " + phoneFromSite);
 
         //почта
-        driver.get("https://www.crazymailing.com/ru/");
+//        driver.get("https://www.crazymailing.com/ru/");
+        driver.get("https://temp-mail.org/ru/");
+
         String mailFromSite = mainPage.getMailFromSite();
         System.out.println("mail: " + mailFromSite);
 
