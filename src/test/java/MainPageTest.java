@@ -59,8 +59,8 @@ public class MainPageTest extends TestBase {
         System.out.println("phone: " + phoneFromSite);
 
         //почта
-//        driver.get("https://www.crazymailing.com/ru/");
-        driver.get("https://temp-mail.org/ru/");
+        driver.get("https://www.crazymailing.com/ru/");
+//        driver.get("https://temp-mail.org/ru/");
         String mailFromSite = mainPage.getMailFromSite();
         System.out.println("mail: " + mailFromSite);
 
@@ -86,8 +86,9 @@ public class MainPageTest extends TestBase {
         System.out.println("phone: " + phoneFromSite);
 
         //почта
-//        driver.get("https://www.crazymailing.com/ru/");
-        driver.get("https://temp-mail.org/ru/");
+        driver.get("https://www.crazymailing.com/ru/");
+//        driver.get("https://temp-mail.org/ru/");
+
 
         String mailFromSite = mainPage.getMailFromSite();
         System.out.println("mail: " + mailFromSite);

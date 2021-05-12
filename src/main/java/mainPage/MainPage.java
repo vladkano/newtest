@@ -35,8 +35,8 @@ public class MainPage {
     By exitButton = By.xpath("//span[text()='Выход']");
     By phoneFromSite = By.xpath("//li[3]/div[@class='free-num__numbers-text']");
     By phoneFromSite2 = By.xpath("//li[2]/div[@class='free-num__numbers-text']");
-//    By mailFromSite = By.id("email_addr");
-    By mailFromSite = By.id("mail");
+    By mailFromSite = By.id("email_addr");
+//    By mailFromSite = By.id("mail");
     By copyButton = By.id("click-to-copy");
 
 
@@ -72,15 +72,15 @@ public class MainPage {
         return driver.findElement(By.xpath("//tr[" + random_number + "]/td[@class='text-left']/a/b")).getAttribute("textContent");
     }
 
-//    public String getMailFromSite() {
-//        return driver.findElement(mailFromSite).getAttribute("textContent");
-//    }
-
     public String getMailFromSite() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.elementToBeClickable(copyButton));
-        return driver.findElement(mailFromSite).getAttribute("value");
+        return driver.findElement(mailFromSite).getAttribute("textContent");
     }
+
+//    public String getMailFromSite() {
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        wait.until(ExpectedConditions.elementToBeClickable(copyButton));
+//        return driver.findElement(mailFromSite).getAttribute("value");
+//    }
 
     public MainPage clickOnExitButton() {
         ((JavascriptExecutor) driver).executeScript(
