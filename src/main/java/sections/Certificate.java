@@ -79,7 +79,8 @@ public class Certificate {
     }
 
     public Certificate clickToFirstSectionOrderButton() {
-        driver.findElement(firstSectionOrderButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(firstSectionOrderButton));
         return this;
     }
 

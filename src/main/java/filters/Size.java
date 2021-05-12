@@ -1,5 +1,6 @@
 package filters;
 
+import catalog.Rings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -21,8 +22,40 @@ public class Size {
     By sizeButton = By.xpath("//div[text()='Размер кольца']");
     By firstSizeButton = By.xpath("//span[text()='14,5']");
     By secondSizeButton = By.xpath("//span[text()='15,5']");
+    By thirdSizeButton = By.xpath("//span[text()='16,5']");
     By universalSizeButton = By.xpath("//span[text()='Универсальный']");
+    By currentSize = By.xpath("//span[@class='product-modification__output']");
+    By firstCurrentSizeButton = By.xpath("//ul/li[2]/label/span[@class='product-variant__variant product-variant__variant_size']");
+    By secondCurrentSizeButton = By.xpath("//ul/li[3]/label/span[@class='product-variant__variant product-variant__variant_size']");
+    By imageLink = By.xpath("//picture/img");
+    By sizeHeader = By.xpath("//span[@class='cart-item__additional-params']");
 
+
+    public String getSizeHeader() {
+        return driver.findElement(sizeHeader).getAttribute("textContent");
+    }
+
+    public Size clickToSecondCurrentSizeButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(secondCurrentSizeButton));
+        return this;
+    }
+
+    public Size clickOnImageLink() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(imageLink));
+        return this;
+    }
+
+    public Size clickToFirstCurrentSizeButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(firstCurrentSizeButton));
+        return this;
+    }
+
+    public String getCurrentSize() {
+        return driver.findElement(currentSize).getAttribute("textContent");
+    }
 
     public Size clickToSizeButton() {
         ((JavascriptExecutor) driver).executeScript(
@@ -33,6 +66,12 @@ public class Size {
     public Size clickToFirstSizeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(firstSizeButton));
+        return this;
+    }
+
+    public Size clickToThirdSizeButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(thirdSizeButton));
         return this;
     }
 
