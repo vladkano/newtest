@@ -91,21 +91,22 @@ public class PersonalAreaTest extends TestBase {
         assertEquals(firstName, finalName);
     }
 
-    @Test
-    public void changeBirthday() {
-        String first = personalData.getBirthday();
-        personalData.clickOnBirthday();
-        personalData.typeBirthday("1212");
-        personalData.clickOnSaveButton();
-        String second = personalData.getBirthday();
-        personalData.clickOnBirthday();
-        personalData.typeBirthday("1111");
-        personalData.clickOnSaveButton();
-        String last = personalData.getBirthday();
-        assertNotEquals(first, second);
-        assertNotEquals(second, last);
-        assertEquals(first, last);
-    }
+    //нельзя менять с 14.05
+//    @Test
+//    public void changeBirthday() {
+//        String first = personalData.getBirthday();
+//        personalData.clickOnBirthday();
+//        personalData.typeBirthday("1212");
+//        personalData.clickOnSaveButton();
+//        String second = personalData.getBirthday();
+//        personalData.clickOnBirthday();
+//        personalData.typeBirthday("1111");
+//        personalData.clickOnSaveButton();
+//        String last = personalData.getBirthday();
+//        assertNotEquals(first, second);
+//        assertNotEquals(second, last);
+//        assertEquals(first, last);
+//    }
 
     @Test
     public void changeDeliveryCity() {

@@ -27,7 +27,7 @@ public class BasketTest extends TestBase {
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-        driver.get(getUrl + "catalog");
+        driver.navigate().to(getUrl + "catalog");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
         basket = new Basket(driver);
@@ -101,9 +101,7 @@ public class BasketTest extends TestBase {
     //Товар из коллекции без размера
     @Test
     public void inBasketButtonWithCollection() {
-        filters = new Filters(driver);
-        filters.clickToEarringsButton();
-        basket.clickOnFirstCollection();
+        driver.navigate().to(basket.getSecondLinkOfCollection());
         basket.clickToItemInBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
@@ -111,8 +109,7 @@ public class BasketTest extends TestBase {
 
     @Test
     public void plusButtonWithCollection() {
-        filters = new Filters(driver);
-        basket.clickOnFirstCollection();
+        driver.navigate().to(basket.getSecondLinkOfCollection());
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
         String number = basket.getBasketNumber();
@@ -121,9 +118,7 @@ public class BasketTest extends TestBase {
 
     @Test
     public void minusButtonWithCollection() {
-        filters = new Filters(driver);
-        filters.clickToEarringsButton();
-        basket.clickOnFirstCollection();
+        driver.navigate().to(basket.getSecondLinkOfCollection());
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
         basket.clickToMinusBasketButton();
@@ -135,9 +130,7 @@ public class BasketTest extends TestBase {
     //Товар из коллекции c размером
     @Test
     public void inBasketButtonWithCollectionAndSize() {
-        filters = new Filters(driver);
-        filters.clickToRingsButton();
-        basket.clickOnFirstCollection();
+        driver.navigate().to(basket.getFirstLinkOfCollection());
         basket.clickToItemInBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
@@ -145,9 +138,7 @@ public class BasketTest extends TestBase {
 
     @Test
     public void plusButtonWithCollectionAndSize() {
-        filters = new Filters(driver);
-        filters.clickToRingsButton();
-        basket.clickOnFirstCollection();
+        driver.navigate().to(basket.getFirstLinkOfCollection());
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
         String number = basket.getBasketNumber();
@@ -156,9 +147,7 @@ public class BasketTest extends TestBase {
 
     @Test
     public void minusButtonWithCollectionAndSize() {
-        filters = new Filters(driver);
-        filters.clickToRingsButton();
-        basket.clickOnFirstCollection();
+        driver.navigate().to(basket.getFirstLinkOfCollection());
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
         basket.clickToMinusBasketButton();

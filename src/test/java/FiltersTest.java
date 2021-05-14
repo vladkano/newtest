@@ -33,6 +33,8 @@ public class FiltersTest extends TestBase {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         filters = new Filters(driver);
+        basket = new Basket(driver);
+        basket.clickToOkButton();
     }
 
     //Проверяем работу фильтров
@@ -108,8 +110,8 @@ public class FiltersTest extends TestBase {
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        assertEquals(sqlList.get(0).substring(0,64), siteList.get(0).substring(0,64));
+        assertEquals(sqlList.get(8), siteList.get(8));
     }
 
     @Test
@@ -653,8 +655,8 @@ public class FiltersTest extends TestBase {
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        assertEquals(sqlList.get(0).substring(0,64), siteList.get(0).substring(0,64));
+        assertEquals(sqlList.get(2).substring(0,64), siteList.get(2).substring(0,64));
     }
 
     @Test
@@ -678,9 +680,10 @@ public class FiltersTest extends TestBase {
     }
 
     @Test
-    public void filterButtonBrooches() {
+    public void filterButtonBrooches() throws InterruptedException {
         brooches = new Brooches(driver);
         filters.clickToBroochesButton();
+        Thread.sleep(500);
         List<String> sqlList = brooches.getNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);

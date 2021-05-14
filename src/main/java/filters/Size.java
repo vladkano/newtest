@@ -1,6 +1,5 @@
 package filters;
 
-import catalog.Rings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +13,7 @@ import java.util.List;
 
 public class Size {
     private WebDriver driver;
+    static DBWorker worker = new DBWorker();
 
     public Size(WebDriver driver) {
         this.driver = driver;
@@ -29,7 +29,34 @@ public class Size {
     By secondCurrentSizeButton = By.xpath("//ul/li[3]/label/span[@class='product-variant__variant product-variant__variant_size']");
     By imageLink = By.xpath("//picture/img");
     By sizeHeader = By.xpath("//span[@class='cart-item__additional-params']");
+    By plateHeader = By.xpath("//span[@class='notification__text']");
 
+
+
+    public Size clickToFirstItemButton() {
+        String firstItem = this.findFirstItem();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")));
+        return this;
+    }
+
+    public Size clickToSecondItemButton() {
+        String secondItem = this.findSecondItem();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + secondItem + "']")));
+        return this;
+    }
+
+    public Size clickToThirdItemButton() {
+        String thirdItem = this.findThirdItem();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + thirdItem + "']")));
+        return this;
+    }
+
+    public String getPlateHeader() {
+        return driver.findElement(plateHeader).getAttribute("textContent");
+    }
 
     public String getSizeHeader() {
         return driver.findElement(sizeHeader).getAttribute("textContent");
@@ -88,6 +115,94 @@ public class Size {
     }
 
     //SQL
+
+    //Находим товар с плашкой 3-5 дней среди браслетов
+    public static String findFirstItem() {
+        String name;
+        List<String> list = new ArrayList<>();
+        String query = "select item_sku.name from item_sku " +
+                "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety'" +
+                "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
+                "group by item_catalog_position.position";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+                list.add(name);
+//                System.out.println(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list.get(0);
+    }
+
+    //Находим товар с плашкой 3-5 дней среди колец
+    public static String findSecondItem() {
+        String name;
+        List<String> list = new ArrayList<>();
+        String query = "select item_sku.name from item_sku " +
+                "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'koltsa'" +
+                "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
+                "group by item_catalog_position.position";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+                list.add(name);
+//                System.out.println(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list.get(0);
+    }
+
+    //Находим товар с плашкой 3-5 дней в разделе "Серьги"
+    public static String findThirdItem() {
+        String name;
+        List<String> list = new ArrayList<>();
+        String query = "select item_sku.name from item_sku " +
+                "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'sergi'" +
+                "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
+                "group by item_catalog_position.position";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+                list.add(name);
+//                System.out.println(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list.get(0);
+    }
+
     public List<String> getListOfFirstSize() {
         DBWorker worker = new DBWorker();
         String name;
@@ -190,29 +305,25 @@ public class Size {
         return text;
     }
 
-    //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item_sku " +
+        String query = "select item_sku.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
-                "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
-                "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
-                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14,5' and item_sku.url is not null and balance > 0 " +
-                " group by item_catalog_position.position ";
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety'" +
+                "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 name = resultSet.getString("name");
-//                System.out.println(id);
+                System.out.println(name);
                 text.add(name);
             }
         } catch (SQLException e) {
@@ -220,7 +331,7 @@ public class Size {
         }
         worker.getSession().disconnect();
 
-        System.out.println(text.size());
-        System.out.println(text);
+//        System.out.println(text.size());
+//        System.out.println(text);
     }
 }

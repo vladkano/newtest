@@ -227,8 +227,7 @@ public class Bracelets {
         return text;
     }
 
-    //Вытаскиваем все браслеты, которые входят в коллекции
-    //Вытаскиваем ссылку
+    //Вытаскиваем ссылки на браслеты, которые входят в коллекции
     public String getFirstLinkOfCollection() {
         DBWorker worker = new DBWorker();
         String name;
