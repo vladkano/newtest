@@ -21,12 +21,11 @@ public class ProductCardsTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+//        options.setHeadless(true);
+//        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-        driver.get(getUrl + "catalog/");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         filters = new Filters(driver);
@@ -41,6 +40,7 @@ public class ProductCardsTest extends TestBase {
     //с размером 14,5
     @Test
     public void changeSize145() {
+        driver.get(getUrl + "catalog/");
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToFirstSizeButton();
@@ -68,6 +68,7 @@ public class ProductCardsTest extends TestBase {
     //с размером 15,5
     @Test
     public void changeSize155() {
+        driver.get(getUrl + "catalog/");
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToSecondSizeButton();
@@ -95,6 +96,7 @@ public class ProductCardsTest extends TestBase {
     //с размером 16,5
     @Test
     public void changeSize165() {
+        driver.get(getUrl + "catalog/");
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToThirdSizeButton();
@@ -110,9 +112,6 @@ public class ProductCardsTest extends TestBase {
         String secondCurrentSize = size.getCurrentSize();
         size.clickToSecondCurrentSizeButton();
         String thirdCurrentSize = size.getCurrentSize();
-        System.out.println(firstCurrentSize);
-        System.out.println(secondCurrentSize);
-        System.out.println(thirdCurrentSize);
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         String sizeHeader = size.getSizeHeader();
@@ -120,6 +119,31 @@ public class ProductCardsTest extends TestBase {
         assertNotEquals(secondCurrentSize, thirdCurrentSize);
         assertNotEquals(firstCurrentSize, thirdCurrentSize);
         assertEquals("Размер: " + thirdCurrentSize, sizeHeader);
+    }
+
+    //Если товар только на виртуальном складе или только на складе в Питере, то должна быть плашка "Доставка от 3-5 дней" (storage id = 1 или 5)
+    @Test
+    public void firstCheckPlate() {
+        driver.get(getUrl + "catalog/braslety");
+        size.clickToFirstItemButton();
+        String plateHeader = size.getPlateHeader();
+        assertEquals("Доставка от 3-5 дней", plateHeader);
+    }
+
+    @Test
+    public void secondCheckPlate() {
+        driver.get(getUrl + "catalog/koltsa");
+        size.clickToSecondItemButton();
+        String plateHeader = size.getPlateHeader();
+        assertEquals("Доставка от 3-5 дней", plateHeader);
+    }
+
+    @Test
+    public void thirdCheckPlate() {
+        driver.get(getUrl + "catalog/sergi");
+        size.clickToThirdItemButton();
+        String plateHeader = size.getPlateHeader();
+        assertEquals("Доставка от 3-5 дней", plateHeader);
     }
 
     @AfterEach

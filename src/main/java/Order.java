@@ -62,15 +62,14 @@ public class Order {
     By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6601-054\"); return false;']");
     By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
     By paperButton = By.xpath("//span[text()='Бумажный']");
-
     By firstPrice = By.xpath("//span[@class='price-block__price']");
     By finalPrice = By.xpath("//span[@class='order-summary__value order-summary__value_final']");
-
 
 
     //headers
     By payHeader = By.xpath("//span[text()='Заплатить']");
     By orderHeader = By.xpath("//span[text()='Мы приняли ваш заказ']");
+
 
     public String getFirstPrice() {
         return driver.findElement(firstPrice).getText();

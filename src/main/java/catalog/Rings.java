@@ -179,8 +179,7 @@ public class Rings {
         return text;
     }
 
-    //Вытаскиваем все браслеты, которые входят в коллекции
-    //Вытаскиваем ссылку
+    //Вытаскиваем ссылки на кольца, которые входят в коллекции
     public String getFirstLinkOfCollection() {
         String name;
         String name2;
