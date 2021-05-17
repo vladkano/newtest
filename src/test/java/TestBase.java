@@ -46,6 +46,7 @@ public class TestBase {
     Tag tag;
     MainPage mainPage;
     PersonalData personalData;
+    Search search;
 
     By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
     By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image-hovered']");

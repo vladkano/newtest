@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import sql.DBWorker;
@@ -8,6 +9,7 @@ import sql.DBWorker;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Set;
 
 
 public class Order {
@@ -36,7 +38,7 @@ public class Order {
     By payButton = By.xpath("//span[text()='Перейти к оплате']");
     By orderButton = By.xpath("//span[text()='Оформить заказ']");
     By addAddressButton = By.xpath("//span[text()='Добавить этаж, домофон, комментарий']");
-    By searchbox = By.xpath("//input[@id='searchbox']");
+    By searchBox = By.xpath("//input[@id='searchbox']");
 
 
     By addCommentButton = By.xpath("//button[text()='Добавить комментарий к заказу']");
@@ -56,10 +58,10 @@ public class Order {
     By orderInternationalCity = By.xpath("//input[@id='internationalCity']");
     By orderInternationalAddress = By.xpath("//input[@id='internationalAddress']");
     By noPayButton = By.xpath("//label[@for='offlinePayment']/span");
-    By pickPointButton = By.xpath("//span[text()='Доставить до постамата по России']");
+    By pickPointButton = By.xpath("//span[text()='Доставить до постамата']");
     By selectPostomatButton = By.xpath("//span[text()='Выбрать постамат']");
     By searchboxButton = By.xpath("//div[@class='combobox searchbox']/span");
-    By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6601-054\"); return false;']");
+    By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6605-096\"); return false;']");
     By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
     By paperButton = By.xpath("//span[text()='Бумажный']");
     By firstPrice = By.xpath("//span[@class='price-block__price']");
@@ -106,21 +108,6 @@ public class Order {
 
     public Order typeOrderAddress(String address) {
         driver.findElement(orderAddress).sendKeys(address);
-        return this;
-    }
-
-    public Order typeCity(String city) {
-        driver.findElement(orderCity).sendKeys(city);
-        return this;
-    }
-
-    public Order typeStreet(String street) {
-        driver.findElement(orderStreet).sendKeys(street);
-        return this;
-    }
-
-    public Order typeHouse(String house) {
-        driver.findElement(orderHouse).sendKeys(house);
         return this;
     }
 
@@ -220,7 +207,8 @@ public class Order {
     }
 
     public Order clickOnPickPointButton() {
-        driver.findElement(pickPointButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(pickPointButton));
         return this;
     }
 
@@ -288,8 +276,8 @@ public class Order {
         return new Order(driver);
     }
 
-    public Order typeSearchbox(String search) {
-        driver.findElement(searchbox).sendKeys(search);
+    public Order typeSearchBox(String search) {
+        driver.findElement(searchBox).sendKeys(search);
         return this;
     }
 
@@ -304,7 +292,6 @@ public class Order {
     }
 
     public Order clickOnPaperButton() {
-
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(paperButton));
 //        driver.findElement(paperButton).click();
@@ -691,24 +678,21 @@ public class Order {
     }
 
     public Order orderWithPickPointPhone(String phone, String email, String fio, String search) {
+        String oldWindowsSet = driver.getWindowHandle();
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPickPointButton();
         this.clickOnSelectPostomatButton();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        for (String windowHandler : driver.getWindowHandles()) {
-            driver.switchTo().window(windowHandler);
-        }
-//        this.typeSearchbox(search);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement postomatFrame = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']")));
+        driver.switchTo().frame(postomatFrame);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Россия']")));
+        this.typeSearchBox(search);
         this.clickOnSearchboxButton();
         this.clickOnRodonitButton();
         this.clickOnSelectButton();
-        this.clickOnPhoneButton();
+        driver.switchTo().window(oldWindowsSet);
         this.clickOnPayButton();
         return new Order(driver);
     }
@@ -751,7 +735,7 @@ public class Order {
 
     //Бумажный
     public Order certificateWithPhone(String phone, String email, String fio, String address, String apartment,
-                                        String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+                                      String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -770,7 +754,7 @@ public class Order {
     }
 
     public Order certificateWithWA(String phone, String email, String fio, String address, String apartment,
-                                      String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+                                   String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -862,7 +846,7 @@ public class Order {
 
     //Бумажный сертификат без оплаты:
     public Order certificateWithNoPayAndPhone(String phone, String email, String fio, String address, String apartment,
-                                      String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+                                              String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);

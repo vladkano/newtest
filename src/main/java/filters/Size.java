@@ -145,7 +145,7 @@ public class Size {
         return list.get(0);
     }
 
-    //Находим товар с плашкой 3-5 дней среди колец
+    //Находим товар с плашкой 3-5 дней среди колье
     public static String findSecondItem() {
         String name;
         List<String> list = new ArrayList<>();
@@ -156,7 +156,7 @@ public class Size {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'koltsa'" +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole'" +
                 "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
                 "group by item_catalog_position.position";
         try {
@@ -171,7 +171,7 @@ public class Size {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.get(0);
+        return list.get(1);
     }
 
     //Находим товар с плашкой 3-5 дней в разделе "Серьги"
@@ -315,7 +315,7 @@ public class Size {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety'" +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole'" +
                 "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
                 "group by item_catalog_position.position";
         try {

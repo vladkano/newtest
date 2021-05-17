@@ -4,9 +4,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,16 +21,17 @@ public class ProductCardsTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
-//        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+        options.setHeadless(true);
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         filters = new Filters(driver);
         size = new Size(driver);
         basket = new Basket(driver);
+        search = new Search(driver);
     }
 
 
@@ -125,15 +126,21 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void firstCheckPlate() {
         driver.get(getUrl + "catalog/braslety");
-        size.clickToFirstItemButton();
+        basket.clickToOkButton();
+        String firstItem = size.findFirstItem();
+        search.getSearch(firstItem);
+        size.clickOnImageLink();
         String plateHeader = size.getPlateHeader();
         assertEquals("Доставка от 3-5 дней", plateHeader);
     }
 
     @Test
     public void secondCheckPlate() {
-        driver.get(getUrl + "catalog/koltsa");
-        size.clickToSecondItemButton();
+        driver.get(getUrl + "catalog/kole");
+        basket.clickToOkButton();
+        String secondItem = size.findSecondItem();
+        search.getSearch(secondItem);
+        size.clickOnImageLink();
         String plateHeader = size.getPlateHeader();
         assertEquals("Доставка от 3-5 дней", plateHeader);
     }
@@ -141,7 +148,10 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void thirdCheckPlate() {
         driver.get(getUrl + "catalog/sergi");
-        size.clickToThirdItemButton();
+        basket.clickToOkButton();
+        String thirdItem = size.findThirdItem();
+        search.getSearch(thirdItem);
+        size.clickOnImageLink();
         String plateHeader = size.getPlateHeader();
         assertEquals("Доставка от 3-5 дней", plateHeader);
     }

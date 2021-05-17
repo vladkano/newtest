@@ -497,6 +497,19 @@ public class OrderTest extends TestBase {
         assertEquals("Мы приняли ваш заказ", header);
     }
 
+    //Доставка до постомата
+    @Test()
+    public void postomatAndPhone() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "родонитовая");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
+
 
     @AfterEach
     public void tearDownEach() {
