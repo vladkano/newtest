@@ -32,28 +32,6 @@ public class Size {
     By plateHeader = By.xpath("//span[@class='notification__text']");
 
 
-
-    public Size clickToFirstItemButton() {
-        String firstItem = this.findFirstItem();
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")));
-        return this;
-    }
-
-    public Size clickToSecondItemButton() {
-        String secondItem = this.findSecondItem();
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + secondItem + "']")));
-        return this;
-    }
-
-    public Size clickToThirdItemButton() {
-        String thirdItem = this.findThirdItem();
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + thirdItem + "']")));
-        return this;
-    }
-
     public String getPlateHeader() {
         return driver.findElement(plateHeader).getAttribute("textContent");
     }
@@ -115,27 +93,57 @@ public class Size {
     }
 
     //SQL
+    //Находим товар с плашкой 3-5 дней
+    public static String findItem35days() {
+        String name = "";
+        String query = "select item_sku.name from item_sku " +
+                "where id = " + findFirstItem() +"";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+                System.out.println(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
 
-    //Находим товар с плашкой 3-5 дней среди браслетов
+    //Находим айдишники товаров с плашкой 3-5 дней
     public static String findFirstItem() {
         String name;
         List<String> list = new ArrayList<>();
-        String query = "select item_sku.name from item_sku " +
+        String query = "WITH cte_a AS ( " +
+//                "select sku_id, balance from storage_stock " +
+//                "JOIN item_sku ON item_sku.id = storage_stock.sku_id " +
+//                "JOIN item ON item_sku.item_id = item.id " +
+//                "JOIN designer ON item.designer_id = designer.id " +
+//                "where storage_id=1 and designer.name not like 'LAV%' group by sku_id " +
+//                "UNION ALL " +
+                "select sku_id, balance from storage_stock " +
+                "JOIN item_sku ON item_sku.id = storage_stock.sku_id " +
                 "JOIN item ON item_sku.item_id = item.id " +
-                "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety'" +
-                "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
-                "group by item_catalog_position.position";
+                "JOIN designer ON item.designer_id = designer.id where storage_id=5 and designer.name not like 'LAV%' group by sku_id " +
+                "),cte_b AS (select sku_id, balance from storage_stock where storage_id=2 group by sku_id " +
+                "UNION ALL " +
+                "select sku_id, balance from storage_stock where storage_id=3 group by sku_id " +
+                "UNION ALL " +
+                "select sku_id, balance from storage_stock where storage_id=4 group by sku_id " +
+                "UNION ALL " +
+                "select sku_id, balance from storage_stock where storage_id=7 group by sku_id " +
+                ")select t1.*,t2.b2 from (select sku_id,sum(balance) as b1 from cte_b group by sku_id HAVING(sum(balance))=0 " +
+                ") as t1 " +
+                "JOIN (select sku_id,sum(balance) as b2 from cte_a group by sku_id HAVING(sum(balance))>0 " +
+                ") as t2 " +
+                "ON t1.sku_id=t2.sku_id";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                name = resultSet.getString("name");
+                name = resultSet.getString("sku_id");
                 list.add(name);
 //                System.out.println(name);
             }
@@ -145,55 +153,57 @@ public class Size {
         return list.get(0);
     }
 
-    //Находим товар с плашкой 3-5 дней среди колье
+    //Находим товар с плашкой от 7 дней
+    public static String findItem7days() {
+        String name = "";
+        String query = "select item_sku.name from item_sku " +
+                "where id = " + findSecondItem() +"";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+                System.out.println(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
+
+    //Находим айдишники товаров с плашкой 7 дней
     public static String findSecondItem() {
         String name;
         List<String> list = new ArrayList<>();
-        String query = "select item_sku.name from item_sku " +
+        String query = "WITH cte_a AS ( " +
+                "select sku_id, balance from storage_stock " +
+                "JOIN item_sku ON item_sku.id = storage_stock.sku_id " +
                 "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole'" +
-                "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
-                "group by item_catalog_position.position";
+                "where storage_id=1 and designer.name not like 'LAV%' group by sku_id " +
+                "UNION ALL " +
+                "select sku_id, balance from storage_stock " +
+                "JOIN item_sku ON item_sku.id = storage_stock.sku_id " +
+                "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN designer ON item.designer_id = designer.id where storage_id=5 and designer.name not like 'LAV%' group by sku_id " +
+                "),cte_b AS (select sku_id, balance from storage_stock where storage_id=2 group by sku_id " +
+                "UNION ALL " +
+                "select sku_id, balance from storage_stock where storage_id=3 group by sku_id " +
+                "UNION ALL " +
+                "select sku_id, balance from storage_stock where storage_id=4 group by sku_id " +
+                "UNION ALL " +
+                "select sku_id, balance from storage_stock where storage_id=7 group by sku_id " +
+                ")select t1.*,t2.b2 from (select sku_id,sum(balance) as b1 from cte_b group by sku_id HAVING(sum(balance))=0 " +
+                ") as t1 " +
+                "JOIN (select sku_id,sum(balance) as b2 from cte_a group by sku_id HAVING(sum(balance))>0 " +
+                ") as t2 " +
+                "ON t1.sku_id=t2.sku_id";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-                list.add(name);
-//                System.out.println(name);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list.get(1);
-    }
-
-    //Находим товар с плашкой 3-5 дней в разделе "Серьги"
-    public static String findThirdItem() {
-        String name;
-        List<String> list = new ArrayList<>();
-        String query = "select item_sku.name from item_sku " +
-                "JOIN item ON item_sku.item_id = item.id " +
-                "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'sergi'" +
-                "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
-                "group by item_catalog_position.position";
-        try {
-            Statement statement = worker.getCon().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                name = resultSet.getString("name");
+                name = resultSet.getString("sku_id");
                 list.add(name);
 //                System.out.println(name);
             }
@@ -202,6 +212,9 @@ public class Size {
         }
         return list.get(0);
     }
+
+
+
 
     public List<String> getListOfFirstSize() {
         DBWorker worker = new DBWorker();
@@ -309,15 +322,7 @@ public class Size {
         String name;
         List<String> text = new ArrayList<>();
         String query = "select item_sku.name from item_sku " +
-                "JOIN item ON item_sku.item_id = item.id " +
-                "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole'" +
-                "and storage_id = 5 and item_sku.url is not null and balance > 0 and designer.name not like 'LAV%' " +
-                "group by item_catalog_position.position";
+                "where id = " + findFirstItem() +"";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
