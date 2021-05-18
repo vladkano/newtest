@@ -32,6 +32,7 @@ public class ProductCardsTest extends TestBase {
         size = new Size(driver);
         basket = new Basket(driver);
         search = new Search(driver);
+        picture = new Picture(driver);
     }
 
 
@@ -41,7 +42,7 @@ public class ProductCardsTest extends TestBase {
     //с размером 14,5
     @Test
     public void changeSize145() {
-        driver.get(getUrl + "catalog/");
+        driver.get(getUrl + "catalog/koltsa/");
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToFirstSizeButton();
@@ -69,7 +70,7 @@ public class ProductCardsTest extends TestBase {
     //с размером 15,5
     @Test
     public void changeSize155() {
-        driver.get(getUrl + "catalog/");
+        driver.get(getUrl + "catalog/koltsa/");
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToSecondSizeButton();
@@ -97,7 +98,7 @@ public class ProductCardsTest extends TestBase {
     //с размером 16,5
     @Test
     public void changeSize165() {
-        driver.get(getUrl + "catalog/");
+        driver.get(getUrl + "catalog/koltsa/");
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToThirdSizeButton();
@@ -122,38 +123,65 @@ public class ProductCardsTest extends TestBase {
         assertEquals("Размер: " + thirdCurrentSize, sizeHeader);
     }
 
-    //Если товар только на виртуальном складе или только на складе в Питере, то должна быть плашка "Доставка от 3-5 дней" (storage id = 1 или 5)
+    //Если товар только на виртуальном складе(3-5 дней) или только на складе в Питере(7 дней),
+    //то должна быть плашка "Доставка от 3-5 дней" (storage id = 1 или 5)
+
+    //плашка "Доставка от 3-5 дней"
     @Test
     public void firstCheckPlate() {
-        driver.get(getUrl + "catalog/braslety");
+        driver.get(getUrl + "catalog");
         basket.clickToOkButton();
-        String firstItem = size.findFirstItem();
+        String firstItem = size.findItem35days();
         search.getSearch(firstItem);
         size.clickOnImageLink();
         String plateHeader = size.getPlateHeader();
         assertEquals("Доставка от 3-5 дней", plateHeader);
     }
 
+    //плашка "Доставка от 7 дней"
     @Test
     public void secondCheckPlate() {
-        driver.get(getUrl + "catalog/kole");
+        driver.get(getUrl + "catalog");
         basket.clickToOkButton();
-        String secondItem = size.findSecondItem();
+        String secondItem = size.findItem7days();
         search.getSearch(secondItem);
         size.clickOnImageLink();
         String plateHeader = size.getPlateHeader();
-        assertEquals("Доставка от 3-5 дней", plateHeader);
+        assertEquals("Доставка от 7 дней", plateHeader);
+    }
+
+    //Отображение картинок в карточке товара
+    @Test
+    public void checkPictureListSergi() {
+        driver.get(getUrl + "catalog/sergi");
+        size.clickOnImageLink();
+        int size = picture.getPicturesList().size();
+        assertNotEquals(0, size);
     }
 
     @Test
-    public void thirdCheckPlate() {
-        driver.get(getUrl + "catalog/sergi");
-        basket.clickToOkButton();
-        String thirdItem = size.findThirdItem();
-        search.getSearch(thirdItem);
+    public void checkPictureListBraslety() {
+        driver.get(getUrl + "catalog/braslety");
         size.clickOnImageLink();
-        String plateHeader = size.getPlateHeader();
-        assertEquals("Доставка от 3-5 дней", plateHeader);
+        int size = picture.getPicturesList().size();
+        assertNotEquals(0, size);
+    }
+
+    @Test
+    public void checkPictureListKoltsa() {
+        driver.get(getUrl + "catalog/koltsa");
+        size.clickOnImageLink();
+        int size = picture.getPicturesList().size();
+        assertNotEquals(0, size);
+    }
+
+    @Test
+    public void checkPictureListKole() {
+        driver.get(getUrl + "catalog/kole");
+        size.clickOnImageLink();
+        int size = picture.getPicturesList().size();
+        System.out.println(size);
+        assertNotEquals(0, size);
     }
 
     @AfterEach

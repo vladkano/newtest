@@ -330,8 +330,8 @@ public class FiltersTest extends TestBase {
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(1), siteList.get(1));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        assertEquals(sqlList.get(0).substring(0,28), siteList.get(0).substring(0,28));
+        assertEquals(sqlList.get(2).substring(0,28), siteList.get(2).substring(0,28));
     }
 
     @Test
