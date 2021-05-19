@@ -38,7 +38,12 @@ public class Basket {
     By max = By.xpath("//div[@class='counter']");
     By cartCount = By.xpath("//div[@class='text-on-icon page-header__cart']/span");
     By inBasket = By.xpath("//span[text()='В корзине']");
+    By noBasketHeader = By.xpath("//p[text()='Этого украшения сейчас нет в наличии']");
 
+
+    public String getNoBasketHeader() {
+        return driver.findElement(noBasketHeader).getText();
+    }
 
     public Basket clickToOkButton() {
         driver.findElement(okButton).click();

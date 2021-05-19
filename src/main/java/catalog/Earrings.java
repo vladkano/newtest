@@ -235,32 +235,52 @@ public class Earrings {
         return first;
     }
 
-    public static void main(String[] args) {
-        String name;
-        int id = 0;
-        List<String> text = new ArrayList<>();
-        String query = "SELECT COUNT(tag_id) as tag_id from sku_picture_list " +
-                "JOIN item_sku ON sku_picture_list.sku_id = item_sku.id " +
+    //Вытаскиваем урлы, товаров которых нет в наличии
+    public List<String> getItemsIsOutOfStock() {
+        String url;
+        List<String> listOfUrl = new ArrayList<>();
+        String query = "SELECT storage_stock.sku_id, item_sku.url, SUM(balance) from storage_stock " +
+                "JOIN item_sku ON item_sku.id = storage_stock.sku_id " +
                 "JOIN item ON item.id = item_sku.item_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
-
-
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=1 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'sergi' " +
-                "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position";
+                "and catalog_id=1 and is_archive = 0 and price != 0 " +
+                "and item_sku.url is not null " +
+                "group by storage_stock.sku_id having SUM(balance) = 0";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                id = resultSet.getInt("tag_id");
-//                name = resultSet.getString("name");
-                System.out.println(id);
-//                System.out.println(name);
-//                text.add(name);
+                url = resultSet.getString("url");
+//                System.out.println(url);
+                listOfUrl.add(url);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfUrl;
+    }
+
+    public static void main(String[] args) {
+        String name;
+        List<String> text = new ArrayList<>();
+        String query = "SELECT storage_stock.sku_id, item_sku.url, SUM(balance) from storage_stock " +
+                "JOIN item_sku ON item_sku.id = storage_stock.sku_id " +
+                "JOIN item ON item.id = item_sku.item_id " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=1 and is_archive = 0 and price != 0 " +
+                "and item_sku.url is not null " +
+                "group by storage_stock.sku_id having SUM(balance) = 0";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                name = resultSet.getString("url");
+                System.out.println(name);
+                text.add(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
