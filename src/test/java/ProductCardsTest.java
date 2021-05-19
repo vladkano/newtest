@@ -1,3 +1,7 @@
+import catalog.Bracelets;
+import catalog.Earrings;
+import catalog.Necklaces;
+import catalog.Rings;
 import filters.Filters;
 import filters.Size;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -38,7 +42,6 @@ public class ProductCardsTest extends TestBase {
 
     //Переход в раздел колец, в фильтре выбираем кольцо, далее переходим в карточку товара и переключаемся между размерами
     //смотрим чтобы менялся размер, кладем в корзину и проверяем что верный размер попал в корзину
-
     //с размером 14,5
     @Test
     public void changeSize145() {
@@ -125,7 +128,6 @@ public class ProductCardsTest extends TestBase {
 
     //Если товар только на виртуальном складе(3-5 дней) или только на складе в Питере(7 дней),
     //то должна быть плашка "Доставка от 3-5 дней" (storage id = 1 или 5)
-
     //плашка "Доставка от 3-5 дней"
     @Test
     public void firstCheckPlate() {
@@ -183,6 +185,44 @@ public class ProductCardsTest extends TestBase {
         System.out.println(size);
         assertNotEquals(0, size);
     }
+
+    //Если товара нет в наличии, то кнопки "в корзину" быть не должно
+    @Test
+    public void checkCartButtonSergi() {
+        earrings = new Earrings(driver);
+        String s = earrings.getItemsIsOutOfStock().get(0);
+        driver.get(getUrl + "catalog/sergi/" + s);
+        String noBasketHeader = basket.getNoBasketHeader();
+        assertEquals("Этого украшения сейчас нет в наличии", noBasketHeader);
+    }
+
+    @Test
+    public void checkCartButtonBraslety() {
+        bracelets = new Bracelets(driver);
+        String s = bracelets.getItemsIsOutOfStock().get(0);
+        driver.get(getUrl + "catalog/braslety/" + s);
+        String noBasketHeader = basket.getNoBasketHeader();
+        assertEquals("Этого украшения сейчас нет в наличии", noBasketHeader);
+    }
+
+    @Test
+    public void checkCartButtonKole() {
+        necklaces = new Necklaces(driver);
+        String s = necklaces.getItemsIsOutOfStock().get(0);
+        driver.get(getUrl + "catalog/kole/" + s);
+        String noBasketHeader = basket.getNoBasketHeader();
+        assertEquals("Этого украшения сейчас нет в наличии", noBasketHeader);
+    }
+
+    @Test
+    public void checkCartButtonKoltsa() {
+        rings = new Rings(driver);
+        String s = rings.getItemsIsOutOfStock().get(0);
+        driver.get(getUrl + "catalog/koltsa/" + s);
+        String noBasketHeader = basket.getNoBasketHeader();
+        assertEquals("Этого украшения сейчас нет в наличии", noBasketHeader);
+    }
+
 
     @AfterEach
     public void tearDownEach() {
