@@ -33,6 +33,7 @@ public class Basket {
     By cartCountButton = By.xpath("//a[@href='/cart']");
     By collectionItems = By.xpath("//li[@class='product-variant']/a");
     By okButton = By.xpath("//span[text()='Да']");
+    By setItemInBasketButton = By.xpath("(//span[text()='В корзину'])[2]");
 
     By plus2 = By.xpath("//input[@name='quantity']");
     By max = By.xpath("//div[@class='counter']");
@@ -85,6 +86,12 @@ public class Basket {
     public Basket clickToItemInBasketButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(itemInBasketButton));
+        return this;
+    }
+
+    public Basket clickToSetItemInBasketButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(setItemInBasketButton));
         return this;
     }
 
@@ -361,7 +368,6 @@ public class Basket {
     }
 
 
-
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
 //        String name;
@@ -415,34 +421,33 @@ public class Basket {
 ////        System.out.println(itog);
 
 
-            String name;
-            List<String> list = new ArrayList<>();
-            String query = "SELECT item_sku.name from item " +
-                    "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                    "JOIN designer ON item.designer_id = designer.id " +
-                    "JOIN catalog ON item.catalog_id = catalog.id " +
-                    "JOIN item_sku ON item.id = item_sku.item_id " +
-                    "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                    "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                    "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                    "and is_archive = 0 and price > 5000 and section = 'catalog' and subsection is null " +
-                    "and item_sku.url is not null and balance > 0 " +
-                    "group by item_catalog_position.position";
-            try {
-                Statement statement = worker.getCon().createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
+        String name;
+        List<String> list = new ArrayList<>();
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price > 5000 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 " +
+                "group by item_catalog_position.position";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
 
-                while (resultSet.next()) {
-                    name = resultSet.getString("name");
-                    list.add(name);
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+                list.add(name);
                 System.out.println(name);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-        worker.getSession().disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
+        worker.getSession().disconnect();
+    }
 
 
 }
