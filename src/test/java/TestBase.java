@@ -5,7 +5,6 @@ import mainPage.MainPage;
 import mainPage.MainPageBanner;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import personal.PersonalData;
 import sections.*;
 
@@ -48,6 +47,7 @@ public class TestBase {
     PersonalData personalData;
     Search search;
     Picture picture;
+    Set set;
 
     By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
     By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image-hovered']");
