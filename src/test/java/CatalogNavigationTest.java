@@ -62,7 +62,6 @@ public class CatalogNavigationTest extends TestBase {
         driver.get(getUrl + "trend/mixmatch/");
         navigation.clickOnShowMoreButton();
         navigation.clickOnShowMoreButton();
-        navigation.clickOnShowMoreButton();
         int numbers = driver.findElements(By.xpath("//span[text()='Показать ещё']")).size();
         assertEquals(0, numbers);
     }

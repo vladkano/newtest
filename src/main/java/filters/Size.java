@@ -210,7 +210,7 @@ public class Size {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.get(0);
+        return list.get(1);
     }
 
 
@@ -319,17 +319,15 @@ public class Size {
     }
 
     public static void main(String[] args) {
-        String name;
-        List<String> text = new ArrayList<>();
+        String name = "";
         String query = "select item_sku.name from item_sku " +
-                "where id = " + findFirstItem() +"";
+                "where id = " + findSecondItem() +"";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 name = resultSet.getString("name");
                 System.out.println(name);
-                text.add(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();

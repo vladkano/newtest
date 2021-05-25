@@ -76,7 +76,7 @@ public class PersonalAreaTest extends TestBase {
 
     //Получение и изменения значений в полях
     @Test
-    public void changeName() {
+    public void changeName() throws InterruptedException {
         String firstName = personalData.getName();
         personalData.clickOnName();
         personalData.typeName("1");
@@ -84,11 +84,13 @@ public class PersonalAreaTest extends TestBase {
         String secondName = personalData.getName();
         personalData.clickOnName();
         personalData.typeName("Тестовое Имя");
+        Thread.sleep(500);
         personalData.clickOnSaveButton();
         String finalName = personalData.getName();
         assertNotEquals(firstName, secondName);
         assertNotEquals(secondName, finalName);
         assertEquals(firstName, finalName);
+
     }
 
     //нельзя менять с 14.05
@@ -117,6 +119,11 @@ public class PersonalAreaTest extends TestBase {
         String second = personalData.getDeliveryCity();
         personalData.clickOnDeliveryCity();
         personalData.typeDeliveryCity("Тестовый город");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         personalData.clickOnSaveButton();
         String last = personalData.getDeliveryCity();
         assertNotEquals(first, second);
@@ -133,6 +140,11 @@ public class PersonalAreaTest extends TestBase {
         String second = personalData.getDeliveryAddress();
         personalData.clickOnDeliveryAddress();
         personalData.typeDeliveryAddress("Тестовый адрес 13");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         personalData.clickOnSaveButton();
         String last = personalData.getDeliveryAddress();
         assertNotEquals(first, second);

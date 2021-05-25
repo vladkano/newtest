@@ -121,7 +121,7 @@ public class Bracelets {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
 //                System.out.println(name);
-                text.add(name);
+                text.add(name.substring(0,9));
             }
         } catch (SQLException e) {
             e.printStackTrace();

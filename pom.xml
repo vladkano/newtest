@@ -16,20 +16,6 @@
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-surefire-plugin</artifactId>-->
-<!--                <version>3.0.0-M5</version>-->
-<!--                <configuration>-->
-<!--                    <properties>-->
-<!--                        <configurationParameters>-->
-<!--                            junit.jupiter.execution.parallel.enabled = true-->
-<!--                            junit.jupiter.execution.parallel.mode.default = concurrent-->
-<!--                        </configurationParameters>-->
-<!--                    </properties>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -85,9 +71,9 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven.version}</version>
-                <configuration>
-                    <reportVersion>2.4.1</reportVersion>
-                </configuration>
+                <!--                <configuration>-->
+                <!--                    <reportVersion>2.4.2</reportVersion>-->
+                <!--                </configuration>-->
             </plugin>
 
         </plugins>
@@ -150,12 +136,7 @@
             <artifactId>jsch</artifactId>
             <version>0.1.44-1</version>
         </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-support</artifactId>
-            <version>4.0.0-alpha-4</version>
-            <scope>compile</scope>
-        </dependency>
+
 
         <dependency>
             <groupId>org.assertj</groupId>
@@ -177,6 +158,17 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit5</artifactId>
+            <version>${allure-junit5.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>3.141.59</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

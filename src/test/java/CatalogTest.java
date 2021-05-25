@@ -183,7 +183,7 @@ public class CatalogTest extends TestBase{
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Кол-во намименование в базе и на странице, выборочная проверка по наименованию
+    //Кол-во намименование в базе и на странице, проверка по наименованию
     @Test
     public void namesOfBracelets() {
         driver.get(getUrl + "catalog/braslety");
@@ -194,11 +194,10 @@ public class CatalogTest extends TestBase{
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s);
+            siteList.add(s.substring(0,9));
         }
-        //сравниваем 1,9 и последние элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(8), siteList.get(8));
+        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
     @Test
@@ -211,11 +210,10 @@ public class CatalogTest extends TestBase{
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s);
+            siteList.add(s.substring(0,9));
         }
-        //сравниваем 1,2 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(1), siteList.get(1));
+        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
     @Test
@@ -228,11 +226,10 @@ public class CatalogTest extends TestBase{
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s);
+            siteList.add(s.substring(0,9));
         }
-        //сравниваем 1,11 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(10), siteList.get(10));
+        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
     @Test
@@ -245,11 +242,10 @@ public class CatalogTest extends TestBase{
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s);
+            siteList.add(s.substring(0,9));
         }
-        //сравниваем 1,11 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(10), siteList.get(10));
+        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
     @Test
@@ -262,11 +258,10 @@ public class CatalogTest extends TestBase{
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s);
+            siteList.add(s.substring(0,9));
         }
-        //сравниваем 1,11 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(10), siteList.get(10));
+        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.subList(0, siteList.size()), siteList.subList(0, siteList.size()));
     }
 
     @Test
@@ -281,9 +276,8 @@ public class CatalogTest extends TestBase{
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,11 элементы. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(10), siteList.get(10));
+        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.subList(0, siteList.size()), siteList.subList(0, siteList.size()));
     }
 
     @Test
@@ -297,10 +291,10 @@ public class CatalogTest extends TestBase{
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s);
+            siteList.add(s.substring(0,9));
         }
-        //сравниваем элементы списков.
-        assertEquals(sqlList, siteList);
+        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.subList(0, siteList.size()), siteList.subList(0, siteList.size()));
     }
 
     //Проверяем отображение картинок и их количество.

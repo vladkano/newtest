@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -89,7 +91,7 @@ public class FiltersTest extends TestBase {
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        assertEquals(sqlList.get(10), siteList.get(10));
     }
 
     @Test
@@ -145,6 +147,8 @@ public class FiltersTest extends TestBase {
         filters.clickToFilterButton();
         List<String> sqlList = brooches.getNamesForFilters();
         int sqlSize = sqlList.size();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(numberOfItem));
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getAttribute("textContent");
@@ -331,7 +335,7 @@ public class FiltersTest extends TestBase {
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0).substring(0,28), siteList.get(0).substring(0,28));
-        assertEquals(sqlList.get(2).substring(0,28), siteList.get(2).substring(0,28));
+        assertEquals(sqlList.get(2).substring(0,22), siteList.get(2).substring(0,22));
     }
 
     @Test
@@ -636,7 +640,7 @@ public class FiltersTest extends TestBase {
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        assertEquals(sqlList.get(2).substring(0,20), siteList.get(2).substring(0,20));
     }
 
     @Test
@@ -655,8 +659,8 @@ public class FiltersTest extends TestBase {
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0).substring(0,28), siteList.get(0).substring(0,28));
-        assertEquals(sqlList.get(2).substring(0,28), siteList.get(2).substring(0,28));
+        assertEquals(sqlList.get(0).substring(0,20), siteList.get(0).substring(0,20));
+        assertEquals(sqlList.get(2).substring(0,20), siteList.get(2).substring(0,20));
     }
 
     @Test

@@ -78,7 +78,8 @@ public class NameNecklaces {
     }
 
     public NameNecklaces clickToSixFontButton() {
-        driver.findElement(sixFontButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(sixFontButton));
         return this;
     }
 

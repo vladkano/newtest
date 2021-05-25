@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import sql.DBWorker;
 
 import java.sql.ResultSet;
@@ -18,7 +20,7 @@ public class Pirsing {
     private static String getUrl = "https://poisondrop.ru/catalog/";
 
     By imageLink = By.xpath("//picture/img");
-    By nameLink = By.xpath("//h3[@class='catalog-card__name']");
+    By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
     By designerLink = By.xpath("//div[@class='catalog-card__designer']/a");
     By header = By.xpath("//h1[@class='product-main-info__product-name']");
     By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
