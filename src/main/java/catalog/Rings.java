@@ -17,6 +17,7 @@ public class Rings {
     private static DBWorker worker = new DBWorker();
     private WebDriver driver;
     private static String getUrl = "https://poisondrop.ru/catalog/";
+//    private static String getUrl = "https://qa.poisondrop.org.ru/catalog/";
 
     By imageLink = By.xpath("//picture/img");
     By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
@@ -289,9 +290,8 @@ public class Rings {
     }
 
     public static void main(String[] args) {
-
-        String name;
-        List<String> text = new ArrayList<>();
+        String url;
+        List<String> listOfUrl = new ArrayList<>();
         String query = "SELECT item_sku.url from item " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -303,19 +303,17 @@ public class Rings {
                 "and catalog_id=5 and is_archive = 0 and price != 0 and item_set_id > 0 " +
                 "and item_sku.url is not null and balance > 0 and catalog.show = 1 " +
                 " group by item_catalog_position.position";
-
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                name = resultSet.getString("url");
-                System.out.println(name);
-                text.add(name);
+                url = resultSet.getString("url");
+                System.out.println(url);
+                listOfUrl.add(url);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(text.size());
         worker.getSession().disconnect();
     }
 

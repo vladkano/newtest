@@ -17,6 +17,7 @@ public class Necklaces {
     private static DBWorker worker = new DBWorker();
     private WebDriver driver;
     private static String getUrl = "https://poisondrop.ru/catalog/";
+//    private static String getUrl = "https://qa.poisondrop.org.ru/catalog/";
 
     By imageLink = By.xpath("//picture/img");
     By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
@@ -222,7 +223,7 @@ public class Necklaces {
 
 //        System.out.println(list);
         String first = list.get(0);
-//        System.out.println(first);
+        System.out.println(first);
 //        String second = list.get(1);
 //        second = second.substring(second.indexOf('?'));
 //        String replStr1 = second.replace('?', '&');

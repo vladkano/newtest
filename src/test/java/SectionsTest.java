@@ -266,8 +266,10 @@ public class SectionsTest extends TestBase{
     }
 
 
+    //Создан таск https://poisondrop.atlassian.net/browse/PD-617
     //Золото и серебро:
     //Кол-во намименование в базе и на странице, выборочная проверка по наименованию
+
     @Test
     public void namesOfJewelry() {
         driver.get(getUrl + "jewelry/");
@@ -490,6 +492,8 @@ public class SectionsTest extends TestBase{
         assertEquals(sqlList.get(sqlSize-1), siteList.get(numberOnly-1));
     }
 
+
+    //задал вопрос Жене в слак 27.05.2021
     @Test
     public void thirdDesignersBannerLink() {
         driver.get(getUrl + "designers/");
@@ -510,11 +514,12 @@ public class SectionsTest extends TestBase{
             siteList.add(s);
         }
         assertEquals(href, url);
+        assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly));
         //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(7), siteList.get(7));
-        assertEquals(sqlList.get(sqlSize-1), siteList.get(numberOnly-1));
+//        assertEquals(sqlSize, numberOnly);
+//        assertEquals(sqlList.get(0), siteList.get(0));
+//        assertEquals(sqlList.get(7), siteList.get(7));
+//        assertEquals(sqlList.get(sqlSize-1), siteList.get(numberOnly-1));
     }
 
     //Популярные
@@ -583,9 +588,8 @@ public class SectionsTest extends TestBase{
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем размер, содержание и порядок списков
-        assertEquals(sqlList.size(), siteList.size());
-        assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto));
+        //сравниваем списки
+        assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size()));
     }
 
 
@@ -620,13 +624,13 @@ public class SectionsTest extends TestBase{
         driver.get(getUrl + "designers/");
         designers = new Designers(driver);
         filters = new Filters(driver);
-        String href = designers.getSecondDesignerHref();
-        designers.clickToSecondDesignerLink();
+        String href = designers.get10DesignerHref();
+        designers.clickTo10DesignerLink();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
-        List<String> sqlList = designers.getSecondDesignerNames();
+        List<String> sqlList = designers.get10DesignerItemNames();
         int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -636,10 +640,10 @@ public class SectionsTest extends TestBase{
         }
         assertEquals(href, url);
         //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(7), siteList.get(7));
-
+//        assertEquals(sqlList.get(0), siteList.get(0));
+//        assertEquals(sqlList.get(7), siteList.get(7));
     }
 
     @Test
@@ -647,13 +651,13 @@ public class SectionsTest extends TestBase{
         driver.get(getUrl + "designers/");
         designers = new Designers(driver);
         filters = new Filters(driver);
-        String href = designers.getThirdDesignerHref();
-        designers.clickToThirdDesignerLink();
+        String href = designers.get20dDesignerHref();
+        designers.clickTo20DesignerLink();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
-        List<String> sqlList = designers.getThirdDesignerNames();
+        List<String> sqlList = designers.get20DesignerItemNames();
         int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(numberOfItem);

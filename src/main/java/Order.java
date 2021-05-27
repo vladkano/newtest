@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import sql.DBWorker;
 
+import java.security.Key;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,10 +26,6 @@ public class Order {
     By orderEmail = By.xpath("//input[@id='orderEmail']");
     By orderFio = By.xpath("//input[@id='orderName']");
     By orderAddress = By.xpath("//textarea[@id='deliveryAddress']");
-
-    By orderCity = By.xpath("//input[@id='deliveryCity']");
-    By orderStreet = By.xpath("//input[@id='deliveryStreet']");
-    By orderHouse = By.xpath("//input[@id='deliveryHouse']");
     By orderApartment = By.xpath("//input[@id='deliveryApartment']");
     By orderFrontDoor = By.xpath("//input[@id='deliveryFrontDoor']");
     By orderFloor = By.xpath("//input[@id='deliveryFloor']");
@@ -39,6 +36,8 @@ public class Order {
     By orderButton = By.xpath("//span[text()='Оформить заказ']");
     By addAddressButton = By.xpath("//span[text()='Добавить этаж, домофон, комментарий']");
     By searchBox = By.xpath("//input[@id='searchbox']");
+    By countrySearchBox = By.xpath("//input[@class='reg']");
+    By citySearchBox = By.xpath("(//input[@class='reg'])[2]");
 
 
     By addCommentButton = By.xpath("//button[text()='Добавить комментарий к заказу']");
@@ -62,10 +61,14 @@ public class Order {
     By selectPostomatButton = By.xpath("//span[text()='Выбрать постамат']");
     By searchboxButton = By.xpath("//div[@class='combobox searchbox']/span");
     By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6605-096\"); return false;']");
+    By belarusButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9001-009\"); return false;']");
+    By kazakhstanButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9405-029\"); return false;']");
     By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
     By paperButton = By.xpath("//span[text()='Бумажный']");
     By firstPrice = By.xpath("//span[@class='price-block__price']");
     By finalPrice = By.xpath("//span[@class='order-summary__value order-summary__value_final']");
+
+    By frame = By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']");
 
 
     //headers
@@ -281,10 +284,31 @@ public class Order {
         return this;
     }
 
+    public Order typeCountrySearchBox(String searchCountry) {
+        driver.findElement(countrySearchBox).sendKeys(searchCountry);
+        return this;
+    }
+
+    public Order typeCitySearchBox(String searchCity) {
+        driver.findElement(citySearchBox).sendKeys(searchCity);
+        return this;
+    }
+
     public Order clickOnRodonitButton() {
         driver.findElement(rodonitButton).click();
         return this;
     }
+
+    public Order clickOnBelarusButton() {
+        driver.findElement(belarusButton).click();
+        return this;
+    }
+
+    public Order clickOnKazakhstanButton() {
+        driver.findElement(kazakhstanButton).click();
+        return this;
+    }
+
 
     public Order clickOnSelectButton() {
         driver.findElement(selectButton).click();
@@ -677,7 +701,9 @@ public class Order {
         return new Order(driver);
     }
 
-    public Order orderWithPickPointPhone(String phone, String email, String fio, String search) {
+
+    //PickPoint
+    public Order orderWithPickPointPhone(String phone, String email, String fio, String country, String city, String search) {
         String oldWindowsSet = driver.getWindowHandle();
         this.typePhone(phone);
         this.typeEmail(email);
@@ -685,14 +711,62 @@ public class Order {
         this.clickOnPickPointButton();
         this.clickOnSelectPostomatButton();
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement postomatFrame = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']")));
+        WebElement postomatFrame = wait.until(ExpectedConditions.presenceOfElementLocated(frame));
         driver.switchTo().frame(postomatFrame);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Россия']")));
+        this.typeCountrySearchBox(country);
+        this.typeCitySearchBox(city);
         this.typeSearchBox(search);
         this.clickOnSearchboxButton();
         this.clickOnRodonitButton();
         this.clickOnSelectButton();
         driver.switchTo().window(oldWindowsSet);
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order orderWithPickPointSMS(String phone, String email, String fio, String country, String city, String search) {
+        String oldWindowsSet = driver.getWindowHandle();
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnPickPointButton();
+        this.clickOnSelectPostomatButton();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement postomatFrame = wait.until(ExpectedConditions.presenceOfElementLocated(frame));
+        driver.switchTo().frame(postomatFrame);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Россия']")));
+        this.typeCountrySearchBox(country);
+        this.typeCitySearchBox(city);
+        this.typeSearchBox(search);
+        this.clickOnSearchboxButton();
+        this.clickOnBelarusButton();
+        this.clickOnSelectButton();
+        driver.switchTo().window(oldWindowsSet);
+        this.clickOnSmsButton();
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order orderWithPickPointWA(String phone, String email, String fio, String country, String city, String search) {
+        String oldWindowsSet = driver.getWindowHandle();
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnPickPointButton();
+        this.clickOnSelectPostomatButton();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement postomatFrame = wait.until(ExpectedConditions.presenceOfElementLocated(frame));
+        driver.switchTo().frame(postomatFrame);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Россия']")));
+        this.typeCountrySearchBox(country);
+        this.typeCitySearchBox(city);
+        this.typeSearchBox(search);
+        this.clickOnSearchboxButton();
+        this.clickOnKazakhstanButton();
+        this.clickOnSelectButton();
+        driver.switchTo().window(oldWindowsSet);
+        this.clickOnWhatsAppButton();
         this.clickOnPayButton();
         return new Order(driver);
     }

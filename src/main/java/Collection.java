@@ -14,9 +14,8 @@ public class Collection {
 
     private static DBWorker worker = new DBWorker();
     private WebDriver driver;
-    //private String getUrl = "http://176.53.182.129:8088/catalog/";
-    //private String getUrl = "http://176.53.181.34:8088/catalog/";
     private static String getUrl = "https://poisondrop.ru/catalog/";
+//    private static String getUrl = "https://qa.poisondrop.org.ru/catalog/";
 
 
     public Collection(WebDriver driver) {

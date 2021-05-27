@@ -17,6 +17,8 @@ public class Brooches {
     private WebDriver driver;
     private static DBWorker worker = new DBWorker();
     private static String getUrl = "https://poisondrop.ru/catalog/";
+//    private static String getUrl = "https://qa.poisondrop.org.ru/catalog/";
+
 
     public Brooches(WebDriver driver) {
         this.driver = driver;

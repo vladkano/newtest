@@ -34,6 +34,8 @@ public class Basket {
     By collectionItems = By.xpath("//li[@class='product-variant']/a");
     By okButton = By.xpath("//span[text()='Да']");
     By setItemInBasketButton = By.xpath("(//span[text()='В корзину'])[2]");
+    By sizeSelectionButton = By.xpath("//li[@class='catalog-card__parameter-item']//label");
+
 
     By plus2 = By.xpath("//input[@name='quantity']");
     By max = By.xpath("//div[@class='counter']");
@@ -92,6 +94,14 @@ public class Basket {
     public Basket clickToSetItemInBasketButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(setItemInBasketButton));
+        return this;
+    }
+
+    public Basket clickToSizeItemInBasketButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(setItemInBasketButton));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(sizeSelectionButton));
         return this;
     }
 

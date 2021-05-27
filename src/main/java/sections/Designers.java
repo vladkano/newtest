@@ -29,48 +29,45 @@ public class Designers {
     By designersThirdHref = By.xpath("//div[@class='new-designers__wrapper']/a[3]");
     By firstPopularHref = By.xpath("//div[@class='popular-designers__item']/a");
     By lastPopularHref = By.xpath("//div[@class='popular-designers__item'][12]/a");
-    By firstDesigner = By.xpath("//li[@class='index-designers__name']/a");
+    By designer = By.xpath("//li[@class='index-designers__name']/a");
 
 
 
     public String getFirstDesignerHref() {
-        List<WebElement> designersList =  driver.findElements(firstDesigner);
+        List<WebElement> designersList =  driver.findElements(designer);
         return designersList.get(0).getAttribute("href");
     }
 
-    public String getSecondDesignerHref() {
-        List<WebElement> designersList =  driver.findElements(firstDesigner);
-        return designersList.get(10).getAttribute("href");
+    public String get10DesignerHref() {
+        List<WebElement> designersList =  driver.findElements(designer);
+        return designersList.get(9).getAttribute("href");
     }
 
-    public String getThirdDesignerHref() {
-        List<WebElement> designersList =  driver.findElements(firstDesigner);
-        return designersList.get(20).getAttribute("href");
+    public String get20dDesignerHref() {
+        List<WebElement> designersList =  driver.findElements(designer);
+        return designersList.get(19).getAttribute("href");
     }
 
     public Designers clickToFirstDesignerLink() {
-        List<WebElement> designersList =  driver.findElements(firstDesigner);
+        List<WebElement> designersList =  driver.findElements(designer);
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", designersList.get(0));
         return this;
     }
 
-    public Designers clickToSecondDesignerLink() {
-        List<WebElement> designersList =  driver.findElements(firstDesigner);
+    public Designers clickTo10DesignerLink() {
+        List<WebElement> designersList =  driver.findElements(designer);
         ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", designersList.get(10));
+                "arguments[0].click();", designersList.get(9));
         return this;
     }
 
-    public Designers clickToThirdDesignerLink() {
-        List<WebElement> designersList =  driver.findElements(firstDesigner);
+    public Designers clickTo20DesignerLink() {
+        List<WebElement> designersList =  driver.findElements(designer);
         ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", designersList.get(20));
+                "arguments[0].click();", designersList.get(19));
         return this;
     }
-
-
-
 
 
     public String getFirstPopularHref() {
@@ -186,7 +183,6 @@ public class Designers {
     }
 
     public List<String> getThirdLinkNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -199,7 +195,8 @@ public class Designers {
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getUrls().get(2) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url " +
+                "order by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -218,9 +215,17 @@ public class Designers {
     public static List<String> getListOfDesigners() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "select name from designer " +
-                "where `show` = 1 " +
-                "group by name";
+        String query = "select designer.name from designer " +
+                "JOIN item ON item.designer_id = designer.id " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 " +
+                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
+                "group by designer.name" ;
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -275,23 +280,33 @@ public class Designers {
         return text;
     }
 
+
+
     public static List<String> getDesignersUrls() {
         String url;
         List<String> text = new ArrayList<>();
-        String query = "select url from designer " +
-                "where `show` = 1 " +
-                "group by name ";
+        String query = "select designer.url from designer " +
+                "JOIN item ON item.designer_id = designer.id " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 " +
+                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
+                "group by designer.name" ;
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 url = resultSet.getString("url");
-//                System.out.println(url);
                 text.add(url);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(text.get(19));
         return text;
     }
 
@@ -309,7 +324,8 @@ public class Designers {
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(0) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url " +
+                "order by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -326,7 +342,7 @@ public class Designers {
         return text;
     }
 
-    public List<String> getSecondDesignerNames() {
+    public List<String> get10DesignerItemNames() {
         worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
@@ -338,9 +354,10 @@ public class Designers {
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(10) + "'" +
+                "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(9) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url " +
+                "order by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -357,8 +374,7 @@ public class Designers {
         return text;
     }
 
-    public List<String> getThirdDesignerNames() {
-        worker = new DBWorker();
+    public List<String> get20DesignerItemNames() {
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -369,9 +385,10 @@ public class Designers {
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(20) + "'" +
+                "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(19) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url " +
+                "order by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -451,26 +468,28 @@ public class Designers {
     }
 
     public static void main(String[] args) {
-        String name;
+        String url;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "select designer.url from designer " +
+                "JOIN item ON item.designer_id = designer.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(10) + "'" +
-                "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "and is_archive = 0 and price != 0 and section = 'designer' " +
+                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
+                "group by designer.name" ;
+
+
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-                System.out.println(name);
-                text.add(name);
+                url = resultSet.getString("url");
+                System.out.println(url);
+                text.add(url);
             }
         } catch (SQLException e) {
             e.printStackTrace();
