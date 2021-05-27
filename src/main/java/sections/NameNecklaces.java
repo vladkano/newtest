@@ -68,7 +68,8 @@ public class NameNecklaces {
     }
 
     public NameNecklaces clickToFourthFontButton() {
-        driver.findElement(fourthFontButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(fourthFontButton));
         return this;
     }
 

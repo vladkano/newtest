@@ -25,7 +25,7 @@ public class ProductCardsTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
@@ -340,10 +340,10 @@ public class ProductCardsTest extends TestBase {
     public void checkBasketKoltsa() {
         set = new Set(driver);
         rings = new Rings(driver);
-        String s = rings.getItemsFromSet().get(1);
+        String s = rings.getItemsFromSet().get(0);
         driver.get(getUrl + "catalog/koltsa/" + s);
         basket.clickToOkButton();
-        basket.clickToSetItemInBasketButton();
+        basket.clickToSizeItemInBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
     }

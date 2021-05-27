@@ -138,6 +138,9 @@ public class PersonalData {
     }
 
     public PersonalData clickOnPersonalDataButton() {
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(personalDataButton));
+//        driver.findElement(personalDataButton).click();
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(personalDataButton));
         return this;

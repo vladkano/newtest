@@ -17,6 +17,8 @@ public class Bracelets {
     private static DBWorker worker = new DBWorker();
     private WebDriver driver;
     private static String getUrl = "https://poisondrop.ru/catalog/";
+//    private static String getUrl = "https://qa.poisondrop.org.ru/catalog/";
+
 
     By braceletImageLink = By.xpath("//picture/img");
     By braceletNameLink = By.xpath("//h3[@class='catalog-card__name']/a");

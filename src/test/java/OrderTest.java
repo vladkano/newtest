@@ -499,11 +499,35 @@ public class OrderTest extends TestBase {
 
     //Доставка до постомата
     @Test()
-    public void postomatAndPhone() {
+    public void postomatAndRussian() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "родонитовая");
+        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Россия", "Екатеринбург", "родонитовая");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
+
+    @Test()
+    public void postomatAndBelarus() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithPickPointSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Беларусь\n", "Минск\n", "Ленина");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
+
+    @Test()
+    public void postomatAndKazakhstan() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithPickPointWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Казахстан\n", "Нур-Султан\n", "Петрова");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
