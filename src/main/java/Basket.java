@@ -28,18 +28,18 @@ public class Basket {
     By plusBasketButton = By.xpath("//button[@class='counter__button counter__button_plus']");
     By minusBasketButton = By.xpath("//button[@class='counter__button counter__button_minus']");
     By basketButton = By.xpath("//span[text()='Перейти в корзину']");
-    By catalogButton = By.xpath("//li/a[text()='Все украшения']");
+    By catalogButton = By.xpath("//a[@href='/catalog/']");
     By newCatalogButton = By.xpath("//a[@href='/catalog/new/']");
-    By cartCountButton = By.xpath("//a[@href='/cart']");
+    By cartCountButton = By.xpath("//span[text()='Перейти в корзину']");
     By collectionItems = By.xpath("//li[@class='product-variant']/a");
-    By okButton = By.xpath("//span[text()='Да']");
+    By okButton = By.xpath("//button[text()='Да']");
     By setItemInBasketButton = By.xpath("(//span[text()='В корзину'])[2]");
     By sizeSelectionButton = By.xpath("//li[@class='catalog-card__parameter-item']//label");
 
 
     By plus2 = By.xpath("//input[@name='quantity']");
     By max = By.xpath("//div[@class='counter']");
-    By cartCount = By.xpath("//div[@class='text-on-icon page-header__cart']/span");
+    By cartCount = By.xpath("//span[@class='icon-with-counter__counter']");
     By inBasket = By.xpath("//span[text()='В корзине']");
     By noBasketHeader = By.xpath("//p[text()='Этого украшения сейчас нет в наличии']");
 
@@ -141,7 +141,8 @@ public class Basket {
     }
 
     public Basket clickToCart() {
-        driver.findElement(cartCountButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(cartCountButton));
         return this;
     }
 

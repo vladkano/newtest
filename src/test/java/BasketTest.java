@@ -31,7 +31,7 @@ public class BasketTest extends TestBase {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
         basket = new Basket(driver);
-        basket.clickToOkButton();
+//        basket.clickToOkButton();
     }
 
     //Проверяем работают ли кнопки корзины на разных типах товаров
@@ -217,7 +217,7 @@ public class BasketTest extends TestBase {
     //Ссылка со значком корзины на всех страницах сайта ведет на getUrl + "cart"
     @Test
     public void checkCartHref() {
-
+        basket.clickToOkButton();
         basket.clickToCart();
         String url = driver.getCurrentUrl();
         assertEquals( getUrl + "cart", url);

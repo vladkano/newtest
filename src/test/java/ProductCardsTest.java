@@ -9,9 +9,17 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import sections.Designers;
+import sql.DBWorker;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +33,7 @@ public class ProductCardsTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
@@ -34,7 +42,6 @@ public class ProductCardsTest extends TestBase {
         filters = new Filters(driver);
         size = new Size(driver);
         basket = new Basket(driver);
-        search = new Search(driver);
         picture = new Picture(driver);
     }
 
@@ -43,7 +50,7 @@ public class ProductCardsTest extends TestBase {
     смотрим чтобы менялся размер, кладем в корзину и проверяем что верный размер попал в корзину
     */
 
-    /* с размером 14,5 */
+    //с размером 14,5
     @Test
     public void changeSize145() {
         driver.get(getUrl + "catalog/koltsa/");
@@ -71,7 +78,7 @@ public class ProductCardsTest extends TestBase {
         assertEquals("Размер: " + thirdCurrentSize, sizeHeader);
     }
 
-    /* с размером 15,5 */
+    //с размером 15,5
     @Test
     public void changeSize155() {
         driver.get(getUrl + "catalog/koltsa/");
@@ -100,7 +107,7 @@ public class ProductCardsTest extends TestBase {
     }
 
 
-    /* с размером 16,5 */
+    //с размером 16,5
     @Test
     public void changeSize165() {
         driver.get(getUrl + "catalog/koltsa/");
@@ -133,31 +140,33 @@ public class ProductCardsTest extends TestBase {
     то должна быть плашка "Доставка от 3-5 дней" (storage id = 1 или 5)
      */
 
-    /* Плашка "Доставка от 3-5 дней" */
+    //Плашка "Доставка от 3-5 дней"
     @Test
     public void firstCheckPlate() {
+        search = new Search(driver);
         driver.get(getUrl + "catalog");
         basket.clickToOkButton();
         String firstItem = size.findItem35days();
-        search.getSearch(firstItem);
+        search.getSearch(firstItem + "\n");
         size.clickOnImageLink();
         String plateHeader = size.getPlateHeader();
         assertEquals("Доставка от 3-5 дней", plateHeader);
     }
 
-    /* Плашка "Доставка от 7 дней" */
+    //Плашка "Доставка от 7 дней"
     @Test
     public void secondCheckPlate() {
+        search = new Search(driver);
         driver.get(getUrl + "catalog");
         basket.clickToOkButton();
         String secondItem = size.findItem7days();
-        search.getSearch(secondItem);
+        search.getSearch(secondItem+ "\n");
         size.clickOnImageLink();
         String plateHeader = size.getPlateHeader();
         assertEquals("Доставка от 7 дней", plateHeader);
     }
 
-    /* Отображение картинок в карточке товара */
+    //Отображение картинок в карточке товара
     @Test
     public void checkPictureListSergi() {
         driver.get(getUrl + "catalog/sergi");
@@ -191,7 +200,8 @@ public class ProductCardsTest extends TestBase {
         assertNotEquals(0, size);
     }
 
-    /* Если товара нет в наличии, то кнопки "в корзину" быть не должно */
+
+    //Если товара нет в наличии, то кнопки "в корзину" быть не должно
     @Test
     public void checkCartButtonSergi() {
         earrings = new Earrings(driver);
@@ -297,9 +307,8 @@ public class ProductCardsTest extends TestBase {
         assertEquals(href, currentUrl);
     }
 
-    /*
-    Проверяем что товары из блока "Украшения из образа" можно перенести в корзину
-     */
+
+    //Проверяем что товары из блока "Украшения из образа" можно перенести в корзину
     @Test
     public void checkBasketSergi() {
         set = new Set(driver);
@@ -348,6 +357,112 @@ public class ProductCardsTest extends TestBase {
         assertEquals("1", number);
     }
 
+
+    //Отображение блока дизайнеры(фото, название, описание)
+    @Test
+    public void checkingDesignersBlockSergi() {
+        designers = new Designers(driver);
+        driver.get(getUrl + "catalog/sergi/");
+        String text = designers.getDescriptions();
+        designers.clickOnItemName();
+        String photoAlt = designers.getDesignerPhotoAlt();
+        String designerName = designers.getDesignerName();
+        String designerText = designers.getDesignerText();
+        String description = designers.getDesignerDescription(text);
+        assertEquals(text, photoAlt);
+        assertEquals(text, designerName);
+        assertEquals(description, designerText);
+    }
+
+    @Test
+    public void checkingDesignersBlockBraslety() {
+        designers = new Designers(driver);
+        driver.get(getUrl + "catalog/braslety/");
+        String text = designers.getDescriptions();
+        designers.clickOnItemName();
+        String photoAlt = designers.getDesignerPhotoAlt();
+        String designerName = designers.getDesignerName();
+        String designerText = designers.getDesignerText();
+        String description = designers.getDesignerDescription(text);
+        assertEquals(text, photoAlt);
+        assertEquals(text, designerName);
+        assertEquals(description.substring(0,100), designerText.substring(0,100));
+    }
+
+    @Test
+    public void checkingDesignersBlockKole() {
+        designers = new Designers(driver);
+        driver.get(getUrl + "catalog/kole/");
+        String text = designers.getDescriptions();
+        designers.clickOnItemName();
+        String photoAlt = designers.getDesignerPhotoAlt();
+        String designerName = designers.getDesignerName();
+        String designerText = designers.getDesignerText();
+        String description = designers.getDesignerDescription(text);
+        assertEquals(text, photoAlt);
+        assertEquals(text, designerName);
+        assertEquals(description, designerText);
+    }
+
+    @Test
+    public void checkingDesignersBlockKoltsa() {
+        designers = new Designers(driver);
+        driver.get(getUrl + "catalog/koltsa/");
+        String text = designers.getDescriptions();
+        designers.clickOnItemName();
+        String photoAlt = designers.getDesignerPhotoAlt();
+        String designerName = designers.getDesignerName();
+        String designerText = designers.getDesignerText();
+        String description = designers.getDesignerDescription(text);
+        assertEquals(text, photoAlt);
+        assertEquals(text, designerName);
+        assertEquals(description, designerText);
+    }
+
+    //Кнопка перехода к товарам дизайнера
+    @Test
+    public void buttonForNavigatingToDesignerProductsSergi() {
+        designers = new Designers(driver);
+        driver.get(getUrl + "catalog/sergi/");
+        String designerNameBeforeClick = designers.getDescriptions();
+        designers.clickOnItemName();
+        designers.clickToDesignerButton();
+        String designerNameAfterClick = designers.getDescriptions();
+        assertEquals(designerNameBeforeClick, designerNameAfterClick);
+    }
+
+    @Test
+    public void buttonForNavigatingToDesignerProductsBraslety() {
+        designers = new Designers(driver);
+        driver.get(getUrl + "catalog/braslety/");
+        String designerNameBeforeClick = designers.getDescriptions();
+        designers.clickOnItemName();
+        designers.clickToDesignerButton();
+        String designerNameAfterClick = designers.getDescriptions();
+        assertEquals(designerNameBeforeClick, designerNameAfterClick);
+    }
+
+    @Test
+    public void buttonForNavigatingToDesignerProductsKole() {
+        designers = new Designers(driver);
+        driver.get(getUrl + "catalog/kole/");
+        String designerNameBeforeClick = designers.getDescriptions();
+        designers.clickOnItemName();
+        designers.clickToDesignerButton();
+        String designerNameAfterClick = designers.getDescriptions();
+        assertEquals(designerNameBeforeClick, designerNameAfterClick);
+    }
+
+    @Test
+    public void buttonForNavigatingToDesignerProductsKoltsa() {
+        designers = new Designers(driver);
+        driver.get(getUrl + "catalog/koltsa/");
+        String designerNameBeforeClick = designers.getDescriptions();
+        designers.clickOnItemName();
+        designers.clickToDesignerButton();
+        String designerNameAfterClick = designers.getDescriptions();
+        assertEquals(designerNameBeforeClick, designerNameAfterClick);
+    }
 
     @AfterEach
     public void tearDownEach() {

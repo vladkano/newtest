@@ -11,8 +11,8 @@ public class Search {
         this.driver = driver;
     }
 
-    By searchButton = By.xpath("//a[@href='/search']");
-    By searchText = By.id("search");
+    By searchButton = By.xpath("//a[@aria-label='Поиск']");
+    By searchText = By.xpath("//input[@aria-label='Поиск']");
     By goSearchButton = By.xpath("//button[@class='search-form__submit button-border hidden_mobile-tablet']");
 
 
@@ -36,7 +36,6 @@ public class Search {
     public Search getSearch(String text) {
         this.clickOnSearchButton();
         this.typeText(text);
-        this.clickOnGoSearchButton();
         return new Search(driver);
     }
 }

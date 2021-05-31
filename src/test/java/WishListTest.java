@@ -47,7 +47,7 @@ public class WishListTest extends TestBase{
         assertEquals(a, true);
         String url = driver.getCurrentUrl();
         String header = wishlist.getWishListHeader();
-        assertEquals(getUrl + "wishlist", url);
+        assertEquals(getUrl + "wishlist/", url);
         assertEquals("Избранное", header);
     }
 

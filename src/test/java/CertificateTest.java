@@ -33,7 +33,7 @@ public class CertificateTest extends TestBase {
         driver.manage().window().setSize(new Dimension(1920, 1080));
         certificate = new Certificate(driver);
         basket = new Basket(driver);
-        basket.clickToOkButton();
+//        basket.clickToOkButton();
     }
 
     //Проверяем отображение секциий

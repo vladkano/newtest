@@ -1,5 +1,6 @@
 package personal;
 
+import mainPage.MainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +20,7 @@ public class PersonalData {
 
 
     By goOutButton = By.xpath("//span[text()='Выйти']");
-    By personalDataButton = By.xpath("//a[text()='Личные данные']");
+    By personalDataButton = By.xpath("//a[@aria-label='Личный кабинет']");
     By saveButton = By.xpath("//span[text()='Сохранить']");
     By profileFullName = By.id("profileFullName");
     By profileBirthday = By.id("profileBirthday");
@@ -138,12 +139,8 @@ public class PersonalData {
     }
 
     public PersonalData clickOnPersonalDataButton() {
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(personalDataButton));
-//        driver.findElement(personalDataButton).click();
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(personalDataButton));
-        return this;
+            driver.findElement(personalDataButton).click();
+            return this;
     }
 
     public String getPersonalDataHeader() {

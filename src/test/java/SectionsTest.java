@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -33,7 +34,7 @@ public class SectionsTest extends TestBase{
 //        driver = new EdgeDriver(options);
         driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
     }
 
     //Проверка что кнопки разделов на главной странице работают правильно
@@ -117,7 +118,7 @@ public class SectionsTest extends TestBase{
         wishlist.clickToWishListButton();
         String url = driver.getCurrentUrl();
         String header = wishlist.getWishListHeader();
-        assertEquals(getUrl + "wishlist", url);
+        assertEquals(getUrl + "wishlist/", url);
         assertEquals("Избранное", header);
     }
 
@@ -224,7 +225,7 @@ public class SectionsTest extends TestBase{
         assertEquals("Положение об обработке и защите персональных данных", header);
     }
 
-    //почему-то не работает в безголовом режиме
+    //не работает в безголовом режиме
 //    @Test()
 //    public void instaButton() {
 //        footer = new Footer(driver);
@@ -513,13 +514,10 @@ public class SectionsTest extends TestBase{
             String s = text.getText();
             siteList.add(s);
         }
+
         assertEquals(href, url);
+        assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly));
-        //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(7), siteList.get(7));
-//        assertEquals(sqlList.get(sqlSize-1), siteList.get(numberOnly-1));
     }
 
     //Популярные

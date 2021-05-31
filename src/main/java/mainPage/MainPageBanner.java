@@ -33,7 +33,7 @@ public class MainPageBanner {
     By designerButtonHeader = By.xpath("//*[@id='tns1-item5']//div[@class='catalog-card__designer']/a");
     By nameButtonHeader = By.xpath("//*[@id='tns1-item1']//h3[@class='catalog-card__name']/a");
     By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
-    By mainCatalogHeader = By.xpath("//li[@class='main-menu__list-item']/a[text()='Все украшения']");
+    By mainCatalogHeader = By.xpath("//span[text()='Фильтры']");
     By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
 
     //находит элемент на странице перекрытый другими элементами и кликает на него
