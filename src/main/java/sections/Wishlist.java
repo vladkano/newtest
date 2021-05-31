@@ -20,7 +20,7 @@ public class Wishlist {
         this.driver = driver;
     }
 
-    By wishListButton = By.xpath("//a[@href='/wishlist']");
+    By wishListButton = By.xpath("//a[@href='/wishlist/']");
     By wishListInCardListButton = By.xpath("//span[text()='Wish List']");
 
     By wishListHeader = By.xpath("//h2[text()='Избранное']");

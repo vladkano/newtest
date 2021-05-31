@@ -41,8 +41,6 @@ public class MainPageTest extends TestBase {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
         mainPage = new MainPage(driver);
-        basket = new Basket(driver);
-        basket.clickToOkButton();
     }
 
     //Позитивные Тесты
@@ -109,8 +107,11 @@ public class MainPageTest extends TestBase {
         mainPage.sigInWithPhoneOrEmail("+79126459328");
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);
-        String heading = mainPage.getSigInHeader();
-        assertEquals("Мария", heading);
+        /*
+        функционал отключен, имя не отображается с 28.05.2021
+         */
+//        String heading = mainPage.getSigInHeader();
+//        assertEquals("Мария", heading);
     }
 
     @Test
@@ -217,12 +218,13 @@ public class MainPageTest extends TestBase {
     //Разлогин
     @Test
     public void signOut() {
-        mainPage.sigInWithPhoneOrEmail("+79126459328");
+        mainPage.sigInWithPhoneOrEmail("+79501978905");
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);
+        mainPage.clickOnLcInButton();
         mainPage.clickOnExitButton();
         String heading = mainPage.getSigOutHeader();
-        assertEquals("Вход", heading);
+        assertEquals("Вход или регистрация", heading);
     }
 
 

@@ -45,7 +45,7 @@ public class PersonalAreaTest extends TestBase {
     public void goOut() {
         personalData.clickOnGoOutButton();
         String heading = mainPage.getSigOutHeader();
-        assertEquals("Вход", heading);
+        assertEquals("Вход или регистрация", heading);
     }
 
     //Отображение элементов и полей

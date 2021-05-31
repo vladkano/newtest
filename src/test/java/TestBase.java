@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import personal.PersonalData;
 import sections.*;
+import sql.DBWorker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class TestBase {
     Picture picture;
     Set set;
 
+
     By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
     By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image-hovered']");
     By linkOfCollection = By.xpath("//ul[@class='product-modification__variants']//a");
@@ -56,6 +58,8 @@ public class TestBase {
     By namesOfTrends = By.xpath("//h4");
     By numberOfDesigners = By.xpath("//li[@class='index-designers__name']/a");
     By trendBanners = By.xpath("//span[@class='picture']");
+    By designersNames = By.xpath("//div[@class='catalog-card__designer']/a");
+    By closePopupButton = By.xpath("//span[text()='Закрыть и больше не показывать']");
 
     List<String> siteList = new ArrayList<>();
     List<Integer> priceList = new ArrayList<>();

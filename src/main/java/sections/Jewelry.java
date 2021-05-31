@@ -20,7 +20,7 @@ public class Jewelry {
         this.driver = driver;
     }
 
-    By jewelryButton = By.xpath("//a[text()='Все ювелирные украшения']");
+    By jewelryButton = By.xpath("//a[text()='Золото и серебро']");
 
     public Jewelry clickToJewelryButton() {
         ((JavascriptExecutor) driver).executeScript(

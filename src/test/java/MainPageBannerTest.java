@@ -111,7 +111,7 @@ public class MainPageBannerTest extends TestBase{
         String header = banner.getMainCatalogHeader();
         String url = driver.getCurrentUrl();
         assertEquals(href, url);
-        assertEquals("Все украшения", header);
+        assertEquals("Фильтры", header);
     }
 
     @Test
@@ -121,7 +121,7 @@ public class MainPageBannerTest extends TestBase{
         String url = driver.getCurrentUrl();
         String header = banner.getMainCatalogHeader();
         assertEquals(href, url);
-        assertEquals("Все украшения", header);
+        assertEquals("Фильтры", header);
     }
 
     @Test
@@ -131,7 +131,7 @@ public class MainPageBannerTest extends TestBase{
         String url = driver.getCurrentUrl();
         String header = banner.getMainCatalogHeader();
         assertEquals(href, url);
-        assertEquals("Все украшения", header);
+        assertEquals("Фильтры", header);
     }
 
     @Test

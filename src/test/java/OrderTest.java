@@ -241,22 +241,42 @@ public class OrderTest extends TestBase {
         assertEquals("Заплатить", header);
     }
 
+    //Афимолл:
+    @Test()
+    public void afimollAndPhone() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithAfimollPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
 
-    //Проверка перехода к оплате заказа на сайте, способ доставки: Постомат
-    //Подумать
+    @Test()
+    public void afimollAndWA() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithAfimollWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
 
-//    @Test()
-//    public void pickPointAndPhone() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Родонитовая");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getPayHeader();
-//        assertEquals("Заплатить", header);
-//    }
-
+    @Test()
+    public void afimollAndSms() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithAfimollSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
 
     //Проверка перехода к оплате заказа на сайте, способ доставки: Доставить в другую страну
     @Test()
@@ -283,6 +303,43 @@ public class OrderTest extends TestBase {
         basket.clickToBasketButton();
         order.internationalWithWhatsApp("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "США", "Нью-Йорк", "Трамп стрит 11");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
+
+    //Доставка до постомата
+    @Test()
+    public void postomatAndRussian() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Россия", "Екатеринбург", "родонитовая");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
+
+    @Test()
+    public void postomatAndBelarus() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithPickPointSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Беларусь\n", "Минск\n", "Ленина");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
+
+    @Test()
+    public void postomatAndKazakhstan() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithPickPointWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Казахстан\n", "Нур-Султан\n", "Петрова");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -497,43 +554,42 @@ public class OrderTest extends TestBase {
         assertEquals("Мы приняли ваш заказ", header);
     }
 
-    //Доставка до постомата
+    //Тестовый заказ без оплаты, способ доставки: Афимолл
     @Test()
-    public void postomatAndRussian() {
+    public void noPayAfimollAndPhone() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Россия", "Екатеринбург", "родонитовая");
+        order.afimollWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        String header = order.getOrderHeader();
+        assertEquals("Мы приняли ваш заказ", header);
     }
 
     @Test()
-    public void postomatAndBelarus() {
+    public void noPayAfimollAndWA() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithPickPointSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Беларусь\n", "Минск\n", "Ленина");
+        order.afimollWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        String header = order.getOrderHeader();
+        assertEquals("Мы приняли ваш заказ", header);
     }
 
     @Test()
-    public void postomatAndKazakhstan() {
+    public void noPayAfimollAndSMS() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithPickPointWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Казахстан\n", "Нур-Султан\n", "Петрова");
+        order.afimollWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        String header = order.getOrderHeader();
+        assertEquals("Мы приняли ваш заказ", header);
     }
-
 
     @AfterEach
     public void tearDownEach() {

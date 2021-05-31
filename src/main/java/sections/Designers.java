@@ -23,15 +23,50 @@ public class Designers {
         this.driver = driver;
     }
 
-    By designersButton = By.xpath("//a[text()='Все дизайнеры']");
+    By designersButton = By.xpath("//a[text()='Дизайнеры']");
     By designersFirstHref = By.xpath("//div[@class='new-designers__wrapper']/a");
     By designersSecondHref = By.xpath("//div[@class='new-designers__wrapper']/a[2]");
     By designersThirdHref = By.xpath("//div[@class='new-designers__wrapper']/a[3]");
     By firstPopularHref = By.xpath("//div[@class='popular-designers__item']/a");
     By lastPopularHref = By.xpath("//div[@class='popular-designers__item'][12]/a");
     By designer = By.xpath("//li[@class='index-designers__name']/a");
+    By designersNames = By.xpath("//div[@class='catalog-card__designer']/a");
+    By numberOfItem = By.xpath("//h3[@class='catalog-card__name']/a");
+
+    //карточка товара
+    By designerPhoto = By.xpath("//span[@class='picture designer-block__picture']//img");
+    By designerName = By.xpath("//a[@class='designer-block__link link']");
+    By designerText = By.xpath("//p[@class='designer-block__description']");
+    By designerButton = By.xpath("//a[@class='button-border link']/span[@class='button__content']");
 
 
+    public String getDescriptions() {
+        List<WebElement> designersName = driver.findElements(designersNames);
+        return designersName.get(3).getText();
+    }
+
+    public Designers clickOnItemName() {
+        List<WebElement> itemsName = driver.findElements(numberOfItem);
+        itemsName.get(3).click();
+        return this;
+    }
+
+    public Designers clickToDesignerButton() {
+        driver.findElement(designerButton).click();
+        return this;
+    }
+
+    public String getDesignerText() {
+        return driver.findElement(designerText).getText();
+    }
+
+    public String getDesignerName() {
+        return driver.findElement(designerName).getText();
+    }
+
+    public String getDesignerPhotoAlt() {
+       return driver.findElement(designerPhoto).getAttribute("alt");
+    }
 
     public String getFirstDesignerHref() {
         List<WebElement> designersList =  driver.findElements(designer);
@@ -120,6 +155,23 @@ public class Designers {
     public Designers clickToSecondPopularHref() {
         driver.get(url + getPopularUrls().get(getPopularUrls().size()-1) + "/");
         return this;
+    }
+
+    public String getDesignerDescription(String text) {
+        String description = "";
+        String query = "select description from designer " +
+                "where `show` = 1 and name = " + "'" + text + "'" ;
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                description = resultSet.getString("description");
+                System.out.println(description);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return description;
     }
 
     public List<String> getFirstLinkNames() {
@@ -468,28 +520,15 @@ public class Designers {
     }
 
     public static void main(String[] args) {
-        String url;
-        List<String> text = new ArrayList<>();
-        String query = "select designer.url from designer " +
-                "JOIN item ON item.designer_id = designer.id " +
-                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
-                "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'designer' " +
-                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
-                "group by designer.name" ;
-
-
+        String description = "";
+        String query = "select description from designer " +
+                "where `show` = 1 and name = " + "'" + getPopularUrls().get(getPopularUrls().size()-1) + "'" ;
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                url = resultSet.getString("url");
-                System.out.println(url);
-                text.add(url);
+                description = resultSet.getString("description");
+                System.out.println(description);
             }
         } catch (SQLException e) {
             e.printStackTrace();

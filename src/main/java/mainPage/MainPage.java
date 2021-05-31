@@ -22,7 +22,8 @@ public class MainPage {
         this.driver = driver;
     }
 
-    By sigInButton = By.xpath("//a/span[text()='Вход']");
+    By sigInButton = By.xpath("//a[@aria-label='Вход или регистрация']");
+    By lcButton = By.xpath("//a[@aria-label='Личный кабинет']");
     By login = By.id("authLogin");
     By getPassword = By.xpath("//button/span[text()='Получить код']");
     By authEmail = By.id("authEmail");
@@ -32,12 +33,14 @@ public class MainPage {
     By authPassword = By.id("authCode");
     By authEmailPassword = By.xpath("//input[@id='authCode']");
     By authPhone = By.id("authPhone");
-    By exitButton = By.xpath("//span[text()='Выход']");
+    By exitButton = By.xpath("//span[text()='Выйти']");
     By phoneFromSite = By.xpath("//li[3]/div[@class='free-num__numbers-text']");
     By phoneFromSite2 = By.xpath("//li[2]/div[@class='free-num__numbers-text']");
     By mailFromSite = By.id("email_addr");
 //    By mailFromSite = By.id("mail");
     By copyButton = By.id("click-to-copy");
+
+
 
 
 
@@ -83,13 +86,19 @@ public class MainPage {
 //    }
 
     public MainPage clickOnExitButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(exitButton));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(exitButton));
+         driver.findElement(exitButton).click();
         return this;
     }
 
     public MainPage clickOnSigInButton() {
         driver.findElement(sigInButton).click();
+        return this;
+    }
+
+    public MainPage clickOnLcInButton() {
+        driver.findElement(lcButton).click();
         return this;
     }
 
@@ -184,7 +193,7 @@ public class MainPage {
 
 
     public String getSigOutHeader() {
-        return driver.findElement(sigInButton).getText();
+        return driver.findElement(sigInButton).getAttribute("aria-label");
     }
 
     public String getIncorrectSigInHeader() {

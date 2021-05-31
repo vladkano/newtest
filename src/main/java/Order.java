@@ -38,10 +38,7 @@ public class Order {
     By searchBox = By.xpath("//input[@id='searchbox']");
     By countrySearchBox = By.xpath("//input[@class='reg']");
     By citySearchBox = By.xpath("(//input[@class='reg'])[2]");
-
-
     By addCommentButton = By.xpath("//button[text()='Добавить комментарий к заказу']");
-//    By addCommentButton = By.cssSelector(".order-summary__comment-trigger");
 
     By authPassword = By.xpath("//div[@class='verify-form__row']/input[@name='code']");
     By confirmButton = By.xpath("//span[text()='Подтвердить']");
@@ -52,6 +49,7 @@ public class Order {
     By metropolisStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Метрополис»']");
     By redBridgeStoreButton = By.xpath("//span[text()='Poison Drop в Универмаге «Au Pont Rouge. У Красного моста»']");
     By atriumStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Атриум»']");
+    By afimollStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Афимолл»']");
     By internationalButton = By.xpath("//span[text()='Доставить в другую страну']");
     By orderCountry = By.xpath("//input[@id='internationalCountry']");
     By orderInternationalCity = By.xpath("//input[@id='internationalCity']");
@@ -67,9 +65,7 @@ public class Order {
     By paperButton = By.xpath("//span[text()='Бумажный']");
     By firstPrice = By.xpath("//span[@class='price-block__price']");
     By finalPrice = By.xpath("//span[@class='order-summary__value order-summary__value_final']");
-
     By frame = By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']");
-
 
     //headers
     By payHeader = By.xpath("//span[text()='Заплатить']");
@@ -153,14 +149,12 @@ public class Order {
     public Order clickOnOrderButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(orderButton));
-//        driver.findElement(orderButton).click();
         return this;
     }
 
     public Order clickOnAddAdresButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(addAddressButton));
-//        driver.findElement(addAdresButton).click();
         return this;
     }
 
@@ -174,7 +168,6 @@ public class Order {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(authPassword));
         driver.findElement(authPassword).sendKeys(password);
-
         driver.findElement(authPassword).sendKeys(String.valueOf(password));
         return this;
     }
@@ -188,12 +181,6 @@ public class Order {
     public Order clickOnWhatsAppButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(whatsAppButton));
-        return this;
-    }
-
-    public Order clickOnPhoneButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(phoneButton));
         return this;
     }
 
@@ -223,7 +210,6 @@ public class Order {
     public Order clickOnSearchboxButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(searchboxButton));
-//        driver.findElement(searchboxButton).click();
         return this;
     }
 
@@ -241,14 +227,17 @@ public class Order {
     public Order clickOnAtriumStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(atriumStoreButton));
-//        driver.findElement(atriumStoreButton).click();
+        return this;
+    }
+
+    public Order clickOnAfimollStoreButton() {
+        driver.findElement(afimollStoreButton).click();
         return this;
     }
 
     public Order clickOnInternationalButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(internationalButton));
-//        driver.findElement(internationalButton).click();
         return this;
     }
 
@@ -309,7 +298,6 @@ public class Order {
         return this;
     }
 
-
     public Order clickOnSelectButton() {
         driver.findElement(selectButton).click();
         return this;
@@ -318,7 +306,6 @@ public class Order {
     public Order clickOnPaperButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(paperButton));
-//        driver.findElement(paperButton).click();
         return this;
     }
 
@@ -401,7 +388,6 @@ public class Order {
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
-        this.clickOnPhoneButton();
         this.clickOnPayButton();
         return new Order(driver);
     }
@@ -432,7 +418,6 @@ public class Order {
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnNoPayButton();
-        this.clickOnPhoneButton();
         this.clickOnOrderButton();
         return new Order(driver);
     }
@@ -467,7 +452,6 @@ public class Order {
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnMetropolisStoreButton();
-        this.clickOnPhoneButton();
         this.clickOnPayButton();
         return new Order(driver);
     }
@@ -502,7 +486,6 @@ public class Order {
         this.clickOnCompanyStoreButton();
         this.clickOnMetropolisStoreButton();
         this.clickOnNoPayButton();
-        this.clickOnPhoneButton();
         this.clickOnOrderButton();
         return new Order(driver);
     }
@@ -538,7 +521,6 @@ public class Order {
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnAtriumStoreButton();
-        this.clickOnPhoneButton();
         this.clickOnPayButton();
         return new Order(driver);
     }
@@ -573,7 +555,6 @@ public class Order {
         this.clickOnCompanyStoreButton();
         this.clickOnAtriumStoreButton();
         this.clickOnNoPayButton();
-        this.clickOnPhoneButton();
         this.clickOnOrderButton();
         return new Order(driver);
     }
@@ -610,7 +591,6 @@ public class Order {
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnRedBridgeStoreButton();
-        this.clickOnPhoneButton();
         this.clickOnPayButton();
         return new Order(driver);
     }
@@ -644,7 +624,6 @@ public class Order {
         this.clickOnCompanyStoreButton();
         this.clickOnRedBridgeStoreButton();
         this.clickOnNoPayButton();
-        this.clickOnPhoneButton();
         this.clickOnOrderButton();
         return new Order(driver);
     }
@@ -673,6 +652,74 @@ public class Order {
         return new Order(driver);
     }
 
+    //Афимолл:
+    public Order orderWithAfimollPhone(String phone, String email, String fio) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnCompanyStoreButton();
+        this.clickOnAfimollStoreButton();
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order orderWithAfimollWA(String phone, String email, String fio) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnCompanyStoreButton();
+        this.clickOnAfimollStoreButton();
+        this.clickOnWhatsAppButton();
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order orderWithAfimollSms(String phone, String email, String fio) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnCompanyStoreButton();
+        this.clickOnAfimollStoreButton();
+        this.clickOnSmsButton();
+        this.clickOnPayButton();
+        return new Order(driver);
+    }
+
+    public Order afimollWithNoPayAndPhone(String phone, String email, String fio) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnCompanyStoreButton();
+        this.clickOnAfimollStoreButton();
+        this.clickOnNoPayButton();
+        this.clickOnOrderButton();
+        return new Order(driver);
+    }
+
+    public Order afimollWithNoPayAndWA(String phone, String email, String fio) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnCompanyStoreButton();
+        this.clickOnAfimollStoreButton();
+        this.clickOnNoPayButton();
+        this.clickOnWhatsAppButton();
+        this.clickOnOrderButton();
+        return new Order(driver);
+    }
+
+    public Order afimollWithNoPayAndSms(String phone, String email, String fio) {
+        this.typePhone(phone);
+        this.typeEmail(email);
+        this.typeFio(fio);
+        this.clickOnCompanyStoreButton();
+        this.clickOnAfimollStoreButton();
+        this.clickOnNoPayButton();
+        this.clickOnSmsButton();
+        this.clickOnOrderButton();
+        return new Order(driver);
+    }
+
 
     //Доставить в другую страну:
     public Order internationalWithPhone(String phone, String email, String fio, String country, String internationalCity, String internationalAddress) {
@@ -683,7 +730,6 @@ public class Order {
         this.typeCountry(country);
         this.typeInternationalCity(internationalCity);
         this.typeInternationalAddress(internationalAddress);
-        this.clickOnPhoneButton();
         this.clickOnPayButton();
         return new Order(driver);
     }

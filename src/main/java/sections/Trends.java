@@ -21,7 +21,7 @@ public class Trends {
         this.driver = driver;
     }
 
-    By trendsButton = By.xpath("//a[text()='Больше трендов']");
+    By trendsButton = By.xpath("//a[text()='Тренды']");
     By mainHref = By.xpath("//a[@class='trend-item js-trend-item trend-item_big']");
     By firstHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[2]");
     By secondHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[3]");
