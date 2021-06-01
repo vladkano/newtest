@@ -9,17 +9,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import sections.Designers;
-import sql.DBWorker;
+import sections.ShopTheLook;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -463,6 +457,52 @@ public class ProductCardsTest extends TestBase {
         String designerNameAfterClick = designers.getDescriptions();
         assertEquals(designerNameBeforeClick, designerNameAfterClick);
     }
+
+    //Отображение блока SHOP THE LOOK(надпись, фото и клик по нему)
+    @Test
+    public void checkingShopTheLookBlockSergi() {
+        shopTheLook = new ShopTheLook(driver);
+        driver.get(getUrl + "catalog/braslety/braslet_iz_zemcuga_v_vide_lepestkov");
+        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
+        shopTheLook.clickOnShopTheLookPhoto();
+        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
+        assertEquals("Shop the look", shopTheLookHeader);
+        assertEquals("1", frisbuyMarker);
+    }
+
+    @Test
+    public void checkingShopTheLookBlockBraslety() {
+        shopTheLook = new ShopTheLook(driver);
+        driver.get(getUrl + "catalog/braslety/braslet_flow_black_iz_tonkix_cepocek");
+        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
+        shopTheLook.clickOnShopTheLookPhoto();
+        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
+        assertEquals("Shop the look", shopTheLookHeader);
+        assertEquals("1", frisbuyMarker);
+    }
+
+    @Test
+    public void checkingShopTheLookBlockKole() {
+        shopTheLook = new ShopTheLook(driver);
+        driver.get(getUrl + "catalog/kole/crystalline_pozolocennoe_kole_cep_s_kamnyami/?stone=zelyonyi-zad");
+        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
+        shopTheLook.clickOnShopTheLookPhoto();
+        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
+        assertEquals("Shop the look", shopTheLookHeader);
+        assertEquals("1", frisbuyMarker);
+    }
+
+    @Test
+    public void checkingShopTheLookBlockKoltsa() {
+        shopTheLook = new ShopTheLook(driver);
+        driver.get(getUrl + "catalog/koltsa/kolco_s_lunnym_kamnem_ogranki_baget_16");
+        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
+        shopTheLook.clickOnShopTheLookPhoto();
+        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
+        assertEquals("Shop the look", shopTheLookHeader);
+        assertEquals("1", frisbuyMarker);
+    }
+
 
     @AfterEach
     public void tearDownEach() {

@@ -94,7 +94,7 @@ public class Size {
 
     //SQL
     //Находим товар с плашкой 3-5 дней
-    public static String findItem35days() {
+    public String findItem35days() {
         String name = "";
         String query = "select item_sku.name from item_sku " +
                 "where id = " + findFirstItem() +"";
@@ -154,7 +154,7 @@ public class Size {
     }
 
     //Находим товар с плашкой от 7 дней
-    public static String findItem7days() {
+    public String findItem7days() {
         String name = "";
         String query = "select item_sku.name from item_sku " +
                 "where id = " + findSecondItem() +"";
