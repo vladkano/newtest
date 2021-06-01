@@ -139,8 +139,10 @@ public class PersonalData {
     }
 
     public PersonalData clickOnPersonalDataButton() {
-            driver.findElement(personalDataButton).click();
-            return this;
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(personalDataButton));
+
+        return this;
     }
 
     public String getPersonalDataHeader() {

@@ -76,7 +76,7 @@ public class CatalogTest extends TestBase{
         }
         //сравниваем размеры и содержание списков
         SoftAssertions s = new SoftAssertions();
-        s.assertThat(numberOnly).isEqualTo(sqlSize);
+        s.assertThat(sqlSize).isEqualTo(numberOnly);
         s.assertThat(siteList.subList(0, 47)).isEqualTo(sqlList.subList(0, 47));
         s.assertAll();
 
