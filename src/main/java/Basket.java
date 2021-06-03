@@ -100,8 +100,8 @@ public class Basket {
     public Basket clickToSizeItemInBasketButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(setItemInBasketButton));
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(sizeSelectionButton));
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(sizeSelectionButton));
         return this;
     }
 

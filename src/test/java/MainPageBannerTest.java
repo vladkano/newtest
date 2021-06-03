@@ -46,7 +46,7 @@ public class MainPageBannerTest extends TestBase{
     @Test
     public void bannersIsVisible() {
         List<WebElement> banners = driver.findElements(countOfBanners);
-        assertEquals(banner.listOfBanners(), banners.size());
+        assertEquals(12, banners.size());
     }
 
     //Отображение блока бестселлеров на главной странице в правильном порядке

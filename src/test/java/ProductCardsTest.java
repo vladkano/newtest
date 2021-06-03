@@ -154,7 +154,7 @@ public class ProductCardsTest extends TestBase {
         driver.get(getUrl + "catalog");
         basket.clickToOkButton();
         String secondItem = size.findItem7days();
-        search.getSearch(secondItem+ "\n");
+        search.getSearch(secondItem + "\n");
         size.clickOnImageLink();
         String plateHeader = size.getPlateHeader();
         assertEquals("Доставка от 7 дней", plateHeader);
@@ -380,7 +380,7 @@ public class ProductCardsTest extends TestBase {
         String description = designers.getDesignerDescription(text);
         assertEquals(text, photoAlt);
         assertEquals(text, designerName);
-        assertEquals(description.substring(0,100), designerText.substring(0,100));
+        assertEquals(description.substring(0, 100), designerText.substring(0, 100));
     }
 
     @Test
@@ -462,7 +462,7 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void checkingShopTheLookBlockSergi() {
         shopTheLook = new ShopTheLook(driver);
-        driver.get(getUrl + "catalog/braslety/braslet_iz_zemcuga_v_vide_lepestkov");
+        driver.get(getUrl + "catalog/sergi/pozolocennye_sergi_tapeo_shrimp");
         String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
         shopTheLook.clickOnShopTheLookPhoto();
         String frisbuyMarker = shopTheLook.getFrisbuyMarker();
@@ -503,6 +503,241 @@ public class ProductCardsTest extends TestBase {
         assertEquals("1", frisbuyMarker);
     }
 
+
+    /* Отображение блоков:
+    -СОСТАВ И ХАРАКТЕРИСТИКИ
+    -УХОД ЗА УКРАШЕНИЯМИ
+    -ДОСТАВКА, ОПЛАТА, ВОЗВРАТ
+    -ГАРАНТИЯ 6 МЕСЯЦЕВ
+    -Код
+    */
+
+
+    //Отображение 4 блоков(СОСТАВ И ХАРАКТЕРИСТИКИ, УХОД ЗА УКРАШЕНИЯМИ, "ДОСТАВКА, ОПЛАТА, ВОЗВРАТ", ГАРАНТИЯ 6 МЕСЯЦЕВ)
+    @Test
+    public void checkingBlocksSergi() {
+        productCard = new ProductCard(driver);
+        driver.get(getUrl + "catalog/sergi/");
+        size.clickOnImageLink();
+        productCard.clickToStructureButton();
+        String specification = productCard.getSpecification();
+        String tsvetnoy = productCard.clickToAvailabilityButton()
+                .getTsvetnoy();
+        String metropolis = productCard.getMetropolis();
+        String afimoll = productCard.getAfimoll();
+        String atrium = productCard.getAtrium();
+        String redBridge = productCard.getRedBridge();
+
+        String jewelryCareHeader = productCard.clickToJewelryCareButton()
+                .getJewelryCareHeader();
+        String jewelryCareText = productCard.getJewelryCareText();
+        String bijouterieCareHeader = productCard.getBijouterieCareHeader();
+        String bijouterieCareText = productCard.getBijouterieCareText();
+
+        String deliveryText = productCard.clickToDeliveryButton()
+                .getDeliveryText();
+
+        String guaranteeText = productCard.clickToGuaranteeButton()
+                .getGuaranteeText();
+
+        assertEquals("Состав:", specification.substring(0, 7));
+        assertEquals("Цветной", tsvetnoy);
+        assertEquals("Метрополис", metropolis);
+        assertEquals("Афимолл", afimoll);
+        assertEquals("Атриум", atrium);
+        assertEquals("APR Санкт-Петербург", redBridge);
+        assertEquals("Ювелирные украшения", jewelryCareHeader);
+        assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
+                "в них спирта)", jewelryCareText);
+        assertEquals("Бижутерия", bijouterieCareHeader);
+        assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
+                "их перед душем и нанесением косметики.\n" +
+                "Подробнее о хранении и уходе.", bijouterieCareText);
+        assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
+        assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
+                "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
+                " Подробнее о гарантии.", guaranteeText);
+    }
+
+    @Test
+    public void checkingBlocksBraslety() {
+        productCard = new ProductCard(driver);
+        driver.get(getUrl + "catalog/braslety/");
+        size.clickOnImageLink();
+        productCard.clickToStructureButton();
+        String specification = productCard.getSpecification();
+        String tsvetnoy = productCard.clickToAvailabilityButton()
+                .getTsvetnoy();
+        String metropolis = productCard.getMetropolis();
+        String afimoll = productCard.getAfimoll();
+        String atrium = productCard.getAtrium();
+        String redBridge = productCard.getRedBridge();
+
+        String jewelryCareHeader = productCard.clickToJewelryCareButton()
+                .getJewelryCareHeader();
+        String jewelryCareText = productCard.getJewelryCareText();
+        String bijouterieCareHeader = productCard.getBijouterieCareHeader();
+        String bijouterieCareText = productCard.getBijouterieCareText();
+
+        String deliveryText = productCard.clickToDeliveryButton()
+                .getDeliveryText();
+
+        String guaranteeText = productCard.clickToGuaranteeButton()
+                .getGuaranteeText();
+
+        assertEquals("Состав:", specification.substring(0, 7));
+        assertEquals("Цветной", tsvetnoy);
+        assertEquals("Метрополис", metropolis);
+        assertEquals("Афимолл", afimoll);
+        assertEquals("Атриум", atrium);
+        assertEquals("APR Санкт-Петербург", redBridge);
+        assertEquals("Ювелирные украшения", jewelryCareHeader);
+        assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
+                "в них спирта)", jewelryCareText);
+        assertEquals("Бижутерия", bijouterieCareHeader);
+        assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
+                "их перед душем и нанесением косметики.\n" +
+                "Подробнее о хранении и уходе.", bijouterieCareText);
+        assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
+        assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
+                "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
+                " Подробнее о гарантии.", guaranteeText);
+    }
+
+    @Test
+    public void checkingBlocksKole() {
+        productCard = new ProductCard(driver);
+        driver.get(getUrl + "catalog/kole/");
+        size.clickOnImageLink();
+        productCard.clickToStructureButton();
+        String specification = productCard.getSpecification();
+        String tsvetnoy = productCard.clickToAvailabilityButton()
+                .getTsvetnoy();
+        String metropolis = productCard.getMetropolis();
+        String afimoll = productCard.getAfimoll();
+        String atrium = productCard.getAtrium();
+        String redBridge = productCard.getRedBridge();
+
+        String jewelryCareHeader = productCard.clickToJewelryCareButton()
+                .getJewelryCareHeader();
+        String jewelryCareText = productCard.getJewelryCareText();
+        String bijouterieCareHeader = productCard.getBijouterieCareHeader();
+        String bijouterieCareText = productCard.getBijouterieCareText();
+
+        String deliveryText = productCard.clickToDeliveryButton()
+                .getDeliveryText();
+
+        String guaranteeText = productCard.clickToGuaranteeButton()
+                .getGuaranteeText();
+
+        assertEquals("Состав:", specification.substring(0, 7));
+        assertEquals("Цветной", tsvetnoy);
+        assertEquals("Метрополис", metropolis);
+        assertEquals("Афимолл", afimoll);
+        assertEquals("Атриум", atrium);
+        assertEquals("APR Санкт-Петербург", redBridge);
+        assertEquals("Ювелирные украшения", jewelryCareHeader);
+        assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
+                "в них спирта)", jewelryCareText);
+        assertEquals("Бижутерия", bijouterieCareHeader);
+        assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
+                "их перед душем и нанесением косметики.\n" +
+                "Подробнее о хранении и уходе.", bijouterieCareText);
+        assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
+        assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
+                "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
+                " Подробнее о гарантии.", guaranteeText);
+    }
+
+    @Test
+    public void checkingBlocksKoltsa() {
+        productCard = new ProductCard(driver);
+        driver.get(getUrl + "catalog/koltsa/");
+        size.clickOnImageLink();
+        productCard.clickToStructureButton();
+        String specification = productCard.getSpecification();
+        String tsvetnoy = productCard.clickToAvailabilityButton()
+                .getTsvetnoy();
+        String metropolis = productCard.getMetropolis();
+        String afimoll = productCard.getAfimoll();
+        String atrium = productCard.getAtrium();
+        String redBridge = productCard.getRedBridge();
+
+        String jewelryCareHeader = productCard.clickToJewelryCareButton()
+                .getJewelryCareHeader();
+        String jewelryCareText = productCard.getJewelryCareText();
+        String bijouterieCareHeader = productCard.getBijouterieCareHeader();
+        String bijouterieCareText = productCard.getBijouterieCareText();
+
+        String deliveryText = productCard.clickToDeliveryButton()
+                .getDeliveryText();
+
+        String guaranteeText = productCard.clickToGuaranteeButton()
+                .getGuaranteeText();
+
+        assertEquals("Состав:", specification.substring(0, 7));
+        assertEquals("Цветной", tsvetnoy);
+        assertEquals("Метрополис", metropolis);
+        assertEquals("Афимолл", afimoll);
+        assertEquals("Атриум", atrium);
+        assertEquals("APR Санкт-Петербург", redBridge);
+        assertEquals("Ювелирные украшения", jewelryCareHeader);
+        assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
+                "в них спирта)", jewelryCareText);
+        assertEquals("Бижутерия", bijouterieCareHeader);
+        assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
+                "их перед душем и нанесением косметики.\n" +
+                "Подробнее о хранении и уходе.", bijouterieCareText);
+        assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
+        assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
+                "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
+                " Подробнее о гарантии.", guaranteeText);
+    }
+
+    //Отображение верного Кода изделия в карточке товара
+    @Test
+    public void checkingCodeSergi() {
+        earrings = new Earrings(driver);
+        productCard = new ProductCard(driver);
+        driver.get(getUrl + "catalog/sergi/");
+        earrings.clickOnNameLink();
+        String codeFromBase = earrings.getCodes().get(1);
+        String codeFromSite = productCard.getItemCode();
+        assertEquals("Код: " + codeFromBase, codeFromSite);
+    }
+
+    @Test
+    public void checkingCodeBraslety() {
+        bracelets = new Bracelets(driver);
+        productCard = new ProductCard(driver);
+        driver.get(getUrl + "catalog/braslety/");
+        bracelets.clickOnNameLink();
+        String codeFromBase = bracelets.getCodes().get(1);
+        String codeFromSite = productCard.getItemCode();
+        assertEquals("Код: " + codeFromBase, codeFromSite);
+    }
+
+    @Test
+    public void checkingCodeKole() {
+        necklaces = new Necklaces(driver);
+        productCard = new ProductCard(driver);
+        driver.get(getUrl + "catalog/kole/");
+        necklaces.clickOnNameLink();
+        String codeFromBase = necklaces.getCodes().get(1);
+        String codeFromSite = productCard.getItemCode();
+        assertEquals("Код: " + codeFromBase, codeFromSite);
+    }
+
+    @Test
+    public void checkingCodeKoltsa() {
+        rings = new Rings(driver);
+        productCard = new ProductCard(driver);
+        driver.get(getUrl + "catalog/koltsa/");
+        rings.clickOnNameLink();
+        String codeFromBase = rings.getCodes().get(1);
+        String codeFromSite = productCard.getItemCode();
+        assertEquals("Код: " + codeFromBase, codeFromSite);
+    }
 
     @AfterEach
     public void tearDownEach() {

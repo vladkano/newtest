@@ -15,7 +15,7 @@ import java.util.List;
 public class MainPageBanner {
 
     private WebDriver driver;
-    private DBWorker worker = new DBWorker();
+    private static DBWorker worker = new DBWorker();
 
 
     public MainPageBanner(WebDriver driver) {
@@ -119,7 +119,6 @@ public class MainPageBanner {
 
     //SQL
     public Integer listOfBanners() {
-        DBWorker worker = new DBWorker();
         Integer count = 0;
         String query = "SELECT count(url) as countURL from main_page_blocks " +
                 "where `show` = 1 " +
@@ -218,25 +217,20 @@ public class MainPageBanner {
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        DBWorker worker = new DBWorker();
-        String name;
-        List<String> list = new ArrayList<>();
-        String query = "SELECT name from item_sku " +
-                "JOIN bestsellers ON bestsellers.sku_id = item_sku.id " +
-                "group by bestsellers.id ";
+        Integer count = 0;
+        String query = "SELECT count(url) as countURL from main_page_blocks " +
+                "where `show` = 1 " +
+                "LIMIT 12";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-                list.add(name);
-
-                System.out.println(name);
+                count = resultSet.getInt("countURL");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(count);
         worker.getSession().disconnect();
     }
 }

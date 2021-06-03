@@ -11,7 +11,7 @@ public class Search {
         this.driver = driver;
     }
 
-    By searchButton = By.xpath("//a[@aria-label='Поиск']");
+    By searchButton = By.xpath("//span[@aria-label='Поиск']");
     By searchText = By.xpath("//input[@aria-label='Поиск']");
     By goSearchButton = By.xpath("//button[@class='search-form__submit button-border hidden_mobile-tablet']");
 

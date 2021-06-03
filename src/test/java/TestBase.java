@@ -49,6 +49,7 @@ public class TestBase {
     Search search;
     Picture picture;
     Set set;
+    ProductCard productCard;
 
 
     By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
