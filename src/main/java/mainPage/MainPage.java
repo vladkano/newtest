@@ -22,7 +22,7 @@ public class MainPage {
         this.driver = driver;
     }
 
-    By sigInButton = By.xpath("//a[@aria-label='Вход или регистрация']");
+    By sigInButton = By.xpath("//span[@aria-label='Вход или регистрация']");
     By lcButton = By.xpath("//a[@aria-label='Личный кабинет']");
     By login = By.id("authLogin");
     By getPassword = By.xpath("//button/span[text()='Получить код']");

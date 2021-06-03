@@ -48,7 +48,7 @@ public class LinkTest extends TestBase {
         driver.get(getUrl + "catalog/braslety");
         bracelets = new Bracelets(driver);
         String header = bracelets.getBraceletNameHeader();
-        bracelets.clickOnBraceletNameLink();
+        bracelets.clickOnNameLink();
         String heading = bracelets.getBraceletHeader();
         assertEquals(header, heading);
     }

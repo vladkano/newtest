@@ -289,6 +289,33 @@ public class Rings {
         return listOfUrl;
     }
 
+    //Достаем коды товаров
+    public List<String> getCodes() {
+        String code;
+        List<String> text = new ArrayList<>();
+        String query = "SELECT code from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'koltsa' " +
+                "and item_sku.url is not null and balance > 0 " +
+                "group by item_catalog_position.position";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                code = resultSet.getString("code");
+//                System.out.println(code);
+                text.add(code);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return text;
+    }
+
     public static void main(String[] args) {
         String url;
         List<String> listOfUrl = new ArrayList<>();
