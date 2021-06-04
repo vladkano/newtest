@@ -66,7 +66,7 @@ public class Bracelets {
         return elements.get(2).getAttribute("textContent");
     }
 
-    public String getBraceletHeader() {
+    public String getHeader() {
         return driver.findElement(braceletHeader).getText();
     }
 

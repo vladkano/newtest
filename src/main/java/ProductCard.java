@@ -1,5 +1,6 @@
 import catalog.Earrings;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import sql.DBWorker;
@@ -57,7 +58,8 @@ public class ProductCard {
     }
 
     public ProductCard clickToAvailabilityButton() {
-        driver.findElement(availabilityButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(availabilityButton));
         return this;
     }
 
@@ -103,7 +105,8 @@ public class ProductCard {
     }
 
     public ProductCard clickToDeliveryButton() {
-        driver.findElement(deliveryButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(deliveryButton));
         return this;
     }
 
@@ -112,7 +115,8 @@ public class ProductCard {
     }
 
     public ProductCard clickToGuaranteeButton() {
-        driver.findElement(guaranteeButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(guaranteeButton));
         return this;
     }
 

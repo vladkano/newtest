@@ -52,7 +52,8 @@ public class Designers {
     }
 
     public Designers clickToDesignerButton() {
-        driver.findElement(designerButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(designerButton));
         return this;
     }
 
