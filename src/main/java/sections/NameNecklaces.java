@@ -74,7 +74,8 @@ public class NameNecklaces {
     }
 
     public NameNecklaces clickToFiveFontButton() {
-        driver.findElement(fiveFontButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(fiveFontButton));
         return this;
     }
 

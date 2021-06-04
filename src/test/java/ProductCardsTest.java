@@ -512,7 +512,6 @@ public class ProductCardsTest extends TestBase {
     -Код
     */
 
-
     //Отображение 4 блоков(СОСТАВ И ХАРАКТЕРИСТИКИ, УХОД ЗА УКРАШЕНИЯМИ, "ДОСТАВКА, ОПЛАТА, ВОЗВРАТ", ГАРАНТИЯ 6 МЕСЯЦЕВ)
     @Test
     public void checkingBlocksSergi() {
@@ -737,6 +736,61 @@ public class ProductCardsTest extends TestBase {
         String codeFromBase = rings.getCodes().get(1);
         String codeFromSite = productCard.getItemCode();
         assertEquals("Код: " + codeFromBase, codeFromSite);
+    }
+
+
+    /*
+    Проверяем переключение между элементами конструктора(золото/серебро и т.п.)
+    Меняется имя по 4 типам товаров
+     */
+    @Test
+    public void constructorSergi() {
+        earrings = new Earrings(driver);
+        collection = new Collection(driver);
+        driver.get(getUrl + "catalog/sergi/");
+        collection.clickOnFirstHref();
+        String firstName = earrings.getHeader();
+        collection.clickOnFirstItem();
+        String secondName = earrings.getHeader();
+        assertNotEquals(firstName, secondName);
+    }
+
+    @Test
+    public void constructorBraslety() {
+        bracelets = new Bracelets(driver);
+        collection = new Collection(driver);
+        driver.get(getUrl + "catalog/braslety/");
+        collection.clickOnFirstHref();
+        String firstName = bracelets.getHeader();
+        collection.clickOnFirstItem();
+        String secondName = bracelets.getHeader();
+        assertNotEquals(firstName, secondName);
+    }
+
+    @Test
+    public void constructorKole() {
+        necklaces = new Necklaces(driver);
+        collection = new Collection(driver);
+        driver.get(getUrl + "catalog/kole/");
+        collection.clickOnFirstHref();
+        String firstName = necklaces.getHeader();
+        collection.clickOnFirstItem();
+        String secondName = necklaces.getHeader();
+        assertNotEquals(firstName, secondName);
+    }
+
+    @Test
+    public void constructorKoltsa() {
+        rings = new Rings(driver);
+        collection = new Collection(driver);
+        driver.get(getUrl + "catalog/koltsa/");
+        collection.clickOnSecondHref();
+        String firstName = rings.getHeader();
+        collection.clickOnFirstItem();
+        String secondName = rings.getHeader();
+        System.out.println(firstName);
+        System.out.println(secondName);
+        assertNotEquals(firstName, secondName);
     }
 
     @AfterEach

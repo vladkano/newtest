@@ -39,7 +39,7 @@ public class LinkTest extends TestBase {
         bracelets = new Bracelets(driver);
         String header = bracelets.getBraceletImageHeader();
         bracelets.clickOnBraceletImageLink();
-        String heading = bracelets.getBraceletHeader();
+        String heading = bracelets.getHeader();
         assertEquals(header, heading);
     }
 
@@ -49,7 +49,7 @@ public class LinkTest extends TestBase {
         bracelets = new Bracelets(driver);
         String header = bracelets.getBraceletNameHeader();
         bracelets.clickOnNameLink();
-        String heading = bracelets.getBraceletHeader();
+        String heading = bracelets.getHeader();
         assertEquals(header, heading);
     }
 
