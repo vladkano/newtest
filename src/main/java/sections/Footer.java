@@ -1,16 +1,11 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-public class Footer {
-
-    private WebDriver driver;
-
-    public Footer(WebDriver driver) {
-        this.driver = driver;
-    }
+public class Footer extends Base {
 
     By aboutButton = By.xpath("//a[text()='О нас']");
     By contactsButton = By.xpath("//a[text()='Контакты']");
@@ -44,6 +39,9 @@ public class Footer {
     By youtubeHeader = By.xpath("//yt-formatted-string[text()='Poison Drop']");
     By whatsAppHeader = By.xpath("//span[text()='+7 495 255-15-33']");
 
+    public Footer(WebDriver driver) {
+        super(driver);
+    }
 
 
     public Footer clickToAboutButton() {

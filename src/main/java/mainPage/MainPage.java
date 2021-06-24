@@ -1,29 +1,23 @@
 package mainPage;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MainPage {
+public class MainPage extends Base {
 
-    private WebDriver driver;
-    private DBWorker worker = new DBWorker();
     int a = 0; // Начальное значение диапазона - "от"
     int b = 99; // Конечное значение диапазона - "до"
 
-    public MainPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
     By sigInButton = By.xpath("//span[@aria-label='Вход или регистрация']");
-    By lcButton = By.xpath("//a[@aria-label='Личный кабинет']");
+    By lcButton = By.xpath("//a[@href='/profile?section=personalData']");
     By login = By.id("authLogin");
     By getPassword = By.xpath("//button/span[text()='Получить код']");
     By authEmail = By.id("authEmail");
@@ -34,14 +28,9 @@ public class MainPage {
     By authEmailPassword = By.xpath("//input[@id='authCode']");
     By authPhone = By.id("authPhone");
     By exitButton = By.xpath("//span[text()='Выйти']");
-    By phoneFromSite = By.xpath("//li[3]/div[@class='free-num__numbers-text']");
-    By phoneFromSite2 = By.xpath("//li[2]/div[@class='free-num__numbers-text']");
+    By phoneFromSite = By.xpath("//span[@class='info-box-number']");
+    By phoneFromSite2 = By.xpath("(//span[@class='info-box-number'])[2]");
     By mailFromSite = By.id("email_addr");
-//    By mailFromSite = By.id("mail");
-    By copyButton = By.id("click-to-copy");
-
-
-
 
 
     //headers
@@ -53,10 +42,12 @@ public class MainPage {
     By noConsentHeader = By.xpath("//p[@class='message popup-auth__message message_error']");
     By incorrectPhoneHeader = By.xpath("//p[text()='Необходимо указать телефон']");
 
+    public MainPage(WebDriver driver) {
+        super(driver);
+    }
+
 
     //    ---Методы и хедеры--------
-
-
     public MainPage clickOnConsentButton() {
         driver.findElement(consentButton).click();
         return this;
@@ -70,10 +61,14 @@ public class MainPage {
         return driver.findElement(phoneFromSite2).getAttribute("textContent");
     }
 
-    public String getPhoneFromSite3() {
-        int random_number = a + (int) (Math.random() * b);
-        return driver.findElement(By.xpath("//tr[" + random_number + "]/td[@class='text-left']/a/b")).getAttribute("textContent");
-    }
+//    public String getPhoneFromSite3() {
+//        int random_number = a + (int) (Math.random() * b);
+//        return driver.findElement(By.xpath("//tr[" + random_number + "]/td[@class='text-left']/a/b")).getAttribute("textContent");
+//    }
+
+//    public String getPhoneFromSite3() {
+//        return driver.findElement(phoneFromSite).getAttribute("textContent");
+//    }
 
     public String getMailFromSite() {
         return driver.findElement(mailFromSite).getAttribute("textContent");
@@ -98,7 +93,9 @@ public class MainPage {
     }
 
     public MainPage clickOnLcInButton() {
-        driver.findElement(lcButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(lcButton));
+//        driver.findElement(lcButton).click();
         return this;
     }
 
@@ -147,7 +144,6 @@ public class MainPage {
         this.clickOnSigInButton();
         this.typeLogin(phoneOrEmail);
         this.clickOnGetPasswordButton();
-
         return new MainPage(driver);
     }
 
@@ -226,9 +222,7 @@ public class MainPage {
 
 
 //    ------------SQL---------------------
-
     public void deletePhone() {
-        worker = new DBWorker();
         String query = "delete from user where login=+79501978905";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -250,7 +244,6 @@ public class MainPage {
 
 
     public void deleteEmail() {
-        worker = new DBWorker();
         String query = "delete from user where login=+79500000000";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -271,7 +264,6 @@ public class MainPage {
     }
 
     public String getPhonePassword() {
-        worker = new DBWorker();
         String code = null;
         String query = "select code from user_authentication_code where id=(SELECT MAX(id) FROM user_authentication_code)";
 
@@ -289,7 +281,6 @@ public class MainPage {
 
 
     public String getEmailPassword() {
-        worker = new DBWorker();
         String code = null;
         String query = "select code from user_authentication_code where id=(SELECT MAX(id) FROM user_authentication_code)";
 
@@ -307,14 +298,7 @@ public class MainPage {
 
 
     public static void main(String[] args) {
-        DBWorker worker = new DBWorker();
-//        String query = "select * from user where login=+79501978905";
-//
-        String query = "select code from user_authentication_code where phone=+79126459328 and id=(SELECT MAX(id) FROM user_authentication_code)";
-
-
-//        String query = "select code from user_authentication_code where email='rundkvist@poisondrop.ru' and id=(SELECT MAX(id) FROM user_authentication_code)";
-
+        String query = "select code from user_authentication_code where phone=+79501978905 and id=(SELECT MAX(id) FROM user_authentication_code)";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -335,7 +319,7 @@ public class MainPage {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        worker.getSession().disconnect();
+        worker.getSession().disconnect();
 
     }
 

@@ -1,26 +1,16 @@
 package personal;
 
-import mainPage.MainPage;
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import sql.DBWorker;
 
-public class PersonalData {
-
-    private WebDriver driver;
-    private DBWorker worker = new DBWorker();
-
-
-    public PersonalData(WebDriver driver) {
-        this.driver = driver;
-    }
-
+public class PersonalData extends Base {
 
     By goOutButton = By.xpath("//span[text()='Выйти']");
-    By personalDataButton = By.xpath("//a[@aria-label='Личный кабинет']");
+    By personalDataButton = By.xpath("//a[@href='/profile?section=personalData']");
     By saveButton = By.xpath("//span[text()='Сохранить']");
     By profileFullName = By.id("profileFullName");
     By profileBirthday = By.id("profileBirthday");
@@ -44,6 +34,10 @@ public class PersonalData {
     By emptyNameHeader = By.xpath("//p[text()='Необходимо указать имя']");
     By emptyBirthdayHeader = By.xpath("//p[@class='message message_error']");
 
+    public PersonalData(WebDriver driver) {
+        super(driver);
+    }
+
 
     public String getEmptyBirthdayHeader() {
         return driver.findElement(emptyBirthdayHeader).getText();
@@ -58,7 +52,6 @@ public class PersonalData {
     public PersonalData clickOnDeliveryAddress() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(profileDeliveryAddress));
-//        driver.findElement(profileDeliveryAddress).click();
         driver.findElement(profileDeliveryAddress).clear();
         return this;
     }
@@ -141,7 +134,6 @@ public class PersonalData {
     public PersonalData clickOnPersonalDataButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(personalDataButton));
-
         return this;
     }
 

@@ -1,22 +1,18 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-public class Shops {
-
-    private WebDriver driver;
-
-    public Shops(WebDriver driver) {
-        this.driver = driver;
-    }
+public class Shops extends Base {
 
     By shopsButton = By.xpath("//span[text()='Магазины']");
     By shopsHeader = By.xpath("//h1[text()='Магазины']");
 
-
-
+    public Shops(WebDriver driver) {
+        super(driver);
+    }
 
     public Shops clickToShopsButton() {
         ((JavascriptExecutor) driver).executeScript(

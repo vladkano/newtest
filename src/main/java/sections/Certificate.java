@@ -1,16 +1,11 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-public class Certificate {
-
-    private WebDriver driver;
-
-    public Certificate(WebDriver driver) {
-        this.driver = driver;
-    }
+public class Certificate extends Base {
 
     By perfectGiftSection = By.xpath("//section[@class='certificate-page__value-form certificate-value-form']//h2");
     By registrationSection = By.xpath("//section[@class='certificate-page__description certificate-description']//h3[text()='Как оформлен сертификат?']");
@@ -29,7 +24,6 @@ public class Certificate {
     By thirdSectionMinusButton = By.xpath("//div[@class='certificate-text-form__counter certificate-page__counter counter']/button[@class='counter__button counter__button_minus']");
     By thirdSectionOrderButton = By.xpath("//div[@class='certificate-text-form__wrap']//span[text()='Заказать']");
 
-
     By perfectGiftValue = By.xpath("//div[@class='certificate-value-form__counter certificate-page__counter counter']//input[@name='certificate-value']");
     By secondSectionValue = By.xpath("//div[@class='certificate-gift-form__counter certificate-page__counter counter']//input[@name='certificate-value']");
     By thirdSectionValue = By.xpath("//div[@class='certificate-text-form__counter certificate-page__counter counter']//input[@name='certificate-value']");
@@ -43,8 +37,9 @@ public class Certificate {
 
     By certificateWishes = By.xpath("//textarea[@name='certificate-wishes']");
 
-
-
+    public Certificate(WebDriver driver) {
+        super(driver);
+    }
 
 
     public String getPerfectGiftSection() {

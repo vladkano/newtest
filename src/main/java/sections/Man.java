@@ -1,9 +1,9 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,16 +11,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Man {
+public class Man extends Base {
 
-    private static DBWorker worker = new DBWorker();
-    private WebDriver driver;
-
-    public Man(WebDriver driver) {
-        this.driver = driver;
-    }
 
     By manButton = By.xpath("//a[text()='Для мужчин']");
+
+    public Man(WebDriver driver) {
+        super(driver);
+    }
 
     public Man clickToManButton() {
         ((JavascriptExecutor) driver).executeScript(
@@ -30,7 +28,6 @@ public class Man {
 
 
     public List<String> getNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item.name from item " +
@@ -55,14 +52,11 @@ public class Man {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
-
         return text;
     }
 
     public List<String> getDesigners() {
-        worker = new DBWorker();
         String designer;
         List<String> text = new ArrayList<>();
         String query = "SELECT designer.name from item " +
@@ -88,14 +82,11 @@ public class Man {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getDesigner: " + text);
-
         return text;
     }
 
     public List<Integer> getPrice() {
-        worker = new DBWorker();
         int price, discount;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT item_sku.price, (price * discount/100) as discount from item " +
@@ -124,13 +115,11 @@ public class Man {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getPrice: " + text);
         return text;
     }
 
     public static void main(String[] args) {
-
         String designer;
         List<String> text = new ArrayList<>();
         String query = "SELECT item.name from item " +
@@ -155,8 +144,7 @@ public class Man {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        worker.getSession().disconnect();
         System.out.println(text);
-
+        worker.getSession().disconnect();
     }
 }

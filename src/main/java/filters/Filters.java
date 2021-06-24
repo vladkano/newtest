@@ -1,9 +1,9 @@
 package filters;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,14 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Filters {
-
-    private WebDriver driver;
-
-    public Filters(WebDriver driver) {
-        this.driver = driver;
-    }
-
+public class Filters extends Base {
 
     By filterButton = By.xpath("//span[text()='Фильтры']");
     By allEarringsButton = By.xpath("//span[text()='Все серьги']");
@@ -35,9 +28,11 @@ public class Filters {
     By necklacesButton = By.xpath("//div[text()='Колье']");
     By braceletsButton = By.xpath("//div[text()='Браслеты']");
     By broochesButton = By.xpath("//div[text()='Броши']");
-
-
     By countHeader = By.xpath("//div[@class='filters__total-count']");
+
+    public Filters(WebDriver driver) {
+        super(driver);
+    }
 
 
     public Filters clickToFilterButton() {
@@ -88,11 +83,6 @@ public class Filters {
         return this;
     }
 
-//    public filters.Filters clickToEarringsButton() {
-//        driver.findElement(earringsButton).click();
-//        return this;
-//    }
-
     public Filters clickToEarringsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(earringsButton));
@@ -102,7 +92,6 @@ public class Filters {
     public Filters clickToRingsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(ringsButton));
-//        driver.findElement(ringsButton).click();
         return this;
     }
 
@@ -130,7 +119,6 @@ public class Filters {
 
     //SQL
     public static String findFirstItem() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> list = new ArrayList<>();
         String query = "SELECT name from item_sku " +
@@ -156,7 +144,6 @@ public class Filters {
 
 
     public Integer getBalance() {
-        DBWorker worker = new DBWorker();
         String name;
         Integer balance, reserve, itog;
         Map<String, Integer> hashMap = new HashMap<String, Integer>();
@@ -184,17 +171,13 @@ public class Filters {
         String firstItem = this.findFirstItem();
         Integer i = hashMap.get(firstItem);
 //        System.out.println(hashMap);
-        //worker.getSession().disconnect();
         return i;
     }
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        DBWorker worker = new DBWorker();
         String name;
         Integer balance, reserve, itog;
-
-        List<String> list = new ArrayList<>();
         Map<String, Integer> hashMap = new HashMap<String, Integer>();
         String query = "SELECT name, balance, reserve  from item_sku " +
                 "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
@@ -207,23 +190,19 @@ public class Filters {
                 name = resultSet.getString("name");
                 balance = resultSet.getInt("balance");
                 reserve = resultSet.getInt("reserve");
-
                 itog = balance- reserve;
 //                list.add(name);
-
                 hashMap.put(name, itog);
                 System.out.println(name);
                 System.out.println(itog);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-//        String firstItem = Basket.findFirstItem();
+//        String firstItem = basket.Basket.findFirstItem();
 //        Integer i = hashMap.get(firstItem);
         System.out.println(hashMap);
 //        System.out.println(i);
-        //worker.getSession().disconnect();
+        worker.getSession().disconnect();
     }
 }

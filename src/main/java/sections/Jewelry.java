@@ -1,9 +1,9 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,15 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Jewelry {
-    private WebDriver driver;
-    private static DBWorker worker = new DBWorker();
+public class Jewelry extends Base {
 
-    public Jewelry(WebDriver driver) {
-        this.driver = driver;
-    }
 
     By jewelryButton = By.xpath("//a[text()='Золото и серебро']");
+
+    public Jewelry(WebDriver driver) {
+        super(driver);
+    }
 
     public Jewelry clickToJewelryButton() {
         ((JavascriptExecutor) driver).executeScript(
@@ -29,7 +28,6 @@ public class Jewelry {
     }
 
     public List<String> getNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -40,7 +38,7 @@ public class Jewelry {
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and (base_metal_group_id = 2 or base_metal_group_id = 11) " +
                 "and item_sku.url is not null and balance > 0 and section = 'catalog' and subsection is null " +
-                "group by item_catalog_position.position " ;
+                "group by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -52,14 +50,12 @@ public class Jewelry {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
 
         return text;
     }
 
     public List<String> getDesigners() {
-        worker = new DBWorker();
         String designer;
         List<String> text = new ArrayList<>();
         String query = "SELECT designer.name from item " +
@@ -83,14 +79,12 @@ public class Jewelry {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getDesigner: " + text);
 
         return text;
     }
 
     public List<Integer> getPrice() {
-        worker = new DBWorker();
         int price, discount;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT item_sku.price, (price * discount/100) as discount from item " +
@@ -117,7 +111,6 @@ public class Jewelry {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getPrice: " + text);
         return text;
     }

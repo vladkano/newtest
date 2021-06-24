@@ -1,10 +1,10 @@
 package mainPage;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,21 +12,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainPageBanner {
-
-    private WebDriver driver;
-    private static DBWorker worker = new DBWorker();
-
-
-    public MainPageBanner(WebDriver driver) {
-        this.driver = driver;
-    }
+public class MainPageBanner extends Base {
 
     By carouselButton = By.xpath("//button[@aria-label='Carousel Page 2']");
     By designerButton = By.xpath("//*[@id='tns1-item5']//span");
     By mainCatalogHref = By.xpath("//div[@class='banner main-banner']//a[@class ='banner__link']");
-    //    By catalogHref = By.xpath("//div[@class='banner']//a[@aria-labelledby='banner-1']");
-//    By sixCatalogHref = By.xpath("//div[@class='banner']//a[@aria-labelledby='banner-6']");
     By bestsellerNameButton = By.xpath("//*[@id='tns1-item1']//span");
     By countOfBanners = By.xpath("//div[@class='banner__content']/a");
 
@@ -36,6 +26,10 @@ public class MainPageBanner {
     By mainCatalogHeader = By.xpath("//span[text()='Фильтры']");
     By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
 
+    public MainPageBanner(WebDriver driver) {
+        super(driver);
+    }
+
     //находит элемент на странице перекрытый другими элементами и кликает на него
     public MainPageBanner clickToCarouselButton() {
         ((JavascriptExecutor) driver).executeScript(
@@ -44,7 +38,6 @@ public class MainPageBanner {
     }
 
     public MainPageBanner clickToDesignerButton() {
-//        driver.findElement(designerButton).click();
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(designerButton));
         return this;
@@ -157,7 +150,6 @@ public class MainPageBanner {
             e.printStackTrace();
         }
 //        System.out.println(list);
-        //worker.getSession().disconnect();
         return list;
     }
 
@@ -181,9 +173,7 @@ public class MainPageBanner {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 //        System.out.println(list);
-        //worker.getSession().disconnect();
         return list;
     }
 
@@ -202,15 +192,12 @@ public class MainPageBanner {
             while (resultSet.next()) {
                 price = resultSet.getInt("price");
                 list.add(price);
-
 //                System.out.println(price);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 //        System.out.println(list);
-        //worker.getSession().disconnect();
-
         return list;
     }
 

@@ -1,10 +1,7 @@
 package catalog;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+import base.Base;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,64 +9,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Earrings {
-
-    private static DBWorker worker = new DBWorker();
-    private WebDriver driver;
-    private static String getUrl = "https://poisondrop.ru/catalog/";
-//private static String getUrl = "https://qa.poisondrop.org.ru/catalog/";
-
-    By imageLink = By.xpath("//picture/img");
-    By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
-    By designerLink = By.xpath("//div[@class='catalog-card__designer']/a");
-
-    By nameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
-    By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
-
+public class Earrings extends Base {
 
     public Earrings(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public Earrings clickOnImageLink() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(imageLink));
-        return this;
-    }
-
-    public Earrings clickOnNameLink() {
-        List<WebElement> elements = driver.findElements(nameLink);
-        elements.get(1).click();
-        return this;
-    }
-
-    public Earrings clickOnDesignerLink() {
-        List<WebElement> elements = driver.findElements(designerLink);
-        elements.get(2).click();
-        return this;
-    }
-
-    public String getImageHeader() {
-        List<WebElement> elements = driver.findElements(imageLink);
-        return elements.get(0).getAttribute("alt");
-    }
-
-    public String getNameHeader() {
-        List<WebElement> elements = driver.findElements(nameLink);
-        return elements.get(1).getAttribute("textContent");
-    }
-
-    public String getDesignerHeader() {
-        List<WebElement> elements = driver.findElements(designerLink);
-        return elements.get(2).getAttribute("textContent");
-    }
-
-    public String getHeader() {
-        return driver.findElement(nameHeader).getText();
-    }
-
-    public String getNextDesignerHeader() {
-        return driver.findElement(designerHeader).getText();
+        super(driver);
     }
 
 
@@ -283,7 +226,7 @@ public class Earrings {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 url = resultSet.getString("url");
-//                System.out.println(url);
+                System.out.println(url);
                 listOfUrl.add(url);
             }
         } catch (SQLException e) {
@@ -319,7 +262,6 @@ public class Earrings {
         }
         return text;
     }
-
 
 
     //Проверка запросов

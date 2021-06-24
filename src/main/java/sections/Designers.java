@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Designers {
 
     private WebDriver driver;
@@ -176,7 +177,6 @@ public class Designers {
     }
 
     public List<String> getFirstLinkNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -201,13 +201,11 @@ public class Designers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
         return text;
     }
 
     public List<String> getSecondLinkNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -359,12 +357,11 @@ public class Designers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(text.get(19));
+        System.out.println(text.get(0));
         return text;
     }
 
     public List<String> getFirstDesignerNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -390,13 +387,11 @@ public class Designers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
         return text;
     }
 
     public List<String> get10DesignerItemNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -422,7 +417,6 @@ public class Designers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
         return text;
     }
@@ -453,13 +447,11 @@ public class Designers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
         return text;
     }
 
     public List<String> getFirstPopularLinkNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -484,13 +476,11 @@ public class Designers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
         return text;
     }
 
     public List<String> getLastPopularLinkNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -515,7 +505,6 @@ public class Designers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
         return text;
     }

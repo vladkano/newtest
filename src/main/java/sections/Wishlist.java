@@ -1,9 +1,9 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,22 +11,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wishlist {
-
-
-    private WebDriver driver;
-
-    public Wishlist(WebDriver driver) {
-        this.driver = driver;
-    }
+public class Wishlist extends Base {
 
     By wishListButton = By.xpath("//a[@href='/wishlist/']");
     By wishListInCardListButton = By.xpath("//span[text()='Wish List']");
 
     By wishListHeader = By.xpath("//h2[text()='Избранное']");
 
-
-
+    public Wishlist(WebDriver driver) {
+        super(driver);
+    }
 
     public Wishlist clickToWishListButton() {
         ((JavascriptExecutor) driver).executeScript(
@@ -51,10 +45,8 @@ public class Wishlist {
         return this;
     }
 
-
     //SQL
     public static String findFirstItem() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> list = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -80,14 +72,11 @@ public class Wishlist {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 //        System.out.println(list.get(1));
-//        ////worker.getSession().disconnect();
         return list.get(0);
     }
 
     public static void main(String[] args) {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> list = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -113,9 +102,8 @@ public class Wishlist {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         System.out.println(list.get(0));
-//        ////worker.getSession().disconnect();
+        worker.getSession().disconnect();
 
     }
 }

@@ -1,9 +1,9 @@
 package filters;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,19 +11,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DesignersFilter {
-
-    private WebDriver driver;
-
-
-    public DesignersFilter(WebDriver driver) {
-        this.driver = driver;
-    }
+public class DesignersFilter extends Base {
 
     By designersButton = By.xpath("//div[text()='Дизайнеры']");
     By sinitsynButton = By.xpath("//span[text()='Aleksandr Sinitsyn']");
     By jewlryButton = By.xpath("//span[text()='Prosto Jewlry']");
     By avgvstButton = By.xpath("//span[text()='Avgvst']");
+
+    public DesignersFilter(WebDriver driver) {
+        super(driver);
+    }
 
 
     public DesignersFilter clickToDesignersButton() {
@@ -52,7 +49,6 @@ public class DesignersFilter {
 
     //SQL
     public List<String> getListOfSinitsyn() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -83,7 +79,6 @@ public class DesignersFilter {
     }
 
     public List<String> getListOfJewlry() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -114,7 +109,6 @@ public class DesignersFilter {
     }
 
     public List<String> getListOfAvgvst() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -146,7 +140,6 @@ public class DesignersFilter {
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +

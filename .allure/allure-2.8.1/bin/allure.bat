@@ -5,7 +5,7 @@
 @rem
 @rem ##########################################################################
 
-@rem Set local scope for the variables with windows NT shell
+@rem collectionAndSet.Set local scope for the variables with windows NT shell
 if "%OS%"=="Windows_NT" setlocal
 
 set DIRNAME=%~dp0
@@ -73,7 +73,7 @@ set CLASSPATH=%APP_HOME%\lib\allure-commandline-2.8.1.jar;%APP_HOME%\lib\allure-
 if "%ERRORLEVEL%"=="0" goto mainEnd
 
 :fail
-rem Set variable ALLURE_EXIT_CONSOLE if you need the _script_ return code instead of
+rem collectionAndSet.Set variable ALLURE_EXIT_CONSOLE if you need the _script_ return code instead of
 rem the _cmd.exe /c_ return code!
 if  not "" == "%ALLURE_EXIT_CONSOLE%" exit 1
 exit /b 1

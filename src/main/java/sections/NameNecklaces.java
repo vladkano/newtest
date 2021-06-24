@@ -1,5 +1,6 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -7,12 +8,7 @@ import org.openqa.selenium.WebDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class NameNecklaces {
-    private WebDriver driver;
-
-    public NameNecklaces(WebDriver driver) {
-        this.driver = driver;
-    }
+public class NameNecklaces extends Base {
 
     //Кнопки
     By orderButton = By.xpath("//button[text()='Заказать']");
@@ -34,7 +30,9 @@ public class NameNecklaces {
     By checkValue = By.xpath("//input[@name='quantity']");
     By price = By.xpath("//div[@class='necklace-constructor__price price-block__price']");
 
-
+    public NameNecklaces(WebDriver driver) {
+        super(driver);
+    }
 
 
     public NameNecklaces clickToFirstTypeOrderButton() {

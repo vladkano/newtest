@@ -1,9 +1,9 @@
 package filters;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,13 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Colors {
-    private WebDriver driver;
-
-    public Colors(WebDriver driver) {
-        this.driver = driver;
-    }
-
+public class Colors extends Base {
 
     By colorButton = By.xpath("//div[text()='Цвет']");
     By greenButton = By.xpath("//span[text()='Зеленый']");
@@ -25,6 +19,10 @@ public class Colors {
     By mixButton = By.xpath("//span[text()='Мульти']");
     By rodiiButton = By.xpath("//span[text()='Родий']");
     By pinkGoldButton = By.xpath("//span[text()='Розовое золото']");
+
+    public Colors(WebDriver driver) {
+        super(driver);
+    }
 
 
     public Colors clickToColorButton() {
@@ -65,7 +63,6 @@ public class Colors {
 
     //SQL
     public List<String> getListOfGreenColor() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -91,15 +88,12 @@ public class Colors {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-
 //        System.out.println(text.size());
 //        System.out.println(text);
         return text;
     }
 
     public List<String> getListOfBlueColor() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -125,15 +119,12 @@ public class Colors {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-
 //        System.out.println(text.size());
 //        System.out.println(text);
         return text;
     }
 
     public List<String> getListOfMixColor() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -159,15 +150,12 @@ public class Colors {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-
 //        System.out.println(text.size());
 //        System.out.println(text);
         return text;
     }
 
     public List<String> getListOfRodii() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -193,15 +181,12 @@ public class Colors {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-
 //        System.out.println(text.size());
 //        System.out.println(text);
         return text;
     }
 
     public List<String> getListOfPinkGold() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -227,8 +212,6 @@ public class Colors {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-
 //        System.out.println(text.size());
 //        System.out.println(text);
         return text;
@@ -237,7 +220,6 @@ public class Colors {
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +
@@ -263,9 +245,9 @@ public class Colors {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-
         System.out.println(text.size());
         System.out.println(text);
+
+        worker.getSession().disconnect();
     }
 }

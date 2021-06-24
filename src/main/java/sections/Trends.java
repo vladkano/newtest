@@ -1,9 +1,9 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,14 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Trends {
-
-    private WebDriver driver;
-    private static DBWorker worker = new DBWorker();
-
-    public Trends(WebDriver driver) {
-        this.driver = driver;
-    }
+public class Trends extends Base {
 
     By trendsButton = By.xpath("//a[text()='Тренды']");
     By mainHref = By.xpath("//a[@class='trend-item js-trend-item trend-item_big']");
@@ -30,6 +23,9 @@ public class Trends {
 
     By linkHeader = By.xpath("//div[@class='trend-page__content']");
 
+    public Trends(WebDriver driver) {
+        super(driver);
+    }
 
     public String getFourthFineHref() {
         return driver.findElement(fourthFineHref).getAttribute("href");
@@ -94,7 +90,6 @@ public class Trends {
 
     //SQL
     public Integer listOfBanners() {
-        worker = new DBWorker();
         Integer count = 0;
         String query = "SELECT count(url) as countURL from trend " +
                 "where `show` = 1";
@@ -112,7 +107,6 @@ public class Trends {
     }
 
     public List<String> getNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT name from trend " +
@@ -130,12 +124,10 @@ public class Trends {
             e.printStackTrace();
         }
 //        System.out.println("метод getNames: " + text);
-
         return text;
     }
 
     public List<String> listOfDescription() {
-        worker = new DBWorker();
         String description;
         List<String> text = new ArrayList<>();
         String query = "SELECT description from trend " +
@@ -152,12 +144,10 @@ public class Trends {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return text;
     }
 
     public List<String> getNamesOfTop() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -182,7 +172,6 @@ public class Trends {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
         return text;
     }

@@ -8,6 +8,7 @@
     <artifactId>Poisondrop</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
     <properties>
         <allure-maven.version>2.10.0</allure-maven.version>
         <allure-junit5.version>2.13.0</allure-junit5.version>
@@ -19,9 +20,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>14</source>
                     <target>14</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
@@ -39,6 +42,7 @@
                     <parallel>methods</parallel>
 
                     <systemProperties>
+
                         <property>
                             <name>junit.jupiter.extensions.autodetection.enabled</name>
                             <value>true</value>
@@ -46,8 +50,9 @@
 
                         <property>
                             <name>allure.results.directory</name>
-                            <value>${project.build.directory}/allure-results</value>
+                            <value>target/allure-results</value>
                         </property>
+
                     </systemProperties>
 
                 </configuration>
@@ -71,9 +76,6 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven.version}</version>
-                <!--                <configuration>-->
-                <!--                    <reportVersion>2.4.2</reportVersion>-->
-                <!--                </configuration>-->
             </plugin>
 
         </plugins>
@@ -81,13 +83,6 @@
 
 
     <dependencies>
-        <!-- Тесты -->
-
-        <dependency>
-            <groupId>ru.stqa.selenium</groupId>
-            <artifactId>webdriver-factory</artifactId>
-            <version>4.4</version>
-        </dependency>
 
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -102,28 +97,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-edge-driver</artifactId>
-            <version>3.141.59</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-firefox-driver</artifactId>
-            <version>3.141.59</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.5.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-support</artifactId>
-            <version>3.141.59</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -131,12 +107,12 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>2.6.2</version>
         </dependency>
+
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
             <version>0.1.44-1</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.assertj</groupId>
@@ -163,6 +139,7 @@
             <artifactId>allure-junit5</artifactId>
             <version>${allure-junit5.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-support</artifactId>

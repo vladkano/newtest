@@ -1,9 +1,9 @@
 package filters;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,13 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Material {
-
-    private WebDriver driver;
-
-    public Material(WebDriver driver) {
-        this.driver = driver;
-    }
+public class Material extends Base {
 
     By materialButton = By.xpath("//div[text()='Материалы']");
     By zemcugButton = By.xpath("//span[text()='Жемчуг']");
@@ -26,6 +20,10 @@ public class Material {
     By stekloButton = By.xpath("//span[text()='Стекло']");
     By bronzeButton = By.xpath ("//span[text()='Бронза']");
     By silverButton = By.xpath ("//span[text()='Серебро']");
+
+    public Material(WebDriver driver) {
+        super(driver);
+    }
 
 
     public Material clickToMaterialButton() {
@@ -73,7 +71,6 @@ public class Material {
 
     //SQL
     public List<String> getListOfZemcug() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -103,7 +100,6 @@ public class Material {
     }
 
     public List<String> getListOfKristally() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -134,7 +130,6 @@ public class Material {
     }
 
     public List<String> getListOfKamen() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -165,7 +160,6 @@ public class Material {
 
 
     public List<String> getListOfSteklo() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -195,7 +189,6 @@ public class Material {
     }
 
     public List<String> getListOfBronze() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -225,7 +218,6 @@ public class Material {
     }
 
     public List<String> getListOfSilver() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -256,7 +248,6 @@ public class Material {
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -270,23 +261,19 @@ public class Material {
                 "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
                 "and item_sku.url is not null and balance > 0 and item_base_material.name = 'Жемчуг' " +
                 "group by item_catalog_position.position" ;
-
-//                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
-//                "and is_archive = 0 and price != 0 and item_sku.url is not null " +
-//                "and item_base_material.name = 'Жемчуг' and item_sku.show != 0 and catalog.show !=0 and balance > 0" +
-//                " group by item_sku.id ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 name = resultSet.getString("name");
                 text.add(name);
+                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
 
         }
-        System.out.println(text);
+        System.out.println(text.size());
         worker.getSession().disconnect();
     }
 }

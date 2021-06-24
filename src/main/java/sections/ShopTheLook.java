@@ -1,23 +1,20 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-public class ShopTheLook {
-
-    private WebDriver driver;
-
-    public ShopTheLook(WebDriver driver) {
-        this.driver = driver;
-    }
+public class ShopTheLook extends Base {
 
     By shopTheLookButton = By.xpath("//a[text()='Shop the look']");
     By shopTheLookHeader = By.xpath("//div[@class='frisbuy-title']");
     By shopTheLookPhoto = By.xpath("//li/div[@class='frisbuy-post-image']");
     By frisbuyMarker = By.xpath("//div[@class='frisbuy-marker']/span");
 
-
+    public ShopTheLook(WebDriver driver) {
+        super(driver);
+    }
 
     public ShopTheLook clickToShopTheLookButton() {
         ((JavascriptExecutor) driver).executeScript(

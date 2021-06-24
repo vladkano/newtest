@@ -1,10 +1,10 @@
 package sections;
 
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,16 +12,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sale {
-
-    private WebDriver driver;
-    private static DBWorker worker = new DBWorker();
-
-    public Sale(WebDriver driver) {
-        this.driver = driver;
-    }
+public class Sale extends Base {
 
     By saleButton = By.xpath("//a[text()='Sale']");
+
+    public Sale(WebDriver driver) {
+        super(driver);
+    }
 
     public Sale clickToSaleButton() {
         ((JavascriptExecutor) driver).executeScript(
@@ -30,7 +27,6 @@ public class Sale {
     }
 
     public List<String> getNames() {
-        worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -56,14 +52,12 @@ public class Sale {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);
 
         return text;
     }
 
     public List<String> getDesigners() {
-        worker = new DBWorker();
         String designer;
         List<String> text = new ArrayList<>();
         String query = "SELECT designer.name from item " +
@@ -88,14 +82,12 @@ public class Sale {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getDesigner: " + text);
 
         return text;
     }
 
     public List<Integer> getFinalPrice() {
-        worker = new DBWorker();
         int price, discount;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT item_sku.price, (price * discount/100) as discount from item " +
@@ -123,13 +115,11 @@ public class Sale {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getPrice: " + text);
         return text;
     }
 
     public List<Integer> getOldPrice() {
-        worker = new DBWorker();
         int price;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT item_sku.price, (price * discount/100) as discount from item " +
@@ -154,13 +144,11 @@ public class Sale {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getPrice: " + text);
         return text;
     }
 
     public List<Integer> getSale() {
-        worker = new DBWorker();
         int discount;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT item_sku.discount from item " +
@@ -185,7 +173,6 @@ public class Sale {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 //        System.out.println("метод getPrice: " + text);
         return text;
     }

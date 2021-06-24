@@ -1,5 +1,6 @@
 package filters;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -11,13 +12,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Size {
-    private WebDriver driver;
-    static DBWorker worker = new DBWorker();
+public class Size extends Base {
 
-    public Size(WebDriver driver) {
-        this.driver = driver;
-    }
 
     By sizeButton = By.xpath("//div[text()='Размер кольца']");
     By firstSizeButton = By.xpath("//span[text()='14,5']");
@@ -27,9 +23,12 @@ public class Size {
     By currentSize = By.xpath("//span[@class='product-modification__output']");
     By firstCurrentSizeButton = By.xpath("//ul/li[2]/label/span[@class='product-variant__variant product-variant__variant_size']");
     By secondCurrentSizeButton = By.xpath("//ul/li[3]/label/span[@class='product-variant__variant product-variant__variant_size']");
-    By imageLink = By.xpath("//picture/img");
     By sizeHeader = By.xpath("//span[@class='cart-item__additional-params']");
     By plateHeader = By.xpath("//span[@class='notification__text']");
+
+    public Size(WebDriver driver) {
+        super(driver);
+    }
 
 
     public String getPlateHeader() {
