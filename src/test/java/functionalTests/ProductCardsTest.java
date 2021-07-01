@@ -421,7 +421,7 @@ public class ProductCardsTest extends TestBase {
         String description = designers.getDesignerDescription(text);
         assertEquals(text, photoAlt);
         assertEquals(text, designerName);
-        assertEquals(description.substring(0, 100), designerText.substring(0, 100));
+        assertEquals(description.substring(0, 50), designerText.substring(0, 50));
     }
 
     //Кнопка перехода к товарам дизайнера

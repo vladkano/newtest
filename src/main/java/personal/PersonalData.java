@@ -132,8 +132,9 @@ public class PersonalData extends Base {
     }
 
     public PersonalData clickOnPersonalDataButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(personalDataButton));
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(personalDataButton));
+        driver.findElement(personalDataButton).click();
         return this;
     }
 

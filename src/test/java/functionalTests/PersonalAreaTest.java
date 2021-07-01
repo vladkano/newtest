@@ -13,12 +13,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import personal.PersonalData;
 
+import javax.annotation.concurrent.NotThreadSafe;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @ResourceLock("Code")
+@NotThreadSafe
 public class PersonalAreaTest extends TestBase {
 
     @BeforeEach
@@ -40,8 +42,8 @@ public class PersonalAreaTest extends TestBase {
         basket = new Basket(driver);
         basket.clickToOkButton();
         mainPage.sigInWithPhoneOrEmail("+79501978905");
-        String code2 = mainPage.getPhonePassword();
-        mainPage.sigInWithPassword(code2);
+        String codeToLogin = mainPage.getPhonePassword();
+        mainPage.sigInWithPassword(codeToLogin);
         personalData.clickOnPersonalDataButton();
     }
 

@@ -29,7 +29,7 @@ public class Designers {
     By designersSecondHref = By.xpath("//div[@class='new-designers__wrapper']/a[2]");
     By designersThirdHref = By.xpath("//div[@class='new-designers__wrapper']/a[3]");
     By firstPopularHref = By.xpath("//div[@class='popular-designers__item']/a");
-    By lastPopularHref = By.xpath("//div[@class='popular-designers__item'][12]/a");
+    By lastPopularHref = By.xpath("//div[@class='popular-designers__item'][14]/a");
     By designer = By.xpath("//li[@class='index-designers__name']/a");
     By designersNames = By.xpath("//div[@class='catalog-card__designer']/a");
     By numberOfItem = By.xpath("//h3[@class='catalog-card__name']/a");
@@ -160,7 +160,7 @@ public class Designers {
     }
 
     public String getDesignerDescription(String text) {
-        String description = "";
+        String description = null;
         String query = "select description from designer " +
                 "where `show` = 1 and name = " + "'" + text + "'" ;
         try {

@@ -135,8 +135,8 @@ public class MainPage extends Base {
     }
 
     public MainPage clickOnGetPasswordButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(getPassword));
+        driver.findElement(getPassword).click();
+
         return this;
     }
 
@@ -264,6 +264,11 @@ public class MainPage extends Base {
     }
 
     public String getPhonePassword() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String code = null;
         String query = "select code from user_authentication_code where id=(SELECT MAX(id) FROM user_authentication_code)";
 

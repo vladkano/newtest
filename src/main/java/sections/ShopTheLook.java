@@ -27,7 +27,9 @@ public class ShopTheLook extends Base {
     }
 
     public ShopTheLook clickOnShopTheLookPhoto() {
-        driver.findElement(shopTheLookPhoto).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(shopTheLookPhoto));
+//        driver.findElement(shopTheLookPhoto).click();
         return this;
     }
 
