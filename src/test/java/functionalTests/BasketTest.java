@@ -258,7 +258,6 @@ public class BasketTest extends TestBase {
     //Ссылка со значком корзины на всех страницах сайта ведет на getUrl + "cart"
     @Test
     public void checkCartHref() {
-        basket.clickToOkButton();
         basket.clickToCart();
         String url = driver.getCurrentUrl();
         assertEquals(getUrl + "cart", url);

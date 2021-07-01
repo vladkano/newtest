@@ -15,12 +15,12 @@ import java.util.List;
 public class MainPageBanner extends Base {
 
     By carouselButton = By.xpath("//button[@aria-label='Carousel Page 2']");
-    By designerButton = By.xpath("//*[@id='tns1-item5']//span");
+    By designerButton = By.xpath("//*[@id='tns1-item4']//span");
     By mainCatalogHref = By.xpath("//div[@class='banner main-banner']//a[@class ='banner__link']");
     By bestsellerNameButton = By.xpath("//*[@id='tns1-item1']//span");
     By countOfBanners = By.xpath("//div[@class='banner__content']/a");
 
-    By designerButtonHeader = By.xpath("//*[@id='tns1-item5']//div[@class='catalog-card__designer']/a");
+    By designerButtonHeader = By.xpath("//*[@id='tns1-item4']//div[@class='catalog-card__designer']/a");
     By nameButtonHeader = By.xpath("//*[@id='tns1-item1']//h3[@class='catalog-card__name']/a");
     By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
     By mainCatalogHeader = By.xpath("//span[text()='Фильтры']");

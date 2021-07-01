@@ -26,7 +26,7 @@ public class CertificateTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -124,10 +124,8 @@ public class CertificateTest extends TestBase {
 
     //Проверка перехода к оплате заказа на сайте, сертификат тип 1
     //эл.сертификат
-
     @Test()
     public void orderWithElCertificateAndPhone() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
@@ -142,7 +140,6 @@ public class CertificateTest extends TestBase {
 
     @Test()
     public void orderWithElCertificateAndWA() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
@@ -162,7 +159,6 @@ public class CertificateTest extends TestBase {
     //Способ доставки: Доставка курьером
     @Test()
     public void orderWithCertificateAndPhone() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
@@ -178,7 +174,6 @@ public class CertificateTest extends TestBase {
 
     @Test()
     public void orderWithCertificateAndWA() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
@@ -195,7 +190,6 @@ public class CertificateTest extends TestBase {
     //Способ доставки: Цветной + телефон
     @Test()
     public void orderWithCertificateTsvetnoyAndPhone() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
@@ -211,7 +205,6 @@ public class CertificateTest extends TestBase {
     //Способ доставки: Метрополис + ВА
     @Test()
     public void orderWithCertificateMetropolisAndWA() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
@@ -227,7 +220,6 @@ public class CertificateTest extends TestBase {
     //Способ доставки: Атриум + СМС
     @Test()
     public void orderWithCertificateAtriumAndSMS() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
@@ -243,7 +235,6 @@ public class CertificateTest extends TestBase {
     //Способ доставки: У Красного моста + телефон
     @Test()
     public void orderWithCertificateRedBridgeAndPhone() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
@@ -260,13 +251,12 @@ public class CertificateTest extends TestBase {
     //Проверяем изменение цены с учетом доставки, кол-во сертификатов в корзине и оформление заказа
     @Test()
     public void orderWithCertificateInternationalAndWA() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.certificateWithInternationalAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.certificateWithInternationalAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "США", "Нью-Йорк", "Трамп стрит 11", "Тест");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
@@ -282,7 +272,6 @@ public class CertificateTest extends TestBase {
     //Проверка перехода к оплате заказа на сайте, тип сертификата 2
     @Test()
     public void orderWithElCertificateEmailAndPhone() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
         String number = certificate.getBasketNumber();
@@ -297,7 +286,6 @@ public class CertificateTest extends TestBase {
 
     @Test()
     public void orderWithElCertificateEmailAndWA() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
         String number = certificate.getBasketNumber();
@@ -315,7 +303,6 @@ public class CertificateTest extends TestBase {
     //Бумажный
     @Test()
     public void orderWithElCertificateEmailWithoutWishes() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.secondSectionOrder("", "", "rundkvist@poisondrop.ru", "");
         String number = certificate.getBasketNumber();
@@ -337,7 +324,6 @@ public class CertificateTest extends TestBase {
     //Номинал 6000 рублей
     @Test()
     public void noPayOrderWithCertificateAndPhone() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
@@ -356,7 +342,6 @@ public class CertificateTest extends TestBase {
     //Проверяем изменение цены с учетом доставки, кол-во сертификатов в корзине и оформление заказа
     @Test()
     public void noPayOrderWithCertificateAndPhonePaidDelivery() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.clickToFirstSectionMinusButton();
         certificate.clickToFirstSectionMinusButton();
@@ -379,7 +364,6 @@ public class CertificateTest extends TestBase {
     //Способ доставки: Цветной+ВА
     @Test()
     public void noPayOrderTsvetnoyWithCertificateAndWA() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
@@ -395,7 +379,6 @@ public class CertificateTest extends TestBase {
     //Способ доставки: Метрополис+СМС
     @Test()
     public void noPayOrderMetropolisWithCertificateAndSMS() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
@@ -411,7 +394,6 @@ public class CertificateTest extends TestBase {
     //Способ доставки: Атриум+телефон
     @Test()
     public void noPayOrderAtriumWithCertificateAndPhone() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
@@ -427,7 +409,6 @@ public class CertificateTest extends TestBase {
     //Способ доставки: У Красного моста+ВА
     @Test()
     public void noPayOrderRedBridgeWithCertificateAndWA() {
-        basket = new Basket(driver);
         order = new Order(driver);
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
