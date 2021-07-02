@@ -202,13 +202,10 @@ public class Basket extends Base {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
                 list.add(name);
-//                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        System.out.println(list.get(0));
-        return list.get(2);
     }
 
     public static String findFirstRing() {
@@ -233,7 +230,6 @@ public class Basket extends Base {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
                 list.add(name);
-//                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -263,7 +259,6 @@ public class Basket extends Base {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
                 list.add(name);
-//                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -290,8 +285,6 @@ public class Basket extends Base {
                 name = resultSet.getString("name");
                 int summa = resultSet.getInt("sum");
                 hashMap.put(name, summa);
-//                System.out.println(name);
-//                System.out.println(itog);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -334,19 +327,12 @@ public class Basket extends Base {
                 name4 = resultSet.getString("item_collection_characteristic_value.url");
 
                 list.add(getUrl + name + "/" + name2 + "/?" + name3 + "=" + name4);
-//                System.out.println(name + name2 + name3 + name4);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-//        System.out.println(list);
         String first = list.get(0);
-//        System.out.println(first);
-//        String second = list.get(1);
-//        second = second.substring(second.indexOf('?'));
-//        String replStr1 = second.replace('?', '&');
-//        String itog = first + replStr1;
 
         return first;
     }
@@ -384,20 +370,12 @@ public class Basket extends Base {
                 name4 = resultSet.getString("item_collection_characteristic_value.url");
 
                 list.add(getUrl + name + "/" + name2 + "/?" + name3 + "=" + name4);
-//                System.out.println(name + name2 + name3 + name4);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-//        System.out.println(list);
         String first = list.get(0);
-//        System.out.println(first);
-//        String second = list.get(1);
-//        second = second.substring(second.indexOf('?'));
-//        String replStr1 = second.replace('?', '&');
-//        String itog = first + replStr1;
-
         return first;
     }
 
@@ -443,14 +421,10 @@ public class BasketTest extends TestBase {
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
         driver.navigate().to(getUrl + "catalog");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
@@ -463,12 +437,6 @@ public class BasketTest extends TestBase {
     public byte[] attachScreenshotToAllure(TakesScreenshot takesScreenshot) {
         return takesScreenshot.getScreenshotAs(OutputType.BYTES);
     }
-
-//    @Test
-//    public void getScreenShot() throws Exception {
-//        //Call take screenshot function
-//        this.takeSnapShot(driver, "build\\reports\\tests\\" + Thread.currentThread().getStackTrace()[1].getMethodName() + ".jpg");
-//    }
 
 
     public void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception {
