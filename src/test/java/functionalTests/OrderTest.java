@@ -34,9 +34,7 @@ public class OrderTest extends TestBase {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
         basket = new Basket(driver);
-//        basket.clickToOkButton();
         order = new Order(driver);
-
     }
 
     //Проверка перехода к оплате заказа на сайте, способ доставки: доставка курьером товар дороже 5000

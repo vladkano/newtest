@@ -24,14 +24,16 @@ public class DesignersFilter extends Base {
 
 
     public DesignersFilter clickToDesignersButton() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click()", driver.findElement(designersButton));
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("arguments[0].click()", driver.findElement(designersButton));
+        driver.findElement(designersButton).click();
         return this;
     }
 
     public DesignersFilter clickToSinitsynButton() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click()", driver.findElement(sinitsynButton));
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("arguments[0].click()", driver.findElement(sinitsynButton));
+        driver.findElement(sinitsynButton).click();
         return this;
     }
 

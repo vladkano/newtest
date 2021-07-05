@@ -83,6 +83,11 @@ public class TestBase {
     //Тест
 //    protected String getUrl = "https://qa.poisondrop.org.ru/";
 
+    //Накст
+//    protected String getUrl = "https://nuxt.poisondrop.org.ru/";
+
+    //1С(Сталинград)
+//    protected String getUrl = "https://stalingrad.poisondrop.org.ru/";
 
     //Не используемые адреса
     //тест нового сервера

@@ -1293,7 +1293,7 @@ public class Order extends Base {
     //SQL
     public String getPhonePassword() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -1312,11 +1312,6 @@ public class Order extends Base {
     }
 
     public String getPhonePasswordToBuy() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         String code = "";
         String query = "select code from user_authentication_code where phone=+79126459328";
         try {

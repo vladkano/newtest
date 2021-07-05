@@ -7,7 +7,9 @@ import mainPage.MainPage;
 import order.Order;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.ResourceLock;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,12 +17,15 @@ import org.openqa.selenium.remote.CapabilityType;
 import sections.Certificate;
 import sections.NameNecklaces;
 
+import javax.annotation.concurrent.NotThreadSafe;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-//@Disabled
+@Disabled
+//@ResourceLock("Code")
+//@NotThreadSafe
 public class OrderWithLoginTest extends TestBase {
 
 
@@ -55,7 +60,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.clickOnPayButton();
-        String codeForOrder = order.getPhonePasswordToBuy();
+        String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -68,7 +73,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.clickOnWhatsAppButton();
         order.clickOnPayButton();
-        String codeForOrder = order.getPhonePasswordToBuy();
+        String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -87,7 +92,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.certificateWithPhoneAndLogin("г Калининград, ул Пушкина, д 8", "2", "2", "2", "2",
                 "Test Comment", "Test+Cert+Login");
-        String codeForOrder = order.getPhonePasswordToBuy();
+        String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -100,7 +105,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.certificateWithWAAndLogin("г Калининград, ул Пушкина, д 18", "2", "2", "2", "2",
                 "Test Comment", "Test+Cert+Login+WA");
-        String codeForOrder = order.getPhonePasswordToBuy();
+        String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -113,7 +118,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.certificateWithLoginTsvetnoyAndPhone("Test+Cert+Login+Tsvetnoy");
-        String codeForOrder = order.getPhonePasswordToBuy();
+        String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -126,7 +131,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.certificateWithLoginMetropolisAndWA("Test+Cert+Login+Metropolis");
-        String codeForOrder = order.getPhonePasswordToBuy();
+        String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -139,7 +144,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.certificateWithLoginAtriumAndSMS("Test+Cert+Login+Atrium");
-        String codeForOrder = order.getPhonePasswordToBuy();
+        String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -152,7 +157,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.certificateWithLoginRedBridgeAndPhone("Test+Cert+Login+RedBridge");
-        String codeForOrder = order.getPhonePasswordToBuy();
+        String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -166,7 +171,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.certificateWithLoginInternationalAndWA("США", "Нью-Йорк", "Трамп стрит 11",
                 "Test+Cert+Login+International");
-        String codeForOrder = order.getPhonePasswordToBuy();
+        String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -180,7 +185,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
         basket.clickToBasketButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -193,7 +198,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.clickOnWhatsAppButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -211,7 +216,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.certificateWithNoPayLoginAndPhone("г Казань, ул Узорная, д 15", "2", "2", "2", "2",
                 "Test Comment", "noPay+Cert+Login");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -224,7 +229,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         basket.clickToBasketButton();
         order.certificateWithNoPayLoginTsvetnoyAndWA("noPay+Cert+Login+Tsvetnoy+WA");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -237,7 +242,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         basket.clickToBasketButton();
         order.certificateWithNoPayLoginMetropolisAndSMS("noPay+Cert+Login+Metropolis+SMS");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -250,7 +255,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         basket.clickToBasketButton();
         order.certificateWithNoPayLoginAtriumAndPhone("noPay+Cert+Login+Atrium");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -263,7 +268,7 @@ public class OrderWithLoginTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         basket.clickToBasketButton();
         order.certificateWithNoPayLoginRedBridgeAndWA("noPay+Cert+Login+RedBridge+WA");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -281,7 +286,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.certificateWithPhoneAndLogin("г Нижний Новгород, ул Ефремова, д 10", "2", "2", "2", "2",
                 "Test Comment", "Test");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -294,7 +299,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.clickOnCompanyStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -308,7 +313,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnMetropolisStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -322,7 +327,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnAtriumStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -337,7 +342,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnRedBridgeStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -353,7 +358,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.certificateWithPhoneAndLogin("г Нижний Новгород, ул Ефремова, д 10", "2", "2", "2", "2",
                 "Test Comment", "Test");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -367,7 +372,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.clickOnCompanyStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -382,7 +387,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnMetropolisStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -397,7 +402,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnAtriumStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -412,7 +417,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnRedBridgeStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -426,7 +431,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.certificateWithPhoneAndLogin("г Нижний Новгород, ул Ефремова, д 10", "2", "2", "2", "2",
                 "Test Comment", "Test");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -440,7 +445,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.clickOnCompanyStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -454,7 +459,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnMetropolisStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -469,7 +474,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnAtriumStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -484,7 +489,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnRedBridgeStoreButton();
         order.clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -502,7 +507,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton();
         order.clickOnNoPayButton();
         order.clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -518,7 +523,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnMetropolisStoreButton();
         order.clickOnNoPayButton();
         order.clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -534,7 +539,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnAtriumStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -549,7 +554,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnRedBridgeStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -564,7 +569,7 @@ public class OrderWithLoginTest extends TestBase {
         basket.clickToBasketButton();
         order.orderWithNoPayLoginAndPhone("Краснодарский край, г Сочи, ул Горького, д 87", "2а", "",
                 "1", "нет", "Second Type Necklace");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -579,7 +584,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -595,7 +600,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnMetropolisStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -611,7 +616,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnAtriumStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -627,7 +632,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnRedBridgeStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -641,7 +646,7 @@ public class OrderWithLoginTest extends TestBase {
         nameNecklaces.thirdTypeOrder("Тест");
         basket.clickToBasketButton();
         order.orderWithNoPayLoginAndPhone("Краснодарский край, г Сочи, ул Горького, д 87", "2а", "", "1", "нет", "Third Type Necklace");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -656,7 +661,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -671,7 +676,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnMetropolisStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -686,7 +691,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnRedBridgeStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -703,7 +708,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickToBasketButton();
         order.orderWithLoginAndAllStrings("г Нижний Новгород, ул Ефремова, д 10", "2", "2",
                 "2", "2", "Test Comment", "Test");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -719,7 +724,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickToBasketButton();
         order.orderWithLoginAndWA("г Нижний Новгород, ул Ефремова, д 10", "2", "2",
                 "2", "2", "Test Comment", "Test");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -734,7 +739,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickToBasketButton();
         order.clickOnCompanyStoreButton()
                 .clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -750,7 +755,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnMetropolisStoreButton()
                 .clickOnWhatsAppButton()
                 .clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -766,7 +771,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnAtriumStoreButton()
                 .clickOnSmsButton()
                 .clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -781,7 +786,7 @@ public class OrderWithLoginTest extends TestBase {
         order.clickOnCompanyStoreButton()
                 .clickOnRedBridgeStoreButton()
                 .clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -797,7 +802,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnAfimollStoreButton()
                 .clickOnWhatsAppButton()
                 .clickOnPayButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -811,7 +816,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickToItemInBasketButton()
                 .clickToBasketButton();
         order.internationalWithLoginAndPhone("США", "Нью-Йорк", "Трамп стрит 11");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -825,7 +830,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickToItemInBasketButton()
                 .clickToBasketButton();
         order.orderPickPointWithLogin("Россия", "Екатеринбург", "родонитовая");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
         assertEquals("Заплатить", header);
@@ -842,7 +847,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickToBasketButton();
         order.orderWithNoPayLoginAndWA("г Москва, Рублёвское шоссе, д 1", "", "", "",
                 "", "Test Comment VIP");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -856,7 +861,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickToItemInBasketButton()
                 .clickToBasketButton();
         order.orderWithNoPayLoginAndPhone("Краснодарский край, г Сочи, ул Горького, д 87", "2а", "", "1", "нет", "Test Comment2");
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -872,7 +877,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnNoPayButton()
                 .clickOnWhatsAppButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -889,7 +894,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnNoPayButton()
                 .clickOnSmsButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -905,7 +910,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnRedBridgeStoreButton()
                 .clickOnNoPayButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -922,7 +927,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnNoPayButton()
                 .clickOnWhatsAppButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);
@@ -939,7 +944,7 @@ public class OrderWithLoginTest extends TestBase {
                 .clickOnNoPayButton()
                 .clickOnSmsButton()
                 .clickOnOrderButton();
-        String codeToBuy = order.getPhonePasswordToBuy();
+        String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getOrderHeader();
         assertEquals("Мы приняли ваш заказ", header);

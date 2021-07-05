@@ -14,6 +14,7 @@ public class Base {
     protected WebDriver driver;
     protected static String getUrl = "https://poisondrop.ru/catalog/";
 //    protected static String getUrl = "https://qa.poisondrop.org.ru/catalog/";
+//    protected static String getUrl = "https://stalingrad.poisondrop.org.ru/catalog/";
 
     protected By imageLink = By.xpath("//picture/img");
     protected By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");

@@ -316,7 +316,6 @@ public class ProductCardsTest extends TestBase {
     //Проверяем что товары из блока "Украшения из образа" можно перенести в корзину
     @Test
     public void checkBasketSergi() {
-        set = new Set(driver);
         earrings = new Earrings(driver);
         String s = earrings.getItemsFromSet().get(1);
         driver.get(getUrl + "catalog/sergi/" + s);
@@ -328,7 +327,6 @@ public class ProductCardsTest extends TestBase {
 
     @Test
     public void checkBasketBraslety() {
-        set = new Set(driver);
         bracelets = new Bracelets(driver);
         String s = bracelets.getItemsFromSet().get(1);
         driver.get(getUrl + "catalog/braslety/" + s);
@@ -340,7 +338,6 @@ public class ProductCardsTest extends TestBase {
 
     @Test
     public void checkBasketKole() {
-        set = new Set(driver);
         necklaces = new Necklaces(driver);
         String s = necklaces.getItemsFromSet().get(1);
         driver.get(getUrl + "catalog/kole/" + s);
