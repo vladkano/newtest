@@ -26,7 +26,7 @@ public class CertificateTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -60,14 +60,14 @@ public class CertificateTest extends TestBase {
     public void firstSectionPlus() {
         certificate.clickToFirstSectionPlusButton();
         String value = certificate.getPerfectGiftValue();
-        assertEquals("7 000 \u20BD", value);
+        assertEquals("7000 \u20BD", value);
     }
 
     @Test
     public void firstSectionMinus() {
         certificate.clickToFirstSectionMinusButton();
         String value = certificate.getPerfectGiftValue();
-        assertEquals("5 000 \u20BD", value);
+        assertEquals("5000 \u20BD", value);
     }
 
     @Test
@@ -82,14 +82,14 @@ public class CertificateTest extends TestBase {
     public void secondSectionPlus() {
         certificate.clickToSecondSectionPlusButton();
         String value = certificate.getSecondSectionValue();
-        assertEquals("7 000 \u20BD", value);
+        assertEquals("7000 \u20BD", value);
     }
 
     @Test
     public void secondSectionMinus() {
         certificate.clickToSecondSectionMinusButton();
         String value = certificate.getSecondSectionValue();
-        assertEquals("5 000 \u20BD", value);
+        assertEquals("5000 \u20BD", value);
     }
 
     @Test
@@ -104,14 +104,14 @@ public class CertificateTest extends TestBase {
     public void thirdSectionPlus() {
         certificate.clickToThirdSectionPlusButton();
         String value = certificate.getThirdSectionValue();
-        assertEquals("7 000 \u20BD", value);
+        assertEquals("7000 \u20BD", value);
     }
 
     @Test
     public void thirdSectionMinus() {
         certificate.clickToThirdSectionMinusButton();
         String value = certificate.getThirdSectionValue();
-        assertEquals("5 000 \u20BD", value);
+        assertEquals("5000 \u20BD", value);
     }
 
     @Test
@@ -247,8 +247,9 @@ public class CertificateTest extends TestBase {
         assertEquals("Заплатить", header);
     }
 
-    //Способ доставки: Доставить в другую страну + ВА
-    //Проверяем изменение цены с учетом доставки, кол-во сертификатов в корзине и оформление заказа
+    /* Способ доставки: Доставить в другую страну + ВА
+    Проверяем изменение цены с учетом доставки, кол-во сертификатов в корзине и оформление заказа
+    */
     @Test()
     public void orderWithCertificateInternationalAndWA() {
         order = new Order(driver);
@@ -257,7 +258,7 @@ public class CertificateTest extends TestBase {
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         order.certificateWithInternationalAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "США", "Нью-Йорк", "Трамп стрит 11", "Тест");
+                "Нью-Йорк", "США Нью-Йорк Трамп стрит 11", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();

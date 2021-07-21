@@ -12,21 +12,21 @@ public class Certificate extends Base {
     By applicationSection = By.xpath("//section[@class='certificate-page__description certificate-description']//h3[text()='Как применить сертификат?']");
     By mailSection = By.xpath("//section[@class='certificate-page__main-form certificate-main-form']/h2");
     By personallySection = By.xpath("//section[@class='certificate-page__text-form certificate-text-form']//h2");
-    By firstSectionPlusButton = By.xpath("//div[@class='certificate-value-form__counter certificate-page__counter counter']/button[@class='counter__button counter__button_plus']");
-    By firstSectionMinusButton = By.xpath("//div[@class='certificate-value-form__counter certificate-page__counter counter']/button[@class='counter__button counter__button_minus']");
+    By firstSectionPlusButton = By.xpath("//button[@class='counter__button counter__button_plus']");
+    By firstSectionMinusButton = By.xpath("//button[@class='counter__button counter__button_minus']");
     By firstSectionOrderButton = By.xpath("//div[@class='certificate-value-form__wrap']//span[text()='Заказать']");
 
-    By secondSectionPlusButton = By.xpath("//div[@class='certificate-gift-form__counter certificate-page__counter counter']/button[@class='counter__button counter__button_plus']");
-    By secondSectionMinusButton = By.xpath("//div[@class='certificate-gift-form__counter certificate-page__counter counter']/button[@class='counter__button counter__button_minus']");
+    By secondSectionPlusButton = By.xpath("(//button[@class='counter__button counter__button_plus'])[2]");
+    By secondSectionMinusButton = By.xpath("(//button[@class='counter__button counter__button_minus'])[2]");
     By secondSectionOrderButton = By.xpath("//span[text()='Оплатить']");
 
-    By thirdSectionPlusButton = By.xpath("//div[@class='certificate-text-form__counter certificate-page__counter counter']/button[@class='counter__button counter__button_plus']");
-    By thirdSectionMinusButton = By.xpath("//div[@class='certificate-text-form__counter certificate-page__counter counter']/button[@class='counter__button counter__button_minus']");
+    By thirdSectionPlusButton = By.xpath("(//button[@class='counter__button counter__button_plus'])[3]");
+    By thirdSectionMinusButton = By.xpath("(//button[@class='counter__button counter__button_minus'])[3]");
     By thirdSectionOrderButton = By.xpath("//div[@class='certificate-text-form__wrap']//span[text()='Заказать']");
 
-    By perfectGiftValue = By.xpath("//div[@class='certificate-value-form__counter certificate-page__counter counter']//input[@name='certificate-value']");
-    By secondSectionValue = By.xpath("//div[@class='certificate-gift-form__counter certificate-page__counter counter']//input[@name='certificate-value']");
-    By thirdSectionValue = By.xpath("//div[@class='certificate-text-form__counter certificate-page__counter counter']//input[@name='certificate-value']");
+    By perfectGiftValue = By.xpath("//div[@class='counter__value']//input[@name='certificate-value']");
+    By secondSectionValue = By.xpath("(//div[@class='counter__value']//input[@name='certificate-value'])[2]");
+    By thirdSectionValue = By.xpath("(//div[@class='counter__value']//input[@name='certificate-value'])[3]");
     By checkValue = By.xpath("//input[@name='quantity']");
     By certificatesButton = By.xpath("//a[text()='Сертификаты']");
 
@@ -92,7 +92,9 @@ public class Certificate extends Base {
     }
 
     public Certificate clickToSecondSectionOrderButton() {
-        driver.findElement(secondSectionOrderButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(secondSectionOrderButton));
+//        driver.findElement(secondSectionOrderButton).click();
         return this;
     }
 

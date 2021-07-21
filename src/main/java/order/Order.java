@@ -16,6 +16,11 @@ import java.sql.Statement;
 
 public class Order extends Base {
 
+    By changeCityButton = By.xpath("//span[@class='order-delivery__location-city-output']");
+    By otherCityButton = By.xpath("//button[text()='Нет, другой']");
+    By locationSearch = By.id("locationSearch");
+    By locationButton = By.xpath("//li[@class='location-choose__variant']/p");
+
 
     By orderPhone = By.xpath("//input[@id='orderPhone']");
     By orderEmail = By.xpath("//input[@id='orderEmail']");
@@ -29,7 +34,7 @@ public class Order extends Base {
     By orderComment = By.xpath("//textarea[@name='comment']");
     By payButton = By.xpath("//span[text()='Перейти к оплате']");
     By orderButton = By.xpath("//span[text()='Оформить заказ']");
-    By addAddressButton = By.xpath("//span[text()='Добавить этаж, домофон, комментарий']");
+    By addAddressButton = By.xpath("//span[text()='для курьера']");
     By searchBox = By.xpath("//input[@id='searchbox']");
     By countrySearchBox = By.xpath("//input[@class='reg']");
     By citySearchBox = By.xpath("(//input[@class='reg'])[2]");
@@ -58,8 +63,8 @@ public class Order extends Base {
     By kazakhstanButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9405-029\"); return false;']");
     By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
     By paperButton = By.xpath("//span[text()='Бумажный']");
-    By firstPrice = By.xpath("//span[@class='price-block__price']");
-    By finalPrice = By.xpath("//span[@class='order-summary__value order-summary__value_final']");
+    By firstPrice = By.xpath("//b[@class='price-block__price']");
+    By finalPrice = By.xpath("(//span[@class='order-summary__value'])[3]");
     By frame = By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']");
     By firstSectionOrderButton = By.xpath("//div[@class='certificate-value-form__wrap']//span[text()='Заказать']");
 
@@ -71,10 +76,49 @@ public class Order extends Base {
         super(driver);
     }
 
+    public static void main(String[] args) {
+        String code = "";
+        String query = "select code from user_authentication_code where phone=+79126459328";
+
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                code = resultSet.getString("code");
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(code);
+        worker.getSession().disconnect();
+    }
+
     public Order clickToFirstSectionOrderButton() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstSectionOrderButton));
         driver.findElement(firstSectionOrderButton).click();
+        return this;
+    }
+
+    public Order clickOnLocationButton() {
+        driver.findElement(locationButton).click();
+        return this;
+    }
+
+    public Order typeLocationSearch(String searchCity) {
+        driver.findElement(locationSearch).sendKeys(searchCity);
+        return this;
+    }
+
+    public Order clickOnChangeCityButton() {
+        driver.findElement(changeCityButton).click();
+        return this;
+    }
+
+    public Order clickOnOtherCityButton() {
+        driver.findElement(otherCityButton).click();
         return this;
     }
 
@@ -270,7 +314,7 @@ public class Order extends Base {
 
     public Order confirmWithPassword(String password) {
         this.typePassword(password);
-        this.clickOnConfirmButton();
+//        this.clickOnConfirmButton();
         return new Order(driver);
     }
 
@@ -335,7 +379,7 @@ public class Order extends Base {
     }
 
     public Order orderWithLoginAndAllStrings(String address, String apartment,
-                                     String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+                                             String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -368,7 +412,7 @@ public class Order extends Base {
     }
 
     public Order orderWithLoginAndWA(String address, String apartment,
-                                             String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+                                     String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -400,7 +444,7 @@ public class Order extends Base {
     }
 
     public Order orderWithNoPayLoginAndPhone(String address, String apartment,
-                                        String frontDoor, String floor, String houseCode, String commentForCourier) {
+                                             String frontDoor, String floor, String houseCode, String commentForCourier) {
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -432,7 +476,7 @@ public class Order extends Base {
     }
 
     public Order orderWithNoPayLoginAndWA(String address, String apartment,
-                                     String frontDoor, String floor, String houseCode, String commentForCourier) {
+                                          String frontDoor, String floor, String houseCode, String commentForCourier) {
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -508,7 +552,6 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-
     //Метрополис:
     public Order orderWithCompanyStoreMetropolisPhone(String phone, String email, String fio) {
         this.typePhone(phone);
@@ -541,7 +584,6 @@ public class Order extends Base {
         this.clickOnPayButton();
         return new Order(driver);
     }
-
 
     public Order metropolisWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
@@ -611,7 +653,6 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-
     public Order atriumWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
@@ -646,7 +687,6 @@ public class Order extends Base {
         this.clickOnOrderButton();
         return new Order(driver);
     }
-
 
     //У Красного моста:
     public Order orderWithRedBridgePhone(String phone, String email, String fio) {
@@ -784,7 +824,6 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-
     //Доставить в другую страну:
     public Order internationalWithPhone(String phone, String email, String fio, String country, String internationalCity, String internationalAddress) {
         this.typePhone(phone);
@@ -819,7 +858,6 @@ public class Order extends Base {
         this.clickOnPayButton();
         return new Order(driver);
     }
-
 
     //PickPoint
     public Order orderWithPickPointPhone(String phone, String email, String fio, String country, String city, String search) {
@@ -909,7 +947,6 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-
     //Сертификаты:
     public Order elCertificateWithPhone(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
@@ -920,7 +957,6 @@ public class Order extends Base {
         this.clickOnPayButton();
         return new Order(driver);
     }
-
 
     public Order elCertificateWithWA(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
@@ -1020,7 +1056,6 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-
     public Order certificateWithTsvetnoyAndPhone(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
@@ -1116,16 +1151,22 @@ public class Order extends Base {
     }
 
     //Доставить в другую страну:
-    public Order certificateWithInternationalAndWA(String phone, String email, String fio, String country,
-                                                      String internationalCity, String internationalAddress, String comment) {
+    public Order certificateWithInternationalAndWA(String phone, String email, String fio, String city,
+                                                   String internationalCity, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPaperButton();
-        this.clickOnInternationalButton();
-        this.typeCountry(country);
-        this.typeInternationalCity(internationalCity);
-        this.typeInternationalAddress(internationalAddress);
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
+        this.typeOrderAddress(internationalCity);
         this.clickOnWhatsAppButton();
         this.clickOnAddCommentButton();
         this.typeComment(comment);
@@ -1134,7 +1175,7 @@ public class Order extends Base {
     }
 
     public Order certificateWithLoginInternationalAndWA(String country,
-                                                      String internationalCity, String internationalAddress, String comment) {
+                                                        String internationalCity, String internationalAddress, String comment) {
         this.clickOnPaperButton();
         this.clickOnInternationalButton();
         this.typeCountry(country);
@@ -1169,7 +1210,7 @@ public class Order extends Base {
     }
 
     public Order certificateWithNoPayLoginAndPhone(String address, String apartment,
-                                              String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+                                                   String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.clickOnPaperButton();
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
@@ -1289,7 +1330,6 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-
     //SQL
     public String getPhonePassword() {
         try {
@@ -1324,26 +1364,6 @@ public class Order extends Base {
             e.printStackTrace();
         }
         return code;
-    }
-
-
-    public static void main(String[] args) {
-        String code = "";
-        String query = "select code from user_authentication_code where phone=+79126459328";
-
-        try {
-            Statement statement = worker.getCon().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                code = resultSet.getString("code");
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println(code);
-        worker.getSession().disconnect();
     }
 
 }
