@@ -113,7 +113,9 @@ public class Order extends Base {
     }
 
     public Order clickOnChangeCityButton() {
-        driver.findElement(changeCityButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(changeCityButton));
+//        driver.findElement(changeCityButton).click();
         return this;
     }
 
@@ -281,7 +283,8 @@ public class Order extends Base {
     }
 
     public Order clickOnAfimollStoreButton() {
-        driver.findElement(afimollStoreButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(afimollStoreButton));
         return this;
     }
 
@@ -825,14 +828,25 @@ public class Order extends Base {
     }
 
     //Доставить в другую страну:
-    public Order internationalWithPhone(String phone, String email, String fio, String country, String internationalCity, String internationalAddress) {
+    public Order internationalWithPhone(String phone, String email, String fio, String city,
+                                        String internationalCity, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
-        this.clickOnInternationalButton();
-        this.typeCountry(country);
-        this.typeInternationalCity(internationalCity);
-        this.typeInternationalAddress(internationalAddress);
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
+        this.typeOrderAddress(internationalCity);
+//        this.clickOnInternationalButton();
+//        this.typeCountry(country);
+//        this.typeInternationalCity(internationalCity);
+//        this.typeInternationalAddress(internationalAddress);
         this.clickOnPayButton();
         return new Order(driver);
     }

@@ -289,7 +289,7 @@ public class OrderTest extends TestBase {
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "США", "Нью-Йорк", "Трамп стрит 11");
+                "Минск", "улица Пушкина 12", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
@@ -304,8 +304,8 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.internationalWithWhatsApp("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "США", "Нью-Йорк", "Трамп стрит 11");
+        order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+                "Рим", "Гладиаторов дом 20м", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();

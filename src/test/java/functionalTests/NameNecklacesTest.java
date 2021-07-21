@@ -370,7 +370,7 @@ public class NameNecklacesTest extends TestBase {
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "Ямайка", "Кингстон", "Цветочный переулок дом 2");
+                "Минск", "улица Пушкина 12", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
@@ -387,7 +387,7 @@ public class NameNecklacesTest extends TestBase {
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "Италия", "Рим", "Гладиаторов дом 20м");
+                "Рим", "Гладиаторов дом 20м", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
@@ -404,7 +404,7 @@ public class NameNecklacesTest extends TestBase {
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "Испания", "Мадрид", "Хамон стрит");
+                "Мадрид", "Хамон стрит 20", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();

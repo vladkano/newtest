@@ -235,6 +235,7 @@ public class MainPageTest extends TestBase {
         mainPage.sigInWithPassword(code2);
         mainPage.clickOnLcInButton();
         mainPage.clickOnExitButton();
+        mainPage.clickOnSigInButton();
         String heading = mainPage.getSigOutHeader();
         assertEquals("Вход или регистрация", heading);
     }

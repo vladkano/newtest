@@ -16,7 +16,7 @@ public class MainPage extends Base {
     int a = 0; // Начальное значение диапазона - "от"
     int b = 99; // Конечное значение диапазона - "до"
 
-    By sigInButton = By.xpath("//span[@aria-label='Вход или регистрация']");
+    By sigInButton = By.xpath("//span[@class='icon-with-title header__icon-button']");
     By lcButton = By.xpath("//a[@href='/profile?section=personalData']");
     By login = By.id("authLogin");
     By getPassword = By.xpath("//button/span[text()='Получить код']");
@@ -41,6 +41,7 @@ public class MainPage extends Base {
     By incorrectNameHeader = By.xpath("//p[text()='Необходимо указать имя']");
     By noConsentHeader = By.xpath("//p[@class='message popup-auth__message message_error']");
     By incorrectPhoneHeader = By.xpath("//p[text()='Необходимо указать телефон']");
+    By sigOutHeader = By.xpath("//h3[text()='Вход или регистрация']");
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -188,10 +189,6 @@ public class MainPage extends Base {
     }
 
 
-    public String getSigOutHeader() {
-        return driver.findElement(sigInButton).getAttribute("aria-label");
-    }
-
     public String getIncorrectSigInHeader() {
         return driver.findElement(incorrectSigInHeader).getText();
     }
@@ -206,6 +203,10 @@ public class MainPage extends Base {
 
     public String getIncorrectPhoneHeader() {
         return driver.findElement(incorrectPhoneHeader).getText();
+    }
+
+    public String getSigOutHeader() {
+        return driver.findElement(sigOutHeader).getText();
     }
 
     public String getIncorrectNameHeader() {
