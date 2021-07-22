@@ -112,9 +112,9 @@ public class ProductCardsTest extends TestBase {
     }
 
 
-    //с размером 16,5
+    //с размером 16
     @Test
-    public void changeSize165() {
+    public void changeSize16() {
         driver.get(getUrl + "catalog/koltsa/");
         filters.clickToFilterButton();
         size.clickToSizeButton();
@@ -125,7 +125,7 @@ public class ProductCardsTest extends TestBase {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        size.clickOnImageLink();
+        size.clickOnSecondImageLink();
         String firstCurrentSize = size.getCurrentSize();
         size.clickToFirstCurrentSizeButton();
         String secondCurrentSize = size.getCurrentSize();

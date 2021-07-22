@@ -18,7 +18,7 @@ public class Size extends Base {
     By sizeButton = By.xpath("//div[text()='Размер кольца']");
     By firstSizeButton = By.xpath("//span[text()='14,5']");
     By secondSizeButton = By.xpath("//span[text()='15,5']");
-    By thirdSizeButton = By.xpath("//span[text()='16,5']");
+    By thirdSizeButton = By.xpath("//span[text()='16']");
     By universalSizeButton = By.xpath("//span[text()='Универсальный']");
     By currentSize = By.xpath("//span[@class='product-modification__output']");
     By firstCurrentSizeButton = By.xpath("//ul/li[2]/label/span[@class='product-variant__variant product-variant__variant_size']");

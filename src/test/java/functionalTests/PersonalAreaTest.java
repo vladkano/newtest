@@ -29,7 +29,7 @@ public class PersonalAreaTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -52,6 +52,7 @@ public class PersonalAreaTest extends TestBase {
     @Test
     public void goOut() {
         personalData.clickOnGoOutButton();
+        mainPage.clickOnSigInButton();
         String heading = mainPage.getSigOutHeader();
         assertEquals("Вход или регистрация", heading);
     }

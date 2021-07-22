@@ -17,6 +17,7 @@ public class Base {
 //    protected static String getUrl = "https://stalingrad.poisondrop.org.ru/catalog/";
 
     protected By imageLink = By.xpath("//picture/img");
+    protected By secondImageLink = By.xpath("(//picture/img)[3]");
     protected By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
     protected By designerLink = By.xpath("//div[@class='catalog-card__designer']/a");
 
@@ -30,6 +31,12 @@ public class Base {
     public Base clickOnImageLink() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(imageLink));
+        return this;
+    }
+
+    public Base clickOnSecondImageLink() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(secondImageLink));
         return this;
     }
 

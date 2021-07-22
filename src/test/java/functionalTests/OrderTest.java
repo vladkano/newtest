@@ -25,7 +25,7 @@ public class OrderTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -315,17 +315,18 @@ public class OrderTest extends TestBase {
     }
 
     //Доставка до постомата
-    @Test()
-    public void postomatAndRussian() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Россия", "Екатеринбург", "родонитовая");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
-    }
+    //работает только для ЕКБ
+//    @Test()
+//    public void postomatAndRussian() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Россия", "Екатеринбург", "родонитовая");
+//        String code2 = order.getPhonePassword();
+//        order.confirmWithPassword(code2);
+//        String header = order.getPayHeader();
+//        assertEquals("Заплатить", header);
+//    }
 
     @Test()
     public void postomatAndBelarus() {
