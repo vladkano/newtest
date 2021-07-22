@@ -25,7 +25,7 @@ public class OrderTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -44,7 +44,8 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Нижний Новгород, ул Ефремова, д 10", "2", "2", "2", "2", "Test Comment", "Test");
+                "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
+                "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -74,7 +75,8 @@ public class OrderTest extends TestBase {
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Нижний Новгород, ул Ефремова, д 10", "2", "2", "2", "2", "Test Comment", "Test");
+                "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
+                "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -358,7 +360,8 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "Краснодарский край, г Сочи, ул Горького, д 87", "2а", "", "1", "нет", "Test Comment2");
+                "Сочи", "ул Горького, д 87", "2а", "", "1",
+                "нет", "Test Comment2");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -388,7 +391,8 @@ public class OrderTest extends TestBase {
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "Краснодарский край, г Сочи, ул Горького, д 87", "2а", "", "1", "нет", "Test Comment2");
+                "Сочи", "ул Горького, д 87", "2а", "", "1",
+                "нет", "Test Comment2");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();

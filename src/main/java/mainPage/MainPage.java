@@ -206,6 +206,8 @@ public class MainPage extends Base {
     }
 
     public String getSigOutHeader() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(sigOutHeader));
         return driver.findElement(sigOutHeader).getText();
     }
 

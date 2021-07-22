@@ -26,7 +26,7 @@ public class CertificateTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -163,8 +163,9 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Калининград, ул Пушкина, д 4", "2", "2", "2", "2", "Test Comment", "Test");
+        order.paperCertificateWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+                "Калининград" , "ул Пушкина, д 4", "2",
+                "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -309,7 +310,7 @@ public class CertificateTest extends TestBase {
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Казань, ул Узорная, д 15", "2", "2", "2", "2", "Test Comment", "Тест");
+                "Казань", "ул Узорная, д 15", "2", "2", "2", "2", "Test Comment", "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -330,7 +331,7 @@ public class CertificateTest extends TestBase {
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Казань, ул Узорная, д 15", "2", "2", "2", "2", "Test Comment", "Тест");
+                "Казань", "ул Узорная, д 15", "2", "2", "2", "2", "Test Comment", "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -353,7 +354,8 @@ public class CertificateTest extends TestBase {
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Казань, ул Узорная, д 15", "2", "2", "2", "2", "Test Comment123", "Тест 123");
+                "Казань", "ул Узорная, д 15", "2", "2", "2", "2",
+                "Test Comment123", "Тест 123");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();

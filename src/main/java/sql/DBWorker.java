@@ -35,7 +35,7 @@ public class DBWorker {
             String strDbPassword = "cGXIH452yfgYTus@%yt"; // database login password
 
             final JSch jsch = new JSch();
-            jsch.addIdentity("D:\\.ssh\\id_rsa");
+            jsch.addIdentity("/Users/viktoriarundkvist/Downloads/id_rsa");
             session = jsch.getSession(strSshUser, strSshHost, 10022);
             final Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");

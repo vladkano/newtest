@@ -55,7 +55,7 @@ public class Order extends Base {
     By orderInternationalCity = By.xpath("//input[@id='internationalCity']");
     By orderInternationalAddress = By.xpath("//input[@id='internationalAddress']");
     By noPayButton = By.xpath("//label[@for='offlinePayment']/span");
-    By pickPointButton = By.xpath("//span[text()='Доставить до постамата']");
+    By pickPointButton = By.xpath("//b[text()='В постамат']");
     By selectPostomatButton = By.xpath("//span[text()='Выбрать постамат']");
     By searchboxButton = By.xpath("//div[@class='combobox searchbox']/span");
     By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6601-054\"); return false;']");
@@ -255,7 +255,9 @@ public class Order extends Base {
     }
 
     public Order clickOnSelectPostomatButton() {
-        driver.findElement(selectPostomatButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(selectPostomatButton));
+//        driver.findElement(selectPostomatButton).click();
         return this;
     }
 
@@ -266,7 +268,9 @@ public class Order extends Base {
     }
 
     public Order clickOnMetropolisStoreButton() {
-        driver.findElement(metropolisStoreButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(metropolisStoreButton));
+//        driver.findElement(metropolisStoreButton).click();
         return this;
     }
 
@@ -363,11 +367,20 @@ public class Order extends Base {
     }
 
     //Курьер
-    public Order orderWithAllStrings(String phone, String email, String fio, String address, String apartment,
+    public Order orderWithAllStrings(String phone, String email, String fio, String city, String address, String apartment,
                                      String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -429,11 +442,20 @@ public class Order extends Base {
     }
 
     //Заказы без оплаты
-    public Order orderWithNoPayAndPhone(String phone, String email, String fio, String address, String apartment,
+    public Order orderWithNoPayAndPhone(String phone, String email, String fio, String city, String address, String apartment,
                                         String frontDoor, String floor, String houseCode, String commentForCourier) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -922,7 +944,7 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPickPointButton();
         this.clickOnSelectPostomatButton();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         WebElement postomatFrame = wait.until(ExpectedConditions.presenceOfElementLocated(frame));
         driver.switchTo().frame(postomatFrame);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Россия']")));
@@ -997,12 +1019,22 @@ public class Order extends Base {
     }
 
     //Бумажный
-    public Order certificateWithPhone(String phone, String email, String fio, String address, String apartment,
-                                      String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public Order paperCertificateWithPhone (String phone, String email, String fio, String city,
+    String address, String apartment, String frontDoor, String floor, String houseCode,
+                                             String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPaperButton();
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -1203,12 +1235,21 @@ public class Order extends Base {
     }
 
     //Бумажный сертификат без оплаты:
-    public Order certificateWithNoPayAndPhone(String phone, String email, String fio, String address, String apartment,
+    public Order certificateWithNoPayAndPhone(String phone, String email, String fio, String city, String address, String apartment,
                                               String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPaperButton();
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);

@@ -36,7 +36,7 @@ public class Bracelets extends Base {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
 //                System.out.println(name);
-                text.add(name.substring(0, 9));
+                text.add(name.substring(0, 6));
             }
         } catch (SQLException e) {
             e.printStackTrace();
