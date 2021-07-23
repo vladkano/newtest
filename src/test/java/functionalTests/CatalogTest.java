@@ -90,7 +90,7 @@ public class CatalogTest extends TestBase {
         driver.get(getUrl + "catalog/kole");
         necklaces = new Necklaces(driver);
         String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        int numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = necklaces.getDesigners();
         int sqlSize = sqlList.size();
@@ -430,7 +430,6 @@ public class CatalogTest extends TestBase {
             priceList.add(price);
         }
         //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 

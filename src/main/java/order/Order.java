@@ -409,11 +409,20 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-    public Order orderWithWhatsApp(String phone, String email, String fio, String address, String apartment,
+    public Order orderWithWhatsApp(String phone, String email, String fio, String city, String address, String apartment,
                                    String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -967,7 +976,7 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPickPointButton();
         this.clickOnSelectPostomatButton();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         WebElement postomatFrame = wait.until(ExpectedConditions.presenceOfElementLocated(frame));
         driver.switchTo().frame(postomatFrame);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Россия']")));
@@ -1065,12 +1074,21 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-    public Order certificateWithWA(String phone, String email, String fio, String address, String apartment,
+    public Order certificateWithWA(String phone, String email, String fio, String city, String address, String apartment,
                                    String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPaperButton();
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);

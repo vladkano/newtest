@@ -180,7 +180,7 @@ public class CertificateTest extends TestBase {
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         order.certificateWithWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Самара, пр-кт Волжский, д 10А", "2", "2", "2", "2", "Test Comment", "Test");
+                "Самара", "пр-кт Волжский, д 10А", "2", "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -339,9 +339,12 @@ public class CertificateTest extends TestBase {
         assertEquals("Мы приняли ваш заказ", header);
     }
 
-    //Способ доставки: Доставка курьером
-    //Номинал 4000 рублей с платной доставкой
-    //Проверяем изменение цены с учетом доставки, кол-во сертификатов в корзине и оформление заказа
+    /*Способ доставки: Доставка курьером
+    Номинал 4000 рублей с платной доставкой
+    Проверяем изменение цены с учетом доставки, кол-во сертификатов в корзине и оформление заказа
+     */
+
+    //баг по нему создан таск https://poisondrop.atlassian.net/browse/PD-997
     @Test()
     public void noPayOrderWithCertificateAndPhonePaidDelivery() {
         order = new Order(driver);

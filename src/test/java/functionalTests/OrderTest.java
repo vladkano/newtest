@@ -25,7 +25,7 @@ public class OrderTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -58,7 +58,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithWhatsApp("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Санкт-Петербург, пр-кт Просвещения, д 10", "2", "2", "2", "2", "Test Comment", "Test");
+                "Санкт-Петербург", "пр-кт Просвещения, д 10", "2", "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -90,7 +90,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithWhatsApp("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Санкт-Петербург, пр-кт Просвещения, д 10", "2", "2", "2", "2", "Test Comment", "Test");
+                "Санкт-Петербург", "пр-кт Просвещения, д 10", "2", "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
