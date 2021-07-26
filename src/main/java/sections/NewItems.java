@@ -46,7 +46,8 @@ public class NewItems extends Base {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
 //                System.out.println(name);
-                text.add(name);
+                String name2 = name.trim().replaceAll(" +", " ");
+                text.add(name2);
             }
         } catch (SQLException e) {
             e.printStackTrace();

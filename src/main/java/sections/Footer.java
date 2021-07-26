@@ -20,6 +20,7 @@ public class Footer extends Base {
     By instaButton = By.xpath("//a[@aria-label='instagram']");
     By facebookButton = By.xpath("//a[@aria-label='facebook']");
     By youtubeButton = By.xpath("//a[@aria-label='youtube']");
+    By confirmButton = By.xpath("//span[text()='Принимаю']");
     By whatsAppButton = By.xpath("//a[@aria-label='whatsApp']");
 
 
@@ -37,7 +38,7 @@ public class Footer extends Base {
     By instaHeader = By.xpath("//h2[text()='poisondropru']");
     By facebookHeader = By.xpath("//span[text()='Poison Drop']");
     By youtubeHeader = By.xpath("//yt-formatted-string[text()='Poison Drop']");
-    By whatsAppHeader = By.xpath("//span[text()='+7 495 255-15-33']");
+    By whatsAppHeader = By.xpath("//span[text()=' +7 495 255-15-33 ']");
 
     public Footer(WebDriver driver) {
         super(driver);
@@ -167,6 +168,7 @@ public class Footer extends Base {
     public Footer clickToYoutubeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(youtubeButton));
+        driver.findElement(confirmButton).click();
         return this;
     }
 
