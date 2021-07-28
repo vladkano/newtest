@@ -29,7 +29,7 @@ public class PersonalAreaTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -42,7 +42,7 @@ public class PersonalAreaTest extends TestBase {
         basket = new Basket(driver);
         basket.clickToOkButton();
         mainPage.sigInWithPhoneOrEmail("+79501978905");
-        String codeToLogin = mainPage.getPhonePassword();
+        String codeToLogin = mainPage.getPhonePasswordForLC();
         mainPage.sigInWithPassword(codeToLogin);
         personalData.clickOnPersonalDataButton();
     }
@@ -100,23 +100,6 @@ public class PersonalAreaTest extends TestBase {
         assertNotEquals(secondName, finalName);
         assertEquals(firstName, finalName);
     }
-
-    //нельзя менять с 14.05
-//    @Test
-//    public void changeBirthday() {
-//        String first = personalData.getBirthday();
-//        personalData.clickOnBirthday();
-//        personalData.typeBirthday("1212");
-//        personalData.clickOnSaveButton();
-//        String second = personalData.getBirthday();
-//        personalData.clickOnBirthday();
-//        personalData.typeBirthday("1111");
-//        personalData.clickOnSaveButton();
-//        String last = personalData.getBirthday();
-//        assertNotEquals(first, second);
-//        assertNotEquals(second, last);
-//        assertEquals(first, last);
-//    }
 
     @Test
     public void changeDeliveryCity() {
@@ -187,6 +170,67 @@ public class PersonalAreaTest extends TestBase {
         String header = personalData.getEmptyBirthdayHeader();
         assertEquals("Ошибка! День рождения должен быть указан в формате дд.мм", header);
     }
+
+
+    //Тесты отображения заказов в ЛК(номер, статус, дата, адрес, получатель, состав, доставка, итого)
+
+    //Проверка отображения заголовков в заказе
+    @Test
+    public void checkingOrderHeaders() {
+        String orderStatus = personalData.clickOnOrdersButton()
+                .getOrderStatus();
+        String orderDataHeader = personalData.getOrderDataHeader();
+        String orderAddressHeader = personalData.getOrderAddressHeader();
+        String orderRecipientHeader = personalData.getOrderRecipientHeader();
+        String orderYouOrderedHeader = personalData.getOrderYouOrderedHeader();
+        assertEquals("Тестовый заказ", orderStatus);
+        assertEquals("Дата заказа", orderDataHeader);
+        assertEquals("Адрес доставки", orderAddressHeader);
+        assertEquals("Получатель", orderRecipientHeader);
+        assertEquals("Вы заказали", orderYouOrderedHeader);
+    }
+
+    //Проверка отображания всех данных последнего заказа(сверка с БД)
+    @Test
+    public void checkingLastOrder() {
+        //site
+        String orderNumber = personalData.clickOnOrdersButton()
+                .getOrderNumber();
+        String orderData = personalData.getOrderData();
+        String orderAddress = personalData.getOrderAddress();
+        String orderRecipient = personalData.getOrderRecipient();
+        String orderContent = personalData.getOrderContent();
+        String orderPrice = personalData.getOrderPrice();
+        String resultPrice = orderPrice.replaceAll("[^A-Za-z0-9]", "");
+        String orderFinalPrice = personalData.getOrderFinalPrice();
+        String finalSum = orderFinalPrice.replaceAll("[^A-Za-z0-9]", "");
+        //sql
+        String lastOrderNumber = personalData.getLastOrderNumber();
+        String lastOrderData = personalData.getLastOrderData();
+        String lastOrderAddress = personalData.getLastOrderAddress();
+        String lastOrderRecipient = personalData.getLastOrderRecipient();
+        String lastOrderContent = personalData.getLastOrderContent();
+        String lastOrderPrice = String.valueOf(personalData.getLastOrderPrice());
+        String lastOrderFinalSum = String.valueOf(personalData.getLastOrderFinalPrice());
+
+        assertEquals("Заказ №" + lastOrderNumber, orderNumber);
+        assertEquals(lastOrderData, orderData);
+        assertEquals(lastOrderAddress, orderAddress);
+        assertEquals(lastOrderRecipient, orderRecipient);
+        assertEquals(lastOrderContent, orderContent);
+        assertEquals(lastOrderPrice, resultPrice);
+        assertEquals(lastOrderFinalSum, finalSum);
+    }
+
+    //Сверяем кол-во заказов у пользователя
+    @Test
+    public void checkingOrderList() {
+        Integer numberOfOrdersSql = personalData.getNumberOfOrdersSql();
+        Integer numberOfOrders = personalData.clickOnOrdersButton()
+                .getNumberOfOrders();
+        assertEquals(numberOfOrdersSql, numberOfOrders);
+    }
+
 
     //Валидации и ограничений по полям пока нет создан таск https://poisondrop.atlassian.net/browse/PD-814
 

@@ -294,7 +294,7 @@ public class SectionsTest extends TestBase {
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0).substring(0, 28), siteList.get(0).substring(0, 28));
         assertEquals(sqlList.get(7), siteList.get(7));
-        assertEquals(sqlList.get(39).substring(0, 28), siteList.get(39).substring(0, 28));
+        assertEquals(sqlList.get(39).substring(0, 20), siteList.get(39).substring(0, 20));
     }
 
     //Проверка по наименованию дезайнера

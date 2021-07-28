@@ -96,7 +96,6 @@ public class MainPage extends Base {
     public MainPage clickOnLcInButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(lcButton));
-//        driver.findElement(lcButton).click();
         return this;
     }
 
@@ -274,6 +273,27 @@ public class MainPage extends Base {
         }
         String code = null;
         String query = "select code from user_authentication_code where id=(SELECT MAX(id) FROM user_authentication_code)";
+
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                code = resultSet.getString("code");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return code;
+    }
+
+    public String getPhonePasswordForLC() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String code = null;
+        String query = "select code from user_authentication_code where user_id = 157982 and id=(SELECT MAX(id) FROM user_authentication_code)";
 
         try {
             Statement statement = worker.getCon().createStatement();
