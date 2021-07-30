@@ -22,26 +22,22 @@ public class WishListTest extends TestBase {
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver();
-        driver.get(getUrl + "catalog/");
         wishlist = new Wishlist(driver);
         basket = new Basket(driver);
-        basket.clickToOkButton();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
 
 
-    //проверка что товар добавился в избранное + урл и заголовок корректны
+    //Проверка что товар добавился в избранное из карточки товара + урл и заголовок корректны
     @Test()
     public void wishListCheckButton() {
+        driver.get(getUrl + "catalog/");
+        basket.clickToOkButton();
         wishlist.clickToItemButton();
         wishlist.clickToWishListInCardListButton();
         wishlist.clickToWishListButton();
@@ -54,8 +50,108 @@ public class WishListTest extends TestBase {
         assertEquals("Избранное", header);
     }
 
+    //Блок тестов по добавлению в избранное из страниц каталога
+    //Каталог
+    @Test()
+    public void addToWishlistFromCatalog() {
+        driver.get(getUrl + "catalog/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName, itemNameFromWishlist);
+    }
 
-    //перенос из избранного в корзину(там пока баг)
+    //Браслеты
+    @Test()
+    public void addToWishlistFromBracelets() {
+        driver.get(getUrl + "catalog/braslety/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName, itemNameFromWishlist);
+    }
+
+    //Кольца
+    @Test()
+    public void addToWishlistFromRings() {
+        driver.get(getUrl + "catalog/koltsa/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName, itemNameFromWishlist);
+    }
+
+    //Серьги
+    @Test()
+    public void addToWishlistFromEarrings() {
+        driver.get(getUrl + "catalog/sergi/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName, itemNameFromWishlist);
+    }
+
+    //Колье
+    @Test()
+    public void addToWishlistFromNecklaces() {
+        driver.get(getUrl + "catalog/kole/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName, itemNameFromWishlist);
+    }
+
+    //Броши
+    @Test()
+    public void addToWishlistFromBrooches() {
+        driver.get(getUrl + "catalog/broshi/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
+    }
+
+    //Мужики
+    @Test()
+    public void addToWishlistFromMen() {
+        driver.get(getUrl + "catalog/men/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName, itemNameFromWishlist);
+    }
+
+    //Новинки
+    @Test()
+    public void addToWishlistFromNewItems() {
+        driver.get(getUrl + "catalog/new/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName, itemNameFromWishlist);
+    }
+
+    //Распродажа
+    @Test()
+    public void addToWishlistFromSale() {
+        driver.get(getUrl + "catalog/sale/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName, itemNameFromWishlist);
+    }
+
+    //перенос из избранного в корзину
+
 
     @AfterEach
     public void tearDownEach() {

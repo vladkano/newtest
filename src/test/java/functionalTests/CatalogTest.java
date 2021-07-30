@@ -167,7 +167,7 @@ public class CatalogTest extends TestBase {
     }
 
     @Test
-    public void designersOfManItems() {
+    public void designersOfMenItems() {
         driver.get(getUrl + "catalog/men");
         man = new Man(driver);
         String countHeader = filters.getCountHeader();
@@ -284,7 +284,7 @@ public class CatalogTest extends TestBase {
     }
 
     @Test
-    public void namesOfManItems() {
+    public void namesOfMenItems() {
         navigation = new CatalogNavigation(driver);
         man = new Man(driver);
         driver.get(getUrl + "catalog/men/");
@@ -378,7 +378,7 @@ public class CatalogTest extends TestBase {
     }
 
     @Test
-    public void pictureOfManItems() {
+    public void pictureMenItems() {
         driver.get(getUrl + "catalog/men");
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
@@ -514,7 +514,7 @@ public class CatalogTest extends TestBase {
     }
 
     @Test
-    public void priceOfManItems() {
+    public void priceOfMenItems() {
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "catalog/men");
         man = new Man(driver);

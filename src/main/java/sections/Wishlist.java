@@ -15,11 +15,22 @@ public class Wishlist extends Base {
 
     By wishListButton = By.xpath("//a[@href='/wishlist/']");
     By wishListInCardListButton = By.xpath("//span[text()='Wish List']");
+    By addToFavoritesFromCatalogButton = By.xpath("//span[@class='wish-button__icon-block']");
 
     By wishListHeader = By.xpath("//h2[text()='Избранное']");
 
     public Wishlist(WebDriver driver) {
         super(driver);
+    }
+
+    public String getItemName() {
+        return driver.findElement(nameLink).getText();
+    }
+
+    public Wishlist clickToAddToWishlistFromCatalogButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(addToFavoritesFromCatalogButton));
+        return this;
     }
 
     public Wishlist clickToWishListButton() {
@@ -40,7 +51,6 @@ public class Wishlist extends Base {
 
     public Wishlist clickToItemButton() {
         String firstItem = this.findFirstItem();
-//        System.out.println(firstItem);
         driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")).click();
         return this;
     }
