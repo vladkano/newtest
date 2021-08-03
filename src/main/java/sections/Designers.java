@@ -168,7 +168,7 @@ public class Designers {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 description = resultSet.getString("description");
-                System.out.println(description);
+//                System.out.println(description);
             }
         } catch (SQLException e) {
             e.printStackTrace();

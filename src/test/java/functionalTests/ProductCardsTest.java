@@ -371,9 +371,10 @@ public class ProductCardsTest extends TestBase {
         String designerName = designers.getDesignerName();
         String designerText = designers.getDesignerText();
         String description = designers.getDesignerDescription(text);
+        String descriptionNew = description.replaceAll("\n", "");
         assertEquals(text, photoAlt);
         assertEquals(text, designerName);
-        assertEquals(description, designerText);
+        assertEquals(descriptionNew, designerText);
     }
 
     @Test
@@ -401,9 +402,10 @@ public class ProductCardsTest extends TestBase {
         String designerName = designers.getDesignerName();
         String designerText = designers.getDesignerText();
         String description = designers.getDesignerDescription(text);
+        String descriptionNew = description.replaceAll("<br>", "");
         assertEquals(text, photoAlt);
         assertEquals(text, designerName);
-        assertEquals(description.substring(0, 100), designerText.substring(0, 100));
+        assertEquals(descriptionNew.substring(0, 100), designerText.substring(0, 100));
     }
 
     @Test

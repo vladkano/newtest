@@ -435,7 +435,7 @@ public class SectionsTest extends TestBase {
         String url = driver.getCurrentUrl();
         String description = trends.listOfDescription().get(4);
         assertEquals(href, url);
-        assertEquals(description, header);
+        assertEquals(description.substring(0,20), header.substring(0,20));
     }
 
 
@@ -466,7 +466,7 @@ public class SectionsTest extends TestBase {
         //сравниваем 1,8 и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(7), siteList.get(7));
+        assertEquals(sqlList.get(7).substring(0,20), siteList.get(7).substring(0,20));
     }
 
     @Test
