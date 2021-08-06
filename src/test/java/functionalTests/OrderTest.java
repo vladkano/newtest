@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderTest extends TestBase {
 
@@ -25,7 +26,7 @@ public class OrderTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -71,8 +72,8 @@ public class OrderTest extends TestBase {
         basket.clickToAnotherItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
@@ -80,7 +81,7 @@ public class OrderTest extends TestBase {
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertEquals(true, pr);
+        assertTrue(pr);
         assertEquals("Заплатить", header);
     }
 
@@ -289,15 +290,15 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Минск", "улица Пушкина 12", "Test");
-        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertEquals(true, pr);
+        assertTrue(pr);
         assertEquals("Заплатить", header);
     }
 
@@ -316,17 +317,17 @@ public class OrderTest extends TestBase {
 
     //Доставка до постомата
     //работает только для ЕКБ
-//    @Test()
-//    public void postomatAndRussian() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Россия", "Екатеринбург", "родонитовая");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getPayHeader();
-//        assertEquals("Заплатить", header);
-//    }
+    @Test()
+    public void postomatAndRussian() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Россия", "Екатеринбург", "родонитовая");
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+        assertEquals("Заплатить", header);
+    }
 
     @Test()
     public void postomatAndBelarus() {
@@ -353,7 +354,7 @@ public class OrderTest extends TestBase {
     }
 
 
-    //Заказы без оплаты
+    //Оформление заказов
     //Тестовый заказ без оплаты, способ доставки: доставка курьером товар дороже 5000:
     @Test()
     public void noPayCourierDeliveryAndPhone() {
@@ -374,7 +375,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithDvdNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "г Москва, Рублёвское шоссе, д 1", "", "", "", "", "Test Comment VIP");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
@@ -388,8 +389,8 @@ public class OrderTest extends TestBase {
         basket.clickToAnotherItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Сочи", "ул Горького, д 87", "2а", "", "1",
@@ -406,7 +407,7 @@ public class OrderTest extends TestBase {
         basket.clickToAnotherItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithDvdNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "г Москва, Рублёвское шоссе, д 1", "", "", "", "", "Test Comment VIP");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);

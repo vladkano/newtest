@@ -168,7 +168,7 @@ public class Footer extends Base {
     public Footer clickToYoutubeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(youtubeButton));
-        driver.findElement(confirmButton).click();
+//        driver.findElement(confirmButton).click();
         return this;
     }
 

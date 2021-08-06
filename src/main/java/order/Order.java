@@ -67,6 +67,8 @@ public class Order extends Base {
     By finalPrice = By.xpath("(//span[@class='order-summary__value'])[3]");
     By frame = By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']");
     By firstSectionOrderButton = By.xpath("//div[@class='certificate-value-form__wrap']//span[text()='Заказать']");
+    By ordinaryDeliveryButton = By.xpath("//label[@for='ordinaryDelivery']/span[@class='order-delivery__courier-type-variant']");
+
 
     //headers
     By payHeader = By.xpath("//span[text()='Заплатить']");
@@ -74,6 +76,12 @@ public class Order extends Base {
 
     public Order(WebDriver driver) {
         super(driver);
+    }
+
+
+    public Order clickOnOrdinaryDeliveryButton() {
+        driver.findElement(ordinaryDeliveryButton).click();
+        return this;
     }
 
     public static void main(String[] args) {
@@ -491,7 +499,7 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-    public Order orderWithNoPayAndWA(String phone, String email, String fio, String address, String apartment,
+    public Order orderWithDvdNoPayAndWA(String phone, String email, String fio, String address, String apartment,
                                      String frontDoor, String floor, String houseCode, String commentForCourier) {
         this.typePhone(phone);
         this.typeEmail(email);
@@ -503,6 +511,7 @@ public class Order extends Base {
         this.typeFloor(floor);
         this.typeHouseCode(houseCode);
         this.typeCommentForCourier(commentForCourier);
+        this.clickOnOrdinaryDeliveryButton();
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
@@ -912,7 +921,7 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPickPointButton();
         this.clickOnSelectPostomatButton();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         WebElement postomatFrame = wait.until(ExpectedConditions.presenceOfElementLocated(frame));
         driver.switchTo().frame(postomatFrame);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Россия']")));
@@ -1058,9 +1067,18 @@ public class Order extends Base {
     }
 
     //Бумажный
-    public Order certificateWithPhoneAndLogin(String address, String apartment,
-                                              String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public Order certificateWithPhoneAndLogin(String city, String address, String apartment, String frontDoor, String floor, String houseCode,
+                                              String commentForCourier, String comment) {
         this.clickOnPaperButton();
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -1238,13 +1256,18 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-    public Order certificateWithLoginInternationalAndWA(String country,
-                                                        String internationalCity, String internationalAddress, String comment) {
+    public Order certificateWithLoginInternationalAndWA(String city, String internationalCity, String comment) {
         this.clickOnPaperButton();
-        this.clickOnInternationalButton();
-        this.typeCountry(country);
-        this.typeInternationalCity(internationalCity);
-        this.typeInternationalAddress(internationalAddress);
+        this.clickOnChangeCityButton();
+        this.clickOnOtherCityButton();
+        this.typeLocationSearch(city);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnLocationButton();
+        this.typeOrderAddress(internationalCity);
         this.clickOnWhatsAppButton();
         this.clickOnAddCommentButton();
         this.typeComment(comment);

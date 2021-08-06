@@ -83,7 +83,7 @@ public class Wishlist extends Base {
             e.printStackTrace();
         }
 //        System.out.println(list.get(1));
-        return list.get(0);
+        return list.get(2);
     }
 
     public static void main(String[] args) {
@@ -107,12 +107,12 @@ public class Wishlist extends Base {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
                 list.add(name);
-//                System.out.println(name);
+                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(list.get(0));
+//        System.out.println(list.get(1));
         worker.getSession().disconnect();
 
     }

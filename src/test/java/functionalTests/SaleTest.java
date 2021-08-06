@@ -40,7 +40,7 @@ public class SaleTest extends TestBase {
         filters = new Filters(driver);
     }
 
-    //Кол-во намименование в базе и на странице, выборочная проверка по наименованию
+    //Кол-во наименование в базе и на странице, выборочная проверка по наименованию
     @Test
     public void namesOfSale() {
         String countHeader = filters.getCountHeader();
@@ -59,7 +59,7 @@ public class SaleTest extends TestBase {
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Кол-во намименований в базе и на странице, проверка по наименованию дезайнера
+    //Кол-во наименований в базе и на странице, проверка по наименованию дезайнера
     @Test
     public void designersOfSale() {
         String countHeader = filters.getCountHeader();
@@ -122,7 +122,7 @@ public class SaleTest extends TestBase {
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
-    //Проверка отображаения размера скидки.
+    //Проверка отображения размера скидки.
     @Test
     public void saleOfSale() {
         //sql:

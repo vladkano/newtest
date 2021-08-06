@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class FiltersTest extends TestBase {
 
@@ -581,7 +582,7 @@ public class FiltersTest extends TestBase {
         Thread.sleep(500);
         String countHeader2 = filters.getCountHeader();
         boolean b = countHeader.equals(countHeader2);
-        assertEquals(false, b);
+        assertFalse(b);
     }
 
 
@@ -597,7 +598,7 @@ public class FiltersTest extends TestBase {
         Thread.sleep(500);
         String countHeader2 = filters.getCountHeader();
         boolean b = countHeader.equals(countHeader2);
-        assertEquals(false, b);
+        assertFalse(b);
     }
 
 

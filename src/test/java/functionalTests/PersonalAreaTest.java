@@ -29,7 +29,7 @@ public class PersonalAreaTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -162,7 +162,7 @@ public class PersonalAreaTest extends TestBase {
         assertEquals("Необходимо указать имя", header);
     }
 
-    //Не заполенено поле "Дата рождения"
+    //Не заполнено поле "Дата рождения"
     @Test
     public void emptyFieldBirthday() {
         personalData.clickOnBirthday();
@@ -190,7 +190,7 @@ public class PersonalAreaTest extends TestBase {
         assertEquals("Вы заказали", orderYouOrderedHeader);
     }
 
-    //Проверка отображания всех данных последнего заказа(сверка с БД)
+    //Проверка отображения всех данных последнего заказа(сверка с БД)
     @Test
     public void checkingLastOrder() {
         //site
@@ -217,7 +217,7 @@ public class PersonalAreaTest extends TestBase {
         assertEquals(lastOrderData, orderData);
         assertEquals(lastOrderAddress, orderAddress);
         assertEquals(lastOrderRecipient, orderRecipient);
-        assertEquals(lastOrderContent, orderContent);
+        assertEquals(lastOrderContent.substring(0,20), orderContent.substring(0, 20));
         assertEquals(lastOrderPrice, resultPrice);
         assertEquals(lastOrderFinalSum, finalSum);
     }

@@ -15,6 +15,7 @@ import sections.Wishlist;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WishListTest extends TestBase {
 
@@ -43,7 +44,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToWishListButton();
         int numbers = driver.findElements(By.xpath("//h3/a")).size();
         boolean a = numbers > 0;
-        assertEquals(a, true);
+        assertTrue(a);
         String url = driver.getCurrentUrl();
         String header = wishlist.getWishListHeader();
         assertEquals(getUrl + "wishlist/", url);
@@ -59,7 +60,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName, itemNameFromWishlist);
+        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
     }
 
     //Браслеты

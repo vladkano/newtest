@@ -229,15 +229,15 @@ public class SectionsTest extends TestBase {
     }
 
     //не работает в безголовом режиме
-//    @Test()
-//    public void instaButton() {
-//        footer = new Footer(driver);
-//        footer.clickToInstaButton();
-//        String url = driver.getCurrentUrl();
-//        String header = footer.getInstaHeader();
-//        assertEquals("https://www.instagram.com/poisondropru/", url);
-//        assertEquals("poisondropru", header);
-//    }
+    @Test()
+    public void instaButton() {
+        footer = new Footer(driver);
+        footer.clickToInstaButton();
+        String url = driver.getCurrentUrl();
+        String header = footer.getInstaHeader();
+        assertEquals("https://www.instagram.com/poisondropru/", url);
+        assertEquals("poisondropru", header);
+    }
 
     @Test()
     public void facebookButton() {
@@ -259,20 +259,20 @@ public class SectionsTest extends TestBase {
         assertEquals("Poison Drop", header);
     }
 
-    @Test()
-    public void whatsAppButton() {
-        footer = new Footer(driver);
-        footer.clickToWhatsAppButton();
-        String url = driver.getCurrentUrl();
-        String header = footer.getWhatsAppHeader();
-        assertEquals("https://api.whatsapp.com/send/?phone=74952551533&text&app_absent=0", url);
-        assertEquals("+7 495 255-15-33", header);
-    }
+//    @Test()
+//    public void whatsAppButton() {
+//        footer = new Footer(driver);
+//        footer.clickToWhatsAppButton();
+//        String url = driver.getCurrentUrl();
+//        String header = footer.getWhatsAppHeader();
+//        assertEquals("https://api.whatsapp.com/send/?phone=74952551533&text&app_absent=0", url);
+//        assertEquals("+7 495 255-15-33", header);
+//    }
 
 
     //Создан таск https://poisondrop.atlassian.net/browse/PD-617
     //Золото и серебро:
-    //Кол-во намименование в базе и на странице, выборочная проверка по наименованию
+    //Кол-во наименование в базе и на странице, выборочная проверка по наименованию
 
     @Test
     public void namesOfJewelry() {
@@ -297,7 +297,7 @@ public class SectionsTest extends TestBase {
         assertEquals(sqlList.get(39).substring(0, 20), siteList.get(39).substring(0, 20));
     }
 
-    //Проверка по наименованию дезайнера
+    //Проверка по наименованию дизайнера
     @Test
     public void designersOfJewelry() {
         driver.get(getUrl + "jewelry/");
@@ -435,7 +435,7 @@ public class SectionsTest extends TestBase {
         String url = driver.getCurrentUrl();
         String description = trends.listOfDescription().get(4);
         assertEquals(href, url);
-        assertEquals(description.substring(0,20), header.substring(0,20));
+        assertEquals(description.substring(0, 20), header.substring(0, 20));
     }
 
 
@@ -466,7 +466,7 @@ public class SectionsTest extends TestBase {
         //сравниваем 1,8 и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(7).substring(0,20), siteList.get(7).substring(0,20));
+        assertEquals(sqlList.get(7).substring(0, 20), siteList.get(7).substring(0, 20));
     }
 
     @Test
@@ -581,7 +581,7 @@ public class SectionsTest extends TestBase {
         driver.get(getUrl + "designers/");
         designers = new Designers(driver);
         //sql:
-        List<String> sqlList = designers.getListOfDesigners();
+        List<String> sqlList = Designers.getListOfDesigners();
         //site:
         List<WebElement> elements = driver.findElements(numberOfDesigners);
         for (WebElement text : elements) {

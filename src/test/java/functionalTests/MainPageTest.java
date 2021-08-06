@@ -62,7 +62,8 @@ public class MainPageTest extends TestBase {
 //        driver.get("https://onlinesim.ru/");
 //        driver.get("https://ru.inethere.com/virtual-number/receive-free-sms/russia/");
         driver.get("https://ru.temporary-phone-number.com/Russia-Phone-Number/");
-        String phoneFromSite = mainPage.getPhoneFromSite();
+        String s = mainPage.getPhoneFromSite();
+        String phoneFromSite = s.replace(" ", "");
         System.out.println("phone: " + phoneFromSite);
 
         //почта
@@ -103,7 +104,13 @@ public class MainPageTest extends TestBase {
         //заполняем форму
         driver.get(getUrl);
         mainPage.sigInWithPhoneOrEmail(mailFromSite);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String code = mainPage.getEmailPassword();
+        System.out.println("code: " + code);
         mainPage.registerWithEmail(code, phoneFromSite, "Test Mail" + random_number);
         personalData.clickOnPersonalDataButton();
         String name = personalData.getName();

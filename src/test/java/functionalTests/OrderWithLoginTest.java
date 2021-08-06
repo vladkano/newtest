@@ -48,6 +48,7 @@ public class OrderWithLoginTest extends TestBase {
         String code = order.getPhonePasswordToBuy();
         mainPage.sigInWithPassword(code);
         driver.navigate().to(getUrl);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     //Сертификаты
@@ -56,7 +57,7 @@ public class OrderWithLoginTest extends TestBase {
     //эл.сертификат
     @Test()
     public void elCertificateAndPhone() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.clickOnPayButton();
@@ -68,7 +69,7 @@ public class OrderWithLoginTest extends TestBase {
 
     @Test()
     public void elCertificateAndWA() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.clickOnWhatsAppButton();
@@ -87,11 +88,11 @@ public class OrderWithLoginTest extends TestBase {
     //Способ доставки: Доставка курьером
     @Test()
     public void paperCertificateAndPhone() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
-        order.certificateWithPhoneAndLogin("г Калининград, ул Пушкина, д 8", "2", "2", "2", "2",
-                "Test Comment", "Test+Cert+Login");
+        order.certificateWithPhoneAndLogin("Калининград", "ул Пушкина, д 4", "2",
+                "2", "2", "2", "Test Comment", "Test");
         String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
@@ -100,11 +101,11 @@ public class OrderWithLoginTest extends TestBase {
 
     @Test()
     public void paperCertificateAndWA() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
-        order.certificateWithWAAndLogin("г Калининград, ул Пушкина, д 18", "2", "2", "2", "2",
-                "Test Comment", "Test+Cert+Login+WA");
+        order.certificateWithPhoneAndLogin("Калининград", "ул Пушкина, д 4", "2",
+                "2", "2", "2", "Test Comment", "Test");
         String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
@@ -114,7 +115,7 @@ public class OrderWithLoginTest extends TestBase {
     //Способ доставки: Цветной + телефон
     @Test()
     public void paperCertificateTsvetnoyAndPhone() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.certificateWithLoginTsvetnoyAndPhone("Test+Cert+Login+Tsvetnoy");
@@ -127,7 +128,7 @@ public class OrderWithLoginTest extends TestBase {
     //Способ доставки: Метрополис + ВА
     @Test()
     public void paperCertificateMetropolisAndWA() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.certificateWithLoginMetropolisAndWA("Test+Cert+Login+Metropolis");
@@ -140,7 +141,7 @@ public class OrderWithLoginTest extends TestBase {
     //Способ доставки: Атриум + СМС
     @Test()
     public void paperCertificateAtriumAndSMS() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.certificateWithLoginAtriumAndSMS("Test+Cert+Login+Atrium");
@@ -153,7 +154,7 @@ public class OrderWithLoginTest extends TestBase {
     //Способ доставки: У Красного моста + телефон
     @Test()
     public void paperCertificateRedBridgeAndPhone() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
         order.certificateWithLoginRedBridgeAndPhone("Test+Cert+Login+RedBridge");
@@ -166,11 +167,10 @@ public class OrderWithLoginTest extends TestBase {
     //Способ доставки: Доставить в другую страну + ВА
     @Test()
     public void paperCertificateInternationalAndWA() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.clickToFirstSectionOrderButton();
         basket.clickToBasketButton();
-        order.certificateWithLoginInternationalAndWA("США", "Нью-Йорк", "Трамп стрит 11",
-                "Test+Cert+Login+International");
+        order.certificateWithLoginInternationalAndWA("Нью-Йорк", "США Нью-Йорк Трамп стрит 11", "Test");
         String codeForOrder = order.getPhonePassword();
         order.confirmWithPassword(codeForOrder);
         String header = order.getPayHeader();
@@ -181,7 +181,7 @@ public class OrderWithLoginTest extends TestBase {
     //Проверка перехода к оплате заказа на сайте, тип сертификата 2
     @Test()
     public void elCertificateEmailAndPhone() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
         basket.clickToBasketButton();
         order.clickOnPayButton();
@@ -193,7 +193,7 @@ public class OrderWithLoginTest extends TestBase {
 
     @Test()
     public void elCertificateEmailAndWA() {
-        driver.get(getUrl + "certificate/?utm_source=test&utm_medium=test&utm_campaign=test");
+        certificate.clickToCertificateButton();
         certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
         basket.clickToBasketButton();
         order.clickOnWhatsAppButton();
@@ -285,7 +285,7 @@ public class OrderWithLoginTest extends TestBase {
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
         order.certificateWithPhoneAndLogin("г Нижний Новгород, ул Ефремова, д 10", "2", "2", "2", "2",
-                "Test Comment", "Test");
+                "Test Comment", "Test", "");
         String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
@@ -357,7 +357,7 @@ public class OrderWithLoginTest extends TestBase {
         nameNecklaces.clickToSecondFontButton();
         basket.clickToBasketButton();
         order.certificateWithPhoneAndLogin("г Нижний Новгород, ул Ефремова, д 10", "2", "2", "2", "2",
-                "Test Comment", "Test");
+                "Test Comment", "Test", "");
         String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();
@@ -430,7 +430,7 @@ public class OrderWithLoginTest extends TestBase {
         nameNecklaces.thirdTypeOrder("Test");
         basket.clickToBasketButton();
         order.certificateWithPhoneAndLogin("г Нижний Новгород, ул Ефремова, д 10", "2", "2", "2", "2",
-                "Test Comment", "Test");
+                "Test Comment", "Test", "");
         String codeToBuy = order.getPhonePassword();
         order.confirmWithPassword(codeToBuy);
         String header = order.getPayHeader();

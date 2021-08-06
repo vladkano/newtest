@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CertificateTest extends TestBase {
 
@@ -26,7 +27,7 @@ public class CertificateTest extends TestBase {
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -38,7 +39,7 @@ public class CertificateTest extends TestBase {
         basket = new Basket(driver);
     }
 
-    //Проверяем отображение секциий
+    //Проверяем отображение секций
     @Test
     public void checkSections() {
         String perfectGiftSection = certificate.getPerfectGiftSection();
@@ -164,7 +165,7 @@ public class CertificateTest extends TestBase {
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         order.paperCertificateWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "Калининград" , "ул Пушкина, д 4", "2",
+                "Калининград", "ул Пушкина, д 4", "2",
                 "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
@@ -257,15 +258,15 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         order.certificateWithInternationalAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Нью-Йорк", "США Нью-Йорк Трамп стрит 11", "Test");
-        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertEquals(true, pr);
+        assertTrue(pr);
         assertEquals("1", number);
         assertEquals("Заплатить", header);
     }
@@ -301,10 +302,11 @@ public class CertificateTest extends TestBase {
     }
 
 
+    //Проверка оформления заказа на сайте
     //2 тип сертификата без заполненного поля "пожелания"(https://poisondrop.atlassian.net/browse/PD-812)
     //Бумажный
     @Test()
-    public void orderWithElCertificateEmailWithoutWishes() {
+    public void noPayOrderWithElCertificateEmailWithoutWishes() {
         order = new Order(driver);
         certificate.secondSectionOrder("", "", "rundkvist@poisondrop.ru", "");
         String number = certificate.getBasketNumber();
@@ -318,10 +320,8 @@ public class CertificateTest extends TestBase {
         assertEquals("Мы приняли ваш заказ", header);
     }
 
-
-    //Проверка оформления заказа на сайте, тип сертификата 3
+    //Тип сертификата 3
     //Бумажный
-
     //Способ доставки: Доставка курьером
     //Номинал 6000 рублей
     @Test()
@@ -353,8 +353,8 @@ public class CertificateTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         boolean pr = finalPrice > price;
         order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Казань", "ул Узорная, д 15", "2", "2", "2", "2",
@@ -362,7 +362,7 @@ public class CertificateTest extends TestBase {
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
-        assertEquals(true, pr);
+        assertTrue(pr);
         assertEquals("1", number);
         assertEquals("Мы приняли ваш заказ", header);
     }

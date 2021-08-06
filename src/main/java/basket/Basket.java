@@ -181,7 +181,7 @@ public class Basket extends Base {
             e.printStackTrace();
         }
 //        System.out.println(list.get(0));
-        return list.get(0);
+        return list.get(1);
     }
 
     public static String findFirstRing() {
@@ -215,7 +215,6 @@ public class Basket extends Base {
     }
 
     public static String findFirstItemLasseThan5000() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> list = new ArrayList<>();
         String query = "SELECT item_sku.name from item " +
@@ -241,7 +240,7 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.get(0);
+        return list.get(3);
     }
 
 
@@ -387,7 +386,7 @@ public class Basket extends Base {
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price > 5000 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price < 5000 and section = 'catalog' and subsection is null " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {

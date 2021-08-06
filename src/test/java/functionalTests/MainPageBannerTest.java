@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MainPageBannerTest extends TestBase {
 
@@ -100,7 +101,7 @@ public class MainPageBannerTest extends TestBase {
     public void shopTheLookIsVisible() {
         int banners = driver.findElements(countOfBanners).size();
         boolean visible = banners > 0;
-        assertEquals(true, visible);
+        assertTrue(visible);
     }
 
 

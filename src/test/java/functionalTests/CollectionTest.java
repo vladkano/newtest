@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CollectionTest extends TestBase {
 
@@ -124,54 +125,54 @@ public class CollectionTest extends TestBase {
     public void checkDoubleMain() {
         driver.get(getUrl + "catalog/");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet(listOfLinks);
+        HashSet<WebElement> set = new HashSet<>(listOfLinks);
         boolean check = set.size() == listOfLinks.size();
-        assertEquals(true, check);
+        assertTrue(check);
     }
 
     @Test
     public void checkDoubleBracelets() {
         driver.get(getUrl + "catalog/braslety");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet(listOfLinks);
+        Set<WebElement> set = new HashSet<>(listOfLinks);
         boolean check = set.size() == listOfLinks.size();
-        assertEquals(true, check);
+        assertTrue(check);
     }
 
     @Test
     public void checkDoubleBrooches() {
         driver.get(getUrl + "catalog/broshi");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet(listOfLinks);
+        Set<WebElement> set = new HashSet<>(listOfLinks);
         boolean check = set.size() == listOfLinks.size();
-        assertEquals(true, check);
+        assertTrue(check);
     }
 
     @Test
     public void checkDoubleEarrings() {
         driver.get(getUrl + "catalog/sergi");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet(listOfLinks);
+        Set<WebElement> set = new HashSet<>(listOfLinks);
         boolean check = set.size() == listOfLinks.size();
-        assertEquals(true, check);
+        assertTrue(check);
     }
 
     @Test
     public void checkDoubleNecklaces() {
         driver.get(getUrl + "catalog/kole");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet(listOfLinks);
+        Set<WebElement> set = new HashSet<>(listOfLinks);
         boolean check = set.size() == listOfLinks.size();
-        assertEquals(true, check);
+        assertTrue(check);
     }
 
     @Test
     public void checkDoubleRings() {
         driver.get(getUrl + "catalog/koltsa");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet(listOfLinks);
+        Set<WebElement> set = new HashSet<>(listOfLinks);
         boolean check = set.size() == listOfLinks.size();
-        assertEquals(true, check);
+        assertTrue(check);
     }
 
     @AfterEach

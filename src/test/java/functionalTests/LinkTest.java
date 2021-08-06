@@ -51,7 +51,7 @@ public class LinkTest extends TestBase {
         String header = base.getNameHeader();
         base.clickOnNameLink();
         String heading = base.getHeader();
-        assertEquals(header, heading);
+        assertEquals(header.substring(0, 20), heading.substring(0, 20));
     }
 
     @Test
@@ -148,7 +148,7 @@ public class LinkTest extends TestBase {
     public void imageLinkOfBrooches() {
         driver.get(getUrl + "catalog/broshi");
         String s = base.getImageHeader();
-        String header = s.replaceAll("\u200E","");
+        String header = s.replaceAll("\u200E", "");
         base.clickOnImageLink();
         String heading = base.getHeader();
         assertEquals(header.substring(0, 28), heading.substring(0, 28));

@@ -36,11 +36,18 @@ public class Certificate extends Base {
     By postcardWishes = By.xpath("//textarea[@id='postcardWishes']");
 
     By certificateWishes = By.xpath("//textarea[@name='certificate-wishes']");
+    By certificateButton = By.xpath("//a[@href='/certificate/']");
+
 
     public Certificate(WebDriver driver) {
         super(driver);
     }
 
+
+    public Certificate clickToCertificateButton() {
+        driver.findElement(certificateButton).click();
+        return this;
+    }
 
     public String getPerfectGiftSection() {
         return driver.findElement(perfectGiftSection).getText();
