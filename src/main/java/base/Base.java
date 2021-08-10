@@ -20,12 +20,24 @@ public class Base {
     protected By secondImageLink = By.xpath("(//picture/img)[3]");
     protected By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
     protected By designerLink = By.xpath("//div[@class='catalog-card__designer']/a");
+    protected By catalogButton = By.xpath("//a[@href='/catalog/']");
 
     protected By nameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
     protected By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
+    protected By priceFromProductCard = By.xpath("//b[@class='price-block__price']");
 
     public Base(WebDriver driver) {
         this.driver = driver;
+    }
+
+
+    public String getPriceFromProductCard() {
+        return driver.findElement(priceFromProductCard).getText();
+    }
+
+    public Base clickOnCatalogButton() {
+        driver.findElement(catalogButton).click();
+        return this;
     }
 
     public Base clickOnImageLink() {
@@ -46,6 +58,24 @@ public class Base {
         return this;
     }
 
+    public Base clickOnSecondNameLink() {
+        List<WebElement> elements = driver.findElements(nameLink);
+        elements.get(1).click();
+        return this;
+    }
+
+    public Base clickOnThirdNameLink() {
+        List<WebElement> elements = driver.findElements(nameLink);
+        elements.get(2).click();
+        return this;
+    }
+
+    public Base clickOnFourNameLink() {
+        List<WebElement> elements = driver.findElements(nameLink);
+        elements.get(3).click();
+        return this;
+    }
+
     public Base clickOnDesignerLink() {
         List<WebElement> elements = driver.findElements(designerLink);
         ((JavascriptExecutor) driver).executeScript(
@@ -61,8 +91,14 @@ public class Base {
 
     public String getNameHeader() {
         List<WebElement> elements = driver.findElements(nameLink);
+        return elements.get(0).getAttribute("textContent");
+    }
+
+    public String getSecondNameHeader() {
+        List<WebElement> elements = driver.findElements(nameLink);
         return elements.get(1).getAttribute("textContent");
     }
+
 
     public String getDesignerLinkHeader() {
         List<WebElement> elements = driver.findElements(designerLink);

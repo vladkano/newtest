@@ -20,7 +20,7 @@ public class Size extends Base {
     By secondSizeButton = By.xpath("//span[text()='15,5']");
     By thirdSizeButton = By.xpath("//span[text()='16']");
     By universalSizeButton = By.xpath("//span[text()='Универсальный']");
-    By currentSize = By.xpath("//span[@class='product-modification__output']");
+    By currentSize = By.xpath("//div[@data-name='razmer_kolca']/span[@class='product-modification__output']");
     By firstCurrentSizeButton = By.xpath("//ul/li[2]/label/span[@class='product-variant__variant product-variant__variant_size']");
     By secondCurrentSizeButton = By.xpath("//ul/li[3]/label/span[@class='product-variant__variant product-variant__variant_size']");
     By sizeHeader = By.xpath("//span[@class='cart-item__additional-params']");

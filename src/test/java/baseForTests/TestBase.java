@@ -70,7 +70,7 @@ public class TestBase {
     protected By namesOfTrends = By.xpath("//h4");
     protected By numberOfDesigners = By.xpath("//li[@class='index-designers__name']/a");
     protected By trendBanners = By.xpath("//span[@class='picture']");
-
+    protected By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
 
     protected List<String> siteList = new ArrayList<>();
     protected List<Integer> priceList = new ArrayList<>();

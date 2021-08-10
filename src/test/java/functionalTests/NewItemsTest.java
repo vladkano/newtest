@@ -42,7 +42,7 @@ public class NewItemsTest extends TestBase {
         basket.clickToOkButton();
     }
 
-    //Кол-во намименование в базе и на странице, проверка по наименованию
+    //Кол-во наименование в базе и на странице, проверка по наименованию
     @Test
     public void namesOfNewItems() {
         String countHeader = filters.getCountHeader();

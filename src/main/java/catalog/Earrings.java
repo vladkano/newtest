@@ -226,7 +226,7 @@ public class Earrings extends Base {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 url = resultSet.getString("url");
-                System.out.println(url);
+//                System.out.println(url);
                 listOfUrl.add(url);
             }
         } catch (SQLException e) {

@@ -93,7 +93,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName, itemNameFromWishlist);
+        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
     }
 
     //Колье
@@ -137,7 +137,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName, itemNameFromWishlist);
+        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0,20));
     }
 
     //Распродажа
