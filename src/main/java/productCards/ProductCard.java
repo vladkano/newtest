@@ -36,10 +36,28 @@ public class ProductCard extends Base {
     By guaranteeText = By.xpath("//div[@id='warranty-accordion']/p[@class='product-info__text']");
     By code = By.xpath("//div[@class='product-info__code']");
 
+    By recentlyViewedProductsHeader = By.xpath("//h2[text()='Вы смотрели']");
+    By designerNameFromRecentlyViewedProducts = By.xpath("//div[@class='catalog-card__designer']/a");
+    By priceFromRecentlyViewedProducts = By.xpath("(//b[@class='price-block__price'])[2]");
+
+
+
     public ProductCard(WebDriver driver) {
         super(driver);
     }
 
+
+    public String getPriceFromRecentlyViewedProducts() {
+        return driver.findElement(priceFromRecentlyViewedProducts).getText();
+    }
+
+    public String getDesignerNameFromRecentlyViewedProducts() {
+        return driver.findElement(designerNameFromRecentlyViewedProducts).getText();
+    }
+
+    public String getRecentlyViewedProductsHeader() {
+        return driver.findElement(recentlyViewedProductsHeader).getAttribute("textContent");
+    }
 
     public ProductCard clickToStructureButton() {
         driver.findElement(structureButton).click();

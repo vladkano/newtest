@@ -41,7 +41,7 @@ public class CatalogTest extends TestBase {
         filters = new Filters(driver);
     }
 
-    //Кол-во намименований в базе и на странице, проверка по наименованию дизайнера
+    //Кол-во наименований в базе и на странице, проверка по наименованию дизайнера
     @Test
     public void designersOfBracelets() {
         driver.get(getUrl + "catalog/braslety");
