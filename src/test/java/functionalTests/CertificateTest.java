@@ -264,11 +264,10 @@ public class CertificateTest extends TestBase {
         order.certificateWithInternationalAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Нью-Йорк", "США Нью-Йорк Трамп стрит 11", "Test");
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertTrue(pr);
+        assertTrue(finalPrice > price);
         assertEquals("1", number);
         assertEquals("Заплатить", header);
     }
@@ -357,14 +356,13 @@ public class CertificateTest extends TestBase {
         basket.clickToBasketButton();
         int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        boolean pr = finalPrice > price;
         order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Казань", "ул Узорная, д 15", "2", "2", "2", "2",
                 "Test Comment123", "Тест 123");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
-        assertTrue(pr);
+        assertTrue(finalPrice > price);
         assertEquals("1", number);
         assertEquals("Мы приняли ваш заказ", header);
     }

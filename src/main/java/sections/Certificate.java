@@ -43,12 +43,6 @@ public class Certificate extends Base {
         super(driver);
     }
 
-
-    public Certificate clickToCertificateButton() {
-        driver.findElement(certificateButton).click();
-        return this;
-    }
-
     public String getPerfectGiftSection() {
         return driver.findElement(perfectGiftSection).getText();
     }
@@ -180,7 +174,7 @@ public class Certificate extends Base {
         return new Certificate(driver);
     }
 
-    public Certificate clickToСertificatButton() {
+    public Certificate clickToCertificateButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(certificatesButton));
         return this;

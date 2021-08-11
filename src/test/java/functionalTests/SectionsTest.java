@@ -92,7 +92,7 @@ public class SectionsTest extends TestBase {
     @Test()
     public void certificatesButton() {
         certificate = new Certificate(driver);
-        certificate.clickToСertificatButton();
+        certificate.clickToCertificateButton();
         String url = driver.getCurrentUrl();
         assertEquals(getUrl + "certificate/", url);
     }

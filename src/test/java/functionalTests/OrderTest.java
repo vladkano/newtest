@@ -74,14 +74,13 @@ public class OrderTest extends TestBase {
         basket.clickToBasketButton();
         int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        boolean pr = finalPrice > price;
         order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
                 "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertTrue(pr);
+        assertTrue(finalPrice > price);
         assertEquals("Заплатить", header);
     }
 
@@ -294,11 +293,10 @@ public class OrderTest extends TestBase {
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Минск", "улица Пушкина 12", "Test");
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertTrue(pr);
+        assertTrue(finalPrice > price);
         assertEquals("Заплатить", header);
     }
 
@@ -391,14 +389,13 @@ public class OrderTest extends TestBase {
         basket.clickToBasketButton();
         int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        boolean pr = finalPrice > price;
         order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Сочи", "ул Горького, д 87", "2а", "", "1",
                 "нет", "Test Comment2");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
-        assertEquals(true, pr);
+        assertTrue(finalPrice > price);
         assertEquals("Мы приняли ваш заказ", header);
     }
 

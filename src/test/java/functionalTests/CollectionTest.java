@@ -126,8 +126,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         HashSet<WebElement> set = new HashSet<>(listOfLinks);
-        boolean check = set.size() == listOfLinks.size();
-        assertTrue(check);
+        assertTrue(set.size() == listOfLinks.size());
     }
 
     @Test
@@ -135,8 +134,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/braslety");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        boolean check = set.size() == listOfLinks.size();
-        assertTrue(check);
+        assertTrue(set.size() == listOfLinks.size());
     }
 
     @Test
@@ -144,8 +142,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/broshi");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        boolean check = set.size() == listOfLinks.size();
-        assertTrue(check);
+        assertTrue(set.size() == listOfLinks.size());
     }
 
     @Test
@@ -153,8 +150,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/sergi");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        boolean check = set.size() == listOfLinks.size();
-        assertTrue(check);
+        assertTrue(set.size() == listOfLinks.size());
     }
 
     @Test
@@ -162,8 +158,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/kole");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        boolean check = set.size() == listOfLinks.size();
-        assertTrue(check);
+        assertTrue(set.size() == listOfLinks.size());
     }
 
     @Test
@@ -171,8 +166,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/koltsa");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        boolean check = set.size() == listOfLinks.size();
-        assertTrue(check);
+        assertTrue(set.size() == listOfLinks.size());
     }
 
     @AfterEach

@@ -61,6 +61,7 @@ public class TestBase {
     protected Set set;
     protected ProductCard productCard;
     protected Base base;
+    protected Subscription subscription;
 
 
     protected By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
@@ -80,16 +81,19 @@ public class TestBase {
 
     //Бой
     protected String getUrl = "https://poisondrop.ru/";
-    //Тест
-//    protected String getUrl = "https://qa.poisondrop.org.ru/";
+
+    //1С(Новый тест)
+//    protected String getUrl = "https://stalingrad.poisondrop.org.ru/";
 
     //Накст
 //    protected String getUrl = "https://nuxt.poisondrop.org.ru/";
 
-    //1С(Сталинград)
-//    protected String getUrl = "https://stalingrad.poisondrop.org.ru/";
+
 
     //Не используемые адреса
+
+    //Старый тест
+//    protected String getUrl = "https://qa.poisondrop.org.ru/";
     //тест нового сервера
     //private String getUrl = "http://77.223.106.149/catalog/";
 

@@ -14,7 +14,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,7 +30,6 @@ public class CatalogNavigationTest extends TestBase {
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
         navigation = new CatalogNavigation(driver);
     }
@@ -43,7 +41,7 @@ public class CatalogNavigationTest extends TestBase {
         driver.get(getUrl + "catalog/koltsa");
         navigation.clickOnShowMoreButton();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

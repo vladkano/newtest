@@ -13,8 +13,12 @@ public class Base {
     protected static DBWorker worker = new DBWorker();
     protected WebDriver driver;
     protected static String getUrl = "https://poisondrop.ru/catalog/";
-//    protected static String getUrl = "https://qa.poisondrop.org.ru/catalog/";
+    //Новый тест
 //    protected static String getUrl = "https://stalingrad.poisondrop.org.ru/catalog/";
+
+//Старый тест
+//protected static String getUrl = "https://qa.poisondrop.org.ru/catalog/";
+
 
     protected By imageLink = By.xpath("//picture/img");
     protected By secondImageLink = By.xpath("(//picture/img)[3]");
@@ -54,7 +58,7 @@ public class Base {
 
     public Base clickOnNameLink() {
         List<WebElement> elements = driver.findElements(nameLink);
-        elements.get(1).click();
+        elements.get(0).click();
         return this;
     }
 

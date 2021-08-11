@@ -181,7 +181,7 @@ public class Basket extends Base {
             e.printStackTrace();
         }
 //        System.out.println(list.get(0));
-        return list.get(1);
+        return list.get(0);
     }
 
     public static String findFirstRing() {
