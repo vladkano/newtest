@@ -17,8 +17,7 @@ import sections.NameNecklaces;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Disabled
 public class NameNecklacesTest extends TestBase {
@@ -358,13 +357,12 @@ public class NameNecklacesTest extends TestBase {
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        boolean pr = finalPrice > price;
         order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Сочи", "ул Горького, д 87", "2а", "", "1", "нет", "Paid delivery");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
-        assertEquals(true, pr);
+        assertTrue(finalPrice > price);
         assertEquals("Мы приняли ваш заказ", header);
     }
 
@@ -377,11 +375,10 @@ public class NameNecklacesTest extends TestBase {
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Минск", "улица Пушкина 12", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertEquals(true, pr);
+        assertTrue(finalPrice > price);
         assertEquals("Заплатить", header);
     }
 
@@ -394,11 +391,10 @@ public class NameNecklacesTest extends TestBase {
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Рим", "Гладиаторов дом 20м", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertEquals(true, pr);
+        assertTrue(finalPrice > price);
         assertEquals("Заплатить", header);
     }
 
@@ -411,11 +407,10 @@ public class NameNecklacesTest extends TestBase {
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Мадрид", "Хамон стрит 20", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        boolean pr = finalPrice > price;
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertEquals(true, pr);
+        assertTrue(finalPrice > price);
         assertEquals("Заплатить", header);
     }
 

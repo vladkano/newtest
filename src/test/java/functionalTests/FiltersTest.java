@@ -581,8 +581,7 @@ public class FiltersTest extends TestBase {
         filters.clickToResetButton();
         Thread.sleep(500);
         String countHeader2 = filters.getCountHeader();
-        boolean b = countHeader.equals(countHeader2);
-        assertFalse(b);
+        assertFalse(countHeader.equals(countHeader2));
     }
 
 
@@ -597,8 +596,7 @@ public class FiltersTest extends TestBase {
         filters.clickToResetButton();
         Thread.sleep(500);
         String countHeader2 = filters.getCountHeader();
-        boolean b = countHeader.equals(countHeader2);
-        assertFalse(b);
+        assertFalse(countHeader.equals(countHeader2));
     }
 
 

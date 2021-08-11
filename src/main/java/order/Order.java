@@ -251,8 +251,10 @@ public class Order extends Base {
     }
 
     public Order clickOnCompanyStoreButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(companyStoreButton));
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(companyStoreButton));
+
+        driver.findElement(companyStoreButton).click();
         return this;
     }
 

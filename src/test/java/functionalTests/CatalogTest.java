@@ -36,7 +36,6 @@ public class CatalogTest extends TestBase {
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
         filters = new Filters(driver);
     }
@@ -147,7 +146,7 @@ public class CatalogTest extends TestBase {
 
 
     @Test
-    public void designersOfРirsing() {
+    public void designersOfPirsing() {
         driver.get(getUrl + "catalog/pirsing");
         pirsing = new Pirsing(driver);
         String countHeader = filters.getCountHeader();
@@ -186,7 +185,7 @@ public class CatalogTest extends TestBase {
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Кол-во намименование в базе и на странице, проверка по наименованию
+    //Кол-во наименование в базе и на странице, проверка по наименованию
     @Test
     public void namesOfBracelets() {
         driver.get(getUrl + "catalog/braslety");

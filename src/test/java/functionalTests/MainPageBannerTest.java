@@ -100,8 +100,7 @@ public class MainPageBannerTest extends TestBase {
     @Test
     public void shopTheLookIsVisible() {
         int banners = driver.findElements(countOfBanners).size();
-        boolean visible = banners > 0;
-        assertTrue(visible);
+        assertTrue(banners > 0);
     }
 
 

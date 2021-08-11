@@ -61,13 +61,14 @@ public class MainPageTest extends TestBase {
         //телефон
 //        driver.get("https://onlinesim.ru/");
 //        driver.get("https://ru.inethere.com/virtual-number/receive-free-sms/russia/");
-        driver.get("https://ru.temporary-phone-number.com/Russia-Phone-Number/");
+        driver.navigate().to("https://ru.temporary-phone-number.com/Russia-Phone-Number/");
         String s = mainPage.getPhoneFromSite();
         String phoneFromSite = s.replace(" ", "");
         System.out.println("phone: " + phoneFromSite);
 
+
         //почта
-        driver.get("https://www.crazymailing.com/ru/");
+        driver.navigate().to("https://www.crazymailing.com/ru/");
         String mailFromSite = mainPage.getMailFromSite();
         System.out.println("mail: " + mailFromSite);
 
@@ -90,12 +91,12 @@ public class MainPageTest extends TestBase {
 
         //телефон
 //        driver.get("https://onlinesim.ru/");
-        driver.get("https://ru.temporary-phone-number.com/Russia-Phone-Number/");
+        driver.navigate().to("https://ru.temporary-phone-number.com/Russia-Phone-Number/");
         String phoneFromSite = mainPage.getPhoneFromSite2();
         System.out.println("phone: " + phoneFromSite);
 
         //почта
-        driver.get("https://www.crazymailing.com/ru/");
+        driver.navigate().to("https://www.crazymailing.com/ru/");
 //        driver.get("https://temp-mail.org/ru/");
 
         String mailFromSite = mainPage.getMailFromSite();
