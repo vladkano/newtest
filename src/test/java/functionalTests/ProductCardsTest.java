@@ -55,7 +55,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     /*
-    Переход в раздел колец, в фильтре выбираем кольцо, далее переходим в карточку товара и переключаемся между размерами
+    Переход в раздел колец, в фильтре выбираем кольцо, далее переходим в карточку товара и переключаемся между размерами, далее
     смотрим чтобы менялся размер, кладем в корзину и проверяем что верный размер попал в корзину
     */
 
@@ -66,12 +66,7 @@ public class ProductCardsTest extends TestBase {
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToFirstSizeButton();
-        filters.clickToFilterButton();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        filters.clickToShowProductsButton();
         size.clickOnImageLink();
         String firstCurrentSize = size.getCurrentSize();
         size.clickToFirstCurrentSizeButton();
@@ -94,12 +89,7 @@ public class ProductCardsTest extends TestBase {
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToSecondSizeButton();
-        filters.clickToFilterButton();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        filters.clickToShowProductsButton();
         size.clickOnImageLink();
         String firstCurrentSize = size.getCurrentSize();
         size.clickToFirstCurrentSizeButton();
@@ -123,12 +113,7 @@ public class ProductCardsTest extends TestBase {
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToThirdSizeButton();
-        filters.clickToFilterButton();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        filters.clickToShowProductsButton();
         size.clickOnSecondImageLink();
         String firstCurrentSize = size.getCurrentSize();
         size.clickToFirstCurrentSizeButton();
@@ -256,7 +241,7 @@ public class ProductCardsTest extends TestBase {
     public void checkSetWindowSergi() {
         set = new Set(driver);
         earrings = new Earrings(driver);
-        String s = earrings.getItemsFromSet().get(1);
+        String s = earrings.getItemsFromSet().get(0);
         driver.get(getUrl + "catalog/sergi/" + s);
         set.getSetWindow();
         String setHeader = set.getSetHeader();
@@ -321,10 +306,10 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void checkBasketSergi() {
         earrings = new Earrings(driver);
-        String s = earrings.getItemsFromSet().get(1);
+        String s = earrings.getItemsFromSet().get(0);
         driver.get(getUrl + "catalog/sergi/" + s);
-        basket.clickToOkButton();
-        basket.clickToSetItemInBasketButton();
+        basket.clickToOkButton()
+                .clickToSetItemInBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
     }
@@ -358,7 +343,7 @@ public class ProductCardsTest extends TestBase {
         String s = rings.getItemsFromSet().get(0);
         driver.get(getUrl + "catalog/koltsa/" + s);
         basket.clickToOkButton();
-        basket.clickToSizeItemInBasketButton();
+        basket.clickToSetItemInBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
     }
@@ -716,7 +701,7 @@ public class ProductCardsTest extends TestBase {
         productCard = new ProductCard(driver);
         driver.get(getUrl + "catalog/sergi/");
         earrings.clickOnNameLink();
-        String codeFromBase = earrings.getCodes().get(1);
+        String codeFromBase = earrings.getCodes().get(0);
         String codeFromSite = productCard.getItemCode();
         assertEquals("Код: " + codeFromBase, codeFromSite);
     }
@@ -727,7 +712,7 @@ public class ProductCardsTest extends TestBase {
         productCard = new ProductCard(driver);
         driver.get(getUrl + "catalog/braslety/");
         bracelets.clickOnNameLink();
-        String codeFromBase = bracelets.getCodes().get(1);
+        String codeFromBase = bracelets.getCodes().get(0);
         String codeFromSite = productCard.getItemCode();
         assertEquals("Код: " + codeFromBase, codeFromSite);
     }
@@ -738,7 +723,7 @@ public class ProductCardsTest extends TestBase {
         productCard = new ProductCard(driver);
         driver.get(getUrl + "catalog/kole/");
         necklaces.clickOnNameLink();
-        String codeFromBase = necklaces.getCodes().get(1);
+        String codeFromBase = necklaces.getCodes().get(0);
         String codeFromSite = productCard.getItemCode();
         assertEquals("Код: " + codeFromBase, codeFromSite);
     }
@@ -749,7 +734,7 @@ public class ProductCardsTest extends TestBase {
         productCard = new ProductCard(driver);
         driver.get(getUrl + "catalog/koltsa/");
         rings.clickOnNameLink();
-        String codeFromBase = rings.getCodes().get(1);
+        String codeFromBase = rings.getCodes().get(0);
         String codeFromSite = productCard.getItemCode();
         assertEquals("Код: " + codeFromBase, codeFromSite);
     }

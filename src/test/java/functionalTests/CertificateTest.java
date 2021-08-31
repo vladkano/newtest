@@ -6,7 +6,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import order.Order;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,7 +19,6 @@ import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Disabled
 public class CertificateTest extends TestBase {
 
     @BeforeEach
@@ -355,13 +353,15 @@ public class CertificateTest extends TestBase {
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Казань", "ул Узорная, д 15", "2", "2", "2", "2",
                 "Test Comment123", "Тест 123");
+        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
+        System.out.println(price);
+        System.out.println(finalPrice);
         assertTrue(finalPrice > price);
         assertEquals("1", number);
         assertEquals("Мы приняли ваш заказ", header);

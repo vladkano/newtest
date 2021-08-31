@@ -18,9 +18,9 @@ public class Footer extends Base {
     By ofertaButton = By.xpath("//a[text()='Оферта']");
     By personalnyeDannyeButton = By.xpath("//a[text()='Персональные данные']");
     By instaButton = By.xpath("//a[@aria-label='instagram']");
-    By facebookButton = By.xpath("//a[@aria-label='facebook']");
+    By telegaButton = By.xpath("//a[@aria-label='telegram']");
+    By tikTokButton = By.xpath("//a[@aria-label='tik-tok']");
     By youtubeButton = By.xpath("//a[@aria-label='youtube']");
-    By confirmButton = By.xpath("//span[text()='Принимаю']");
     By whatsAppButton = By.xpath("//a[@aria-label='whatsApp']");
 
 
@@ -35,10 +35,10 @@ public class Footer extends Base {
     By garantiiHeader = By.xpath("//h1[text()='Гарантийный сервис']");
     By ofertaHeader = By.xpath("//h1[text()='Оферта']");
     By personalnyeDannyeHeader = By.xpath("//h1[@class='service-page__title']");
-    By instaHeader = By.xpath("//h2[text()='poisondropru']");
-    By facebookHeader = By.xpath("//span[text()='Poison Drop']");
+    By telegaHeader = By.xpath("//span[text()='I am Poisoned']");
+    By tikTokHeader = By.xpath("//h2[text()='poisondropru']");
     By youtubeHeader = By.xpath("//yt-formatted-string[text()='Poison Drop']");
-    By whatsAppHeader = By.xpath("//span[text()=' +7 495 255-15-33 ']");
+    By whatsAppHeader = By.xpath("//h1[text()='Poison Drop by ООО \"ПойзонДроп\"']");
 
     public Footer(WebDriver driver) {
         super(driver);
@@ -151,29 +151,30 @@ public class Footer extends Base {
         return this;
     }
 
-    public String getInstaHeader() {
-        return driver.findElement(instaHeader).getText();
-    }
-
-    public Footer clickToFacebookButton() {
+    public Footer clickToTelegaButton() {
         ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(facebookButton));
+                "arguments[0].click();", driver.findElement(telegaButton));
         return this;
     }
 
-    public String getFacebookHeader() {
-        return driver.findElement(facebookHeader).getText();
+    public Footer clickToTikTokButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(tikTokButton));
+        return this;
     }
 
     public Footer clickToYoutubeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(youtubeButton));
-//        driver.findElement(confirmButton).click();
         return this;
     }
 
     public String getYoutubeHeader() {
         return driver.findElement(youtubeHeader).getText();
+    }
+
+    public String getTelegaHeader() {
+        return driver.findElement(telegaHeader).getText();
     }
 
     public Footer clickToWhatsAppButton() {

@@ -16,10 +16,10 @@ public class Size extends Base {
 
 
     By sizeButton = By.xpath("//div[text()='Размер кольца']");
-    By firstSizeButton = By.xpath("//span[text()='14,5']");
-    By secondSizeButton = By.xpath("//span[text()='15,5']");
-    By thirdSizeButton = By.xpath("//span[text()='16']");
-    By universalSizeButton = By.xpath("//span[text()='Универсальный']");
+    By firstSizeButton = By.xpath("//div[text()='14,5']");
+    By secondSizeButton = By.xpath("//div[text()='15,5']");
+    By thirdSizeButton = By.xpath("//div[text()='16']");
+    By universalSizeButton = By.xpath("//div[text()='Универсальный']");
     By currentSize = By.xpath("//div[@data-name='razmer_kolca']/span[@class='product-modification__output']");
     By firstCurrentSizeButton = By.xpath("//ul/li[2]/label/span[@class='product-variant__variant product-variant__variant_size']");
     By secondCurrentSizeButton = By.xpath("//ul/li[3]/label/span[@class='product-variant__variant product-variant__variant_size']");
@@ -39,56 +39,48 @@ public class Size extends Base {
         return driver.findElement(sizeHeader).getAttribute("textContent");
     }
 
-    public Size clickToSecondCurrentSizeButton() {
+    public void clickToSecondCurrentSizeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(secondCurrentSizeButton));
-        return this;
     }
 
-    public Size clickOnImageLink() {
+    public void clickOnImageLink() {
         ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(imageLink));
-        return this;
+                "arguments[0].click();", driver.findElement(getImageLink()));
     }
 
-    public Size clickToFirstCurrentSizeButton() {
+    public void clickToFirstCurrentSizeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(firstCurrentSizeButton));
-        return this;
     }
 
     public String getCurrentSize() {
         return driver.findElement(currentSize).getAttribute("textContent");
     }
 
-    public Size clickToSizeButton() {
+    public void clickToSizeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(sizeButton));
-        return this;
     }
 
-    public Size clickToFirstSizeButton() {
+    public void clickToFirstSizeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(firstSizeButton));
-        return this;
     }
 
-    public Size clickToThirdSizeButton() {
+    public void clickToThirdSizeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(thirdSizeButton));
-        return this;
     }
 
-    public Size clickToSecondSizeButton() {
+    public void clickToSecondSizeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(secondSizeButton));
-        return this;
     }
 
-    public Size clickToUniversalSizeButton() {
+    public void clickToUniversalSizeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(universalSizeButton));
-        return this;
     }
 
     //SQL
@@ -96,7 +88,7 @@ public class Size extends Base {
     public String findItem35days() {
         String name = "";
         String query = "select item_sku.name from item_sku " +
-                "where id = " + findFirstItem() +"";
+                "where id = " + findFirstItem() + "";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -156,7 +148,7 @@ public class Size extends Base {
     public String findItem7days() {
         String name = "";
         String query = "select item_sku.name from item_sku " +
-                "where id = " + findSecondItem() +"";
+                "where id = " + findSecondItem() + "";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -213,21 +205,17 @@ public class Size extends Base {
     }
 
 
-
-
     public List<String> getListOfFirstSize() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
                 "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14,5' and item_sku.url is not null and balance > 0 " +
                 " group by item_catalog_position.position ";
@@ -242,15 +230,11 @@ public class Size extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 
-//        System.out.println(text.size());
-//        System.out.println(text);
         return text;
     }
 
     public List<String> getListOfSecondSize() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +
@@ -259,9 +243,9 @@ public class Size extends Base {
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
                 "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '15,5' and item_sku.url is not null and balance > 0 " +
                 " group by item_catalog_position.position ";
@@ -276,15 +260,11 @@ public class Size extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 
-//        System.out.println(text.size());
-//        System.out.println(text);
         return text;
     }
 
     public List<String> getListOfUniversalSize() {
-        DBWorker worker = new DBWorker();
         String name;
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +
@@ -293,9 +273,9 @@ public class Size extends Base {
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4))" +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
                 "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = 'Универсальный' and item_sku.url is not null and balance > 0 " +
                 " group by item_catalog_position.position";
@@ -310,17 +290,14 @@ public class Size extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
 
-//        System.out.println(text.size());
-//        System.out.println(text);
         return text;
     }
 
     public static void main(String[] args) {
-        String name = "";
+        String name;
         String query = "select item_sku.name from item_sku " +
-                "where id = " + findSecondItem() +"";
+                "where id = " + findSecondItem() + "";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -333,7 +310,5 @@ public class Size extends Base {
         }
         worker.getSession().disconnect();
 
-//        System.out.println(text.size());
-//        System.out.println(text);
     }
 }

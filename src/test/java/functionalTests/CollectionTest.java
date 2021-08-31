@@ -39,7 +39,7 @@ public class CollectionTest extends TestBase {
         collection = new Collection(driver);
     }
 
-    //Проверяем первый товар который входит в коллекцию: база sql и на сайте
+    //Проверяем первый товар, который входит в коллекцию: база sql и на сайте
     @Test
     public void countOfCollectionItems() {
         driver.get(getUrl + "catalog/");

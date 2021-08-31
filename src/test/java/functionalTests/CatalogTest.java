@@ -18,7 +18,6 @@ import sections.Man;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,6 +38,7 @@ public class CatalogTest extends TestBase {
         driver.manage().window().setSize(new Dimension(1920, 1080));
         filters = new Filters(driver);
     }
+
 
     //Кол-во наименований в базе и на странице, проверка по наименованию дизайнера
     @Test
@@ -89,7 +89,7 @@ public class CatalogTest extends TestBase {
         driver.get(getUrl + "catalog/kole");
         necklaces = new Necklaces(driver);
         String countHeader = filters.getCountHeader();
-        int numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+        int numberOnly = Integer.parseInt(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<String> sqlList = necklaces.getDesigners();
         int sqlSize = sqlList.size();
@@ -162,7 +162,7 @@ public class CatalogTest extends TestBase {
         }
         //сравниваем размеры и содержание списков
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size()));
     }
 
     @Test
@@ -244,7 +244,7 @@ public class CatalogTest extends TestBase {
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s.substring(0, 9));
+            siteList.add(s.substring(0, 6));
         }
         //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
@@ -368,12 +368,13 @@ public class CatalogTest extends TestBase {
         pirsing = new Pirsing(driver);
         driver.get(getUrl + "catalog/pirsing");
         List<WebElement> elements = driver.findElements(numberOfPictures);
+        List<Integer> sqlList = pirsing.getPrice();
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
             siteSize = siteList.size();
         }
-        assertEquals(numberOfFoto, siteSize);
+        assertEquals(sqlList.size(), siteSize);
     }
 
     @Test
@@ -414,11 +415,8 @@ public class CatalogTest extends TestBase {
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "catalog/sergi");
         earrings = new Earrings(driver);
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //sql:
         List<Integer> sqlList = earrings.getPrice();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
@@ -509,7 +507,7 @@ public class CatalogTest extends TestBase {
             priceList.add(price);
         }
         //сравниваем содержание списков
-        assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
+        assertEquals(sqlList.subList(0, sqlList.size()), priceList.subList(0, priceList.size()));
     }
 
     @Test

@@ -14,39 +14,32 @@ import java.util.List;
 public class DesignersFilter extends Base {
 
     By designersButton = By.xpath("//div[text()='Дизайнеры']");
-    By sinitsynButton = By.xpath("//span[text()='Aleksandr Sinitsyn']");
-    By jewlryButton = By.xpath("//span[text()='Prosto Jewlry']");
-    By avgvstButton = By.xpath("//span[text()='Avgvst']");
+    By sinitsynButton = By.xpath("//div[text()='Aleksandr Sinitsyn']");
+    By jewlryButton = By.xpath("//div[text()='Prosto Jewlry']");
+    By avgvstButton = By.xpath("//div[text()='Avgvst']");
 
     public DesignersFilter(WebDriver driver) {
         super(driver);
     }
 
 
-    public DesignersFilter clickToDesignersButton() {
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript("arguments[0].click()", driver.findElement(designersButton));
-        driver.findElement(designersButton).click();
-        return this;
+    public void clickToDesignersButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(designersButton));
     }
 
-    public DesignersFilter clickToSinitsynButton() {
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript("arguments[0].click()", driver.findElement(sinitsynButton));
+    public void clickToSinitsynButton() {
         driver.findElement(sinitsynButton).click();
-        return this;
     }
 
-    public DesignersFilter clickToJewlryButton() {
+    public void clickToJewlryButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(jewlryButton));
-        return this;
     }
 
-    public DesignersFilter clickToAvgvstButton() {
+    public void clickToAvgvstButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(avgvstButton));
-        return this;
     }
 
     //SQL
@@ -56,11 +49,10 @@ public class DesignersFilter extends Base {
         String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
                 "and item_sku.url is not null and balance > 0 and designer.name = 'Aleksandr Sinitsyn' " +
                 "group by item_catalog_position.position";
@@ -74,9 +66,6 @@ public class DesignersFilter extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-//        System.out.println(text.size());
-//        System.out.println(text);
         return text;
     }
 
@@ -86,11 +75,10 @@ public class DesignersFilter extends Base {
         String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
                 "and item_sku.url is not null and balance > 0 and designer.name = 'Prosto Jewlry' " +
                 "group by item_catalog_position.position";
@@ -104,9 +92,6 @@ public class DesignersFilter extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-//        System.out.println(text.size());
-//        System.out.println(text);
         return text;
     }
 
@@ -116,11 +101,10 @@ public class DesignersFilter extends Base {
         String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
                 "and item_sku.url is not null and balance > 0 and designer.name = 'Avgvst' " +
                 "group by item_catalog_position.position";
@@ -134,9 +118,6 @@ public class DesignersFilter extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-//        System.out.println(text.size());
-//        System.out.println(text);
         return text;
     }
 
@@ -146,7 +127,6 @@ public class DesignersFilter extends Base {
         List<String> text = new ArrayList<>();
         String query = "SELECT item_sku.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +

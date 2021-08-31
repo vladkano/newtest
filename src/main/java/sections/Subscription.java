@@ -32,8 +32,8 @@ public class Subscription extends Base {
     }
 
 
-    public Subscription clickOnSubscriptionButton(){
-         driver.findElement(subscriptionButton).click();
+    public Subscription clickOnSubscriptionButton() {
+        driver.findElement(subscriptionButton).click();
         return this;
     }
 
@@ -57,7 +57,6 @@ public class Subscription extends Base {
         }
         return this;
     }
-
 
 
 }

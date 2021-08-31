@@ -57,7 +57,6 @@ public class PersonalData extends Base {
     By orderFinalPrice = By.xpath("//p[@class='order-card__total-sum']");
 
 
-
     public PersonalData(WebDriver driver) {
         super(driver);
     }
@@ -123,6 +122,8 @@ public class PersonalData extends Base {
     }
 
     public String getEmptyBirthdayHeader() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(emptyBirthdayHeader));
         return driver.findElement(emptyBirthdayHeader).getText();
     }
 
@@ -209,8 +210,9 @@ public class PersonalData extends Base {
     }
 
     public PersonalData clickOnGoOutButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(goOutButton));
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(goOutButton));
+        driver.findElement(goOutButton).click();
         return this;
     }
 

@@ -41,7 +41,6 @@ public class ProductCard extends Base {
     By priceFromRecentlyViewedProducts = By.xpath("(//b[@class='price-block__price'])[2]");
 
 
-
     public ProductCard(WebDriver driver) {
         super(driver);
     }

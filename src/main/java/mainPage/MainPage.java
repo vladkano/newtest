@@ -13,9 +13,6 @@ import java.sql.Statement;
 
 public class MainPage extends Base {
 
-    int a = 0; // Начальное значение диапазона - "от"
-    int b = 99; // Конечное значение диапазона - "до"
-
     By sigInButton = By.xpath("//span[@class='icon-with-title header__icon-button']");
     By lcButton = By.xpath("//a[@href='/profile?section=personalData']");
     By login = By.id("authLogin");
@@ -49,9 +46,8 @@ public class MainPage extends Base {
 
 
     //    ---Методы и хедеры--------
-    public MainPage clickOnConsentButton() {
+    public void clickOnConsentButton() {
         driver.findElement(consentButton).click();
-        return this;
     }
 
     public String getPhoneFromSite() {
@@ -62,82 +58,57 @@ public class MainPage extends Base {
         return driver.findElement(phoneFromSite2).getAttribute("textContent");
     }
 
-//    public String getPhoneFromSite3() {
-//        int random_number = a + (int) (Math.random() * b);
-//        return driver.findElement(By.xpath("//tr[" + random_number + "]/td[@class='text-left']/a/b")).getAttribute("textContent");
-//    }
-
-//    public String getPhoneFromSite3() {
-//        return driver.findElement(phoneFromSite).getAttribute("textContent");
-//    }
-
     public String getMailFromSite() {
         return driver.findElement(mailFromSite).getAttribute("textContent");
     }
 
-//    public String getMailFromSite() {
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.elementToBeClickable(copyButton));
-//        return driver.findElement(mailFromSite).getAttribute("value");
-//    }
-
-    public MainPage clickOnExitButton() {
+    public void clickOnExitButton() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(exitButton));
-         driver.findElement(exitButton).click();
-        return this;
+        driver.findElement(exitButton).click();
     }
 
-    public MainPage clickOnSigInButton() {
+    public void clickOnSigInButton() {
         driver.findElement(sigInButton).click();
-        return this;
     }
 
-    public MainPage clickOnLcInButton() {
+    public void clickOnLcInButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(lcButton));
-        return this;
     }
 
-    public MainPage typeLogin(String phone) {
+    public void typeLogin(String phone) {
         driver.findElement(login).sendKeys(phone);
-        return this;
     }
 
-    public MainPage typeEmail(String email) {
+    public void typeEmail(String email) {
         driver.findElement(authEmail).sendKeys(email);
-        return this;
     }
 
-    public MainPage typePhone(String phone) {
+    public void typePhone(String phone) {
         driver.findElement(authPhone).sendKeys(phone);
-        return this;
     }
 
-    public MainPage typeName(String name) {
+    public void typeName(String name) {
         driver.findElement(authName).sendKeys(name);
-        return this;
     }
 
-    public MainPage clickOnRegisterButton() {
+    public void clickOnRegisterButton() {
         driver.findElement(registerButton).click();
-        return this;
     }
 
-    public MainPage typePassword(String password) {
+    public void typePassword(String password) {
         driver.findElement(authPassword).sendKeys(password);
-        return this;
     }
 
-    public MainPage typeEmailPassword(String password) {
+    public void typeEmailPassword(String password) {
         driver.findElement(authEmailPassword).sendKeys(password);
-        return this;
     }
 
-    public MainPage clickOnGetPasswordButton() {
+    public void clickOnGetPasswordButton() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(getPassword));
         driver.findElement(getPassword).click();
-
-        return this;
     }
 
     public MainPage sigInWithPhoneOrEmail(String phoneOrEmail) {
@@ -148,9 +119,9 @@ public class MainPage extends Base {
     }
 
 
-    public MainPage sigInWithPassword(String password) {
+    public void sigInWithPassword(String password) {
         this.typePassword(password);
-        return new MainPage(driver);
+        new MainPage(driver);
     }
 
     public MainPage registerWithPhoneNumber(String password, String email, String name) {
@@ -223,7 +194,7 @@ public class MainPage extends Base {
     }
 
 
-//    ------------SQL---------------------
+    //    ------------SQL---------------------
     public void deletePhone() {
         String query = "delete from user where login=+79501978905";
         try {
@@ -232,11 +203,6 @@ public class MainPage extends Base {
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getInt("id"));
-//                user.setUser_id(resultSet.getInt("user_id"));
-//                user.setPhone(resultSet.getString("phone"));
-//                user.setIs_verified(resultSet.getInt("is_verified"));
-//                user.setCreated_at(resultSet.getDate("created_at"));
-//                user.setUpdated_at(resultSet.getDate("updated_at"));
                 System.out.println(user);
             }
         } catch (SQLException e) {
@@ -253,11 +219,6 @@ public class MainPage extends Base {
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getInt("id"));
-//                user.setUser_id(resultSet.getInt("user_id"));
-//                user.setPhone(resultSet.getString("phone"));
-//                user.setIs_verified(resultSet.getInt("is_verified"));
-//                user.setCreated_at(resultSet.getDate("created_at"));
-//                user.setUpdated_at(resultSet.getDate("updated_at"));
                 System.out.println(user);
             }
         } catch (SQLException e) {
@@ -331,17 +292,7 @@ public class MainPage extends Base {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-//                int id = resultSet.getInt("id");
-//                String phone = resultSet.getString("phone");
                 String code = resultSet.getString("code");
-//                mainPage.User user = new mainPage.User();
-//                user.setId(resultSet.getInt("id"));
-//                user.setUser_id(resultSet.getInt("user_id"));
-//                user.setPhone(resultSet.getString("phone"));
-//                user.setIs_verified(resultSet.getInt("is_verified"));
-//                user.setCreated_at(resultSet.getDate("created_at"));
-//                user.setUpdated_at(resultSet.getDate("updated_at"));
-//                System.out.println(id);
                 System.out.println(code);
             }
         } catch (SQLException e) {

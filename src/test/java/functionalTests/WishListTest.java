@@ -34,7 +34,7 @@ public class WishListTest extends TestBase {
     }
 
 
-    //Проверка что товар добавился в избранное из карточки товара + урл и заголовок корректны
+    //Проверка, что товар добавился в избранное из карточки товара + урл и заголовок корректны
     @Test()
     public void wishListCheckButton() {
         driver.get(getUrl + "catalog/");
@@ -136,7 +136,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0,20));
+        assertEquals(itemName, itemNameFromWishlist);
     }
 
     //Распродажа

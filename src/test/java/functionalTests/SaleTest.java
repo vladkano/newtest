@@ -59,7 +59,7 @@ public class SaleTest extends TestBase {
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Кол-во наименований в базе и на странице, проверка по наименованию дезайнера
+    //Кол-во наименований в базе и на странице, проверка по наименованию дизайнера
     @Test
     public void designersOfSale() {
         String countHeader = filters.getCountHeader();
@@ -73,8 +73,7 @@ public class SaleTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
@@ -95,8 +94,7 @@ public class SaleTest extends TestBase {
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
@@ -117,8 +115,7 @@ public class SaleTest extends TestBase {
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
+        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
