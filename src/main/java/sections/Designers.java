@@ -67,40 +67,40 @@ public class Designers {
     }
 
     public String getDesignerPhotoAlt() {
-       return driver.findElement(designerPhoto).getAttribute("alt");
+        return driver.findElement(designerPhoto).getAttribute("alt");
     }
 
     public String getFirstDesignerHref() {
-        List<WebElement> designersList =  driver.findElements(designer);
+        List<WebElement> designersList = driver.findElements(designer);
         return designersList.get(0).getAttribute("href");
     }
 
     public String get10DesignerHref() {
-        List<WebElement> designersList =  driver.findElements(designer);
+        List<WebElement> designersList = driver.findElements(designer);
         return designersList.get(9).getAttribute("href");
     }
 
     public String get20dDesignerHref() {
-        List<WebElement> designersList =  driver.findElements(designer);
+        List<WebElement> designersList = driver.findElements(designer);
         return designersList.get(19).getAttribute("href");
     }
 
     public Designers clickToFirstDesignerLink() {
-        List<WebElement> designersList =  driver.findElements(designer);
+        List<WebElement> designersList = driver.findElements(designer);
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", designersList.get(0));
         return this;
     }
 
     public Designers clickTo10DesignerLink() {
-        List<WebElement> designersList =  driver.findElements(designer);
+        List<WebElement> designersList = driver.findElements(designer);
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", designersList.get(9));
         return this;
     }
 
     public Designers clickTo20DesignerLink() {
-        List<WebElement> designersList =  driver.findElements(designer);
+        List<WebElement> designersList = driver.findElements(designer);
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", designersList.get(19));
         return this;
@@ -155,14 +155,14 @@ public class Designers {
     }
 
     public Designers clickToSecondPopularHref() {
-        driver.get(url + getPopularUrls().get(getPopularUrls().size()-1) + "/");
+        driver.get(url + getPopularUrls().get(getPopularUrls().size() - 1) + "/");
         return this;
     }
 
     public String getDesignerDescription(String text) {
         String description = null;
         String query = "select description from designer " +
-                "where `show` = 1 and name = " + "'" + text + "'" ;
+                "where `show` = 1 and name = " + "'" + text + "'";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -184,12 +184,12 @@ public class Designers {
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getUrls().get(0) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -211,14 +211,13 @@ public class Designers {
         String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getUrls().get(1) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -241,9 +240,9 @@ public class Designers {
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getUrls().get(2) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url " +
@@ -269,14 +268,13 @@ public class Designers {
         String query = "select designer.name from designer " +
                 "JOIN item ON item.designer_id = designer.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 " +
                 "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
-                "group by designer.name" ;
+                "group by designer.name";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -332,21 +330,19 @@ public class Designers {
     }
 
 
-
     public static List<String> getDesignersUrls() {
         String url;
         List<String> text = new ArrayList<>();
         String query = "select designer.url from designer " +
                 "JOIN item ON item.designer_id = designer.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 " +
                 "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
-                "group by designer.name" ;
+                "group by designer.name";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -369,9 +365,9 @@ public class Designers {
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(0) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url " +
@@ -399,9 +395,9 @@ public class Designers {
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(9) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url " +
@@ -429,9 +425,9 @@ public class Designers {
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getDesignersUrls().get(19) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url " +
@@ -459,12 +455,12 @@ public class Designers {
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getPopularUrls().get(0) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -486,14 +482,13 @@ public class Designers {
         String query = "SELECT item_sku.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getPopularUrls().get(getPopularUrls().size()-1) + "'" +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'designer' and subsection = " + "'" + getPopularUrls().get(getPopularUrls().size() - 1) + "'" +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position" ;
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -512,7 +507,7 @@ public class Designers {
     public static void main(String[] args) {
         String description = "";
         String query = "select description from designer " +
-                "where `show` = 1 and name = " + "'" + getPopularUrls().get(getPopularUrls().size()-1) + "'" ;
+                "where `show` = 1 and name = " + "'" + getPopularUrls().get(getPopularUrls().size() - 1) + "'";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);

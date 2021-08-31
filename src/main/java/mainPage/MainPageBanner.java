@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +25,7 @@ public class MainPageBanner extends Base {
     By designerButtonHeader = By.xpath("//*[@id='tns1-item4']//div[@class='catalog-card__designer']/a");
     By nameButtonHeader = By.xpath("//*[@id='tns1-item1']//h3[@class='catalog-card__name']/a");
     By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
-    By mainCatalogHeader = By.xpath("//span[text()='Фильтры']");
+    By mainCatalogHeader = By.xpath("//span[text()='Фильтр']");
     By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
 
     public MainPageBanner(WebDriver driver) {
@@ -31,16 +33,14 @@ public class MainPageBanner extends Base {
     }
 
     //находит элемент на странице перекрытый другими элементами и кликает на него
-    public MainPageBanner clickToCarouselButton() {
+    public void clickToCarouselButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(carouselButton));
-        return this;
     }
 
-    public MainPageBanner clickToDesignerButton() {
+    public void clickToDesignerButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(designerButton));
-        return this;
     }
 
     public String getDesignerName() {
@@ -59,9 +59,8 @@ public class MainPageBanner extends Base {
         return driver.findElement(mainCatalogHref).getAttribute("href");
     }
 
-    public MainPageBanner clickToMainCatalogHref() {
+    public void clickToMainCatalogHref() {
         driver.findElement(mainCatalogHref).click();
-        return this;
     }
 
     public String getMainCatalogHeader() {
@@ -75,12 +74,11 @@ public class MainPageBanner extends Base {
         return first.getAttribute("href");
     }
 
-    public MainPageBanner clickToCatalogHref() {
+    public void clickToCatalogHref() {
         List<WebElement> banners = driver.findElements(countOfBanners);
         WebElement first = banners.get(0);
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", first);
-        return this;
 
     }
 
@@ -90,43 +88,20 @@ public class MainPageBanner extends Base {
         return six.getAttribute("href");
     }
 
-    public MainPageBanner clickToSixCatalogHref() {
+    public void clickToSixCatalogHref() {
         List<WebElement> banners = driver.findElements(countOfBanners);
         WebElement six = banners.get(5);
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", six);
-        return this;
     }
 
-    public MainPageBanner clickToBestsellerNameButton() {
-//        driver.findElement(bestsellerNameButton).click();
+    public void clickToBestsellerNameButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(bestsellerNameButton));
-        return this;
     }
 
     public String getBestsellerNameHeader() {
         return driver.findElement(bestsellerNameHeader).getAttribute("textContent");
-    }
-
-
-    //SQL
-    public Integer listOfBanners() {
-        Integer count = 0;
-        String query = "SELECT count(url) as countURL from main_page_blocks " +
-                "where `show` = 1 " +
-                "LIMIT 12";
-        try {
-            Statement statement = worker.getCon().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                count = resultSet.getInt("countURL");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-//        System.out.println(count);
-        return count;
     }
 
 
@@ -179,7 +154,7 @@ public class MainPageBanner extends Base {
 
 
     public List<Integer> listPriceOfBests() {
-        Integer price;
+        int price;
         List<Integer> list = new ArrayList<>();
 
         String query = "SELECT price from item_sku " +

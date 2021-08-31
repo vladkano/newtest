@@ -4,21 +4,14 @@ import baseForTests.TestBase;
 import basket.Basket;
 import filters.Filters;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.qameta.allure.Attachment;
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
-
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,14 +22,10 @@ public class BasketTest extends TestBase {
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
         driver.navigate().to(getUrl + "catalog");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
@@ -46,10 +35,10 @@ public class BasketTest extends TestBase {
     }
 
 
-    @Attachment()
-    public byte[] attachScreenshotToAllure(TakesScreenshot takesScreenshot) {
-        return takesScreenshot.getScreenshotAs(OutputType.BYTES);
-    }
+//    @Attachment()
+//    public byte[] attachScreenshotToAllure(TakesScreenshot takesScreenshot) {
+//        return takesScreenshot.getScreenshotAs(OutputType.BYTES);
+//    }
 
 //    @Test
 //    public void getScreenShot() throws Exception {
@@ -58,17 +47,17 @@ public class BasketTest extends TestBase {
 //    }
 
 
-    public void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception {
-        //Convert web driver object to TakeScreenshot
-        TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
-        //Call getScreenshotAs method to create image file
-        File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
-        //Move image file to new destination
-        File DestFile = new File(fileWithPath);
-        //Copy file at destination
-        FileUtils.copyFile(SrcFile, DestFile);
-
-    }
+//    public void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception {
+//        //Convert web driver object to TakeScreenshot
+//        TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
+//        //Call getScreenshotAs method to create image file
+//        File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+//        //Move image file to new destination
+//        File DestFile = new File(fileWithPath);
+//        //Copy file at destination
+//        FileUtils.copyFile(SrcFile, DestFile);
+//
+//    }
 
 
     //Проверяем работают ли кнопки корзины на разных типах товаров
@@ -79,11 +68,11 @@ public class BasketTest extends TestBase {
         basket.clickToItemInBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
-        try {
-            this.takeSnapShot(driver, "build\\reports\\tests\\" + Thread.currentThread().getStackTrace()[1].getMethodName() + ".jpg");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            this.takeSnapShot(driver, "build\\reports\\tests\\" + Thread.currentThread().getStackTrace()[1].getMethodName() + ".jpg");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Test
@@ -109,7 +98,9 @@ public class BasketTest extends TestBase {
     @Test
     public void inBasketButtonWithSize() {
         filters = new Filters(driver);
-        filters.clickToRingsButton();
+        filters.clickToFilterButton();
+        filters.clickToAllRingsButton();
+        filters.clickToShowProductsButton();
         basket.clickToRingButton();
         basket.clickToItemInBasketButton();
         String number = basket.getBasketNumber();
@@ -119,7 +110,9 @@ public class BasketTest extends TestBase {
     @Test
     public void plusButtonWithSize() {
         filters = new Filters(driver);
-        filters.clickToRingsButton();
+        filters.clickToFilterButton();
+        filters.clickToAllRingsButton();
+        filters.clickToShowProductsButton();
         basket.clickToRingButton();
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
@@ -130,7 +123,9 @@ public class BasketTest extends TestBase {
     @Test
     public void minusButtonWithSize() {
         filters = new Filters(driver);
-        filters.clickToRingsButton();
+        filters.clickToFilterButton();
+        filters.clickToAllRingsButton();
+        filters.clickToShowProductsButton();
         basket.clickToRingButton();
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
@@ -169,7 +164,7 @@ public class BasketTest extends TestBase {
     }
 
 
-    //Товар из коллекции c размером
+    //Товар из коллекции с размером
     @Test
     public void inBasketButtonWithCollectionAndSize() {
         driver.navigate().to(basket.getFirstLinkOfCollection());

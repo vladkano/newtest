@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import sections.Certificate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +42,6 @@ public class Order extends Base {
     By authPassword = By.xpath("//div[@class='verify-form__row']/input[@name='code']");
     By confirmButton = By.xpath("//span[text()='Подтвердить']");
     By whatsAppButton = By.xpath("//span[text()='Сообщение в WhatsApp']");
-    By phoneButton = By.xpath("//span[text()='Звонок по телефону']");
     By smsButton = By.xpath("//span[text()='СМС о статусе заказа']");
     By companyStoreButton = By.xpath("//span[text()='Забрать в фирменном магазине']");
     By metropolisStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Метрополис»']");
@@ -63,8 +61,8 @@ public class Order extends Base {
     By kazakhstanButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9405-029\"); return false;']");
     By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
     By paperButton = By.xpath("//span[text()='Бумажный']");
-    By firstPrice = By.xpath("//b[@class='price-block__price']");
-    By finalPrice = By.xpath("(//span[@class='order-summary__value'])[3]");
+    By firstPrice = By.xpath("//b[@class='cart-price__total']");
+    By finalPrice = By.xpath("//div[@class='order-summary__row order-summary__row_total']/span[2]");
     By frame = By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']");
     By firstSectionOrderButton = By.xpath("//div[@class='certificate-value-form__wrap']//span[text()='Заказать']");
     By ordinaryDeliveryButton = By.xpath("//label[@for='ordinaryDelivery']/span[@class='order-delivery__courier-type-variant']");
@@ -79,9 +77,8 @@ public class Order extends Base {
     }
 
 
-    public Order clickOnOrdinaryDeliveryButton() {
+    public void clickOnOrdinaryDeliveryButton() {
         driver.findElement(ordinaryDeliveryButton).click();
-        return this;
     }
 
     public static void main(String[] args) {
@@ -110,26 +107,22 @@ public class Order extends Base {
         return this;
     }
 
-    public Order clickOnLocationButton() {
+    public void clickOnLocationButton() {
         driver.findElement(locationButton).click();
-        return this;
     }
 
-    public Order typeLocationSearch(String searchCity) {
+    public void typeLocationSearch(String searchCity) {
         driver.findElement(locationSearch).sendKeys(searchCity);
-        return this;
     }
 
-    public Order clickOnChangeCityButton() {
+    public void clickOnChangeCityButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(changeCityButton));
 //        driver.findElement(changeCityButton).click();
-        return this;
     }
 
-    public Order clickOnOtherCityButton() {
+    public void clickOnOtherCityButton() {
         driver.findElement(otherCityButton).click();
-        return this;
     }
 
     public String getFirstPrice() {
@@ -150,86 +143,71 @@ public class Order extends Base {
         return driver.findElement(orderHeader).getAttribute("textContent");
     }
 
-    public Order typePhone(String phone) {
+    public void typePhone(String phone) {
         driver.findElement(orderPhone).sendKeys(phone);
-        return this;
     }
 
-    public Order typeEmail(String email) {
+    public void typeEmail(String email) {
         driver.findElement(orderEmail).sendKeys(email);
-        return this;
     }
 
-    public Order typeFio(String fio) {
+    public void typeFio(String fio) {
         driver.findElement(orderFio).sendKeys(fio);
-        return this;
     }
 
-    public Order typeOrderAddress(String address) {
+    public void typeOrderAddress(String address) {
         driver.findElement(orderAddress).sendKeys(address);
-        return this;
     }
 
-    public Order typeApartment(String apartment) {
+    public void typeApartment(String apartment) {
         driver.findElement(orderApartment).sendKeys(apartment);
-        return this;
     }
 
-    public Order typeFrontDoor(String frontDoor) {
+    public void typeFrontDoor(String frontDoor) {
         driver.findElement(orderFrontDoor).sendKeys(frontDoor);
-        return this;
     }
 
-    public Order typeFloor(String floor) {
+    public void typeFloor(String floor) {
         driver.findElement(orderFloor).sendKeys(floor);
-        return this;
     }
 
-    public Order typeHouseCode(String houseCode) {
+    public void typeHouseCode(String houseCode) {
         driver.findElement(orderHouseCode).sendKeys(houseCode);
-        return this;
     }
 
-    public Order typeCommentForCourier(String commentForCourier) {
+    public void typeCommentForCourier(String commentForCourier) {
         driver.findElement(orderCommentForCourier).sendKeys(commentForCourier);
-        return this;
     }
 
-    public Order typeComment(String comment) {
+    public void typeComment(String comment) {
         driver.findElement(orderComment).sendKeys(comment);
-        return this;
     }
 
-    public Order clickOnPayButton() {
+    public void clickOnPayButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(payButton));
-        return this;
     }
 
-    public Order clickOnOrderButton() {
+    public void clickOnOrderButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(orderButton));
-        return this;
     }
 
-    public Order clickOnAddAdresButton() {
+    public void clickOnAddAdresButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(addAddressButton));
-        return this;
     }
 
-    public Order clickOnAddCommentButton() {
+    public void clickOnAddCommentButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", driver.findElement(addCommentButton));
-        return this;
     }
 
-    public Order typePassword(String password) {
+    public void typePassword(String password) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(authPassword));
         driver.findElement(authPassword).sendKeys(password);
         driver.findElement(authPassword).sendKeys(String.valueOf(password));
-        return this;
     }
 
     public Order clickOnConfirmButton() {
@@ -251,10 +229,10 @@ public class Order extends Base {
     }
 
     public Order clickOnCompanyStoreButton() {
-//        ((JavascriptExecutor) driver).executeScript(
-//                "arguments[0].click();", driver.findElement(companyStoreButton));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(companyStoreButton));
 
-        driver.findElement(companyStoreButton).click();
+//        driver.findElement(companyStoreButton).click();
         return this;
     }
 
@@ -264,17 +242,15 @@ public class Order extends Base {
         return this;
     }
 
-    public Order clickOnSelectPostomatButton() {
+    public void clickOnSelectPostomatButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(selectPostomatButton));
 //        driver.findElement(selectPostomatButton).click();
-        return this;
     }
 
-    public Order clickOnSearchboxButton() {
+    public void clickOnSearchboxButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(searchboxButton));
-        return this;
     }
 
     public Order clickOnMetropolisStoreButton() {
@@ -302,25 +278,21 @@ public class Order extends Base {
         return this;
     }
 
-    public Order clickOnInternationalButton() {
+    public void clickOnInternationalButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(internationalButton));
-        return this;
     }
 
-    public Order typeCountry(String country) {
+    public void typeCountry(String country) {
         driver.findElement(orderCountry).sendKeys(country);
-        return this;
     }
 
-    public Order typeInternationalCity(String internationalCity) {
+    public void typeInternationalCity(String internationalCity) {
         driver.findElement(orderInternationalCity).sendKeys(internationalCity);
-        return this;
     }
 
-    public Order typeInternationalAddress(String internationalAddress) {
+    public void typeInternationalAddress(String internationalAddress) {
         driver.findElement(orderInternationalAddress).sendKeys(internationalAddress);
-        return this;
     }
 
     public Order clickOnNoPayButton() {
@@ -329,61 +301,53 @@ public class Order extends Base {
         return this;
     }
 
-    public Order confirmWithPassword(String password) {
+    public void confirmWithPassword(String password) {
         this.typePassword(password);
 //        this.clickOnConfirmButton();
-        return new Order(driver);
+        new Order(driver);
     }
 
-    public Order typeSearchBox(String search) {
+    public void typeSearchBox(String search) {
         driver.findElement(searchBox).sendKeys(search);
-        return this;
     }
 
-    public Order typeCountrySearchBox(String searchCountry) {
+    public void typeCountrySearchBox(String searchCountry) {
         driver.findElement(countrySearchBox).sendKeys(searchCountry);
-        return this;
     }
 
-    public Order typeCitySearchBox(String searchCity) {
+    public void typeCitySearchBox(String searchCity) {
         driver.findElement(citySearchBox).sendKeys(searchCity);
-        return this;
     }
 
-    public Order clickOnRodonitButton() {
+    public void clickOnRodonitButton() {
         driver.findElement(rodonitButton).click();
-        return this;
     }
 
-    public Order clickOnBelarusButton() {
+    public void clickOnBelarusButton() {
         driver.findElement(belarusButton).click();
-        return this;
     }
 
-    public Order clickOnKazakhstanButton() {
+    public void clickOnKazakhstanButton() {
         driver.findElement(kazakhstanButton).click();
-        return this;
     }
 
-    public Order clickOnSelectButton() {
+    public void clickOnSelectButton() {
         driver.findElement(selectButton).click();
-        return this;
     }
 
-    public Order clickOnPaperButton() {
+    public void clickOnPaperButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(paperButton));
-        return this;
     }
 
     //Курьер
-    public Order orderWithAllStrings(String phone, String email, String fio, String city, String address, String apartment,
-                                     String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public void orderWithAllStrings(String phone, String email, String fio, String city, String address, String apartment,
+                                    String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(1000);
@@ -401,7 +365,7 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
+        new Order(driver);
     }
 
     public Order orderWithLoginAndAllStrings(String address, String apartment,
@@ -419,13 +383,13 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-    public Order orderWithWhatsApp(String phone, String email, String fio, String city, String address, String apartment,
-                                   String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public void orderWithWhatsApp(String phone, String email, String fio, String city, String address, String apartment,
+                                  String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(1000);
@@ -443,7 +407,7 @@ public class Order extends Base {
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
 
-        return new Order(driver);
+        new Order(driver);
     }
 
     public Order orderWithLoginAndWA(String address, String apartment,
@@ -467,7 +431,7 @@ public class Order extends Base {
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(1000);
@@ -876,7 +840,7 @@ public class Order extends Base {
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(2000);
@@ -1047,7 +1011,7 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(2000);
@@ -1073,7 +1037,7 @@ public class Order extends Base {
                                               String commentForCourier, String comment) {
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(2000);
@@ -1101,7 +1065,7 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(2000);
@@ -1242,7 +1206,7 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(2000);
@@ -1261,7 +1225,7 @@ public class Order extends Base {
     public Order certificateWithLoginInternationalAndWA(String city, String internationalCity, String comment) {
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(2000);
@@ -1285,7 +1249,7 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-        this.clickOnOtherCityButton();
+//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(1000);

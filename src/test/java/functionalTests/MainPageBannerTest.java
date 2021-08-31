@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -36,7 +37,7 @@ public class MainPageBannerTest extends TestBase {
 //        driver = new EdgeDriver(options);
         driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         banner = new MainPageBanner(driver);
     }
 
@@ -114,7 +115,7 @@ public class MainPageBannerTest extends TestBase {
         String header = banner.getMainCatalogHeader();
         String url = driver.getCurrentUrl();
         assertEquals(href, url);
-        assertEquals("Фильтры", header);
+        assertEquals("Фильтр", header);
     }
 
     @Test
@@ -124,7 +125,7 @@ public class MainPageBannerTest extends TestBase {
         String url = driver.getCurrentUrl();
         String header = banner.getMainCatalogHeader();
         assertEquals(href, url);
-        assertEquals("Фильтры", header);
+        assertEquals("Фильтр", header);
     }
 
     @Test
@@ -134,7 +135,7 @@ public class MainPageBannerTest extends TestBase {
         String url = driver.getCurrentUrl();
         String header = banner.getMainCatalogHeader();
         assertEquals(href, url);
-        assertEquals("Фильтры", header);
+        assertEquals("Фильтр", header);
     }
 
     @Test

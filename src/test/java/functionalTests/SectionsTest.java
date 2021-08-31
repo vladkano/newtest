@@ -40,7 +40,7 @@ public class SectionsTest extends TestBase {
         driver.manage().window().setSize(new Dimension(1920, 1080));
     }
 
-    //Проверка что кнопки разделов на главной странице работают правильно
+    //Проверка, что кнопки разделов на главной странице работают правильно
     @Test()
     public void newItemsButton() {
         newItems = new NewItems(driver);
@@ -228,25 +228,31 @@ public class SectionsTest extends TestBase {
         assertEquals("Положение об обработке и защите персональных данных", header);
     }
 
-    //не работает в безголовом режиме
     @Test()
     public void instaButton() {
         footer = new Footer(driver);
         footer.clickToInstaButton();
         String url = driver.getCurrentUrl();
-        String header = footer.getInstaHeader();
-        assertEquals("https://www.instagram.com/poisondropru/", url);
-        assertEquals("poisondropru", header);
+        assertEquals("https://www.instagram.com/accounts/login/", url);
     }
 
     @Test()
-    public void facebookButton() {
+    public void telegaButton() {
         footer = new Footer(driver);
-        footer.clickToFacebookButton();
+        footer.clickToTelegaButton();
         String url = driver.getCurrentUrl();
-        String header = footer.getFacebookHeader();
-        assertEquals("https://www.facebook.com/poisondrop", url);
-        assertEquals("Poison Drop", header);
+        String header = footer.getTelegaHeader();
+        assertEquals("https://t.me/impoisoned", url);
+        assertEquals("I am Poisoned", header);
+    }
+
+
+    @Test()
+    public void tikTokButton() {
+        footer = new Footer(driver);
+        footer.clickToTikTokButton();
+        String url = driver.getCurrentUrl();
+        assertEquals("https://www.tiktok.com/@poisondropru?lang=ru-RU", url);
     }
 
     @Test()
@@ -259,15 +265,15 @@ public class SectionsTest extends TestBase {
         assertEquals("Poison Drop", header);
     }
 
-//    @Test()
-//    public void whatsAppButton() {
-//        footer = new Footer(driver);
-//        footer.clickToWhatsAppButton();
-//        String url = driver.getCurrentUrl();
-//        String header = footer.getWhatsAppHeader();
-//        assertEquals("https://api.whatsapp.com/send/?phone=74952551533&text&app_absent=0", url);
-//        assertEquals("+7 495 255-15-33", header);
-//    }
+    @Test()
+    public void whatsAppButton() {
+        footer = new Footer(driver);
+        footer.clickToWhatsAppButton();
+        String url = driver.getCurrentUrl();
+        String header = footer.getWhatsAppHeader();
+        assertEquals("https://api.whatsapp.com/send/?phone=74952551533&text&app_absent=0", url);
+        assertEquals("Poison Drop by ООО \"ПойзонДроп\"", header);
+    }
 
 
     //Создан таск https://poisondrop.atlassian.net/browse/PD-617
@@ -492,7 +498,7 @@ public class SectionsTest extends TestBase {
         //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(7), siteList.get(7));
+        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
         assertEquals(sqlList.get(sqlSize - 1), siteList.get(numberOnly - 1));
     }
 
@@ -575,7 +581,7 @@ public class SectionsTest extends TestBase {
         assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto));
     }
 
-    //Отображение корретного списка дизайнеров
+    //Отображение корректного списка дизайнеров
     @Test
     public void listOfDesigners() {
         driver.get(getUrl + "designers/");

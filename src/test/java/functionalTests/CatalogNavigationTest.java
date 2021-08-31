@@ -22,14 +22,10 @@ public class CatalogNavigationTest extends TestBase {
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
         driver.manage().window().setSize(new Dimension(1920, 1080));
         navigation = new CatalogNavigation(driver);
     }
@@ -60,7 +56,7 @@ public class CatalogNavigationTest extends TestBase {
     //Проверка отсутствия кнопки "Показать ещё" при переходе на последнюю страницу каталога
     @Test
     public void showMoreLastPage() {
-        driver.get(getUrl + "catalog/pirsing/");
+        driver.get(getUrl + "catalog/kole/?type_product=chokery");
         navigation.clickOnShowMoreButton();
         int numbers = driver.findElements(By.xpath("//span[text()='Показать ещё']")).size();
         assertEquals(0, numbers);

@@ -2,13 +2,13 @@ package functionalTests;
 
 import baseForTests.TestBase;
 import basket.Basket;
-import catalog.*;
 import filters.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -38,7 +38,7 @@ public class FiltersTest extends TestBase {
 //        driver = new EdgeDriver(options);
         driver.get(getUrl + "catalog/");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         filters = new Filters(driver);
         basket = new Basket(driver);
         basket.clickToOkButton();
@@ -49,11 +49,10 @@ public class FiltersTest extends TestBase {
     //ТИП ИЗДЕЛИЯ
     @Test
     public void typeOfItemEarrings() {
-        earrings = new Earrings(driver);
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
-        filters.clickToFilterButton();
-        List<String> sqlList = earrings.getNamesForFilters();
+        filters.clickToShowProductsButton();
+        List<String> sqlList = filters.getEarringNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -63,7 +62,7 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(1), siteList.get(1));
@@ -71,11 +70,10 @@ public class FiltersTest extends TestBase {
 
     @Test
     public void typeOfItemRings() {
-        rings = new Rings(driver);
         filters.clickToFilterButton();
         filters.clickToAllRingsButton();
-        filters.clickToFilterButton();
-        List<String> sqlList = rings.getNamesForFilters();
+        filters.clickToShowProductsButton();
+        List<String> sqlList = filters.getRingNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -84,7 +82,7 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(10), siteList.get(10));
@@ -92,11 +90,10 @@ public class FiltersTest extends TestBase {
 
     @Test
     public void typeOfItemNecklaces() {
-        necklaces = new Necklaces(driver);
         filters.clickToFilterButton();
         filters.clickToAllNecklacesButton();
-        filters.clickToFilterButton();
-        List<String> sqlList = necklaces.getNamesForFilters();
+        filters.clickToShowProductsButton();
+        List<String> sqlList = filters.getNecklacesNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -106,7 +103,7 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0).substring(0, 28), siteList.get(0).substring(0, 28));
         assertEquals(sqlList.get(8).substring(0, 23), siteList.get(8).substring(0, 23));
@@ -114,11 +111,10 @@ public class FiltersTest extends TestBase {
 
     @Test
     public void typeOfItemBracelets() {
-        bracelets = new Bracelets(driver);
-        navigation = new CatalogNavigation(driver);
         filters.clickToFilterButton();
         filters.clickToAllBraceletsButton();
-        List<String> sqlList = bracelets.getNamesForFilters();
+        filters.clickToShowProductsButton();
+        List<String> sqlList = filters.getBraceletsNamesForFilters();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
@@ -128,23 +124,19 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.subList(0, 832), siteList.subList(0, 834));
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
     @Test
     public void typeOfItemBrooches() {
-        brooches = new Brooches(driver);
         filters.clickToFilterButton();
         filters.clickToAllBroochesButton();
-        filters.clickToFilterButton();
-        List<String> sqlList = brooches.getNamesForFilters();
+        filters.clickToShowProductsButton();
+        List<String> sqlList = filters.getBroochesNamesForFilters();
         int sqlSize = sqlList.size();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(numberOfItem));
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getAttribute("textContent");
@@ -153,23 +145,20 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
-    //МАТЕРИАЛЫ
+    //ВСТАВКИ
     @Test
     public void getPearl() {
         material = new Material(driver);
-        navigation = new CatalogNavigation(driver);
         filters.clickToFilterButton();
-        material.clickToMaterialButton();
+        material.clickToInsertButton();
         material.clickToZemcugButton();
-        filters.clickToFilterButton();
-        navigation.clickOnShowMoreButton();
-//        navigation.clickOnShowMoreButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = material.getListOfZemcug();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -180,9 +169,8 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList, siteList);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
@@ -191,9 +179,9 @@ public class FiltersTest extends TestBase {
     public void getCrystals() {
         material = new Material(driver);
         filters.clickToFilterButton();
-        material.clickToMaterialButton();
+        material.clickToInsertButton();
         material.clickToKristallyButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = material.getListOfKristally();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -204,7 +192,7 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(1), siteList.get(1));
         assertEquals(sqlList.get(2), siteList.get(2));
@@ -214,9 +202,9 @@ public class FiltersTest extends TestBase {
     public void getStones() {
         material = new Material(driver);
         filters.clickToFilterButton();
-        material.clickToMaterialButton();
+        material.clickToInsertButton();
         material.clickToKamenButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = material.getListOfKamen();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -226,7 +214,7 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
@@ -236,9 +224,9 @@ public class FiltersTest extends TestBase {
     public void getGlass() {
         material = new Material(driver);
         filters.clickToFilterButton();
-        material.clickToMaterialButton();
+        material.clickToInsertButton();
         material.clickToStekloButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = material.getListOfSteklo();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -249,20 +237,20 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
-    //Из чего
+    //МАТЕРИАЛ
     @Test
     public void getBronze() {
         material = new Material(driver);
         filters.clickToFilterButton();
         material.clickToMaterialButton();
         material.clickToBronzeButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = material.getListOfBronze();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -273,7 +261,7 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
@@ -285,7 +273,7 @@ public class FiltersTest extends TestBase {
         filters.clickToFilterButton();
         material.clickToMaterialButton();
         material.clickToSilverButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = material.getListOfSilver();
         int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
@@ -295,7 +283,7 @@ public class FiltersTest extends TestBase {
         }
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
@@ -306,400 +294,348 @@ public class FiltersTest extends TestBase {
     @Test
     public void price() {
         filters.clickToFilterButton();
-        filters.clickToPriceButton();
         Actions act = new Actions(driver);
-        WebElement priceBar = driver.findElement(By.xpath("//div[@class='slider-dot slider-always']"));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='slider-dot']")));
+        WebElement priceBar = driver.findElement(By.xpath("//div[@class='slider-dot']"));
         Actions actions = act.dragAndDropBy(priceBar, 100, 0);
         actions.build().perform();
     }
 
 
     //Цвета
-    @Test
-    public void getGreen() {
+
+    public void getColorFilter() {
         colors = new Colors(driver);
         filters.clickToFilterButton();
         colors.clickToColorButton();
-        colors.clickToGreenButton();
-        filters.clickToFilterButton();
-        List<String> sqlList = colors.getListOfGreenColor();
-        int sqlSize = sqlList.size();
+    }
+
+    public void getProductsListFromPage() {
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getAttribute("textContent");
             siteList.add(s);
             siteSize = siteList.size();
         }
+    }
+
+    @Test
+    public void getGreen() {
+        getColorFilter();
+        colors.clickToGreenButton();
+        filters.clickToShowProductsButton();
+        List<String> sqlList = colors.getListOfGreenColor();
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0).substring(0, 9), siteList.get(0).substring(0, 9));
         assertEquals(sqlList.get(2).substring(0, 22), siteList.get(2).substring(0, 22));
     }
 
     @Test
     public void getBlue() {
-        colors = new Colors(driver);
-        filters.clickToFilterButton();
-        colors.clickToColorButton();
+        getColorFilter();
         colors.clickToBlueButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = colors.getListOfBlueColor();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
     @Test
     public void getMix() {
-        colors = new Colors(driver);
-        filters.clickToFilterButton();
-        colors.clickToColorButton();
+        getColorFilter();
         colors.clickToMixButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = colors.getListOfMixColor();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
-    //Тип покрытия:
-    @Test
-    public void getRhodium() {
+    //ПОКРЫТИЕ
+
+    public void getCoveringFilter() {
         colors = new Colors(driver);
         filters.clickToFilterButton();
-        colors.clickToColorButton();
+        colors.clickToCoveringButton();
+    }
+
+    @Test
+    public void getRhodium() {
+        getCoveringFilter();
         colors.clickToRodiiButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = colors.getListOfRodii();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
     @Test
     public void getPinkGold() {
-        colors = new Colors(driver);
-        filters.clickToFilterButton();
-        colors.clickToColorButton();
+        getCoveringFilter();
         colors.clickToPinkGoldButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = colors.getListOfPinkGold();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
     //Размер кольца
-    @Test
-    public void getFirstSize() {
+
+    public void getSizeFilter() {
         size = new Size(driver);
         filters.clickToFilterButton();
         size.clickToSizeButton();
+    }
+
+    @Test
+    public void getFirstSize() {
+        getSizeFilter();
         size.clickToFirstSizeButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = size.getListOfFirstSize();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
     @Test
     public void getSecondSize() {
-        size = new Size(driver);
-        filters.clickToFilterButton();
-        size.clickToSizeButton();
+        getSizeFilter();
         size.clickToSecondSizeButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = size.getListOfSecondSize();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
     @Test
     public void getUniversalSize() {
-        size = new Size(driver);
-        filters.clickToFilterButton();
-        size.clickToSizeButton();
+        getSizeFilter();
         size.clickToUniversalSizeButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = size.getListOfUniversalSize();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
 
     //Дизайнеры
-    @Test
-    public void getSinitsyn() {
+
+    public void getDesignersFilter() {
         designersFilter = new DesignersFilter(driver);
         filters.clickToFilterButton();
         designersFilter.clickToDesignersButton();
+    }
+
+    @Test
+    public void getSinitsyn() {
+        getDesignersFilter();
         designersFilter.clickToSinitsynButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = designersFilter.getListOfSinitsyn();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
     @Test
     public void getProstoJewlry() {
-        designersFilter = new DesignersFilter(driver);
-        filters.clickToFilterButton();
-        designersFilter.clickToDesignersButton();
+        getDesignersFilter();
         designersFilter.clickToJewlryButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = designersFilter.getListOfJewlry();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
     @Test
     public void getAvgvst() {
-        designersFilter = new DesignersFilter(driver);
-        filters.clickToFilterButton();
-        designersFilter.clickToDesignersButton();
+        getDesignersFilter();
         designersFilter.clickToAvgvstButton();
-        filters.clickToFilterButton();
+        filters.clickToShowProductsButton();
         List<String> sqlList = designersFilter.getListOfAvgvst();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-        }
+        getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
         assertEquals(sqlList.get(2), siteList.get(2));
     }
 
 
-    //Проверка кнопки "Сбросить" фильтр
+    //Проверка кнопки "Сбросить всё" фильтр
     //Внутри фильтра
     @Test
     public void resetFilter() throws InterruptedException {
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
-        Thread.sleep(500);
         String countHeader = filters.getCountHeader();
-        filters.clickToResetButton();
-        Thread.sleep(500);
+        filters.clickToResetButtonInFilter();
         String countHeader2 = filters.getCountHeader();
         assertFalse(countHeader.equals(countHeader2));
     }
-
 
     //Выйдя из фильтра
     @Test
-    public void resetFilterExit() throws InterruptedException {
+    public void resetFilterExit() {
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
-        filters.clickToFilterButton();
-        Thread.sleep(500);
+        filters.clickToShowProductsButton();
         String countHeader = filters.getCountHeader();
-        filters.clickToResetButton();
-        Thread.sleep(500);
+        filters.clickToCatalogResetButton();
         String countHeader2 = filters.getCountHeader();
         assertFalse(countHeader.equals(countHeader2));
     }
 
 
-    //Тесты кнопок с фильтрами(шаблоны фильтров)
-    @Test
-    public void filterButtonEarrings() {
-        earrings = new Earrings(driver);
-        filters.clickToEarringsButton();
-        List<String> sqlList = earrings.getNamesForFilters();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(1), siteList.get(1));
-    }
-
-    @Test
-    public void filterButtonRings() {
-        rings = new Rings(driver);
-        filters.clickToRingsButton();
-        List<String> sqlList = rings.getNamesForFilters();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-        }
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
-    }
-
-    @Test
-    public void filterButtonNecklaces() {
-        necklaces = new Necklaces(driver);
-        filters.clickToNecklacesButton();
-        List<String> sqlList = necklaces.getNamesForFilters();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
-        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
-    }
-
-    @Test
-    public void filterButtonBracelets() {
-        bracelets = new Bracelets(driver);
-        filters.clickToBraceletsButton();
-        List<String> sqlList = bracelets.getNamesForFilters();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
-    }
-
-    @Test
-    public void filterButtonBrooches() throws InterruptedException {
-        brooches = new Brooches(driver);
-        filters.clickToBroochesButton();
-        Thread.sleep(500);
-        List<String> sqlList = brooches.getNamesForFilters();
-        int sqlSize = sqlList.size();
-        List<WebElement> elements = driver.findElements(numberOfItem);
-        for (WebElement text : elements) {
-            String s = text.getAttribute("textContent");
-            siteList.add(s);
-            siteSize = siteList.size();
-        }
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
-        assertEquals(sqlList.get(2), siteList.get(2));
-    }
+    //Тесты кнопок с фильтрами(шаблоны фильтров) временно отключен, будет что-то новое(Юра Пронин)
+//    @Test
+//    public void filterButtonEarrings() {
+//        earrings = new Earrings(driver);
+//        filters.clickToEarringsButton();
+//        List<String> sqlList = earrings.getNamesForFilters();
+//        int sqlSize = sqlList.size();
+//        List<WebElement> elements = driver.findElements(numberOfItem);
+//        for (WebElement text : elements) {
+//            String s = text.getAttribute("textContent");
+//            siteList.add(s);
+//            siteSize = siteList.size();
+//        }
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        assertEquals(sqlSize, numberOnly);
+//        assertEquals(sqlList.get(0), siteList.get(0));
+//        assertEquals(sqlList.get(1), siteList.get(1));
+//    }
+//
+//    @Test
+//    public void filterButtonRings() {
+//        rings = new Rings(driver);
+//        filters.clickToRingsButton();
+//        List<String> sqlList = rings.getNamesForFilters();
+//        int sqlSize = sqlList.size();
+//        List<WebElement> elements = driver.findElements(numberOfItem);
+//        for (WebElement text : elements) {
+//            String s = text.getAttribute("textContent");
+//            siteList.add(s);
+//        }
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        assertEquals(sqlSize, numberOnly);
+//        assertEquals(sqlList.get(0), siteList.get(0));
+//        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
+//    }
+//
+//    @Test
+//    public void filterButtonNecklaces() {
+//        necklaces = new Necklaces(driver);
+//        filters.clickToNecklacesButton();
+//        List<String> sqlList = necklaces.getNamesForFilters();
+//        int sqlSize = sqlList.size();
+//        List<WebElement> elements = driver.findElements(numberOfItem);
+//        for (WebElement text : elements) {
+//            String s = text.getAttribute("textContent");
+//            siteList.add(s);
+//            siteSize = siteList.size();
+//        }
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        assertEquals(sqlSize, numberOnly);
+//        assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
+//        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
+//    }
+//
+//    @Test
+//    public void filterButtonBracelets() {
+//        bracelets = new Bracelets(driver);
+//        filters.clickToBraceletsButton();
+//        List<String> sqlList = bracelets.getNamesForFilters();
+//        int sqlSize = sqlList.size();
+//        List<WebElement> elements = driver.findElements(numberOfItem);
+//        for (WebElement text : elements) {
+//            String s = text.getAttribute("textContent");
+//            siteList.add(s);
+//            siteSize = siteList.size();
+//        }
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        assertEquals(sqlSize, numberOnly);
+//        assertEquals(sqlList.get(0), siteList.get(0));
+//        assertEquals(sqlList.get(2), siteList.get(2));
+//    }
+//
+//    @Test
+//    public void filterButtonBrooches() throws InterruptedException {
+//        brooches = new Brooches(driver);
+//        filters.clickToBroochesButton();
+//        Thread.sleep(500);
+//        List<String> sqlList = brooches.getNamesForFilters();
+//        int sqlSize = sqlList.size();
+//        List<WebElement> elements = driver.findElements(numberOfItem);
+//        for (WebElement text : elements) {
+//            String s = text.getAttribute("textContent");
+//            siteList.add(s);
+//            siteSize = siteList.size();
+//        }
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        assertEquals(sqlSize, numberOnly);
+//        assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
+//        assertEquals(sqlList.get(2), siteList.get(2));
+//    }
 
     @AfterEach
     public void tearDownEach() {

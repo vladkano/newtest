@@ -35,7 +35,7 @@ public class LinkTest extends TestBase {
     }
 
     //Поверяем работу 3-х ссылок по каждому типу товаров на переход к товару:
-    // при нажатии на картинку, нажатии на дизайнера и нажатии на название изделия
+    //При нажатии на картинку, нажатии на дизайнера и нажатии на название изделия
     @Test
     public void imageLinkOfBracelets() {
         driver.get(getUrl + "catalog/braslety");
@@ -69,7 +69,7 @@ public class LinkTest extends TestBase {
         String header = base.getImageHeader();
         base.clickOnImageLink();
         String heading = base.getHeader();
-        assertEquals(header.substring(0,20), heading.substring(0,20));
+        assertEquals(header.substring(0, 20), heading.substring(0, 20));
     }
 
     @Test
@@ -157,7 +157,7 @@ public class LinkTest extends TestBase {
     @Test
     public void nameLinkOfBrooches() {
         driver.get(getUrl + "catalog/broshi");
-        String header = base.getSecondNameHeader();
+        String header = base.getNameHeader();
         base.clickOnNameLink();
         String heading = base.getHeader();
         assertEquals(header, heading);
