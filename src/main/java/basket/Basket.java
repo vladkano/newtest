@@ -153,7 +153,7 @@ public class Basket extends Base {
             e.printStackTrace();
         }
 //        System.out.println(list.get(0));
-        return list.get(2);
+        return list.get(3);
     }
 
     public static String findFirstRing() {

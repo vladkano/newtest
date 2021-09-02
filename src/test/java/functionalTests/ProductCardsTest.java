@@ -552,7 +552,7 @@ public class ProductCardsTest extends TestBase {
         assertEquals("Бижутерия", bijouterieCareHeader);
         assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
                 "их перед душем и нанесением косметики.\n" +
-                "Подробнее о хранении и уходе.", bijouterieCareText);
+                " Подробнее о хранении и уходе.", bijouterieCareText);
         assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
         assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
                 "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
@@ -597,7 +597,7 @@ public class ProductCardsTest extends TestBase {
         assertEquals("Бижутерия", bijouterieCareHeader);
         assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
                 "их перед душем и нанесением косметики.\n" +
-                "Подробнее о хранении и уходе.", bijouterieCareText);
+                " Подробнее о хранении и уходе.", bijouterieCareText);
         assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
         assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
                 "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
@@ -642,7 +642,7 @@ public class ProductCardsTest extends TestBase {
         assertEquals("Бижутерия", bijouterieCareHeader);
         assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
                 "их перед душем и нанесением косметики.\n" +
-                "Подробнее о хранении и уходе.", bijouterieCareText);
+                " Подробнее о хранении и уходе.", bijouterieCareText);
         assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
         assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
                 "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
@@ -687,7 +687,7 @@ public class ProductCardsTest extends TestBase {
         assertEquals("Бижутерия", bijouterieCareHeader);
         assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
                 "их перед душем и нанесением косметики.\n" +
-                "Подробнее о хранении и уходе.", bijouterieCareText);
+                " Подробнее о хранении и уходе.", bijouterieCareText);
         assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
         assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
                 "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +

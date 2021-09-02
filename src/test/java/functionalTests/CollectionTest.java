@@ -19,7 +19,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CollectionTest extends TestBase {
 
@@ -126,7 +125,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         HashSet<WebElement> set = new HashSet<>(listOfLinks);
-        assertTrue(set.size() == listOfLinks.size());
+        assertEquals(set.size(), listOfLinks.size());
     }
 
     @Test
@@ -134,7 +133,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/braslety");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertTrue(set.size() == listOfLinks.size());
+        assertEquals(set.size(), listOfLinks.size());
     }
 
     @Test
@@ -142,7 +141,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/broshi");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertTrue(set.size() == listOfLinks.size());
+        assertEquals(set.size(), listOfLinks.size());
     }
 
     @Test
@@ -150,7 +149,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/sergi");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertTrue(set.size() == listOfLinks.size());
+        assertEquals(set.size(), listOfLinks.size());
     }
 
     @Test
@@ -158,7 +157,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/kole");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertTrue(set.size() == listOfLinks.size());
+        assertEquals(set.size(), listOfLinks.size());
     }
 
     @Test
@@ -166,7 +165,7 @@ public class CollectionTest extends TestBase {
         driver.get(getUrl + "catalog/koltsa");
         List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
         Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertTrue(set.size() == listOfLinks.size());
+        assertEquals(set.size(), listOfLinks.size());
     }
 
     @AfterEach

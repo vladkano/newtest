@@ -21,11 +21,17 @@ public class Material extends Base {
     By stekloButton = By.xpath("//div[text()='Стекло']");
     By bronzeButton = By.xpath("//div[text()='Бронза']");
     By silverButton = By.xpath("//div[text()='Серебро']");
+    By jewelryAlloyButton = By.xpath("//div[text()='Ювелирный сплав']");
 
     public Material(WebDriver driver) {
         super(driver);
     }
 
+
+    public void clickToJewelryAlloyButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(jewelryAlloyButton));
+    }
 
     public void clickToInsertButton() {
         ((JavascriptExecutor) driver).executeScript(
@@ -33,8 +39,7 @@ public class Material extends Base {
     }
 
     public void clickToMaterialButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(materialButton));
+        driver.findElement(materialButton).click();
     }
 
     public void clickToZemcugButton() {
