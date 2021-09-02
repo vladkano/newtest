@@ -20,11 +20,17 @@ public class Colors extends Base {
     By coveringButton = By.xpath("//div[text()='Покрытие']");
     By rodiiButton = By.xpath("//div[text()='Родий']");
     By pinkGoldButton = By.xpath("//div[text()='Розовое золото']");
+    By whiteButton = By.xpath("//div[text()='Белый']");
 
     public Colors(WebDriver driver) {
         super(driver);
     }
 
+
+    public void clickToWhiteButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(whiteButton));
+    }
 
     public void clickToCoveringButton() {
         ((JavascriptExecutor) driver).executeScript(

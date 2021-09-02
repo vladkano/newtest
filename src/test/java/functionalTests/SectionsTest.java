@@ -675,7 +675,7 @@ public class SectionsTest extends TestBase {
         //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
         assertEquals(sqlList.get(0).substring(0, 28), siteList.get(0).substring(0, 28));
-        assertEquals(sqlList.get(7).substring(0, 28), siteList.get(7).substring(0, 28));
+        assertEquals(sqlList.get(7).substring(0, 27), siteList.get(7).substring(0, 27));
 //        assertEquals(sqlList.get(47).substring(0, 28), siteList.get(47).substring(0, 28));
     }
 

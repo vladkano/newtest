@@ -59,15 +59,10 @@ public class SaleTest extends TestBase {
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Кол-во наименований в базе и на странице, проверка по наименованию дизайнера
+    //Проверка по наименованию дизайнера. База и на сайте
     @Test
     public void designersOfSale() {
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = sale.getDesigners();
-        int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
         for (WebElement text : elements) {
             String s = text.getText();
@@ -77,15 +72,10 @@ public class SaleTest extends TestBase {
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Кол-во наименований в базе и на странице, проверка по цене со скидкой.
+    //Проверка по цене со скидкой. База и на сайте
     @Test
     public void finalPriceOfSale() {
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<Integer> sqlList = sale.getFinalPrice();
-        int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
         for (WebElement text : elements) {
             String s = text.getText();
@@ -98,14 +88,10 @@ public class SaleTest extends TestBase {
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
-    //Кол-во наименований в базе и на странице, проверка по цене без скидки.
+    //Проверка по цене без скидки. База и на сайте
     @Test
     public void priceOfSale() {
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<Integer> sqlList = sale.getOldPrice();
-        int sqlSize = sqlList.size();
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//span[@class='price-block__price price-block__price_old']"));
         for (WebElement text : elements) {

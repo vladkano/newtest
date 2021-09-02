@@ -153,7 +153,7 @@ public class PersonalAreaTest extends TestBase {
     }
 
     //Негативные тесты
-    //Не заполенено поле "Имя"
+    //Не заполнено поле "Имя"
     @Test
     public void emptyFieldName() {
         personalData.clickOnName();

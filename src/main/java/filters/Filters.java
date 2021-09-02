@@ -17,9 +17,18 @@ public class Filters extends Base {
 
     By filterButton = By.xpath("//span[text()='Фильтр']");
     By showProductsButton = By.xpath("//button[@class='filters__show-button']");
+    By priceRangeLeft = By.xpath("//input[@class='filters__input-price']");
+    By priceRangeRight = By.xpath("(//input[@class='filters__input-price'])[2]");
+    By allDiscountsButton = By.xpath("//div[text()='Все скидки']");
+    By tenPercentButton = By.xpath("//div[text()='от 10%']");
+    By thirtyPercentButton = By.xpath("//div[text()='от 30%']");
+    By fiftyPercentButton = By.xpath("//div[text()='от 50%']");
+    By seventyPercentButton = By.xpath("//div[text()='от 70%']");
 
 
     By allEarringsButton = By.xpath("//div[text()='Серьги']");
+    By allEarringsButton2 = By.xpath("(//div[text()='Серьги'])[2]");
+
     By allRingsButton = By.xpath("//div[text()='Кольца']");
     By allNecklacesButton = By.xpath("//div[text()='Колье']");
     By allBraceletsButton = By.xpath("//div[text()='Браслеты']");
@@ -39,9 +48,32 @@ public class Filters extends Base {
     }
 
 
+    public void clickToTenPercentButton() {
+        driver.findElement(tenPercentButton).click();
+    }
+
+    public void clickToThirtyPercentButton() {
+        driver.findElement(thirtyPercentButton).click();
+    }
+
+    public void clickToFiftyPercentButton() {
+        driver.findElement(fiftyPercentButton).click();
+    }
+
+    public void clickToSeventyPercentButton() {
+        driver.findElement(seventyPercentButton).click();
+    }
+
+    public String getNumberOfProducts() {
+        return driver.findElement(showProductsButton).getText();
+    }
+
+    public void clickToAllDiscountsButton() {
+        driver.findElement(allDiscountsButton).click();
+    }
+
     public void clickToFilterButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(filterButton));
+        driver.findElement(filterButton).click();
     }
 
     public void clickToShowProductsButton() {
@@ -56,6 +88,11 @@ public class Filters extends Base {
     public void clickToAllEarringsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(allEarringsButton));
+    }
+
+    public void clickToAllEarringsButton2() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(allEarringsButton2));
     }
 
     public void clickToAllNecklacesButton() {
@@ -112,6 +149,16 @@ public class Filters extends Base {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(broochesButton));
     }
+
+    public String getPriceRangeLeft() {
+        return driver.findElement(priceRangeLeft).getAttribute("value");
+    }
+
+    public String getPriceRangeRight() {
+        return driver.findElement(priceRangeRight).getAttribute("value");
+    }
+
+
 
     public String getCountHeader() {
         return driver.findElement(countHeader).getAttribute("textContent");
@@ -301,32 +348,134 @@ public class Filters extends Base {
         return text;
     }
 
-    //Тесты запросов к базе SQL
-    public static void main(String[] args) {
+    public List<String> getTenPercentDiscountItems() {
         String name;
-        int balance, reserve, itog;
-        Map<String, Integer> hashMap = new HashMap<>();
-        String query = "SELECT name, balance, reserve  from item_sku " +
-                "JOIN storage_stock ON storage_stock.sku_id = item_sku.id " +
-                "where balance - reserve >0";
+        List<String> text = new ArrayList<>();
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and discount >= 10 " +
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-
             while (resultSet.next()) {
                 name = resultSet.getString("name");
-                balance = resultSet.getInt("balance");
-                reserve = resultSet.getInt("reserve");
-                itog = balance - reserve;
-//                list.add(name);
-                hashMap.put(name, itog);
-                System.out.println(name);
-                System.out.println(itog);
+//                System.out.println(name);
+                text.add(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(hashMap);
+        return text;
+    }
+
+    public List<String> getThirtyPercentDiscountItems() {
+        String name;
+        List<String> text = new ArrayList<>();
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and discount >= 30 " +
+                "group by item_catalog_position.position";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+//                System.out.println(name);
+                text.add(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return text;
+    }
+
+    public List<String> getFiftyPercentDiscountItems() {
+        String name;
+        List<String> text = new ArrayList<>();
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and discount >= 50 " +
+                "group by item_catalog_position.position";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+//                System.out.println(name);
+                text.add(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return text;
+    }
+
+    public List<String> getSeventyPercentDiscountItems() {
+        String name;
+        List<String> text = new ArrayList<>();
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and discount >= 70 " +
+                "group by item_catalog_position.position";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+//                System.out.println(name);
+                text.add(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return text;
+    }
+
+    //Тесты запросов к базе SQL
+    public static void main(String[] args) {
+        String name;
+        List<String> text = new ArrayList<>();
+        String query = "SELECT item_sku.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and discount >= 10 " +
+                "group by item_catalog_position.position";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+                System.out.println(name);
+                text.add(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 //        System.out.println(i);
         worker.getSession().disconnect();
     }
