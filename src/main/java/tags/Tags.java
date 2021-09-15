@@ -51,11 +51,10 @@ public class Tags extends Base {
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
                 "and catalog_id=1 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'sergi' " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position LIMIT 1";
@@ -79,11 +78,10 @@ public class Tags extends Base {
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
                 "and catalog_id=4 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'broshi' " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position LIMIT 1";
@@ -107,11 +105,10 @@ public class Tags extends Base {
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
                 "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'koltsa' " +
                 "and item_sku.url is not null and balance > 0 " +
 
@@ -135,11 +132,10 @@ public class Tags extends Base {
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4)) " +
+                "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
                 "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position LIMIT 1";
@@ -148,7 +144,7 @@ public class Tags extends Base {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 tags = resultSet.getString("name");
-//                System.out.println(name);
+//                System.out.println(tags);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -158,35 +154,29 @@ public class Tags extends Base {
 
 
     public static void main(String[] args) {
-        String query = "SELECT item_tag.name as name, item.name as item_name from item_sku " +
+        String query = "SELECT item_tag.name from item_sku " +
                 "JOIN item ON item.id = item_sku.item_id " +
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN item_collection_consist ON item.id = item_collection_consist.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (sku_picture_list.tag_id = 1 or sku_picture_list.tag_id = 4)) " +
-                "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'koltsa' " +
-                "and item_sku.url is not null and balance > 0  and item_tag_list.tag_id is not null " +
-                "and item_collection_consist.item_collection_id is null " +
-                "group by item_catalog_position.position LIMIT 1"
-
-                ;
+                "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
+                "and item_sku.url is not null and balance > 0 " +
+                "group by item_catalog_position.position LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-
                 tags = resultSet.getString("name");
-                itemName = resultSet.getString("item_name");
+                System.out.println(tags);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(itemName);
-        System.out.println(tags);
         worker.getSession().disconnect();
 
     }

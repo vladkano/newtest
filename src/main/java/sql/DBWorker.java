@@ -24,7 +24,7 @@ public class DBWorker {
     public DBWorker() {
 
 
-        //Новый БОЙ
+        //БОЕВОЙ САЙТ
 
         try {
             String strSshUser = "poisondrop"; // SSH loging username

@@ -63,6 +63,7 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void changeSize145() {
         driver.get(getUrl + "catalog/koltsa/");
+        basket.clickToOkButton();
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToFirstSizeButton();
@@ -86,6 +87,7 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void changeSize155() {
         driver.get(getUrl + "catalog/koltsa/");
+        basket.clickToOkButton();
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToSecondSizeButton();
@@ -110,6 +112,7 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void changeSize16() {
         driver.get(getUrl + "catalog/koltsa/");
+        basket.clickToOkButton();
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToThirdSizeButton();

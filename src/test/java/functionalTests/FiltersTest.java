@@ -31,9 +31,9 @@ public class FiltersTest extends TestBase {
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         driver.get(getUrl + "catalog/");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
         filters = new Filters(driver);
         basket = new Basket(driver);
         basket.clickToOkButton();
@@ -503,27 +503,27 @@ public class FiltersTest extends TestBase {
         material = new Material(driver);
         colors = new Colors(driver);
         filters.clickToFilterButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts1 = filters.getNumberOfProducts();
         filters.clickToAllEarringsButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts2 = filters.getNumberOfProducts();
         material.clickToMaterialButton();
         material.clickToJewelryAlloyButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts3 = filters.getNumberOfProducts();
         colors.clickToColorButton();
         colors.clickToWhiteButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts4 = filters.getNumberOfProducts();
         colors.clickToWhiteButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts5 = filters.getNumberOfProducts();
         material.clickToJewelryAlloyButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts6 = filters.getNumberOfProducts();
         filters.clickToAllEarringsButton2();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts7 = filters.getNumberOfProducts();
         assertNotEquals(numberOfProducts1, numberOfProducts2);
         assertNotEquals(numberOfProducts3, numberOfProducts4);
@@ -545,19 +545,19 @@ public class FiltersTest extends TestBase {
         filters.clickToFilterButton();
         String numberOfProducts1 = filters.getNumberOfProducts();
         filters.clickToAllDiscountsButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts2 = filters.getNumberOfProducts();
         filters.clickToTenPercentButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts3 = filters.getNumberOfProducts();
         filters.clickToThirtyPercentButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts4 = filters.getNumberOfProducts();
         filters.clickToFiftyPercentButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts5 = filters.getNumberOfProducts();
         filters.clickToSeventyPercentButton();
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         String numberOfProducts6 = filters.getNumberOfProducts();
         assertNotEquals(numberOfProducts1, numberOfProducts2);
         assertEquals(numberOfProducts2, numberOfProducts3);
@@ -628,10 +628,9 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        System.out.println(sqlList.size());
         assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        assertEquals(sqlList.get(1), siteList.get(1));
     }
 
 

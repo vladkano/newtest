@@ -29,7 +29,8 @@ public class DesignersFilter extends Base {
     }
 
     public void clickToSinitsynButton() {
-        driver.findElement(sinitsynButton).click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click()", driver.findElement(sinitsynButton));
     }
 
     public void clickToJewlryButton() {

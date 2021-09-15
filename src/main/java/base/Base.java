@@ -15,6 +15,8 @@ public class Base {
     protected static String getUrl = "https://poisondrop.ru/catalog/";
     //Тест
 //    protected static String getUrl = "https://stalingrad.poisondrop.org.ru/catalog/";
+//    protected static String getUrl = "https://nuxt.poisondrop.org.ru/catalog/";
+
 
 
     public By getImageLink() {

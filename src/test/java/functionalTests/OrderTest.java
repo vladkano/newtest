@@ -38,6 +38,21 @@ public class OrderTest extends TestBase {
         order = new Order(driver);
     }
 
+    public void payConfirmAndHeaderCheck() {
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getPayHeader();
+//        assertEquals("Заплатить", header);
+        assertEquals("Оплата заказа", header.substring(0,13));
+    }
+
+    public void noPayConfirmAndHeaderCheck() {
+        String code2 = order.getPhonePassword();
+        order.confirmWithPassword(code2);
+        String header = order.getOrderHeader();
+        assertEquals("Мы приняли ваш заказ", header);
+    }
+
     //Проверка перехода к оплате заказа на сайте, способ доставки: доставка курьером товар дороже 5000
     @Test()
     public void courierDeliveryAndPhone() {
@@ -47,10 +62,7 @@ public class OrderTest extends TestBase {
         order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
                 "2", "Test Comment", "Test");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -60,10 +72,7 @@ public class OrderTest extends TestBase {
         basket.clickToBasketButton();
         order.orderWithWhatsApp("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Санкт-Петербург", "пр-кт Просвещения, д 10", "2", "2", "2", "2", "Test Comment", "Test");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     //Проверка перехода к оплате заказа на сайте, способ доставки: доставка курьером товар дешевле 5000(Платная доставка)
@@ -77,11 +86,8 @@ public class OrderTest extends TestBase {
         order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
                 "2", "Test Comment", "Test");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
         assertTrue(finalPrice > price);
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -91,49 +97,37 @@ public class OrderTest extends TestBase {
         basket.clickToBasketButton();
         order.orderWithWhatsApp("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Санкт-Петербург", "пр-кт Просвещения, д 10", "2", "2", "2", "2", "Test Comment", "Test");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     //Проверка перехода к оплате заказа на сайте, способ доставки: Забрать в фирменном магазине
     //Цветной:
-//    @Test()
-//    public void tsvetnoyAndPhone() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreTsvetnoy("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getPayHeader();
-//        assertEquals("Заплатить", header);
-//    }
-//
-//    @Test()
-//    public void tsvetnoyAndWA() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreTsvetnoyWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getPayHeader();
-//        assertEquals("Заплатить", header);
-//    }
-//
-//    @Test()
-//    public void tsvetnoyAndSms() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreTsvetnoySms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getPayHeader();
-//        assertEquals("Заплатить", header);
-//    }
+    @Test()
+    public void tsvetnoyAndPhone() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreTsvetnoy("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void tsvetnoyAndWA() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreTsvetnoyWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void tsvetnoyAndSms() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreTsvetnoySms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        payConfirmAndHeaderCheck();
+    }
 
     //Метрополис:
     @Test()
@@ -142,10 +136,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithCompanyStoreMetropolisPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -154,10 +145,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithCompanyStoreMetropolisWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -166,48 +154,36 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithCompanyStoreMetropolisSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     //Атриум:
-//    @Test()
-//    public void atriumAndPhone() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreAtriumPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getPayHeader();
-//        assertEquals("Заплатить", header);
-//    }
-//
-//    @Test()
-//    public void atriumAndWA() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreAtriumWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getPayHeader();
-//        assertEquals("Заплатить", header);
-//    }
-//
-//    @Test()
-//    public void atriumAndSms() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreAtriumSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getPayHeader();
-//        assertEquals("Заплатить", header);
-//    }
+    @Test()
+    public void atriumAndPhone() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreAtriumPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void atriumAndWA() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreAtriumWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void atriumAndSms() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreAtriumSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        payConfirmAndHeaderCheck();
+    }
 
     //У Красного моста:
     @Test()
@@ -216,10 +192,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithRedBridgePhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -228,10 +201,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithRedBridgeWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -240,10 +210,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithRedBridgeSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     //Афимолл:
@@ -253,10 +220,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithAfimollPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -265,10 +229,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithAfimollWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -277,10 +238,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithAfimollSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     //Проверка перехода к оплате заказа на сайте, способ доставки: Доставить в другую страну
@@ -293,13 +251,8 @@ public class OrderTest extends TestBase {
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Минск", "улица Пушкина 12", "Test");
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        System.out.println(price);
-        System.out.println(finalPrice);
         assertTrue(finalPrice > price);
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -309,10 +262,7 @@ public class OrderTest extends TestBase {
         basket.clickToBasketButton();
         order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
                 "Рим", "Гладиаторов дом 20м", "Test");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     //Доставка до постомата
@@ -323,10 +273,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Россия", "Екатеринбург", "родонитовая");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -335,10 +282,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithPickPointSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Беларусь\n", "Минск\n", "Ленина");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
     @Test()
@@ -347,84 +291,66 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         order.orderWithPickPointWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Казахстан\n", "Нур-Султан\n", "Петрова");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getPayHeader();
-        assertEquals("Заплатить", header);
+        payConfirmAndHeaderCheck();
     }
 
 
     //Оформление заказов
     //Тестовый заказ без оплаты, способ доставки: доставка курьером товар дороже 5000:
-    @Test()
-    public void noPayCourierDeliveryAndPhone() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "Сочи", "ул Горького, д 87", "2а", "", "1",
-                "нет", "Test Comment2");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    @Test()
-    public void noPayCourierDeliveryAndWA() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.orderWithDvdNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Москва, Рублёвское шоссе, д 1", "", "", "", "", "Test Comment VIP");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    //Тестовый заказ без оплаты, способ доставки: доставка курьером товар дешевле 5000(Платная доставка):
-    @Test()
-    public void noPayCourierDeliveryAndPhoneLessThan5000() {
-        basket.clickToAnotherItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "Сочи", "ул Горького, д 87", "2а", "", "1",
-                "нет", "Test Comment2");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertTrue(finalPrice > price);
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    @Test()
-    public void noPayCourierDeliveryAndWALessThan5000() {
-        basket.clickToAnotherItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.orderWithDvdNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
-                "г Москва, Рублёвское шоссе, д 1", "", "", "", "", "Test Comment VIP");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    //Тестовый заказ без оплаты, способ доставки: Цветной
+//    @Test()
+//    public void noPayCourierDeliveryAndPhone() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+//                "Сочи", "ул Горького, д 87", "2а", "", "1",
+//                "нет", "Test Comment2");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    @Test()
+//    public void noPayCourierDeliveryAndWA() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.orderWithDvdNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+//                "Москва", "Рублёвское шоссе, д 1", "", "", "", "2", "Москва");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    //Тестовый заказ без оплаты, способ доставки: доставка курьером товар дешевле 5000(Платная доставка):
+//    @Test()
+//    public void noPayCourierDeliveryAndPhoneLessThan5000() {
+//        basket.clickToAnotherItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
+//        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+//        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+//                "Сочи", "ул Горького, д 87", "2а", "", "1",
+//                "нет", "Test Comment2");
+//        assertTrue(finalPrice > price);
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    @Test()
+//    public void noPayCourierDeliveryAndWALessThan5000() {
+//        basket.clickToAnotherItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.orderWithDvdNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+//                "Москва", "Рублёвское шоссе, д 1", "", "", "", "2", "Москва2");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    //Тестовый заказ без оплаты, способ доставки: Цветной
 //    @Test()
 //    public void noPayTsvetnoyAndPhone() {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
 //        order.tsvetnoyWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getOrderHeader();
-//        assertEquals("Мы приняли ваш заказ", header);
+//        noPayConfirmAndHeaderCheck();
 //    }
 //
 //    @Test()
@@ -433,10 +359,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
 //        order.tsvetnoyWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getOrderHeader();
-//        assertEquals("Мы приняли ваш заказ", header);
+//        noPayConfirmAndHeaderCheck();
 //    }
 //
 //    @Test()
@@ -445,97 +368,73 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
 //        order.tsvetnoyWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getOrderHeader();
-//        assertEquals("Мы приняли ваш заказ", header);
+//        noPayConfirmAndHeaderCheck();
 //    }
-
-    //Тестовый заказ без оплаты, способ доставки: Метрополис
-    @Test()
-    public void noPayMetropolisAndPhone() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.metropolisWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    @Test()
-    public void noPayMetropolisAndWA() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.metropolisWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    @Test()
-    public void noPayMetropolisAndSms() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.metropolisWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    //Тестовый заказ без оплаты, способ доставки: У красного моста
-    @Test()
-    public void noPayRedBridgeAndPhone() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.redBridgeWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    @Test()
-    public void noPayRedBridgeAndWA() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.redBridgeWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    @Test()
-    public void noPayRedBridgeAndSms() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.redBridgeWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    //Тестовый заказ без оплаты, способ доставки: Атриум
+//
+//    //Тестовый заказ без оплаты, способ доставки: Метрополис
+//    @Test()
+//    public void noPayMetropolisAndPhone() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.metropolisWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    @Test()
+//    public void noPayMetropolisAndWA() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.metropolisWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    @Test()
+//    public void noPayMetropolisAndSms() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.metropolisWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    //Тестовый заказ без оплаты, способ доставки: У красного моста
+//    @Test()
+//    public void noPayRedBridgeAndPhone() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.redBridgeWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    @Test()
+//    public void noPayRedBridgeAndWA() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.redBridgeWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    @Test()
+//    public void noPayRedBridgeAndSms() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.redBridgeWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    //Тестовый заказ без оплаты, способ доставки: Атриум
 //    @Test()
 //    public void noPayAtriumAndPhone() {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
 //        order.atriumWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getOrderHeader();
-//        assertEquals("Мы приняли ваш заказ", header);
+//        noPayConfirmAndHeaderCheck();
 //    }
 //
 //    @Test()
@@ -544,10 +443,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
 //        order.atriumWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getOrderHeader();
-//        assertEquals("Мы приняли ваш заказ", header);
+//        noPayConfirmAndHeaderCheck();
 //    }
 //
 //    @Test()
@@ -556,48 +452,36 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
 //        order.atriumWithNoPayAndSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-//        String code2 = order.getPhonePassword();
-//        order.confirmWithPassword(code2);
-//        String header = order.getOrderHeader();
-//        assertEquals("Мы приняли ваш заказ", header);
+//        noPayConfirmAndHeaderCheck();
 //    }
-
-    //Тестовый заказ без оплаты, способ доставки: Афимолл
-    @Test()
-    public void noPayAfimollAndPhone() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.afimollWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    @Test()
-    public void noPayAfimollAndWA() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.afimollWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
-
-    @Test()
-    public void noPayAfimollAndSMS() {
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
-        basket.clickToBasketButton();
-        order.afimollWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
-        String code2 = order.getPhonePassword();
-        order.confirmWithPassword(code2);
-        String header = order.getOrderHeader();
-        assertEquals("Мы приняли ваш заказ", header);
-    }
+//
+//    //Тестовый заказ без оплаты, способ доставки: Афимолл
+//    @Test()
+//    public void noPayAfimollAndPhone() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.afimollWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    @Test()
+//    public void noPayAfimollAndWA() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.afimollWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        noPayConfirmAndHeaderCheck();
+//    }
+//
+//    @Test()
+//    public void noPayAfimollAndSMS() {
+//        basket.clickToItemButton();
+//        basket.clickToItemInBasketButton();
+//        basket.clickToBasketButton();
+//        order.afimollWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        noPayConfirmAndHeaderCheck();
+//    }
 
     @AfterEach
     public void tearDownEach() {

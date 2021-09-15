@@ -56,7 +56,7 @@ public class CatalogNavigationTest extends TestBase {
     //Проверка отсутствия кнопки "Показать ещё" при переходе на последнюю страницу каталога
     @Test
     public void showMoreLastPage() {
-        driver.get(getUrl + "catalog/kole/?type_product=chokery");
+        driver.get(getUrl + "catalog/koltsa/?type_product=pechatki");
         navigation.clickOnShowMoreButton();
         int numbers = driver.findElements(By.xpath("//span[text()='Показать ещё']")).size();
         assertEquals(0, numbers);

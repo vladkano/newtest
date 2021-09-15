@@ -69,7 +69,8 @@ public class Filters extends Base {
     }
 
     public void clickToAllDiscountsButton() {
-        driver.findElement(allDiscountsButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(allDiscountsButton));
     }
 
     public void clickToFilterButton() {

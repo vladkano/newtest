@@ -31,7 +31,9 @@ public class Order extends Base {
     By orderHouseCode = By.xpath("//input[@id='deliveryHouseCode']");
     By orderCommentForCourier = By.xpath("//textarea[@id='courierComment']");
     By orderComment = By.xpath("//textarea[@name='comment']");
-    By payButton = By.xpath("//span[text()='Перейти к оплате']");
+
+    By payButton = By.xpath("//span[text()='Оплатить']");
+//    By payButton = By.xpath("//span[text()='Перейти к оплате']");
     By orderButton = By.xpath("//span[text()='Оформить заказ']");
     By addAddressButton = By.xpath("//span[text()='для курьера']");
     By searchBox = By.xpath("//input[@id='searchbox']");
@@ -69,7 +71,8 @@ public class Order extends Base {
 
 
     //headers
-    By payHeader = By.xpath("//span[text()='Заплатить']");
+    By payHeader = By.xpath("//span[contains(text(), 'Оплата заказа')]");
+//    By payHeader = By.xpath("//span[text()='Заплатить']");
     By orderHeader = By.xpath("//span[text()='Мы приняли ваш заказ']");
 
     public Order(WebDriver driver) {
@@ -78,7 +81,8 @@ public class Order extends Base {
 
 
     public void clickOnOrdinaryDeliveryButton() {
-        driver.findElement(ordinaryDeliveryButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(ordinaryDeliveryButton));
     }
 
     public static void main(String[] args) {
@@ -465,11 +469,14 @@ public class Order extends Base {
         return new Order(driver);
     }
 
-    public Order orderWithDvdNoPayAndWA(String phone, String email, String fio, String address, String apartment,
-                                     String frontDoor, String floor, String houseCode, String commentForCourier) {
+    public Order orderWithDvdNoPayAndWA(String phone, String email, String fio, String city, String address, String apartment,
+                                        String frontDoor, String floor, String houseCode, String commentForCourier) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
+        this.clickOnChangeCityButton();
+        this.typeLocationSearch(city);
+        this.clickOnLocationButton();
         this.typeOrderAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
@@ -1003,9 +1010,9 @@ public class Order extends Base {
     }
 
     //Бумажный
-    public Order paperCertificateWithPhone (String phone, String email, String fio, String city,
-    String address, String apartment, String frontDoor, String floor, String houseCode,
-                                             String commentForCourier, String comment) {
+    public Order paperCertificateWithPhone(String phone, String email, String fio, String city,
+                                           String address, String apartment, String frontDoor, String floor, String houseCode,
+                                           String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);

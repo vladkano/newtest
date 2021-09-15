@@ -18,6 +18,7 @@ public class Designers {
     private WebDriver driver;
     private static DBWorker worker = new DBWorker();
     private String url = "https://poisondrop.ru/designers/";
+//    private String url = "https://stalingrad.poisondrop.org.ru/designers/";
 
 
     public Designers(WebDriver driver) {
@@ -294,7 +295,7 @@ public class Designers {
         List<String> text = new ArrayList<>();
         String query = "select url from designer " +
                 "where `show` = 1 " +
-                "group by id desc limit 3";
+                "group by created_at desc limit 3";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -505,15 +506,18 @@ public class Designers {
     }
 
     public static void main(String[] args) {
-        String description = "";
-        String query = "select description from designer " +
-                "where `show` = 1 and name = " + "'" + getPopularUrls().get(getPopularUrls().size() - 1) + "'";
+        String url;
+        List<String> text = new ArrayList<>();
+        String query = "select url from designer " +
+                "where `show` = 1 " +
+                "group by created_at desc limit 3";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                description = resultSet.getString("description");
-                System.out.println(description);
+                url = resultSet.getString("url");
+                System.out.println(url);
+                text.add(url);
             }
         } catch (SQLException e) {
             e.printStackTrace();
