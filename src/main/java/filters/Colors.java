@@ -71,7 +71,7 @@ public class Colors extends Base {
     public List<String> getListOfGreenColor() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_color_list ON item.id = item_color_list.item_id " +
@@ -99,7 +99,7 @@ public class Colors extends Base {
     public List<String> getListOfBlueColor() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_color_list ON item.id = item_color_list.item_id " +
@@ -127,7 +127,7 @@ public class Colors extends Base {
     public List<String> getListOfMixColor() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_color_list ON item.id = item_color_list.item_id " +
@@ -155,7 +155,7 @@ public class Colors extends Base {
     public List<String> getListOfRodii() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -184,7 +184,7 @@ public class Colors extends Base {
     public List<String> getListOfPinkGold() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -215,7 +215,7 @@ public class Colors extends Base {
     public static void main(String[] args) {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item_sku " +
+        String query = "SELECT item.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN designer ON item.designer_id = designer.id " +

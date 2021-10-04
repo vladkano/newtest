@@ -12,11 +12,16 @@ public class Base {
 
     protected static DBWorker worker = new DBWorker();
     protected WebDriver driver;
-    protected static String getUrl = "https://poisondrop.ru/catalog/";
-    //Тест
-//    protected static String getUrl = "https://stalingrad.poisondrop.org.ru/catalog/";
-//    protected static String getUrl = "https://nuxt.poisondrop.org.ru/catalog/";
+    //Бой
+    protected static String mainPageUrl = "https://poisondrop.ru/";
+    //Тест(Сталинград)
+//    protected static String mainPageUrl = "https://stalingrad.poisondrop.org.ru/";
+    //Тест(Севастополь)
+//    protected static String mainPageUrl = "https://sevastopol.poisontestdrop.ru/";
+    //Накст
+//    protected static String mainPageUrl = "https://nuxt.poisondrop.org.ru/catalog/";
 
+    protected static String getUrl = mainPageUrl + "catalog/";
 
 
     public By getImageLink() {
@@ -33,9 +38,14 @@ public class Base {
     protected By nameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
     protected By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
     protected By priceFromProductCard = By.xpath("//b[@class='price-block__price']");
+    protected By okButton = By.xpath("//button[text()='Да']");
 
     public Base(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void clickToOkButton() {
+        driver.findElement(okButton).click();
     }
 
 

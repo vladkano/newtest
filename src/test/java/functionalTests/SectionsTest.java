@@ -3,21 +3,15 @@ package functionalTests;
 import baseForTests.TestBase;
 import catalog.CatalogNavigation;
 import filters.Filters;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
 import sections.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,18 +20,8 @@ public class SectionsTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
+        mainSetUp();
         driver.get(getUrl);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
     }
 
     //Проверка, что кнопки разделов на главной странице работают правильно
@@ -673,8 +657,8 @@ public class SectionsTest extends TestBase {
         assertEquals(href, url);
         //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0).substring(0, 28), siteList.get(0).substring(0, 28));
-        assertEquals(sqlList.get(2).substring(0, 27), siteList.get(2).substring(0, 27));
+        assertEquals(sqlList.get(0).substring(0, 21), siteList.get(0).substring(0, 21));
+        assertEquals(sqlList.get(2).substring(0, 26), siteList.get(2).substring(0, 26));
 //        assertEquals(sqlList.get(47).substring(0, 28), siteList.get(47).substring(0, 28));
     }
 

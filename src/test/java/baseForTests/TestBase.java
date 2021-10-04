@@ -7,11 +7,16 @@ import collectionAndSet.Collection;
 import collectionAndSet.Set;
 import filters.*;
 import filters.DesignersFilter;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import mainPage.MainPage;
 import mainPage.MainPageBanner;
 import order.Order;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 import personal.PersonalData;
 import productCards.Picture;
 import productCards.ProductCard;
@@ -21,6 +26,7 @@ import tags.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
@@ -79,15 +85,32 @@ public class TestBase {
     protected final int numberOfFoto = 48;
 
 
+    public void mainSetUp() {
+        ChromeOptions options = new ChromeOptions();
+        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.firefoxdriver().setup();
+//        WebDriverManager.edgedriver().setup();
+        options.setHeadless(true);
+        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+        driver = new ChromeDriver(options);
+//        driver = new FirefoxDriver(options);
+//        driver = new EdgeDriver(options);
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    }
+
+
     //Бой
     protected String getUrl = "https://poisondrop.ru/";
 
-    //1С(Новый тест)
+    //1С Тест(Сталинград)
 //    protected String getUrl = "https://stalingrad.poisondrop.org.ru/";
+
+    //Тест(Севастополь)
+//    protected String getUrl = "https://sevastopol.poisontestdrop.ru/";
 
     //Накст
 //    protected String getUrl = "https://nuxt.poisondrop.org.ru/";
-
 
 
     //Не используемые адреса

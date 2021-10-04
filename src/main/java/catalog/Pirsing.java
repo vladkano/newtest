@@ -19,7 +19,7 @@ public class Pirsing extends Base {
     public List<String> getNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +

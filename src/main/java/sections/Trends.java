@@ -150,7 +150,7 @@ public class Trends extends Base {
     public List<String> getNamesOfTop() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +

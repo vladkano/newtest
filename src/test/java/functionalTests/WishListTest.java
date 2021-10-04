@@ -2,17 +2,14 @@ package functionalTests;
 
 import baseForTests.TestBase;
 import basket.Basket;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import collectionAndSet.Collection;
+import filters.Filters;
+import filters.Size;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
 import sections.Wishlist;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,15 +19,8 @@ public class WishListTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
+        mainSetUp();
         wishlist = new Wishlist(driver);
-        basket = new Basket(driver);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
     }
 
 
@@ -38,7 +28,7 @@ public class WishListTest extends TestBase {
     @Test()
     public void wishListCheckButton() {
         driver.get(getUrl + "catalog/");
-        basket.clickToOkButton();
+        wishlist.clickToOkButton();
         wishlist.clickToItemButton();
         wishlist.clickToWishListInCardListButton();
         wishlist.clickToWishListButton();
@@ -125,7 +115,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName, itemNameFromWishlist);
+        assertEquals(itemName.substring(0,20), itemNameFromWishlist.substring(0, 20));
     }
 
     //Новинки
@@ -150,8 +140,87 @@ public class WishListTest extends TestBase {
         assertEquals(itemName, itemNameFromWishlist);
     }
 
-    //перенос из избранного в корзину
+    //Перенос из избранного в корзину
 
+    //Добавление в избранное из каталога
+    //Обычный товар без размера
+    @Test()
+    public void favoritesToBasket() {
+        driver.get(getUrl + "catalog/");
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        wishlist.clickToTransferToBasketButton();
+        wishlist.clickToMoveToBasketButton();
+        String basketProductName = wishlist.getBasketProductName();
+        assertEquals(itemName, itemNameFromWishlist);
+        assertEquals(itemNameFromWishlist, basketProductName);
+    }
+
+    //Обычный товар с размером
+    @Test()
+    public void favoritesToBasketWithSize() {
+        filters = new Filters(driver);
+        size = new Size(driver);
+        driver.get(getUrl + "catalog/");
+        filters.clickToOkButton();
+        filters.clickToFilterButton();
+        size.clickToSizeButton();
+        size.clickToThirdSizeButton();
+        filters.clickToShowProductsButton();
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        wishlist.clickToTransferToBasketButton();
+        wishlist.clickToMoveToBasketButton();
+        String basketProductName = wishlist.getBasketProductName();
+        assertEquals(itemName, itemNameFromWishlist);
+        assertEquals(itemNameFromWishlist, basketProductName);
+    }
+
+
+    //Добавление в избранное из карточки товара
+    //Товар из коллекции без размера
+    @Test()
+    public void favoritesToBasketWithCollection() {
+        basket = new Basket(driver);
+        driver.navigate().to(basket.getSecondLinkOfCollection());
+        String itemName = wishlist.getHeader();
+        wishlist.clickToWishListInCardListButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        wishlist.clickToTransferToBasketButton();
+        wishlist.clickToMoveToBasketButton();
+        String basketProductName = wishlist.getBasketProductName();
+        assertEquals(itemName, itemNameFromWishlist);
+        assertEquals(itemNameFromWishlist, basketProductName);
+    }
+
+    //Товар из коллекции с размером
+    @Test()
+    public void favoritesToBasketWithCollectionAndSize() {
+        filters = new Filters(driver);
+        size = new Size(driver);
+        collection = new Collection(driver);
+        driver.get(getUrl + "catalog/");
+        filters.clickToOkButton();
+        filters.clickToFilterButton();
+        size.clickToSizeButton();
+        size.clickToThirdSizeButton();
+        filters.clickToShowProductsButton();
+        collection.clickOnFirstHref();
+        String itemName = wishlist.getHeader();
+        wishlist.clickToWishListInCardListButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        wishlist.clickToTransferToBasketButton();
+        wishlist.clickToMoveToBasketButton();
+        String basketProductName = wishlist.getBasketProductName();
+        assertEquals(itemName, itemNameFromWishlist);
+        assertEquals(itemNameFromWishlist, basketProductName);
+    }
 
     @AfterEach
     public void tearDownEach() {

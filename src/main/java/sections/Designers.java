@@ -1,10 +1,10 @@
 package sections;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,17 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Designers {
+public class Designers extends Base {
 
-    private WebDriver driver;
-    private static DBWorker worker = new DBWorker();
-    private String url = "https://poisondrop.ru/designers/";
-//    private String url = "https://stalingrad.poisondrop.org.ru/designers/";
-
-
-    public Designers(WebDriver driver) {
-        this.driver = driver;
-    }
+    private String url = mainPageUrl + "designers/";
 
     By designersButton = By.xpath("//a[text()='Дизайнеры']");
     By designersFirstHref = By.xpath("//div[@class='new-designers__wrapper']/a");
@@ -40,6 +32,10 @@ public class Designers {
     By designerName = By.xpath("//a[@class='designer-block__link link']");
     By designerText = By.xpath("//p[@class='designer-block__description']");
     By designerButton = By.xpath("//a[@class='button-border link']/span[@class='button__content']");
+
+    public Designers(WebDriver driver) {
+        super(driver);
+    }
 
 
     public String getDescriptions() {
@@ -180,7 +176,7 @@ public class Designers {
     public List<String> getFirstLinkNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
@@ -209,7 +205,7 @@ public class Designers {
     public List<String> getSecondLinkNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -236,7 +232,7 @@ public class Designers {
     public List<String> getThirdLinkNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
@@ -361,7 +357,7 @@ public class Designers {
     public List<String> getFirstDesignerNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
@@ -391,7 +387,7 @@ public class Designers {
     public List<String> get10DesignerItemNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
@@ -421,7 +417,7 @@ public class Designers {
     public List<String> get20DesignerItemNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
@@ -451,7 +447,7 @@ public class Designers {
     public List<String> getFirstPopularLinkNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
@@ -480,7 +476,7 @@ public class Designers {
     public List<String> getLastPopularLinkNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +

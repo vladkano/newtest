@@ -13,7 +13,6 @@ import java.util.List;
 
 public class NewItems extends Base {
 
-
     By newItemsButton = By.xpath("//a[text()='Новинки']");
 
     public NewItems(WebDriver driver) {
@@ -29,7 +28,7 @@ public class NewItems extends Base {
     public List<String> getNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -118,7 +117,7 @@ public class NewItems extends Base {
     public static void main(String[] args) {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +

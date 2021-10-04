@@ -38,7 +38,7 @@ public class ProductCard extends Base {
 
     By recentlyViewedProductsHeader = By.xpath("//h2[text()='Вы смотрели']");
     By designerNameFromRecentlyViewedProducts = By.xpath("//div[@class='catalog-card__designer']/a");
-    By priceFromRecentlyViewedProducts = By.xpath("(//b[@class='price-block__price'])[2]");
+    By priceFromRecentlyViewedProducts = By.xpath("//section[@class='products-slider container viewed-products']//b[@class='price-block__price']");
 
 
     public ProductCard(WebDriver driver) {
@@ -59,7 +59,8 @@ public class ProductCard extends Base {
     }
 
     public ProductCard clickToStructureButton() {
-        driver.findElement(structureButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(structureButton));
         return this;
     }
 

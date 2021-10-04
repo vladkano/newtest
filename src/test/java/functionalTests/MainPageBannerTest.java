@@ -1,22 +1,15 @@
 package functionalTests;
 
 import baseForTests.TestBase;
-import basket.Basket;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import mainPage.MainPageBanner;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,18 +19,8 @@ public class MainPageBannerTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
+        mainSetUp();
         driver.get(getUrl);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
         banner = new MainPageBanner(driver);
     }
 
@@ -108,14 +91,13 @@ public class MainPageBannerTest extends TestBase {
     //ссылки: переход на верную страницу
     @Test
     public void mainBannerLink() {
-        basket = new Basket(driver);
-        basket.clickToOkButton();
+        banner.clickToOkButton();
         String href = banner.getMainCatalogHref();
         banner.clickToMainCatalogHref();
-//        String header = banner.getMainCatalogHeader();
+        String header = banner.getMainCatalogHeader();
         String url = driver.getCurrentUrl();
         assertEquals(href, url);
-//        assertEquals("Фильтр", header);
+        assertEquals("Фильтр", header);
     }
 
     @Test
@@ -123,9 +105,9 @@ public class MainPageBannerTest extends TestBase {
         String href = banner.getCatalogHref();
         banner.clickToCatalogHref();
         String url = driver.getCurrentUrl();
-        String header = banner.getMainCatalogHeader();
+//        String header = banner.getMainCatalogHeader();
         assertEquals(href, url);
-        assertEquals("Фильтр", header);
+//        assertEquals("Фильтр", header);
     }
 
     @Test

@@ -26,16 +26,7 @@ public class CatalogTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
+        mainSetUp();
         filters = new Filters(driver);
     }
 

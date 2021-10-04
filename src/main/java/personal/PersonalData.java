@@ -113,7 +113,6 @@ public class PersonalData extends Base {
     public PersonalData clickOnOrdersButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(ordersButton));
-//        driver.findElement(ordersButton).click();
         return this;
     }
 
@@ -179,14 +178,14 @@ public class PersonalData extends Base {
         return this;
     }
 
-    public String getBirthday() {
-        return driver.findElement(profileBirthday).getAttribute("value");
-    }
-
-    public PersonalData typeBirthday(String birthday) {
-        driver.findElement(profileBirthday).sendKeys(birthday);
-        return this;
-    }
+//    public String getBirthday() {
+//        return driver.findElement(profileBirthday).getAttribute("value");
+//    }
+//
+//    public PersonalData typeBirthday(String birthday) {
+//        driver.findElement(profileBirthday).sendKeys(birthday);
+//        return this;
+//    }
 
     public PersonalData clickOnName() {
         driver.findElement(profileFullName).click();
@@ -210,15 +209,11 @@ public class PersonalData extends Base {
     }
 
     public PersonalData clickOnGoOutButton() {
-//        ((JavascriptExecutor) driver).executeScript(
-//                "arguments[0].click();", driver.findElement(goOutButton));
         driver.findElement(goOutButton).click();
         return this;
     }
 
     public PersonalData clickOnPersonalDataButton() {
-//        ((JavascriptExecutor) driver).executeScript(
-//                "arguments[0].click();", driver.findElement(personalDataButton));
         driver.findElement(personalDataButton).click();
         return this;
     }

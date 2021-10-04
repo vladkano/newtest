@@ -8,8 +8,6 @@ import org.openqa.selenium.WebDriver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CatalogNavigation extends Base {
 
@@ -51,8 +49,6 @@ public class CatalogNavigation extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        worker.getSession().disconnect();
-
         return id;
     }
 

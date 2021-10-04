@@ -26,7 +26,6 @@ public class Man extends Base {
         return this;
     }
 
-
     public List<String> getNames() {
         String name;
         List<String> text = new ArrayList<>();

@@ -33,7 +33,7 @@ public class Order extends Base {
     By orderComment = By.xpath("//textarea[@name='comment']");
 
     By payButton = By.xpath("//span[text()='Оплатить']");
-//    By payButton = By.xpath("//span[text()='Перейти к оплате']");
+    //    By payButton = By.xpath("//span[text()='Перейти к оплате']");
     By orderButton = By.xpath("//span[text()='Оформить заказ']");
     By addAddressButton = By.xpath("//span[text()='для курьера']");
     By searchBox = By.xpath("//input[@id='searchbox']");
@@ -72,7 +72,7 @@ public class Order extends Base {
 
     //headers
     By payHeader = By.xpath("//span[contains(text(), 'Оплата заказа')]");
-//    By payHeader = By.xpath("//span[text()='Заплатить']");
+    //    By payHeader = By.xpath("//span[text()='Заплатить']");
     By orderHeader = By.xpath("//span[text()='Мы приняли ваш заказ']");
 
     public Order(WebDriver driver) {
@@ -122,11 +122,6 @@ public class Order extends Base {
     public void clickOnChangeCityButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(changeCityButton));
-//        driver.findElement(changeCityButton).click();
-    }
-
-    public void clickOnOtherCityButton() {
-        driver.findElement(otherCityButton).click();
     }
 
     public String getFirstPrice() {
@@ -214,12 +209,6 @@ public class Order extends Base {
         driver.findElement(authPassword).sendKeys(String.valueOf(password));
     }
 
-    public Order clickOnConfirmButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(confirmButton));
-        return this;
-    }
-
     public Order clickOnWhatsAppButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(whatsAppButton));
@@ -235,8 +224,6 @@ public class Order extends Base {
     public Order clickOnCompanyStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(companyStoreButton));
-
-//        driver.findElement(companyStoreButton).click();
         return this;
     }
 
@@ -249,7 +236,6 @@ public class Order extends Base {
     public void clickOnSelectPostomatButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(selectPostomatButton));
-//        driver.findElement(selectPostomatButton).click();
     }
 
     public void clickOnSearchboxButton() {
@@ -260,7 +246,6 @@ public class Order extends Base {
     public Order clickOnMetropolisStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(metropolisStoreButton));
-//        driver.findElement(metropolisStoreButton).click();
         return this;
     }
 
@@ -307,7 +292,6 @@ public class Order extends Base {
 
     public void confirmWithPassword(String password) {
         this.typePassword(password);
-//        this.clickOnConfirmButton();
         new Order(driver);
     }
 
@@ -351,7 +335,6 @@ public class Order extends Base {
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(1000);
@@ -393,7 +376,6 @@ public class Order extends Base {
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(1000);
@@ -435,7 +417,6 @@ public class Order extends Base {
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(1000);
@@ -847,19 +828,14 @@ public class Order extends Base {
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         this.clickOnLocationButton();
         this.typeOrderAddress(internationalCity);
-//        this.clickOnInternationalButton();
-//        this.typeCountry(country);
-//        this.typeInternationalCity(internationalCity);
-//        this.typeInternationalAddress(internationalAddress);
         this.clickOnPayButton();
         return new Order(driver);
     }
@@ -1018,10 +994,9 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -1044,10 +1019,9 @@ public class Order extends Base {
                                               String commentForCourier, String comment) {
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -1071,11 +1045,9 @@ public class Order extends Base {
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPaperButton();
-        this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -1213,10 +1185,9 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -1232,10 +1203,9 @@ public class Order extends Base {
     public Order certificateWithLoginInternationalAndWA(String city, String internationalCity, String comment) {
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -1256,7 +1226,6 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
-//        this.clickOnOtherCityButton();
         this.typeLocationSearch(city);
         try {
             Thread.sleep(1000);

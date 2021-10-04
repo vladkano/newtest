@@ -2,22 +2,14 @@ package functionalTests;
 
 import baseForTests.TestBase;
 import basket.Basket;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import mainPage.MainPage;
 import order.Order;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.parallel.ResourceLock;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import sections.Certificate;
-import sections.NameNecklaces;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @Disabled
@@ -28,14 +20,8 @@ public class OrderWithLoginTest extends TestBase {
 
     @BeforeAll
     public  void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
+        mainSetUp();
         driver.get(getUrl);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
         order = new Order(driver);
 //        nameNecklaces = new NameNecklaces(driver);
 //        certificate = new Certificate(driver);

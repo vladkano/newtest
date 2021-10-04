@@ -31,12 +31,10 @@ public class Subscription extends Base {
         return driver.findElement(subscriptionButton).getText();
     }
 
-
     public Subscription clickOnSubscriptionButton() {
         driver.findElement(subscriptionButton).click();
         return this;
     }
-
 
     public String getSuccessfulSubscriptionText() {
         return driver.findElement(successfulSubscriptionText).getText();
@@ -45,7 +43,6 @@ public class Subscription extends Base {
     public String getFailedSubscriptionText() {
         return driver.findElement(failedSubscriptionText).getText();
     }
-
 
     public Subscription subscriptionWithEmail(String email) {
         this.typeEmail(email);

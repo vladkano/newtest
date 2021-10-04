@@ -122,11 +122,7 @@ public class Basket extends Base {
         return this;
     }
 
-    public Basket clickToSizeItemInBasketButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(setItemInBasketButton));
-        return this;
-    }
+
 
     public Basket clickToPlusBasketButton() {
         ((JavascriptExecutor) driver).executeScript(

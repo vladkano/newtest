@@ -1,20 +1,14 @@
 package functionalTests;
 
 import baseForTests.TestBase;
-import basket.Basket;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import mainPage.MainPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.ResourceLock;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
 import personal.PersonalData;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -25,22 +19,11 @@ public class PersonalAreaTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
+        mainSetUp();
         driver.get(getUrl);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
         mainPage = new MainPage(driver);
         personalData = new PersonalData(driver);
-        basket = new Basket(driver);
-        basket.clickToOkButton();
+        personalData.clickToOkButton();
         mainPage.sigInWithPhoneOrEmail("+79501978905");
         String codeToLogin = mainPage.getPhonePasswordForLC();
         mainPage.sigInWithPassword(codeToLogin);

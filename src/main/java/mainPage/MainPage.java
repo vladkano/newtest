@@ -287,17 +287,24 @@ public class MainPage extends Base {
 
 
     public static void main(String[] args) {
-        String query = "select code from user_authentication_code where phone=+79501978905 and id=(SELECT MAX(id) FROM user_authentication_code)";
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String code = null;
+        String query = "select code from user_authentication_code where user_id = 157982 and id=(SELECT MAX(id) FROM user_authentication_code)";
+
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                String code = resultSet.getString("code");
-                System.out.println(code);
+                code = resultSet.getString("code");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(code);
         worker.getSession().disconnect();
 
     }

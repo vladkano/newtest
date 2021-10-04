@@ -35,14 +35,10 @@ public class MainPageTest extends TestBase {
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
         ChromeOptions options = new ChromeOptions();
 //        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
         driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
@@ -122,7 +118,7 @@ public class MainPageTest extends TestBase {
     //Авторизация
     @Test
     public void signInWithPhoneNumber() {
-        mainPage.sigInWithPhoneOrEmail("+79126459328");
+        mainPage.sigInWithPhoneOrEmail("89126459328");
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);
 //        saveScreenshotPNG(driver);
@@ -222,7 +218,7 @@ public class MainPageTest extends TestBase {
     public void signInWithIncorrectPhoneNumber() {
         MainPage head = mainPage.sigInWithPhoneOrEmail("+7912645932");
         String heading = head.getIncorrectSigInHeader();
-        assertEquals("+7912645932 - Not valid phone number.", heading);
+        assertEquals("+7912645932 - Пожалуйста, укажите верный номер", heading);
     }
 
     //Авторизация(нет подсказок пока, создан таск https://poisondrop.atlassian.net/browse/PD-809)

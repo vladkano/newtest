@@ -27,7 +27,7 @@ public class Basket extends Base {
 
     By plus2 = By.xpath("//input[@name='quantity']");
     By max = By.xpath("//div[@class='counter']");
-    By cartCount = By.xpath("//span[@class='icon-with-counter__counter']");
+    By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter']");
     By inBasket = By.xpath("//span[text()='В корзине']");
     By noBasketHeader = By.xpath("//p[text()='Этого украшения сейчас нет в наличии']");
 
@@ -38,11 +38,6 @@ public class Basket extends Base {
 
     public String getNoBasketHeader() {
         return driver.findElement(noBasketHeader).getText();
-    }
-
-    public Basket clickToOkButton() {
-        driver.findElement(okButton).click();
-        return this;
     }
 
     public Basket clickToItemButton() {
@@ -72,11 +67,6 @@ public class Basket extends Base {
     }
 
     public void clickToSetItemInBasketButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(setItemInBasketButton));
-    }
-
-    public void clickToSizeItemInBasketButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(setItemInBasketButton));
     }
@@ -131,7 +121,7 @@ public class Basket extends Base {
     public static String findFirstItemMoreThan5000() {
         String name;
         List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -153,13 +143,13 @@ public class Basket extends Base {
             e.printStackTrace();
         }
 //        System.out.println(list.get(0));
-        return list.get(3);
+        return list.get(0);
     }
 
     public static String findFirstRing() {
         String name;
         List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -186,7 +176,7 @@ public class Basket extends Base {
     public static String findFirstItemLessThan5000() {
         String name;
         List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -207,7 +197,7 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.get(2);
+        return list.get(0);
     }
 
 
@@ -243,7 +233,7 @@ public class Basket extends Base {
         String name3;
         String name4;
         List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
+        String query = "SELECT catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
                 "JOIN item ON catalog.id = item.catalog_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item_sku.item_id = item.id " +
@@ -274,17 +264,17 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.get(0);
+        return list.get(2);
     }
 
-    //Вытаскиваем ссылки на кольца, которые входят в коллекции
+    //Вытаскиваем ссылки на браслеты, которые входят в коллекции
     public String getSecondLinkOfCollection() {
         String name;
         String name2;
         String name3;
         String name4;
         List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
+        String query = "SELECT item.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
                 "JOIN item ON catalog.id = item.catalog_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item_sku.item_id = item.id " +
@@ -323,29 +313,29 @@ public class Basket extends Base {
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
         String name;
-        List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        Map<String, Integer> hashMap = new HashMap<>();
+        String query = "SELECT item.name, balance, reserve, sum(balance), sum(reserve) from storage_stock " +
+                "JOIN item_sku ON storage_stock.sku_id = item_sku.id " +
+                "JOIN item ON item.id = item_sku.item_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price < 5000 and price > 0 and section = 'catalog' and subsection is null " +
-                "and item_sku.url is not null and balance > 0 " +
-                "group by item_catalog_position.position";
+                "where balance - reserve > 0 and price > 5000 " +
+                "group by item_catalog_position.position, item_sku.id";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
                 name = resultSet.getString("name");
-                list.add(name);
-                System.out.println(name);
+                int balance = resultSet.getInt("balance");
+                int reserve = resultSet.getInt("reserve");
+                hashMap.put(name, balance - reserve);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        String firstItem = findFirstItemMoreThan5000();
+        System.out.println(firstItem);
+        System.out.println(hashMap.get(firstItem));
         worker.getSession().disconnect();
     }
 

@@ -1,17 +1,10 @@
 package functionalTests;
 
 import baseForTests.TestBase;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Dimension;
-
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
 import sections.Subscription;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,12 +12,7 @@ public class SubscriptionTests extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
+        mainSetUp();
         subscription = new Subscription(driver);
     }
 

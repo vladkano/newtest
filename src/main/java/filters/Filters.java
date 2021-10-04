@@ -78,7 +78,7 @@ public class Filters extends Base {
     }
 
     public void clickToShowProductsButton() {
-         driver.findElement(showProductsButton).click();
+        driver.findElement(showProductsButton).click();
     }
 
     public void clickToAllRingsButton() {
@@ -160,7 +160,6 @@ public class Filters extends Base {
     }
 
 
-
     public String getCountHeader() {
         return driver.findElement(countHeader).getAttribute("textContent");
     }
@@ -220,7 +219,7 @@ public class Filters extends Base {
     public List<String> getEarringNamesForFilters() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -246,7 +245,7 @@ public class Filters extends Base {
     public List<String> getRingNamesForFilters() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -272,7 +271,7 @@ public class Filters extends Base {
     public List<String> getNecklacesNamesForFilters() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -298,7 +297,7 @@ public class Filters extends Base {
     public List<String> getBraceletsNamesForFilters() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -326,7 +325,7 @@ public class Filters extends Base {
     public List<String> getBroochesNamesForFilters() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -352,7 +351,7 @@ public class Filters extends Base {
     public List<String> getTenPercentDiscountItems() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -378,7 +377,7 @@ public class Filters extends Base {
     public List<String> getThirtyPercentDiscountItems() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -404,7 +403,7 @@ public class Filters extends Base {
     public List<String> getFiftyPercentDiscountItems() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -430,7 +429,7 @@ public class Filters extends Base {
     public List<String> getSeventyPercentDiscountItems() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -457,7 +456,7 @@ public class Filters extends Base {
     public static void main(String[] args) {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +

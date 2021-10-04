@@ -1,21 +1,15 @@
 package functionalTests;
 
 import baseForTests.TestBase;
-import basket.Basket;
 import filters.Filters;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
 import sections.NewItems;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,22 +18,11 @@ public class NewItemsTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
+        mainSetUp();
         driver.get(getUrl + "catalog/new/");
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
         newItems = new NewItems(driver);
         filters = new Filters(driver);
-        basket = new Basket(driver);
-        basket.clickToOkButton();
+        newItems.clickToOkButton();
     }
 
     //Кол-во наименование в базе и на странице, проверка по наименованию

@@ -1,6 +1,5 @@
 package functionalTests;
 
-import base.Base;
 import baseForTests.TestBase;
 import basket.Basket;
 import catalog.Bracelets;
@@ -11,16 +10,12 @@ import collectionAndSet.Collection;
 import collectionAndSet.Set;
 import filters.Filters;
 import filters.Size;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import productCards.Picture;
 import productCards.ProductCard;
 import search.Search;
@@ -29,29 +24,19 @@ import sections.ShopTheLook;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ProductCardsTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
+        mainSetUp();
         filters = new Filters(driver);
         size = new Size(driver);
         basket = new Basket(driver);
         picture = new Picture(driver);
-        base = new Base(driver);
     }
 
     /*
@@ -311,8 +296,8 @@ public class ProductCardsTest extends TestBase {
         earrings = new Earrings(driver);
         String s = earrings.getItemsFromSet().get(0);
         driver.get(getUrl + "catalog/sergi/" + s);
-        basket.clickToOkButton()
-                .clickToSetItemInBasketButton();
+        basket.clickToOkButton();
+        basket.clickToSetItemInBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
     }
@@ -752,9 +737,9 @@ public class ProductCardsTest extends TestBase {
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/sergi/");
         collection.clickOnFirstHref();
-        String firstName = base.getHeader();
+        String firstName = basket.getHeader();
         collection.clickOnFirstItem();
-        String secondName = base.getHeader();
+        String secondName = basket.getHeader();
         assertNotEquals(firstName, secondName);
     }
 
@@ -763,9 +748,9 @@ public class ProductCardsTest extends TestBase {
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/braslety/");
         collection.clickOnFirstHref();
-        String firstName = base.getHeader();
+        String firstName = basket.getHeader();
         collection.clickOnFirstItem();
-        String secondName = base.getHeader();
+        String secondName = basket.getHeader();
         assertNotEquals(firstName, secondName);
     }
 
@@ -774,9 +759,9 @@ public class ProductCardsTest extends TestBase {
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/kole/");
         collection.clickOnFirstHref();
-        String firstName = base.getHeader();
+        String firstName = basket.getHeader();
         collection.clickOnFirstItem();
-        String secondName = base.getHeader();
+        String secondName = basket.getHeader();
         assertNotEquals(firstName, secondName);
     }
 
@@ -785,9 +770,9 @@ public class ProductCardsTest extends TestBase {
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/koltsa/");
         collection.clickOnSecondHref();
-        String firstName = base.getHeader();
+        String firstName = basket.getHeader();
         collection.clickOnFirstItem();
-        String secondName = base.getHeader();
+        String secondName = basket.getHeader();
         assertNotEquals(firstName, secondName);
     }
 

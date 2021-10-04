@@ -4,7 +4,6 @@ import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import sql.DBWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +17,7 @@ public class Size extends Base {
     By sizeButton = By.xpath("//div[text()='Размер кольца']");
     By firstSizeButton = By.xpath("//div[text()='14,5']");
     By secondSizeButton = By.xpath("//div[text()='15,5']");
-    By thirdSizeButton = By.xpath("//div[text()='16']");
+    By thirdSizeButton = By.xpath("//div[@class='filters__section filters__section_size']//div[text()='16']");
     By universalSizeButton = By.xpath("//div[text()='Универсальный']");
     By currentSize = By.xpath("//div[@data-name='razmer_kolca']/span[@class='product-modification__output']");
     By firstCurrentSizeButton = By.xpath("//ul/li[2]/label/span[@class='product-variant__variant product-variant__variant_size']");
@@ -107,12 +106,6 @@ public class Size extends Base {
         String name;
         List<String> list = new ArrayList<>();
         String query = "WITH cte_a AS ( " +
-//                "select sku_id, balance from storage_stock " +
-//                "JOIN item_sku ON item_sku.id = storage_stock.sku_id " +
-//                "JOIN item ON item_sku.item_id = item.id " +
-//                "JOIN designer ON item.designer_id = designer.id " +
-//                "where storage_id=1 and designer.name not like 'LAV%' group by sku_id " +
-//                "UNION ALL " +
                 "select sku_id, balance from storage_stock " +
                 "JOIN item_sku ON item_sku.id = storage_stock.sku_id " +
                 "JOIN item ON item_sku.item_id = item.id " +

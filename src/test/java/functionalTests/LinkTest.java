@@ -2,16 +2,9 @@ package functionalTests;
 
 import base.Base;
 import baseForTests.TestBase;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,18 +12,8 @@ public class LinkTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
+        mainSetUp();
         driver.get(getUrl);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
         base = new Base(driver);
     }
 
@@ -160,7 +143,7 @@ public class LinkTest extends TestBase {
         String header = base.getNameHeader();
         base.clickOnNameLink();
         String heading = base.getHeader();
-        assertEquals(header, heading);
+        assertEquals(header.substring(0, 28), heading.substring(0, 28));
     }
 
     @Test

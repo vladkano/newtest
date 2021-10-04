@@ -1,42 +1,29 @@
 package functionalTests;
 
 import baseForTests.TestBase;
-import basket.Basket;
 import filters.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class FiltersTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
+        mainSetUp();
         driver.get(getUrl + "catalog/");
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         filters = new Filters(driver);
-        basket = new Basket(driver);
-        basket.clickToOkButton();
+        filters.clickToOkButton();
     }
 
     public void getProductsListFromPage() {
@@ -503,27 +490,27 @@ public class FiltersTest extends TestBase {
         material = new Material(driver);
         colors = new Colors(driver);
         filters.clickToFilterButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts1 = filters.getNumberOfProducts();
         filters.clickToAllEarringsButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts2 = filters.getNumberOfProducts();
         material.clickToMaterialButton();
         material.clickToJewelryAlloyButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts3 = filters.getNumberOfProducts();
         colors.clickToColorButton();
         colors.clickToWhiteButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts4 = filters.getNumberOfProducts();
         colors.clickToWhiteButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts5 = filters.getNumberOfProducts();
         material.clickToJewelryAlloyButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts6 = filters.getNumberOfProducts();
         filters.clickToAllEarringsButton2();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts7 = filters.getNumberOfProducts();
         assertNotEquals(numberOfProducts1, numberOfProducts2);
         assertNotEquals(numberOfProducts3, numberOfProducts4);
@@ -545,19 +532,19 @@ public class FiltersTest extends TestBase {
         filters.clickToFilterButton();
         String numberOfProducts1 = filters.getNumberOfProducts();
         filters.clickToAllDiscountsButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts2 = filters.getNumberOfProducts();
         filters.clickToTenPercentButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts3 = filters.getNumberOfProducts();
         filters.clickToThirtyPercentButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts4 = filters.getNumberOfProducts();
         filters.clickToFiftyPercentButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts5 = filters.getNumberOfProducts();
         filters.clickToSeventyPercentButton();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
         String numberOfProducts6 = filters.getNumberOfProducts();
         assertNotEquals(numberOfProducts1, numberOfProducts2);
         assertEquals(numberOfProducts2, numberOfProducts3);

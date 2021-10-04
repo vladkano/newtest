@@ -1,17 +1,10 @@
 package functionalTests;
 
 import baseForTests.TestBase;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
 import tags.Tags;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,21 +12,11 @@ public class TagTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
-//        driver = new FirefoxDriver(options);
-//        driver = new EdgeDriver(options);
+        mainSetUp();
         tag = new Tags(driver);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
     }
 
-    //Отображение тэгов в каталогах
+    //Отображение тегов в каталогах
     @Test
     public void tagIsVisibleEarrings() {
         driver.get(getUrl + "catalog/sergi");
@@ -66,8 +49,8 @@ public class TagTest extends TestBase {
     }
 
 
-    //Отображение верных тэгов в каталогах
-    //Отображение всех тэгов по товару
+    //Отображение верных тегов в каталогах
+    //Отображение всех тегов по товару
     @Test
     public void tagIsCorrectEarrings() {
         driver.get(getUrl + "catalog/sergi");

@@ -16,11 +16,31 @@ public class Wishlist extends Base {
     By wishListButton = By.xpath("//a[@href='/wishlist/']");
     By wishListInCardListButton = By.xpath("//span[text()='Wish List']");
     By addToFavoritesFromCatalogButton = By.xpath("//span[@class='wish-button__icon-block']");
+    By transferToBasketButton = By.xpath("//span[text()='В корзину']");
+    By moveToBasketButton = By.xpath("//span[text()='Оформить заказ']");
+
+
 
     By wishListHeader = By.xpath("//h2[text()='Избранное']");
+    By basketProductName = By.xpath("//h4[@class='cart-item__product-name']");
+    By productNameFromTheCard = By.xpath("//h4[@class='cart-item__product-name']");
 
     public Wishlist(WebDriver driver) {
         super(driver);
+    }
+
+    public String getBasketProductName() {
+        return driver.findElement(basketProductName).getText();
+    }
+
+    public Wishlist clickToMoveToBasketButton() {
+        driver.findElement(moveToBasketButton).click();
+        return this;
+    }
+
+    public Wishlist clickToTransferToBasketButton() {
+        driver.findElement(transferToBasketButton).click();
+        return this;
     }
 
     public String getItemName() {
@@ -51,7 +71,6 @@ public class Wishlist extends Base {
 
     public Wishlist clickToItemButton() {
         String firstItem = this.findFirstItem();
-//        driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")).click();
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")));
         return this;

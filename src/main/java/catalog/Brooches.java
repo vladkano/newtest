@@ -21,7 +21,7 @@ public class Brooches extends Base {
     public List<String> getNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -43,8 +43,6 @@ public class Brooches extends Base {
         }
         return text;
     }
-
-
 
     public List<String> getDesigners() {
         String designer;
@@ -111,7 +109,7 @@ public class Brooches extends Base {
         String name4;
 
         List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
+        String query = "SELECT item.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
                 "JOIN item ON catalog.id = item.catalog_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item_sku.item_id = item.id " +
@@ -156,7 +154,7 @@ public class Brooches extends Base {
         String name4;
 
         List<String> list = new ArrayList<>();
-        String query = "SELECT item_sku.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
+        String query = "SELECT item.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
                 "JOIN item ON catalog.id = item.catalog_id " +
                 "JOIN item_sku ON item_sku.item_id = item.id " +
                 "JOIN item_collection_consist ON item.id = item_collection_consist.item_id " +

@@ -13,7 +13,6 @@ import java.util.List;
 public class Tags extends Base {
 
     static String tags = "";
-    static String itemName = "";
     By tag = By.xpath("//b[@class='tag-list__tag']");
 
     public Tags(WebDriver driver) {

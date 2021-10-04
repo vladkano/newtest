@@ -47,7 +47,7 @@ public class DesignersFilter extends Base {
     public List<String> getListOfSinitsyn() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -73,7 +73,7 @@ public class DesignersFilter extends Base {
     public List<String> getListOfJewlry() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -99,7 +99,7 @@ public class DesignersFilter extends Base {
     public List<String> getListOfAvgvst() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item " +
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
@@ -126,7 +126,7 @@ public class DesignersFilter extends Base {
     public static void main(String[] args) {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item_sku " +
+        String query = "SELECT item.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
@@ -145,9 +145,8 @@ public class DesignersFilter extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //worker.getSession().disconnect();
-
         System.out.println(text.size());
         System.out.println(text);
+        worker.getSession().disconnect();
     }
 }

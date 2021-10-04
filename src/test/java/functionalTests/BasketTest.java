@@ -3,16 +3,9 @@ package functionalTests;
 import baseForTests.TestBase;
 import basket.Basket;
 import filters.Filters;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,14 +14,8 @@ public class BasketTest extends TestBase {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        driver = new ChromeDriver(options);
+        mainSetUp();
         driver.navigate().to(getUrl + "catalog");
-        driver.manage().window().setSize(new Dimension(1920, 1080));
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         basket = new Basket(driver);
         basket.clickToOkButton();
     }
