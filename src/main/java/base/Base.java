@@ -18,6 +18,9 @@ public class Base {
 //    protected static String mainPageUrl = "https://stalingrad.poisondrop.org.ru/";
     //Тест(Севастополь)
 //    protected static String mainPageUrl = "https://sevastopol.poisontestdrop.ru/";
+    //Тест(Курск)
+//    protected static String mainPageUrl = "https://kursk.poisontestdrop.ru/";
+
     //Накст
 //    protected static String mainPageUrl = "https://nuxt.poisondrop.org.ru/catalog/";
 

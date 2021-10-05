@@ -109,6 +109,9 @@ public class TestBase {
     //Тест(Севастополь)
 //    protected String getUrl = "https://sevastopol.poisontestdrop.ru/";
 
+    //Тест(Курск)
+//    protected String getUrl = "https://kursk.poisontestdrop.ru/";
+
     //Накст
 //    protected String getUrl = "https://nuxt.poisondrop.org.ru/";
 
