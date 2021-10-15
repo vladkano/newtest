@@ -44,9 +44,9 @@ public class ProductCardsTest extends TestBase {
     смотрим чтобы менялся размер, кладем в корзину и проверяем что верный размер попал в корзину
     */
 
-    //с размером 14,5
+    //с размером 14
     @Test
-    public void changeSize145() {
+    public void changeSize14() {
         driver.get(getUrl + "catalog/koltsa/");
         basket.clickToOkButton();
         filters.clickToFilterButton();
@@ -449,7 +449,7 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void checkingShopTheLookBlockSergi() {
         shopTheLook = new ShopTheLook(driver);
-        driver.get(getUrl + "catalog/sergi/pozolocennye_sergi_tapeo_shrimp");
+        driver.get(getUrl + "catalog/sergi/rockah_bronzovye_sergi_s_barocnymi_zemcuzinami/?pokritie=zoloto");
         String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
         shopTheLook.clickOnShopTheLookPhoto();
         String frisbuyMarker = shopTheLook.getFrisbuyMarker();
@@ -834,7 +834,7 @@ public class ProductCardsTest extends TestBase {
             basket.clickOnCatalogButton();
         }
         basket.clickOnNameLink();
-        List<WebElement> productList = driver.findElements(By.xpath("//div[@class='catalog-card__designer']/a"));
+        List<WebElement> productList = driver.findElements(By.xpath("//section[@class='products-slider container viewed-products']//div[@class='catalog-card__designer']/a"));
         assertEquals(20, productList.size());
     }
 

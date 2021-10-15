@@ -91,7 +91,7 @@ public class SaleTest extends TestBase {
 
     //Проверка отображения размера скидки.
     @Test
-    public void saleOfSale() {
+    public void amountOfDiscount() {
         //sql:
         List<Integer> sqlList = sale.getSale();
         //site:

@@ -152,11 +152,13 @@ public class Basket extends Base {
         String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
+                "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
-                "and item_sku.url is not null and balance > 0 " +
+                "and item_sku.url is not null and balance > 1 and sku_characteristic_value.characteristic_value = 'Универсальный'" +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -285,7 +287,7 @@ public class Basket extends Base {
                 "JOIN item_collection_characteristic ON item_collection_consist.item_collection_characteristic_id = item_collection_characteristic.id " +
                 "JOIN item_collection ON item_collection_consist.item_collection_id = item_collection.id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                " and item_sku.url is not null and balance > 0 and section = 'catalog' and subsection = 'braslety'" +
+                " and item_sku.url is not null and balance > 1 and section = 'catalog' and subsection = 'braslety'" +
                 " and item_collection_consist.item_collection_characteristic_id!=0 and item_collection_consist.item_collection_characteristic_value_id != 0" +
                 " and item_collection_consist.item_collection_id != 0" +
                 " group by item_catalog_position.position";
@@ -313,29 +315,30 @@ public class Basket extends Base {
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
         String name;
-        Map<String, Integer> hashMap = new HashMap<>();
-        String query = "SELECT item.name, balance, reserve, sum(balance), sum(reserve) from storage_stock " +
-                "JOIN item_sku ON storage_stock.sku_id = item_sku.id " +
-                "JOIN item ON item.id = item_sku.item_id " +
+        List<String> list = new ArrayList<>();
+        String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "where balance - reserve > 0 and price > 5000 " +
-                "group by item_catalog_position.position, item_sku.id";
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
+                "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 1 and sku_characteristic_value.characteristic_value = 'Универсальный'" +
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
                 name = resultSet.getString("name");
-                int balance = resultSet.getInt("balance");
-                int reserve = resultSet.getInt("reserve");
-                hashMap.put(name, balance - reserve);
+                list.add(name);
+                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String firstItem = findFirstItemMoreThan5000();
-        System.out.println(firstItem);
-        System.out.println(hashMap.get(firstItem));
         worker.getSession().disconnect();
     }
 

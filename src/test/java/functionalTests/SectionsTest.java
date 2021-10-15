@@ -217,7 +217,7 @@ public class SectionsTest extends TestBase {
         footer = new Footer(driver);
         footer.clickToInstaButton();
         String url = driver.getCurrentUrl();
-        assertEquals("https://www.instagram.com/accounts/login/", url);
+        assertEquals("https://www.instagram.com/poisondropru/", url);
     }
 
     @Test()
@@ -455,7 +455,7 @@ public class SectionsTest extends TestBase {
         //сравниваем размер, содержание и порядок списков
         //сравниваем 1,8 и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
+        assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
         assertEquals(sqlList.get(7).substring(0, 20), siteList.get(7).substring(0, 20));
     }
 

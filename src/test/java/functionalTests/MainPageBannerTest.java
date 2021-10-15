@@ -94,10 +94,11 @@ public class MainPageBannerTest extends TestBase {
         banner.clickToOkButton();
         String href = banner.getMainCatalogHref();
         banner.clickToMainCatalogHref();
-        String header = banner.getMainCatalogHeader();
+        String header = banner.getMainBannerHeader();
         String url = driver.getCurrentUrl();
         assertEquals(href, url);
-        assertEquals("Фильтр", header);
+        assertEquals(" Стилизация уха – это такая игра. Соберите, как конструктор," +
+                " сет из каффов и серег, замените пару деталей, поэкспериментируйте... ", header);
     }
 
     @Test
@@ -105,9 +106,9 @@ public class MainPageBannerTest extends TestBase {
         String href = banner.getCatalogHref();
         banner.clickToCatalogHref();
         String url = driver.getCurrentUrl();
-//        String header = banner.getMainCatalogHeader();
+        String header = banner.getMainCatalogHeader();
         assertEquals(href, url);
-//        assertEquals("Фильтр", header);
+        assertEquals("Фильтр", header);
     }
 
     @Test

@@ -3,6 +3,8 @@ package functionalTests;
 import baseForTests.TestBase;
 import basket.Basket;
 import filters.Filters;
+import filters.Size;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,6 +51,8 @@ public class BasketTest extends TestBase {
     //Проверяем работают ли кнопки корзины на разных типах товаров
     //Обычный товар без размера
     @Test
+    @Description("Проверяем работают ли кнопки корзины на разных типах товаров. " +
+            "Обычный товар без размера")
     public void inBasketButton() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
@@ -84,8 +88,9 @@ public class BasketTest extends TestBase {
     @Test
     public void inBasketButtonWithSize() {
         filters = new Filters(driver);
+        size = new Size(driver);
         filters.clickToFilterButton();
-        filters.clickToAllRingsButton();
+        size.clickToUniversalSizeButton();
         filters.clickToShowProductsButton();
         basket.clickToRingButton();
         basket.clickToItemInBasketButton();
@@ -96,8 +101,9 @@ public class BasketTest extends TestBase {
     @Test
     public void plusButtonWithSize() {
         filters = new Filters(driver);
+        size = new Size(driver);
         filters.clickToFilterButton();
-        filters.clickToAllRingsButton();
+        size.clickToUniversalSizeButton();
         filters.clickToShowProductsButton();
         basket.clickToRingButton();
         basket.clickToItemInBasketButton();
@@ -109,8 +115,9 @@ public class BasketTest extends TestBase {
     @Test
     public void minusButtonWithSize() {
         filters = new Filters(driver);
+        size = new Size(driver);
         filters.clickToFilterButton();
-        filters.clickToAllRingsButton();
+        size.clickToUniversalSizeButton();
         filters.clickToShowProductsButton();
         basket.clickToRingButton();
         basket.clickToItemInBasketButton();

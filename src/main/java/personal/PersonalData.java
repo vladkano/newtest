@@ -328,7 +328,7 @@ public class PersonalData extends Base {
 
     public String getLastOrderContent() {
         String name = null;
-        String query = "select sku_name from `order`" +
+        String query = "select name from `order`" +
                 "JOIN order_item ON order_item.order_id = order.id " +
                 "JOIN item_sku ON item_sku.id = order_item.sku_id " +
                 "where user_id = 157982 and retail_status_id is not null " +
@@ -337,7 +337,7 @@ public class PersonalData extends Base {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                name = resultSet.getString("sku_name");
+                name = resultSet.getString("name");
             }
         } catch (SQLException e) {
             e.printStackTrace();

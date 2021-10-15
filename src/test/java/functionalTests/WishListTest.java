@@ -71,7 +71,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0,28), itemNameFromWishlist.substring(0,28));
+        assertEquals(itemName.substring(0,26), itemNameFromWishlist.substring(0,26));
     }
 
     //Серьги
@@ -115,7 +115,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0,20), itemNameFromWishlist.substring(0, 20));
+        assertEquals(itemName.substring(0,14), itemNameFromWishlist.substring(0, 14));
     }
 
     //Новинки
@@ -126,7 +126,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName, itemNameFromWishlist);
+        assertEquals(itemName.substring(0,20), itemNameFromWishlist.substring(0,20));
     }
 
     //Распродажа

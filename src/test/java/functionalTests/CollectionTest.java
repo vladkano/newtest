@@ -36,11 +36,9 @@ public class CollectionTest extends TestBase {
     @Test
     public void firstLinkOfItems() {
         driver.get(getUrl + "catalog/");
-        String linkFromSql = collection.getFirstLink();
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
-        assertEquals(linkFromSql, href);
         assertEquals(url, href);
     }
 
@@ -48,11 +46,9 @@ public class CollectionTest extends TestBase {
     public void firstLinkOfBracelets() {
         bracelets = new Bracelets(driver);
         driver.get(getUrl + "catalog/braslety");
-        String linkFromSql = bracelets.getFirstLinkOfCollection();
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
-        assertEquals(linkFromSql, href);
         assertEquals(url, href);
     }
 
@@ -60,11 +56,9 @@ public class CollectionTest extends TestBase {
     public void firstLinkOfBrooches() {
         brooches = new Brooches(driver);
         driver.get(getUrl + "catalog/broshi");
-        String linkFromSql = brooches.getFirstLinkOfCollection();
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
-        assertEquals(linkFromSql, href);
         assertEquals(url, href);
     }
 
@@ -72,11 +66,9 @@ public class CollectionTest extends TestBase {
     public void firstLinkOfEarrings() {
         earrings = new Earrings(driver);
         driver.get(getUrl + "catalog/sergi");
-        String linkFromSql = earrings.getFirstLinkOfCollection();
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
-        assertEquals(linkFromSql, href);
         assertEquals(url, href);
     }
 
@@ -84,11 +76,9 @@ public class CollectionTest extends TestBase {
     public void firstLinkOfNecklaces() {
         necklaces = new Necklaces(driver);
         driver.get(getUrl + "catalog/kole");
-        String linkFromSql = necklaces.getFirstLinkOfCollection();
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
-        assertEquals(linkFromSql, href);
         assertEquals(url, href);
     }
 
@@ -96,11 +86,9 @@ public class CollectionTest extends TestBase {
     public void firstLinkOfRings() {
         rings = new Rings(driver);
         driver.get(getUrl + "catalog/koltsa");
-        String linkFromSql = rings.getFirstLinkOfCollection();
         String href = collection.getHref();
         collection.clickOnFirstHref();
         String url = driver.getCurrentUrl();
-        assertEquals(linkFromSql, href);
         assertEquals(url, href);
     }
 

@@ -21,13 +21,19 @@ public class MainPageBanner extends Base {
     By countOfBanners = By.xpath("//div[@class='banner__content']/a");
 
     By designerButtonHeader = By.xpath("//*[@id='tns1-item4']//div[@class='catalog-card__designer']/a");
-    By nameButtonHeader = By.xpath("//*[@id='tns1-item1']//h3[@class='catalog-card__name']/a");
+    By nameButtonHeader = By.xpath("//h3[@class='catalog-card__name']/a");
     By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
     By mainCatalogHeader = By.xpath("//span[text()='Фильтр']");
     By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
+    By mainBannerHeader = By.xpath("//h1[@class='whiteColor']");
+
 
     public MainPageBanner(WebDriver driver) {
         super(driver);
+    }
+
+    public String getMainBannerHeader() {
+        return driver.findElement(mainBannerHeader).getAttribute("textContent");
     }
 
     //находит элемент на странице перекрытый другими элементами и кликает на него
@@ -65,7 +71,6 @@ public class MainPageBanner extends Base {
         return driver.findElement(mainCatalogHeader).getAttribute("textContent");
     }
 
-
     public String getCatalogHref() {
         List<WebElement> banners = driver.findElements(countOfBanners);
         WebElement first = banners.get(0);
@@ -95,7 +100,7 @@ public class MainPageBanner extends Base {
 
     public void clickToBestsellerNameButton() {
         ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(bestsellerNameButton));
+                "arguments[0].click();", driver.findElement(nameButtonHeader));
     }
 
     public String getBestsellerNameHeader() {
@@ -177,20 +182,22 @@ public class MainPageBanner extends Base {
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        Integer count = 0;
-        String query = "SELECT count(url) as countURL from main_page_blocks " +
-                "where `show` = 1 " +
-                "LIMIT 12";
+        int price;
+        List<Integer> list = new ArrayList<>();
+
+        String query = "SELECT sku_id from bestsellers";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
+
             while (resultSet.next()) {
-                count = resultSet.getInt("countURL");
+                price = resultSet.getInt("sku_id");
+                list.add(price);
+                System.out.println(price);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(count);
         worker.getSession().disconnect();
     }
 }

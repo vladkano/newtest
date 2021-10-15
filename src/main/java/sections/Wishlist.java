@@ -39,7 +39,8 @@ public class Wishlist extends Base {
     }
 
     public Wishlist clickToTransferToBasketButton() {
-        driver.findElement(transferToBasketButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(transferToBasketButton));
         return this;
     }
 
