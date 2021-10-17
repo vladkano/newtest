@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Picture extends Base {
 
-    By pictures = By.xpath("//div[@class='product-photos__preview']//img");
+    private final By pictures = By.xpath("//div[@class='product-photos__preview']//img");
 
     public Picture(WebDriver driver) {
         super(driver);

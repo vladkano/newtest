@@ -7,7 +7,6 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import sections.Man;
 
@@ -37,7 +36,7 @@ public class CatalogTest extends TestBase {
         List<String> sqlList = bracelets.getDesigners();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
@@ -57,7 +56,7 @@ public class CatalogTest extends TestBase {
         List<String> sqlList = earrings.getDesigners();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
@@ -80,7 +79,7 @@ public class CatalogTest extends TestBase {
         List<String> sqlList = necklaces.getDesigners();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
@@ -100,7 +99,7 @@ public class CatalogTest extends TestBase {
         List<String> sqlList = rings.getDesigners();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
@@ -120,7 +119,7 @@ public class CatalogTest extends TestBase {
         List<String> sqlList = brooches.getDesigners();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
@@ -141,7 +140,7 @@ public class CatalogTest extends TestBase {
         List<String> sqlList = pirsing.getDesigners();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
@@ -161,7 +160,7 @@ public class CatalogTest extends TestBase {
         List<String> sqlList = man.getDesigners();
         int sqlSize = sqlList.size();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
@@ -385,7 +384,7 @@ public class CatalogTest extends TestBase {
         //sql:
         List<Integer> sqlList = bracelets.getPrice();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
+        List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -405,7 +404,7 @@ public class CatalogTest extends TestBase {
         //sql:
         List<Integer> sqlList = earrings.getPrice();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
+        List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -425,7 +424,7 @@ public class CatalogTest extends TestBase {
         //sql:
         List<Integer> sqlList = necklaces.getPrice();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
+        List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -445,7 +444,7 @@ public class CatalogTest extends TestBase {
         //sql:
         List<Integer> sqlList = rings.getPrice();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
+        List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -465,7 +464,7 @@ public class CatalogTest extends TestBase {
         //sql:
         List<Integer> sqlList = brooches.getPrice();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
+        List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -485,7 +484,7 @@ public class CatalogTest extends TestBase {
         //sql:
         List<Integer> sqlList = pirsing.getPrice();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
+        List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");
@@ -505,7 +504,7 @@ public class CatalogTest extends TestBase {
         //sql:
         List<Integer> sqlList = man.getPrice();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
+        List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");

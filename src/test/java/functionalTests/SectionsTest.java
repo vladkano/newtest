@@ -6,7 +6,6 @@ import filters.Filters;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import sections.*;
 
@@ -295,7 +294,7 @@ public class SectionsTest extends TestBase {
         //sql:
         List<String> sqlList = jewelry.getDesigners();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
@@ -313,7 +312,7 @@ public class SectionsTest extends TestBase {
         //sql:
         List<Integer> sqlList = jewelry.getPrice();
         //site:
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
+        List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");

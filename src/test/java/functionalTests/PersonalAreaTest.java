@@ -24,7 +24,7 @@ public class PersonalAreaTest extends TestBase {
         mainPage = new MainPage(driver);
         personalData = new PersonalData(driver);
         personalData.clickToOkButton();
-        mainPage.sigInWithPhoneOrEmail("+79501978905");
+        mainPage.sigInWithPhoneOrEmail(phoneForAuthorization);
         String codeToLogin = mainPage.getPhonePasswordForLC();
         mainPage.sigInWithPassword(codeToLogin);
         personalData.clickOnPersonalDataButton();

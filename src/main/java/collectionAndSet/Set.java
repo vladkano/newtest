@@ -6,9 +6,9 @@ import org.openqa.selenium.WebDriver;
 
 public class Set extends Base {
 
-    By setWindow = By.id("tns1-ow");
-    By setHeader = By.xpath("//h2[text()='Украшения из образа']");
-    By firstItemFromSet = By.xpath("//li[@id='tns1-item0']//a");
+    private final By setWindow = By.id("tns1-ow");
+    private final By setHeader = By.xpath("//h2[text()='Украшения из образа']");
+    private final By firstItemFromSet = By.xpath("//li[@id='tns1-item0']//a");
 
     public Set(WebDriver driver) {
         super(driver);

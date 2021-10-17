@@ -15,10 +15,10 @@ import java.util.List;
 public class Collection extends Base {
 
 
-    By href = By.xpath("//li[@class='product-variant']/a");
-    By firstItem = By.xpath("//span[@class='material-image']");
-    By price = By.xpath("//b[@class='price-block__price']");
-    By secondHref = By.xpath("(//li[@class='product-variant']/a)[2]");
+    private final By href = By.xpath("//li[@class='product-variant']/a");
+    private final By firstItem = By.xpath("//span[@class='material-image']");
+    private final By price = By.xpath("//b[@class='price-block__price']");
+    private final By secondHref = By.xpath("(//li[@class='product-variant']/a)[2]");
 
     public Collection(WebDriver driver) {
         super(driver);

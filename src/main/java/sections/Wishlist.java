@@ -13,17 +13,14 @@ import java.util.List;
 
 public class Wishlist extends Base {
 
-    By wishListButton = By.xpath("//a[@href='/wishlist/']");
-    By wishListInCardListButton = By.xpath("//span[text()='Wish List']");
-    By addToFavoritesFromCatalogButton = By.xpath("//span[@class='wish-button__icon-block']");
-    By transferToBasketButton = By.xpath("//span[text()='В корзину']");
-    By moveToBasketButton = By.xpath("//span[text()='Оформить заказ']");
-
-
-
-    By wishListHeader = By.xpath("//h2[text()='Избранное']");
-    By basketProductName = By.xpath("//h4[@class='cart-item__product-name']");
-    By productNameFromTheCard = By.xpath("//h4[@class='cart-item__product-name']");
+    private final By wishListButton = By.xpath("//a[@href='/wishlist/']");
+    private final By wishListInCardListButton = By.xpath("//span[text()='Wish List']");
+    private final By addToFavoritesFromCatalogButton = By.xpath("//span[@class='wish-button__icon-block']");
+    private final By transferToBasketButton = By.xpath("//span[text()='В корзину']");
+    private final By moveToBasketButton = By.xpath("//span[text()='Оформить заказ']");
+    private final By wishListHeader = By.xpath("//h2[text()='Избранное']");
+    private final By basketProductName = By.xpath("//h4[@class='cart-item__product-name']");
+    private final By productNameFromTheCard = By.xpath("//h4[@class='cart-item__product-name']");
 
     public Wishlist(WebDriver driver) {
         super(driver);

@@ -13,32 +13,32 @@ import java.sql.Statement;
 
 public class MainPage extends Base {
 
-    By sigInButton = By.xpath("//span[@class='icon-with-title header__icon-button']");
-    By lcButton = By.xpath("//a[@href='/profile?section=personalData']");
-    By login = By.id("authLogin");
-    By getPassword = By.xpath("//button/span[text()='Получить код']");
-    By authEmail = By.id("authEmail");
-    By authName = By.id("authFullName");
-    By consentButton = By.xpath("//label[@for='authPersonalDataAgreement']");
-    By registerButton = By.xpath("//span[text()='Зарегистрироваться']");
-    By authPassword = By.id("authCode");
-    By authEmailPassword = By.xpath("//input[@id='authCode']");
-    By authPhone = By.id("authPhone");
-    By exitButton = By.xpath("//span[text()='Выйти']");
-    By phoneFromSite = By.xpath("//span[@class='info-box-number']");
-    By phoneFromSite2 = By.xpath("(//span[@class='info-box-number'])[2]");
-    By mailFromSite = By.id("email_addr");
+    private final By sigInButton = By.xpath("//span[@class='icon-with-title header__icon-button']");
+    private final By lcButton = By.xpath("//a[@href='/profile?section=personalData']");
+    private final By login = By.id("authLogin");
+    private final By getPassword = By.xpath("//button/span[text()='Получить код']");
+    private final By authEmail = By.id("authEmail");
+    private final By authName = By.id("authFullName");
+    private final By consentButton = By.xpath("//label[@for='authPersonalDataAgreement']");
+    private final By registerButton = By.xpath("//span[text()='Зарегистрироваться']");
+    private final By authPassword = By.id("authCode");
+    private final By authEmailPassword = By.xpath("//input[@id='authCode']");
+    private final By authPhone = By.id("authPhone");
+    private final By exitButton = By.xpath("//span[text()='Выйти']");
+    private final By phoneFromSite = By.xpath("//span[@class='info-box-number']");
+    private final By phoneFromSite2 = By.xpath("(//span[@class='info-box-number'])[2]");
+    private final By mailFromSite = By.id("email_addr");
 
 
     //headers
-    By sigInHeader = By.xpath("//a[@href='/profile?section=personalData']/span");
-    By incorrectSigInHeader = By.xpath("//p[@class='message popup-auth__message message_error']");
-    By incorrectCodeHeader = By.xpath("//p[text()='Необходимо указать код подтверждения']");
-    By incorrectEmailHeader = By.xpath("//p[text()='Необходимо указать электронную почту']");
-    By incorrectNameHeader = By.xpath("//p[text()='Необходимо указать имя']");
-    By noConsentHeader = By.xpath("//p[@class='message popup-auth__message message_error']");
-    By incorrectPhoneHeader = By.xpath("//p[text()='Необходимо указать телефон']");
-    By sigOutHeader = By.xpath("//h3[text()='Вход или регистрация']");
+    private final By sigInHeader = By.xpath("//a[@href='/profile?section=personalData']/span");
+    private final By incorrectSigInHeader = By.xpath("//p[@class='message popup-auth__message message_error']");
+    private final By incorrectCodeHeader = By.xpath("//p[text()='Необходимо указать код подтверждения']");
+    private final By incorrectEmailHeader = By.xpath("//p[text()='Необходимо указать электронную почту']");
+    private final By incorrectNameHeader = By.xpath("//p[text()='Необходимо указать имя']");
+    private final By noConsentHeader = By.xpath("//p[@class='message popup-auth__message message_error']");
+    private final By incorrectPhoneHeader = By.xpath("//p[text()='Необходимо указать телефон']");
+    private final By sigOutHeader = By.xpath("//h3[text()='Вход или регистрация']");
 
     public MainPage(WebDriver driver) {
         super(driver);

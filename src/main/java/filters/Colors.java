@@ -13,14 +13,14 @@ import java.util.List;
 
 public class Colors extends Base {
 
-    By colorButton = By.xpath("//div[text()='Цвет']");
-    By greenButton = By.xpath("//div[text()='Зеленый']");
-    By blueButton = By.xpath("//div[text()='Синий']");
-    By mixButton = By.xpath("//div[text()='Мульти']");
-    By coveringButton = By.xpath("//div[text()='Покрытие']");
-    By rodiiButton = By.xpath("//div[text()='Родий']");
-    By pinkGoldButton = By.xpath("//div[text()='Розовое золото']");
-    By whiteButton = By.xpath("//div[text()='Белый']");
+    private final By colorButton = By.xpath("//div[text()='Цвет']");
+    private final By greenButton = By.xpath("//div[text()='Зеленый']");
+    private final By blueButton = By.xpath("//div[text()='Синий']");
+    private final By mixButton = By.xpath("//div[text()='Мульти']");
+    private final By coveringButton = By.xpath("//div[text()='Покрытие']");
+    private final By rodiiButton = By.xpath("//div[text()='Родий']");
+    private final By pinkGoldButton = By.xpath("//div[text()='Розовое золото']");
+    private final By whiteButton = By.xpath("//div[text()='Белый']");
 
     public Colors(WebDriver driver) {
         super(driver);

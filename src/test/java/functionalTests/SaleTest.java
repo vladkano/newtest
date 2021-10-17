@@ -47,7 +47,7 @@ public class SaleTest extends TestBase {
     @Test
     public void designersOfSale() {
         List<String> sqlList = sale.getDesigners();
-        List<WebElement> elements = driver.findElements(By.xpath("//div/a[@class='link']"));
+        List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
@@ -60,7 +60,7 @@ public class SaleTest extends TestBase {
     @Test
     public void finalPriceOfSale() {
         List<Integer> sqlList = sale.getFinalPrice();
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='price-block__main']/b"));
+        List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
             String replace = s.replace(" ", "");

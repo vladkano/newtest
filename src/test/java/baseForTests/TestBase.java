@@ -78,7 +78,20 @@ public class TestBase {
     protected By numberOfDesigners = By.xpath("//li[@class='index-designers__name']/a");
     protected By trendBanners = By.xpath("//span[@class='picture']");
     protected By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
+    protected By showMore = By.xpath("//span[text()='Показать ещё']");
+    protected By designerName = By.xpath("//div/a[@class='link']");
+    protected By price = By.xpath("//div[@class='price-block__main']/b");
 
+    protected String phoneForAuthorization = "+79501978905";
+    protected String phoneForOrder = "9126459328";
+    protected String testNameForOrder = "Александр Тест";
+    protected String subscriptionName = "Подписаться";
+    protected String subscriptionHeader = "Узнавайте первыми о новинках, " +
+            "специальных мероприятиях, скидках и многом другом";
+
+
+    protected String email = "rundkvist@poisondrop.ru";
+    
     protected List<String> siteList = new ArrayList<>();
     protected List<Integer> priceList = new ArrayList<>();
     protected int siteSize = 0;

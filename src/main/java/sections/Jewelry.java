@@ -15,7 +15,7 @@ import java.util.List;
 public class Jewelry extends Base {
 
 
-    By jewelryButton = By.xpath("//a[text()='Золото и серебро']");
+    private final By jewelryButton = By.xpath("//a[text()='Золото и серебро']");
 
     public Jewelry(WebDriver driver) {
         super(driver);

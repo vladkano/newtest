@@ -11,24 +11,24 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class NameNecklaces extends Base {
 
     //Кнопки
-    By orderButton = By.xpath("//button[text()='Заказать']");
-    By secondTypeButton = By.xpath("//ul[@class='radio-menu-img necklace-constructor__type']/li[2]//span");
-    By thirdTypeButton = By.xpath("//ul[@class='radio-menu-img necklace-constructor__type']/li[3]//span");
-    By secondFontButton = By.xpath("//ul[2]/li[2]/label/span");
-    By thirdFontButton = By.xpath("//ul[2]/li[3]/label/span");
-    By fourthFontButton = By.xpath("//ul[2]/li[4]/label/span");
-    By fiveFontButton = By.xpath("//ul[2]/li[5]/label/span");
-    By sixFontButton = By.xpath("//ul[2]/li[6]/label/span");
-    By rhodiumButton = By.xpath("//span[text()='Родий']");
-    By gildingButton = By.xpath("//span[text()='Позолота']");
-    By goldButton = By.xpath("//span[text()='Золото 585']");
-    By whiteGoldButton = By.xpath("//span[text()='Белое']");
+    private final By orderButton = By.xpath("//button[text()='Заказать']");
+    private final By secondTypeButton = By.xpath("//ul[@class='radio-menu-img necklace-constructor__type']/li[2]//span");
+    private final By thirdTypeButton = By.xpath("//ul[@class='radio-menu-img necklace-constructor__type']/li[3]//span");
+    private final By secondFontButton = By.xpath("//ul[2]/li[2]/label/span");
+    private final By thirdFontButton = By.xpath("//ul[2]/li[3]/label/span");
+    private final By fourthFontButton = By.xpath("//ul[2]/li[4]/label/span");
+    private final By fiveFontButton = By.xpath("//ul[2]/li[5]/label/span");
+    private final By sixFontButton = By.xpath("//ul[2]/li[6]/label/span");
+    private final By rhodiumButton = By.xpath("//span[text()='Родий']");
+    private final By gildingButton = By.xpath("//span[text()='Позолота']");
+    private final By goldButton = By.xpath("//span[text()='Золото 585']");
+    private final By whiteGoldButton = By.xpath("//span[text()='Белое']");
 
     //Значения
-    By firstFont = By.xpath("//img[@alt='результат']");
-    By necklaceText = By.xpath("//input[@name='text']");
-    By checkValue = By.xpath("//input[@name='quantity']");
-    By price = By.xpath("//div[@class='necklace-constructor__price price-block__price']");
+    private final By firstFont = By.xpath("//img[@alt='результат']");
+    private final By necklaceText = By.xpath("//input[@name='text']");
+    private final By checkValue = By.xpath("//input[@name='quantity']");
+    private final By price = By.xpath("//div[@class='necklace-constructor__price price-block__price']");
 
     public NameNecklaces(WebDriver driver) {
         super(driver);

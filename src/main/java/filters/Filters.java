@@ -15,33 +15,32 @@ import java.util.Map;
 
 public class Filters extends Base {
 
-    By filterButton = By.xpath("//span[text()='Фильтр']");
-    By showProductsButton = By.xpath("//button[@class='filters__show-button']");
-    By priceRangeLeft = By.xpath("//input[@class='filters__input-price']");
-    By priceRangeRight = By.xpath("(//input[@class='filters__input-price'])[2]");
-    By allDiscountsButton = By.xpath("//div[text()='Все скидки']");
-    By tenPercentButton = By.xpath("//div[text()='от 10%']");
-    By thirtyPercentButton = By.xpath("//div[text()='от 30%']");
-    By fiftyPercentButton = By.xpath("//div[text()='от 50%']");
-    By seventyPercentButton = By.xpath("//div[text()='от 70%']");
+    private final By filterButton = By.xpath("//span[text()='Фильтр']");
+    private final By showProductsButton = By.xpath("//button[@class='filters__show-button']");
+    private final By priceRangeLeft = By.xpath("//input[@class='filters__input-price']");
+    private final By priceRangeRight = By.xpath("(//input[@class='filters__input-price'])[2]");
+    private final By allDiscountsButton = By.xpath("//div[text()='Все скидки']");
+    private final By tenPercentButton = By.xpath("//div[text()='от 10%']");
+    private final By thirtyPercentButton = By.xpath("//div[text()='от 30%']");
+    private final By fiftyPercentButton = By.xpath("//div[text()='от 50%']");
+    private final By seventyPercentButton = By.xpath("//div[text()='от 70%']");
 
+    private final By allEarringsButton = By.xpath("//div[text()='Серьги']");
+    private final By allEarringsButton2 = By.xpath("(//div[text()='Серьги'])[2]");
 
-    By allEarringsButton = By.xpath("//div[text()='Серьги']");
-    By allEarringsButton2 = By.xpath("(//div[text()='Серьги'])[2]");
-
-    By allRingsButton = By.xpath("//div[text()='Кольца']");
-    By allNecklacesButton = By.xpath("//div[text()='Колье']");
-    By allBraceletsButton = By.xpath("//div[text()='Браслеты']");
-    By allBroochesButton = By.xpath("//div[text()='Броши']");
-    By priceButton = By.xpath("//div[text()='Цена']");
-    By catalogResetButton = By.xpath("//button[@class='filters__reset-button']");
-    By resetButtonInFilter = By.xpath("//span[text()='Сбросить всё']");
-    By earringsButton = By.xpath("//div[text()='Серьги']");
-    By ringsButton = By.xpath("//div[text()='Кольца']");
-    By necklacesButton = By.xpath("//div[text()='Колье']");
-    By braceletsButton = By.xpath("//div[text()='Браслеты']");
-    By broochesButton = By.xpath("//div[text()='Броши']");
-    By countHeader = By.xpath("//div[@class='filters__label-counter hidden_mobile-tablet']/span[@class='filters__label-text']");
+    private final By allRingsButton = By.xpath("//div[text()='Кольца']");
+    private final By allNecklacesButton = By.xpath("//div[text()='Колье']");
+    private final By allBraceletsButton = By.xpath("//div[text()='Браслеты']");
+    private final By allBroochesButton = By.xpath("//div[text()='Броши']");
+    private final By priceButton = By.xpath("//div[text()='Цена']");
+    private final By catalogResetButton = By.xpath("//button[@class='filters__reset-button']");
+    private final By resetButtonInFilter = By.xpath("//span[text()='Сбросить всё']");
+    private final By earringsButton = By.xpath("//div[text()='Серьги']");
+    private final By ringsButton = By.xpath("//div[text()='Кольца']");
+    private final By necklacesButton = By.xpath("//div[text()='Колье']");
+    private final By braceletsButton = By.xpath("//div[text()='Браслеты']");
+    private final By broochesButton = By.xpath("//div[text()='Броши']");
+    private final By countHeader = By.xpath("//div[@class='filters__label-counter hidden_mobile-tablet']/span[@class='filters__label-text']");
 
     public Filters(WebDriver driver) {
         super(driver);

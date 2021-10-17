@@ -17,21 +17,21 @@ public class Designers extends Base {
 
     private String url = mainPageUrl + "designers/";
 
-    By designersButton = By.xpath("//a[text()='Дизайнеры']");
-    By designersFirstHref = By.xpath("//div[@class='new-designers__wrapper']/a");
-    By designersSecondHref = By.xpath("//div[@class='new-designers__wrapper']/a[2]");
-    By designersThirdHref = By.xpath("//div[@class='new-designers__wrapper']/a[3]");
-    By firstPopularHref = By.xpath("//div[@class='popular-designers__item']/a");
-    By lastPopularHref = By.xpath("//div[@class='popular-designers__item'][14]/a");
-    By designer = By.xpath("//li[@class='index-designers__name']/a");
-    By designersNames = By.xpath("//div[@class='catalog-card__designer']/a");
-    By numberOfItem = By.xpath("//h3[@class='catalog-card__name']/a");
+    private final By designersButton = By.xpath("//a[text()='Дизайнеры']");
+    private final By designersFirstHref = By.xpath("//div[@class='new-designers__wrapper']/a");
+    private final By designersSecondHref = By.xpath("//div[@class='new-designers__wrapper']/a[2]");
+    private final By designersThirdHref = By.xpath("//div[@class='new-designers__wrapper']/a[3]");
+    private final By firstPopularHref = By.xpath("//div[@class='popular-designers__item']/a");
+    private final By lastPopularHref = By.xpath("//div[@class='popular-designers__item'][14]/a");
+    private final By designer = By.xpath("//li[@class='index-designers__name']/a");
+    private final By designersNames = By.xpath("//div[@class='catalog-card__designer']/a");
+    private final By numberOfItem = By.xpath("//h3[@class='catalog-card__name']/a");
 
     //карточка товара
-    By designerPhoto = By.xpath("//span[@class='picture designer-block__picture']//img");
-    By designerName = By.xpath("//a[@class='designer-block__link link']");
-    By designerText = By.xpath("//p[@class='designer-block__description']");
-    By designerButton = By.xpath("//a[@class='button-border link']/span[@class='button__content']");
+    private final By designerPhoto = By.xpath("//span[@class='picture designer-block__picture']//img");
+    private final By designerName = By.xpath("//a[@class='designer-block__link link']");
+    private final By designerText = By.xpath("//p[@class='designer-block__description']");
+    private final By designerButton = By.xpath("//a[@class='button-border link']/span[@class='button__content']");
 
     public Designers(WebDriver driver) {
         super(driver);

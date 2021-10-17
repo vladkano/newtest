@@ -149,7 +149,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithFirstTypeNecklaceAndCourierDelivery() {
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithAllStrings(phoneForOrder, email, testNameForOrder,
                 "Нижний Новгород", "ул Ефремова, д 10", "2", "2",
                 "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
@@ -162,7 +162,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithFirstTypeNecklaceAndTsvetnoy() {
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreTsvetnoy("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreTsvetnoy(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -173,7 +173,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithFirstTypeNecklaceAndMetropolis() {
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreMetropolisPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreMetropolisPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -184,7 +184,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithFirstTypeNecklaceAndAtrium() {
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreAtriumPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreAtriumPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -196,7 +196,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.firstTypeOrder("Тест");
         nameNecklaces.clickToSecondFontButton();
         basket.clickToBasketButton();
-        order.orderWithRedBridgePhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithRedBridgePhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -209,7 +209,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Test");
         nameNecklaces.clickToSecondFontButton();
         basket.clickToBasketButton();
-        order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithAllStrings(phoneForOrder, email, testNameForOrder,
                 "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
                 "2", "Test Comment", "SecondTypeNecklace");
         String code2 = order.getPhonePassword();
@@ -223,7 +223,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Test");
         nameNecklaces.clickToThirdFontButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreTsvetnoy("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreTsvetnoy(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -235,7 +235,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Test");
         nameNecklaces.clickToFourthFontButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreMetropolisPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreMetropolisPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -247,7 +247,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Test");
         nameNecklaces.clickToFiveFontButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreAtriumPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreAtriumPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -259,7 +259,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Test");
         nameNecklaces.clickToSixFontButton();
         basket.clickToBasketButton();
-        order.orderWithRedBridgePhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithRedBridgePhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -271,7 +271,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithThirdTypeNecklaceAndCourierDelivery() {
         nameNecklaces.thirdTypeOrder("Test");
         basket.clickToBasketButton();
-        order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithAllStrings(phoneForOrder, email, testNameForOrder,
                 "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
                 "2", "Test Comment", "ThirdTypeNecklace");
         String code2 = order.getPhonePassword();
@@ -285,7 +285,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.thirdTypeOrder("Test");
         nameNecklaces.clickToSecondFontButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreTsvetnoy("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreTsvetnoy(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -296,7 +296,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithThirdTypeNecklaceAndMetropolis() {
         nameNecklaces.thirdTypeOrder("Test");
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreMetropolisPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreMetropolisPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -308,7 +308,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.clickToRhodiumButton();
         nameNecklaces.thirdTypeOrder("Test");
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreAtriumPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreAtriumPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -320,7 +320,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.clickToGildingButton();
         nameNecklaces.thirdTypeOrder("Test");
         basket.clickToBasketButton();
-        order.orderWithRedBridgePhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithRedBridgePhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -337,7 +337,7 @@ public class NameNecklacesTest extends TestBase {
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithNoPayAndPhone(phoneForOrder, email, testNameForOrder,
                 "Сочи", "ул Горького, д 87", "2а", "", "1", "нет", "Paid delivery");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
@@ -352,7 +352,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.internationalWithPhone(phoneForOrder, email, testNameForOrder,
                 "Минск", "улица Пушкина 12", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         String code2 = order.getPhonePassword();
@@ -368,7 +368,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Test");
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.internationalWithPhone(phoneForOrder, email, testNameForOrder,
                 "Рим", "Гладиаторов дом 20м", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         String code2 = order.getPhonePassword();
@@ -384,7 +384,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.thirdTypeOrder("ThirdTest");
         basket.clickToBasketButton();
         Integer price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.internationalWithPhone(phoneForOrder, email, testNameForOrder,
                 "Мадрид", "Хамон стрит 20", "Test");
         Integer finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         String code2 = order.getPhonePassword();
@@ -401,7 +401,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithFirstTypeNecklaceAndNoPayTsvetnoy() {
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.tsvetnoyWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.tsvetnoyWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -413,7 +413,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.clickToSecondFontButton();
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.metropolisWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.metropolisWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -425,7 +425,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.clickToThirdFontButton();
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.atriumWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.atriumWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -436,7 +436,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithFirstTypeNecklaceAndNoPayRedBridge() {
         nameNecklaces.firstTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.redBridgeWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.redBridgeWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -449,7 +449,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithSecondTypeNecklaceAndNoPayCourierDelivery() {
         nameNecklaces.secondTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithNoPayAndPhone(phoneForOrder, email, testNameForOrder,
                 "Сочи", "ул Горького, д 87", "2а", "", "1",
                 "нет", "Second Type Necklace");
         String code2 = order.getPhonePassword();
@@ -463,7 +463,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Тест");
         nameNecklaces.clickToSecondFontButton();
         basket.clickToBasketButton();
-        order.tsvetnoyWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.tsvetnoyWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -475,7 +475,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Тест");
         nameNecklaces.clickToThirdFontButton();
         basket.clickToBasketButton();
-        order.metropolisWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.metropolisWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -487,7 +487,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Тест");
         nameNecklaces.clickToFourthFontButton();
         basket.clickToBasketButton();
-        order.atriumWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.atriumWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -499,7 +499,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.secondTypeOrder("Тест");
         nameNecklaces.clickToFiveFontButton();
         basket.clickToBasketButton();
-        order.redBridgeWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.redBridgeWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -512,7 +512,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithThirdTypeNecklaceAndNoPayCourierDelivery() {
         nameNecklaces.thirdTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithNoPayAndPhone(phoneForOrder, email, testNameForOrder,
                 "Сочи", "ул Горького, д 87", "2а", "", "1", "нет", "Third Type Necklace");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
@@ -525,7 +525,7 @@ public class NameNecklacesTest extends TestBase {
         nameNecklaces.thirdTypeOrder("Тест");
         nameNecklaces.clickToSecondFontButton();
         basket.clickToBasketButton();
-        order.tsvetnoyWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.tsvetnoyWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -536,7 +536,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithThirdTypeNecklaceAndNoPayMetropolis() {
         nameNecklaces.thirdTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.metropolisWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.metropolisWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -547,7 +547,7 @@ public class NameNecklacesTest extends TestBase {
     public void orderWithThirdTypeNecklaceAndNoPayRedBridge() {
         nameNecklaces.thirdTypeOrder("Тест");
         basket.clickToBasketButton();
-        order.redBridgeWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.redBridgeWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();

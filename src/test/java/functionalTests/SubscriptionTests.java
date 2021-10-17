@@ -22,9 +22,8 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl);
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
     @Test()
@@ -32,9 +31,8 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl + "catalog/new/");
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
     @Test()
@@ -42,9 +40,8 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl + "catalog/");
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
     @Test()
@@ -52,9 +49,8 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl + "jewelry/");
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
     @Test()
@@ -62,9 +58,8 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl + "catalog/men/");
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
     @Test()
@@ -72,9 +67,8 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl + "trend/");
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
     @Test()
@@ -82,9 +76,8 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl + "designers/");
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
     @Test()
@@ -92,9 +85,8 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl + "shop-the-look/");
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
     @Test()
@@ -102,9 +94,8 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl + "catalog/sale/");
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
 
@@ -114,9 +105,8 @@ public class SubscriptionTests extends TestBase {
         subscription.clickOnNameLink();
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        assertEquals("Узнавайте первыми о новинках, " +
-                "специальных мероприятиях, скидках и многом другом", subscriptionText);
-        assertEquals("Подписаться", subscriptionButtonText);
+        assertEquals(subscriptionHeader, subscriptionText);
+        assertEquals(subscriptionName, subscriptionButtonText);
     }
 
 

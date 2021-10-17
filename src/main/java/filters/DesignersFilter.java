@@ -13,10 +13,10 @@ import java.util.List;
 
 public class DesignersFilter extends Base {
 
-    By designersButton = By.xpath("//div[text()='Дизайнеры']");
-    By sinitsynButton = By.xpath("//div[text()='Aleksandr Sinitsyn']");
-    By jewlryButton = By.xpath("//div[text()='Prosto Jewlry']");
-    By avgvstButton = By.xpath("//div[text()='Avgvst']");
+    private final By designersButton = By.xpath("//div[text()='Дизайнеры']");
+    private final By sinitsynButton = By.xpath("//div[text()='Aleksandr Sinitsyn']");
+    private final By jewlryButton = By.xpath("//div[text()='Prosto Jewlry']");
+    private final By avgvstButton = By.xpath("//div[text()='Avgvst']");
 
     public DesignersFilter(WebDriver driver) {
         super(driver);

@@ -13,15 +13,15 @@ import java.util.List;
 
 public class Material extends Base {
 
-    By materialButton = By.xpath("//div[text()='Материал']");
-    By insertButton = By.xpath("//div[text()='Вставки']");
-    By zemcugButton = By.xpath("//div[text()='Жемчуг']");
-    By kristallyButton = By.xpath("//div[text()='Кристаллы']");
-    By kamenButton = By.xpath("//div[text()='Натуральный камень']");
-    By stekloButton = By.xpath("//div[text()='Стекло']");
-    By bronzeButton = By.xpath("//div[text()='Бронза']");
-    By silverButton = By.xpath("//div[text()='Серебро']");
-    By jewelryAlloyButton = By.xpath("//div[text()='Ювелирный сплав']");
+    private final By materialButton = By.xpath("//div[text()='Материал']");
+    private final By insertButton = By.xpath("//div[text()='Вставки']");
+    private final By zemcugButton = By.xpath("//div[text()='Жемчуг']");
+    private final By kristallyButton = By.xpath("//div[text()='Кристаллы']");
+    private final By kamenButton = By.xpath("//div[text()='Натуральный камень']");
+    private final By stekloButton = By.xpath("//div[text()='Стекло']");
+    private final By bronzeButton = By.xpath("//div[text()='Бронза']");
+    private final By silverButton = By.xpath("//div[text()='Серебро']");
+    private final By jewelryAlloyButton = By.xpath("//div[text()='Ювелирный сплав']");
 
     public Material(WebDriver driver) {
         super(driver);

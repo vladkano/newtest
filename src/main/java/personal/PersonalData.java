@@ -18,43 +18,43 @@ import java.util.List;
 
 public class PersonalData extends Base {
 
-    By goOutButton = By.xpath("//span[text()='Выйти']");
-    By personalDataButton = By.xpath("//a[@href='/profile?section=personalData']");
-    By saveButton = By.xpath("//span[text()='Сохранить']");
-    By profileFullName = By.id("profileFullName");
-    By profileBirthday = By.id("profileBirthday");
-    By profilePhone = By.id("profilePhone");
-    By profileEmail = By.id("profileEmail");
-    By profileDeliveryCity = By.id("profileDeliveryCity");
-    By profileDeliveryAddress = By.id("profileDeliveryAddress");
-    By ordersButton = By.xpath("//span[text()='Заказы']");
+    private final By goOutButton = By.xpath("//span[text()='Выйти']");
+    private final By personalDataButton = By.xpath("//a[@href='/profile?section=personalData']");
+    private final By saveButton = By.xpath("//span[text()='Сохранить']");
+    private final By profileFullName = By.id("profileFullName");
+    private final By profileBirthday = By.id("profileBirthday");
+    private final By profilePhone = By.id("profilePhone");
+    private final By profileEmail = By.id("profileEmail");
+    private final By profileDeliveryCity = By.id("profileDeliveryCity");
+    private final By profileDeliveryAddress = By.id("profileDeliveryAddress");
+    private final By ordersButton = By.xpath("//span[text()='Заказы']");
 
 
     //headers
-    By personalDataHeader = By.xpath("//h2[text()='Личные данные']");
-    By aboutYouHeader = By.xpath("//legend[text()='О вас']");
-    By profileFullNameHeader = By.xpath("//label[text()='Имя, можно с фамилией']");
-    By profileBirthdayHeader = By.xpath("//label[text()='Дата рождения']");
-    By signInHeader = By.xpath("//legend[text()='Вход на сайт']");
-    By profilePhoneHeader = By.xpath("//label[text()='Телефон']");
-    By profileEmailHeader = By.xpath("//label[text()='Email']");
-    By deliveryAddressHeader = By.xpath("//legend[text()='Адрес доставки']");
-    By profileDeliveryCityHeader = By.xpath("//label[text()='Нас. пункт']");
-    By profileDeliveryAddressHeader = By.xpath("//label[text()='Адрес']");
-    By emptyNameHeader = By.xpath("//p[text()='Необходимо указать имя']");
-    By emptyBirthdayHeader = By.xpath("//p[@class='message message_error']");
-    By orderNumber = By.xpath("//h3[@class='order-card__title order-card__number']");
-    By orderStatus = By.xpath("//b[@class='order-card__status order-card__status_test']");
-    By orderDataHeader = By.xpath("//span[text()='Дата заказа']");
-    By orderAddressHeader = By.xpath("//span[text()='Адрес доставки']");
-    By orderRecipientHeader = By.xpath("//span[text()='Получатель']");
-    By orderYouOrderedHeader = By.xpath("//h3[text()='Вы заказали']");
-    By orderData = By.xpath("//td[@class='table__cell']/span");
-    By orderAddress = By.xpath("(//td[@class='table__cell']/span)[2]");
-    By orderRecipient = By.xpath("(//td[@class='table__cell']/span)[3]");
-    By orderContent = By.xpath("//h4[@class='order-product__product-name']/a");
-    By orderPrice = By.xpath("//b[@class='price-block__price']");
-    By orderFinalPrice = By.xpath("//p[@class='order-card__total-sum']");
+    private final By personalDataHeader = By.xpath("//h2[text()='Личные данные']");
+    private final By aboutYouHeader = By.xpath("//legend[text()='О вас']");
+    private final By profileFullNameHeader = By.xpath("//label[text()='Имя, можно с фамилией']");
+    private final By profileBirthdayHeader = By.xpath("//label[text()='Дата рождения']");
+    private final By signInHeader = By.xpath("//legend[text()='Вход на сайт']");
+    private final By profilePhoneHeader = By.xpath("//label[text()='Телефон']");
+    private final By profileEmailHeader = By.xpath("//label[text()='Email']");
+    private final By deliveryAddressHeader = By.xpath("//legend[text()='Адрес доставки']");
+    private final By profileDeliveryCityHeader = By.xpath("//label[text()='Нас. пункт']");
+    private final By profileDeliveryAddressHeader = By.xpath("//label[text()='Адрес']");
+    private final By emptyNameHeader = By.xpath("//p[text()='Необходимо указать имя']");
+    private final By emptyBirthdayHeader = By.xpath("//p[@class='message message_error']");
+    private final By orderNumber = By.xpath("//h3[@class='order-card__title order-card__number']");
+    private final By orderStatus = By.xpath("//b[@class='order-card__status order-card__status_test']");
+    private final By orderDataHeader = By.xpath("//span[text()='Дата заказа']");
+    private final By orderAddressHeader = By.xpath("//span[text()='Адрес доставки']");
+    private final By orderRecipientHeader = By.xpath("//span[text()='Получатель']");
+    private final By orderYouOrderedHeader = By.xpath("//h3[text()='Вы заказали']");
+    private final By orderData = By.xpath("//td[@class='table__cell']/span");
+    private final By orderAddress = By.xpath("(//td[@class='table__cell']/span)[2]");
+    private final By orderRecipient = By.xpath("(//td[@class='table__cell']/span)[3]");
+    private final By orderContent = By.xpath("//h4[@class='order-product__product-name']/a");
+    private final By orderPrice = By.xpath("//b[@class='price-block__price']");
+    private final By orderFinalPrice = By.xpath("//p[@class='order-card__total-sum']");
 
 
     public PersonalData(WebDriver driver) {

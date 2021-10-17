@@ -81,7 +81,7 @@ public class CertificateTest extends TestBase {
 
     @Test
     public void secondSectionOrder() {
-        certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
+        certificate.secondSectionOrder("Вася", "Петя", email, "Всего всего!");
         String number = certificate.getBasketNumber();
         assertEquals("1", number);
     }
@@ -117,7 +117,7 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.elCertificateWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "TEST");
+        order.elCertificateWithPhone(phoneForOrder, email, testNameForOrder, "TEST");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -131,7 +131,7 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.elCertificateWithWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "TEST");
+        order.elCertificateWithWA(phoneForOrder, email, testNameForOrder, "TEST");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -150,7 +150,7 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.paperCertificateWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.paperCertificateWithPhone(phoneForOrder, email, testNameForOrder,
                 "Калининград", "ул Пушкина, д 4", "2",
                 "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
@@ -166,7 +166,7 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.certificateWithWA(phoneForOrder, email, testNameForOrder,
                 "Самара", "пр-кт Волжский, д 10А", "2", "2", "2", "2", "Test Comment", "Test");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
@@ -182,7 +182,7 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithTsvetnoyAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        order.certificateWithTsvetnoyAndPhone(phoneForOrder, email, testNameForOrder, "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -197,7 +197,7 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithMetropolisAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        order.certificateWithMetropolisAndWA(phoneForOrder, email, testNameForOrder, "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -212,7 +212,7 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithAtriumAndSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        order.certificateWithAtriumAndSMS(phoneForOrder, email, testNameForOrder, "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -227,7 +227,7 @@ public class CertificateTest extends TestBase {
         certificate.clickToFirstSectionOrderButton();
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithRedBridgeAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        order.certificateWithRedBridgeAndPhone(phoneForOrder, email, testNameForOrder, "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -245,7 +245,7 @@ public class CertificateTest extends TestBase {
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.certificateWithInternationalAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.certificateWithInternationalAndWA(phoneForOrder, email, testNameForOrder,
                 "Нью-Йорк", "США Нью-Йорк Трамп стрит 11", "Test");
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         String code2 = order.getPhonePassword();
@@ -261,10 +261,10 @@ public class CertificateTest extends TestBase {
     @Test()
     public void orderWithElCertificateEmailAndPhone() {
         order = new Order(driver);
-        certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
+        certificate.secondSectionOrder("Вася", "Петя", email, "Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.elCertificateWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "TEST");
+        order.elCertificateWithPhone(phoneForOrder, email, testNameForOrder, "TEST");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -275,10 +275,10 @@ public class CertificateTest extends TestBase {
     @Test()
     public void orderWithElCertificateEmailAndWA() {
         order = new Order(driver);
-        certificate.secondSectionOrder("Вася", "Петя", "rundkvist@poisondrop.ru", "Всего всего!");
+        certificate.secondSectionOrder("Вася", "Петя", email, "Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.elCertificateWithWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "TEST");
+        order.elCertificateWithWA(phoneForOrder, email, testNameForOrder, "TEST");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
@@ -293,10 +293,10 @@ public class CertificateTest extends TestBase {
     @Test()
     public void noPayOrderWithElCertificateEmailWithoutWishes() {
         order = new Order(driver);
-        certificate.secondSectionOrder("", "", "rundkvist@poisondrop.ru", "");
+        certificate.secondSectionOrder("", "", email, "");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.certificateWithNoPayAndPhone(phoneForOrder, email, testNameForOrder,
                 "Казань", "ул Узорная, д 15", "2", "2", "2", "2", "Test Comment", "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
@@ -315,7 +315,7 @@ public class CertificateTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.certificateWithNoPayAndPhone(phoneForOrder, email, testNameForOrder,
                 "Казань", "ул Узорная, д 15", "2", "2", "2", "2", "Test Comment", "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
@@ -339,7 +339,7 @@ public class CertificateTest extends TestBase {
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
         int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.certificateWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.certificateWithNoPayAndPhone(phoneForOrder, email, testNameForOrder,
                 "Казань", "ул Узорная, д 15", "2", "2", "2", "2",
                 "Test Comment123", "Тест 123");
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
@@ -360,7 +360,7 @@ public class CertificateTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithNoPayTsvetnoyAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        order.certificateWithNoPayTsvetnoyAndWA(phoneForOrder, email, testNameForOrder, "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -375,7 +375,7 @@ public class CertificateTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithNoPayMetropolisAndSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        order.certificateWithNoPayMetropolisAndSMS(phoneForOrder, email, testNameForOrder, "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -390,7 +390,7 @@ public class CertificateTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithNoPayAtriumAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        order.certificateWithNoPayAtriumAndPhone(phoneForOrder, email, testNameForOrder, "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();
@@ -405,7 +405,7 @@ public class CertificateTest extends TestBase {
         certificate.thirdSectionOrder("Всего всего!");
         String number = certificate.getBasketNumber();
         basket.clickToBasketButton();
-        order.certificateWithNoPayRedBridgeAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Тест");
+        order.certificateWithNoPayRedBridgeAndWA(phoneForOrder, email, testNameForOrder, "Тест");
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getOrderHeader();

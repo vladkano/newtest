@@ -42,7 +42,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithAllStrings(phoneForOrder, email, testNameForOrder,
                 "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
                 "2", "Test Comment", "Test");
         payConfirmAndHeaderCheck();
@@ -53,7 +53,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithWhatsApp("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithWhatsApp(phoneForOrder, email, testNameForOrder,
                 "Санкт-Петербург", "пр-кт Просвещения, д 10", "2", "2", "2", "2", "Test Comment", "Test");
         payConfirmAndHeaderCheck();
     }
@@ -66,7 +66,7 @@ public class OrderTest extends TestBase {
         basket.clickToBasketButton();
         int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.orderWithAllStrings("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithAllStrings(phoneForOrder, email, testNameForOrder,
                 "Нижний Новгород", "ул Ефремова, д 10", "2", "2", "2",
                 "2", "Test Comment", "Test");
         assertTrue(finalPrice > price);
@@ -78,7 +78,7 @@ public class OrderTest extends TestBase {
         basket.clickToAnotherItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithWhatsApp("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.orderWithWhatsApp(phoneForOrder, email, testNameForOrder,
                 "Санкт-Петербург", "пр-кт Просвещения, д 10", "2", "2", "2", "2", "Test Comment", "Test");
         payConfirmAndHeaderCheck();
     }
@@ -90,7 +90,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreTsvetnoy("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreTsvetnoy(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -99,7 +99,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreTsvetnoyWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreTsvetnoyWA(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -108,7 +108,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreTsvetnoySms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreTsvetnoySms(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -118,7 +118,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreMetropolisPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreMetropolisPhone(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -127,7 +127,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreMetropolisWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreMetropolisWA(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -136,7 +136,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreMetropolisSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreMetropolisSms(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -146,7 +146,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreAtriumPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreAtriumPhone(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -155,7 +155,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreAtriumWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreAtriumWA(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -164,7 +164,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithCompanyStoreAtriumSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithCompanyStoreAtriumSms(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -174,7 +174,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithRedBridgePhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithRedBridgePhone(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -183,7 +183,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithRedBridgeWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithRedBridgeWA(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -192,7 +192,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithRedBridgeSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithRedBridgeSms(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -202,7 +202,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithAfimollPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithAfimollPhone(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -211,7 +211,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithAfimollWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithAfimollWA(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -220,7 +220,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithAfimollSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+        order.orderWithAfimollSms(phoneForOrder, email, testNameForOrder);
         payConfirmAndHeaderCheck();
     }
 
@@ -231,7 +231,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
-        order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.internationalWithPhone(phoneForOrder, email, testNameForOrder,
                 "Минск", "улица Пушкина 12", "Test");
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         assertTrue(finalPrice > price);
@@ -243,7 +243,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.internationalWithPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+        order.internationalWithPhone(phoneForOrder, email, testNameForOrder,
                 "Рим", "Гладиаторов дом 20м", "Test");
         payConfirmAndHeaderCheck();
     }
@@ -255,7 +255,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithPickPointPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Россия", "Екатеринбург", "родонитовая");
+        order.orderWithPickPointPhone(phoneForOrder, email, testNameForOrder, "Россия", "Екатеринбург", "родонитовая");
         payConfirmAndHeaderCheck();
     }
 
@@ -264,7 +264,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithPickPointSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Беларусь\n", "Минск\n", "Ленина");
+        order.orderWithPickPointSMS(phoneForOrder, email, testNameForOrder, "Беларусь\n", "Минск\n", "Ленина");
         payConfirmAndHeaderCheck();
     }
 
@@ -273,7 +273,7 @@ public class OrderTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithPickPointWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест", "Казахстан\n", "Нур-Султан\n", "Петрова");
+        order.orderWithPickPointWA(phoneForOrder, email, testNameForOrder, "Казахстан\n", "Нур-Султан\n", "Петрова");
         payConfirmAndHeaderCheck();
     }
 
@@ -285,7 +285,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+//        order.orderWithNoPayAndPhone(phoneForOrder, email, testNameForOrder,
 //                "Сочи", "ул Горького, д 87", "2а", "", "1",
 //                "нет", "Test Comment2");
 //        noPayConfirmAndHeaderCheck();
@@ -296,7 +296,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.orderWithDvdNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+//        order.orderWithDvdNoPayAndWA(phoneForOrder, email, testNameForOrder,
 //                "Москва", "Рублёвское шоссе, д 1", "", "", "", "2", "Москва");
 //        noPayConfirmAndHeaderCheck();
 //    }
@@ -309,7 +309,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToBasketButton();
 //        int price = parseInt(order.getFirstPrice().replaceAll("[^A-Za-z0-9]", ""));
 //        int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
-//        order.orderWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+//        order.orderWithNoPayAndPhone(phoneForOrder, email, testNameForOrder,
 //                "Сочи", "ул Горького, д 87", "2а", "", "1",
 //                "нет", "Test Comment2");
 //        assertTrue(finalPrice > price);
@@ -321,7 +321,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToAnotherItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.orderWithDvdNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест",
+//        order.orderWithDvdNoPayAndWA(phoneForOrder, email, testNameForOrder,
 //                "Москва", "Рублёвское шоссе, д 1", "", "", "", "2", "Москва2");
 //        noPayConfirmAndHeaderCheck();
 //    }
@@ -332,7 +332,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.tsvetnoyWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.tsvetnoyWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -341,7 +341,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.tsvetnoyWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.tsvetnoyWithNoPayAndWA(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -350,7 +350,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.tsvetnoyWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.tsvetnoyWithNoPayAndSms(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -360,7 +360,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.metropolisWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.metropolisWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -369,7 +369,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.metropolisWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.metropolisWithNoPayAndWA(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -378,7 +378,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.metropolisWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.metropolisWithNoPayAndSms(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -388,7 +388,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.redBridgeWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.redBridgeWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -397,7 +397,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.redBridgeWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.redBridgeWithNoPayAndWA(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -406,7 +406,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.redBridgeWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.redBridgeWithNoPayAndSms(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -416,7 +416,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.atriumWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.atriumWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -425,7 +425,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.atriumWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.atriumWithNoPayAndWA(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -434,7 +434,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.atriumWithNoPayAndSMS("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.atriumWithNoPayAndSMS(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -444,7 +444,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.afimollWithNoPayAndPhone("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.afimollWithNoPayAndPhone(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -453,7 +453,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.afimollWithNoPayAndWA("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.afimollWithNoPayAndWA(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
@@ -462,7 +462,7 @@ public class OrderTest extends TestBase {
 //        basket.clickToItemButton();
 //        basket.clickToItemInBasketButton();
 //        basket.clickToBasketButton();
-//        order.afimollWithNoPayAndSms("9126459328", "rundkvist@poisondrop.ru", "Александр Тест");
+//        order.afimollWithNoPayAndSms(phoneForOrder, email, testNameForOrder);
 //        noPayConfirmAndHeaderCheck();
 //    }
 

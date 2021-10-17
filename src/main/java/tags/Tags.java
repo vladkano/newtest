@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Tags extends Base {
 
-    static String tags = "";
-    By tag = By.xpath("//b[@class='tag-list__tag']");
+    private static String tags = "";
+    private final By tag = By.xpath("//b[@class='tag-list__tag']");
 
     public Tags(WebDriver driver) {
         super(driver);

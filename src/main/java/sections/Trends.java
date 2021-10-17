@@ -14,14 +14,14 @@ import java.util.List;
 
 public class Trends extends Base {
 
-    By trendsButton = By.xpath("//a[text()='Тренды']");
-    By mainHref = By.xpath("//a[@class='trend-item js-trend-item trend-item_big']");
-    By firstHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[2]");
-    By secondHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[3]");
-    By thirdHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[10]");
-    By fourthFineHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[5]");
+    private final By trendsButton = By.xpath("//a[text()='Тренды']");
+    private final By mainHref = By.xpath("//a[@class='trend-item js-trend-item trend-item_big']");
+    private final By firstHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[2]");
+    private final By secondHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[3]");
+    private final By thirdHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[10]");
+    private final By fourthFineHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[5]");
 
-    By linkHeader = By.xpath("//div[@class='trend-page__content']");
+    private final By linkHeader = By.xpath("//div[@class='trend-page__content']");
 
     public Trends(WebDriver driver) {
         super(driver);

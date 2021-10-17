@@ -14,16 +14,16 @@ import java.util.List;
 public class Size extends Base {
 
 
-    By sizeButton = By.xpath("//div[text()='Размер кольца']");
-    By firstSizeButton = By.xpath("//div[text()='14,5']");
-    By secondSizeButton = By.xpath("//div[text()='15,5']");
-    By thirdSizeButton = By.xpath("//div[@class='filters__section filters__section_size']//div[text()='16']");
-    By universalSizeButton = By.xpath("//div[text()='Универсальный']");
-    By currentSize = By.xpath("//div[@data-name='razmer_kolca']/span[@class='product-modification__output']");
-    By firstCurrentSizeButton = By.xpath("//ul/li[2]/label/span[@class='product-variant__variant product-variant__variant_size']");
-    By secondCurrentSizeButton = By.xpath("//ul/li[3]/label/span[@class='product-variant__variant product-variant__variant_size']");
-    By sizeHeader = By.xpath("//span[@class='cart-item__additional-params']");
-    By plateHeader = By.xpath("//span[@class='notification__text']");
+    private final By sizeButton = By.xpath("//div[text()='Размер кольца']");
+    private final By firstSizeButton = By.xpath("//div[text()='14,5']");
+    private final By secondSizeButton = By.xpath("//div[text()='15,5']");
+    private final By thirdSizeButton = By.xpath("//div[@class='filters__section filters__section_size']//div[text()='16']");
+    private final By universalSizeButton = By.xpath("//div[text()='Универсальный']");
+    private final By currentSize = By.xpath("//div[@data-name='razmer_kolca']/span[@class='product-modification__output']");
+    private final By firstCurrentSizeButton = By.xpath("//ul/li[2]/label/span[@class='product-variant__variant product-variant__variant_size']");
+    private final By secondCurrentSizeButton = By.xpath("//ul/li[3]/label/span[@class='product-variant__variant product-variant__variant_size']");
+    private final By sizeHeader = By.xpath("//span[@class='cart-item__additional-params']");
+    private final By plateHeader = By.xpath("//span[@class='notification__text']");
 
     public Size(WebDriver driver) {
         super(driver);

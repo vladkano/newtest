@@ -6,9 +6,9 @@ import org.openqa.selenium.WebDriver;
 
 public class Search extends Base {
 
-    By searchButton = By.xpath("//span[@aria-label='Поиск']");
-    By searchText = By.xpath("//input[@aria-label='Поиск']");
-    By goSearchButton = By.xpath("//button[@class='search-form__submit button-border hidden_mobile-tablet']");
+    private final By searchButton = By.xpath("//span[@aria-label='Поиск']");
+    private final By searchText = By.xpath("//input[@aria-label='Поиск']");
+    private final By goSearchButton = By.xpath("//button[@class='search-form__submit button-border hidden_mobile-tablet']");
 
     public Search(WebDriver driver) {
         super(driver);

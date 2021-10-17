@@ -15,65 +15,60 @@ import java.sql.Statement;
 
 public class Order extends Base {
 
-    By changeCityButton = By.xpath("//span[@class='order-delivery__location-city-output']");
-    By otherCityButton = By.xpath("//button[text()='Нет, другой']");
-    By locationSearch = By.id("locationSearch");
-    By locationButton = By.xpath("//li[@class='location-choose__variant']/p");
+    private final By changeCityButton = By.xpath("//span[@class='order-delivery__location-city-output']");
+    private final By otherCityButton = By.xpath("//button[text()='Нет, другой']");
+    private final By locationSearch = By.id("locationSearch");
+    private final By locationButton = By.xpath("//li[@class='location-choose__variant']/p");
 
+    private final By orderPhone = By.xpath("//input[@id='orderPhone']");
+    private final By orderEmail = By.xpath("//input[@id='orderEmail']");
+    private final By orderFio = By.xpath("//input[@id='orderName']");
+    private final By orderAddress = By.xpath("//textarea[@id='deliveryAddress']");
+    private final By orderApartment = By.xpath("//input[@id='deliveryApartment']");
+    private final By orderFrontDoor = By.xpath("//input[@id='deliveryFrontDoor']");
+    private final By orderFloor = By.xpath("//input[@id='deliveryFloor']");
+    private final By orderHouseCode = By.xpath("//input[@id='deliveryHouseCode']");
+    private final By orderCommentForCourier = By.xpath("//textarea[@id='courierComment']");
+    private final By orderComment = By.xpath("//textarea[@name='comment']");
 
-    By orderPhone = By.xpath("//input[@id='orderPhone']");
-    By orderEmail = By.xpath("//input[@id='orderEmail']");
-    By orderFio = By.xpath("//input[@id='orderName']");
-    By orderAddress = By.xpath("//textarea[@id='deliveryAddress']");
-    By orderApartment = By.xpath("//input[@id='deliveryApartment']");
-    By orderFrontDoor = By.xpath("//input[@id='deliveryFrontDoor']");
-    By orderFloor = By.xpath("//input[@id='deliveryFloor']");
-    By orderHouseCode = By.xpath("//input[@id='deliveryHouseCode']");
-    By orderCommentForCourier = By.xpath("//textarea[@id='courierComment']");
-    By orderComment = By.xpath("//textarea[@name='comment']");
+    private final By payButton = By.xpath("//span[text()='Оплатить']");
+    private final By orderButton = By.xpath("//span[text()='Оформить заказ']");
+    private final By addAddressButton = By.xpath("//span[text()='для курьера']");
+    private final By searchBox = By.xpath("//input[@id='searchbox']");
+    private final By countrySearchBox = By.xpath("//input[@class='reg']");
+    private final By citySearchBox = By.xpath("(//input[@class='reg'])[2]");
+    private final By addCommentButton = By.xpath("//button[text()='Добавить комментарий к заказу']");
 
-    By payButton = By.xpath("//span[text()='Оплатить']");
-    //    By payButton = By.xpath("//span[text()='Перейти к оплате']");
-    By orderButton = By.xpath("//span[text()='Оформить заказ']");
-    By addAddressButton = By.xpath("//span[text()='для курьера']");
-    By searchBox = By.xpath("//input[@id='searchbox']");
-    By countrySearchBox = By.xpath("//input[@class='reg']");
-    By citySearchBox = By.xpath("(//input[@class='reg'])[2]");
-    By addCommentButton = By.xpath("//button[text()='Добавить комментарий к заказу']");
-
-    By authPassword = By.xpath("//div[@class='verify-form__row']/input[@name='code']");
-    By confirmButton = By.xpath("//span[text()='Подтвердить']");
-    By whatsAppButton = By.xpath("//span[text()='Сообщение в WhatsApp']");
-    By smsButton = By.xpath("//span[text()='СМС о статусе заказа']");
-    By companyStoreButton = By.xpath("//span[text()='Забрать в фирменном магазине']");
-    By metropolisStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Метрополис»']");
-    By redBridgeStoreButton = By.xpath("//span[text()='Poison Drop в Универмаге «Au Pont Rouge. У Красного моста»']");
-    By atriumStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Атриум»']");
-    By afimollStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Афимолл»']");
-    By internationalButton = By.xpath("//span[text()='Доставить в другую страну']");
-    By orderCountry = By.xpath("//input[@id='internationalCountry']");
-    By orderInternationalCity = By.xpath("//input[@id='internationalCity']");
-    By orderInternationalAddress = By.xpath("//input[@id='internationalAddress']");
-    By noPayButton = By.xpath("//label[@for='offlinePayment']/span");
-    By pickPointButton = By.xpath("//b[text()='В постамат']");
-    By selectPostomatButton = By.xpath("//span[text()='Выбрать постамат']");
-    By searchboxButton = By.xpath("//div[@class='combobox searchbox']/span");
-    By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6601-054\"); return false;']");
-    By belarusButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9001-009\"); return false;']");
-    By kazakhstanButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9405-029\"); return false;']");
-    By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
-    By paperButton = By.xpath("//span[text()='Бумажный']");
-    By firstPrice = By.xpath("//b[@class='cart-price__total']");
-    By finalPrice = By.xpath("//div[@class='order-summary__row order-summary__row_total']/span[2]");
-    By frame = By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']");
-    By firstSectionOrderButton = By.xpath("//div[@class='certificate-value-form__wrap']//span[text()='Заказать']");
-    By ordinaryDeliveryButton = By.xpath("//label[@for='ordinaryDelivery']/span[@class='order-delivery__courier-type-variant']");
-
+    private final By authPassword = By.xpath("//div[@class='verify-form__row']/input[@name='code']");
+    private final By whatsAppButton = By.xpath("//span[text()='Сообщение в WhatsApp']");
+    private final By smsButton = By.xpath("//span[text()='СМС о статусе заказа']");
+    private final By companyStoreButton = By.xpath("//span[text()='Забрать в фирменном магазине']");
+    private final By metropolisStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Метрополис»']");
+    private final By redBridgeStoreButton = By.xpath("//span[text()='Poison Drop в Универмаге «Au Pont Rouge. У Красного моста»']");
+    private final By atriumStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Атриум»']");
+    private final By afimollStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Афимолл»']");
+    private final By internationalButton = By.xpath("//span[text()='Доставить в другую страну']");
+    private final By orderCountry = By.xpath("//input[@id='internationalCountry']");
+    private final By orderInternationalCity = By.xpath("//input[@id='internationalCity']");
+    private final By orderInternationalAddress = By.xpath("//input[@id='internationalAddress']");
+    private final By noPayButton = By.xpath("//label[@for='offlinePayment']/span");
+    private final By pickPointButton = By.xpath("//b[text()='В постамат']");
+    private final By selectPostomatButton = By.xpath("//span[text()='Выбрать постамат']");
+    private final By searchboxButton = By.xpath("//div[@class='combobox searchbox']/span");
+    private final By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6601-054\"); return false;']");
+    private final By belarusButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9001-009\"); return false;']");
+    private final By kazakhstanButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9405-029\"); return false;']");
+    private final By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
+    private final By paperButton = By.xpath("//span[text()='Бумажный']");
+    private final By firstPrice = By.xpath("//b[@class='cart-price__total']");
+    private final By finalPrice = By.xpath("//div[@class='order-summary__row order-summary__row_total']/span[2]");
+    private final By frame = By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']");
+    private final By firstSectionOrderButton = By.xpath("//div[@class='certificate-value-form__wrap']//span[text()='Заказать']");
+    private final By ordinaryDeliveryButton = By.xpath("//label[@for='ordinaryDelivery']/span[@class='order-delivery__courier-type-variant']");
 
     //headers
-    By payHeader = By.xpath("//span[contains(text(), 'Оплата заказа')]");
-    //    By payHeader = By.xpath("//span[text()='Заплатить']");
-    By orderHeader = By.xpath("//span[text()='Мы приняли ваш заказ']");
+    private final By payHeader = By.xpath("//span[contains(text(), 'Оплата заказа')]");
+    private final By orderHeader = By.xpath("//span[text()='Мы приняли ваш заказ']");
 
     public Order(WebDriver driver) {
         super(driver);

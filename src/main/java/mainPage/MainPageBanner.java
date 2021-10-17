@@ -14,18 +14,18 @@ import java.util.List;
 
 public class MainPageBanner extends Base {
 
-    By carouselButton = By.xpath("//button[@aria-label='Carousel Page 2']");
-    By designerButton = By.xpath("//*[@id='tns1-item4']//span");
-    By mainCatalogHref = By.xpath("//div[@class='banner main-banner']//a[@class ='banner__link']");
-    By bestsellerNameButton = By.xpath("//*[@id='tns1-item1']//span");
-    By countOfBanners = By.xpath("//div[@class='banner__content']/a");
+    private final By carouselButton = By.xpath("//button[@aria-label='Carousel Page 2']");
+    private final By designerButton = By.xpath("//*[@id='tns1-item4']//span");
+    private final By mainCatalogHref = By.xpath("//div[@class='banner main-banner']//a[@class ='banner__link']");
+    private final By bestsellerNameButton = By.xpath("//*[@id='tns1-item1']//span");
+    private final By countOfBanners = By.xpath("//div[@class='banner__content']/a");
 
-    By designerButtonHeader = By.xpath("//*[@id='tns1-item4']//div[@class='catalog-card__designer']/a");
-    By nameButtonHeader = By.xpath("//h3[@class='catalog-card__name']/a");
-    By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
-    By mainCatalogHeader = By.xpath("//span[text()='Фильтр']");
-    By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
-    By mainBannerHeader = By.xpath("//h1[@class='whiteColor']");
+    private final By designerButtonHeader = By.xpath("//*[@id='tns1-item4']//div[@class='catalog-card__designer']/a");
+    private final By nameButtonHeader = By.xpath("//h3[@class='catalog-card__name']/a");
+    private final By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
+    private final By mainCatalogHeader = By.xpath("//span[text()='Фильтр']");
+    private final By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
+    private final By mainBannerHeader = By.xpath("//h1[@class='whiteColor']");
 
 
     public MainPageBanner(WebDriver driver) {

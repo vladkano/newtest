@@ -118,7 +118,7 @@ public class MainPageTest extends TestBase {
     //Авторизация
     @Test
     public void signInWithPhoneNumber() {
-        mainPage.sigInWithPhoneOrEmail("89126459328");
+        mainPage.sigInWithPhoneOrEmail(phoneForAuthorization);
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);
 //        saveScreenshotPNG(driver);
@@ -132,7 +132,7 @@ public class MainPageTest extends TestBase {
 
     @Test
     public void signInWithEmail() {
-        mainPage.sigInWithPhoneOrEmail("rundkvist@poisondrop.ru");
+        mainPage.sigInWithPhoneOrEmail(email);
         String code2 = mainPage.getEmailPassword();
         mainPage.sigInWithPassword(code2);
     }
@@ -234,7 +234,7 @@ public class MainPageTest extends TestBase {
     //Разлогин
     @Test
     public void signOut() {
-        mainPage.sigInWithPhoneOrEmail("+79501978905");
+        mainPage.sigInWithPhoneOrEmail(phoneForAuthorization);
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);
         mainPage.clickOnLcInButton();

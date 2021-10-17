@@ -5,7 +5,6 @@ import catalog.CatalogNavigation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class CatalogNavigationTest extends TestBase {
     @Test
     public void showMoreNotVisible() {
         driver.get(getUrl + "catalog/?type_product=klipsy");
-        int numbers = driver.findElements(By.xpath("//span[text()='Показать ещё']")).size();
+        int numbers = driver.findElements(showMore).size();
         assertEquals(0, numbers);
     }
 
@@ -48,7 +47,7 @@ public class CatalogNavigationTest extends TestBase {
     public void showMoreLastPage() {
         driver.get(getUrl + "catalog/koltsa/?type_product=pechatki");
         navigation.clickOnShowMoreButton();
-        int numbers = driver.findElements(By.xpath("//span[text()='Показать ещё']")).size();
+        int numbers = driver.findElements(showMore).size();
         assertEquals(0, numbers);
     }
 
@@ -57,7 +56,7 @@ public class CatalogNavigationTest extends TestBase {
     @Test
     public void numberOfPagesKoltsa() {
         driver.get(getUrl + "catalog/koltsa");
-        double count = Math.ceil((double) navigation.countRings() / 48);
+        double count = Math.ceil((double) navigation.countRings() / numberOfFoto);
         int countOfRings = (int) count;
         int numberOfPages = Integer.parseInt(navigation.getNumberOfPages());
         assertEquals(countOfRings, numberOfPages);

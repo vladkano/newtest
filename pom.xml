@@ -13,7 +13,9 @@
         <allure-maven.version>2.10.0</allure-maven.version>
         <allure-junit5.version>2.13.0</allure-junit5.version>
         <aspectj.version>1.9.1</aspectj.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
     <build>
         <plugins>
@@ -24,7 +26,6 @@
                 <configuration>
                     <source>14</source>
                     <target>14</target>
-                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 

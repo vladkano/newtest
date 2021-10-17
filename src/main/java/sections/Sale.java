@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Sale extends Base {
 
-    By saleButton = By.xpath("//a[text()='Sale']");
+    private final By saleButton = By.xpath("//a[text()='Sale']");
 
     public Sale(WebDriver driver) {
         super(driver);

@@ -7,10 +7,10 @@ import org.openqa.selenium.WebDriver;
 
 public class ShopTheLook extends Base {
 
-    By shopTheLookButton = By.xpath("//a[text()='Shop the look']");
-    By shopTheLookHeader = By.xpath("//div[@class='frisbuy-title']");
-    By shopTheLookPhoto = By.xpath("//li/div[@class='frisbuy-post-image']");
-    By frisbuyMarker = By.xpath("//div[@class='frisbuy-complain-button']");
+    private final By shopTheLookButton = By.xpath("//a[text()='Shop the look']");
+    private final By shopTheLookHeader = By.xpath("//div[@class='frisbuy-title']");
+    private final By shopTheLookPhoto = By.xpath("//li/div[@class='frisbuy-post-image']");
+    private final By frisbuyMarker = By.xpath("//div[@class='frisbuy-complain-button']");
 
     public ShopTheLook(WebDriver driver) {
         super(driver);

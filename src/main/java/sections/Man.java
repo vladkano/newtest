@@ -14,7 +14,7 @@ import java.util.List;
 public class Man extends Base {
 
 
-    By manButton = By.xpath("//a[text()='Для мужчин']");
+    private final By manButton = By.xpath("//a[text()='Для мужчин']");
 
     public Man(WebDriver driver) {
         super(driver);

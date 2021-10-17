@@ -15,21 +15,21 @@ import java.util.Map;
 
 public class Basket extends Base {
 
-    By itemInBasketButton = By.xpath("//button[@class='button-fill product-actions__add-to-cart']");
-    By plusBasketButton = By.xpath("//button[@class='counter__button counter__button_plus']");
-    By minusBasketButton = By.xpath("//button[@class='counter__button counter__button_minus']");
-    By basketButton = By.xpath("//span[text()='Перейти в корзину']");
-    By catalogButton = By.xpath("//a[@href='/catalog/']");
-    By newCatalogButton = By.xpath("//a[@href='/catalog/new/']");
-    By cartCountButton = By.xpath("//span[text()='Перейти в корзину']");
-    By okButton = By.xpath("//button[text()='Да']");
-    By setItemInBasketButton = By.xpath("(//span[text()='В корзину'])[2]");
+    private final By itemInBasketButton = By.xpath("//button[@class='button-fill product-actions__add-to-cart']");
+    private final By plusBasketButton = By.xpath("//button[@class='counter__button counter__button_plus']");
+    private final By minusBasketButton = By.xpath("//button[@class='counter__button counter__button_minus']");
+    private final By basketButton = By.xpath("//span[text()='Перейти в корзину']");
+    private final By catalogButton = By.xpath("//a[@href='/catalog/']");
+    private final By newCatalogButton = By.xpath("//a[@href='/catalog/new/']");
+    private final By cartCountButton = By.xpath("//span[text()='Перейти в корзину']");
+    private final By okButton = By.xpath("//button[text()='Да']");
+    private final By setItemInBasketButton = By.xpath("(//span[text()='В корзину'])[2]");
 
-    By plus2 = By.xpath("//input[@name='quantity']");
-    By max = By.xpath("//div[@class='counter']");
-    By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter']");
-    By inBasket = By.xpath("//span[text()='В корзине']");
-    By noBasketHeader = By.xpath("//p[text()='Этого украшения сейчас нет в наличии']");
+    private final By plus2 = By.xpath("//input[@name='quantity']");
+    private final By max = By.xpath("//div[@class='counter']");
+    private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter']");
+    private final By inBasket = By.xpath("//span[text()='В корзине']");
+    private final By noBasketHeader = By.xpath("//p[text()='Этого украшения сейчас нет в наличии']");
 
     public Basket(WebDriver driver) {
         super(driver);
