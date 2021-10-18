@@ -109,7 +109,7 @@ public class FiltersTest extends TestBase {
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.size(), numberOnly);
         assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
     }
 
     //ВСТАВКИ
