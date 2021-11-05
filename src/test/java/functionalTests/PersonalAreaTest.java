@@ -3,6 +3,7 @@ package functionalTests;
 import baseForTests.TestBase;
 import mainPage.MainPage;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.ResourceLock;
@@ -53,17 +54,17 @@ public class PersonalAreaTest extends TestBase {
         String addressHeader = personalData.getDeliveryAddressHeader();
         String deliveryCityHeader = personalData.getProfileDeliveryCityHeader();
         String deliveryAddressHeader = personalData.getProfileDeliveryAddressHeader();
-
-        assertEquals("Личные данные", personalDataHeader);
-        assertEquals("О вас", aboutYouHeader);
-        assertEquals("Имя, можно с фамилией", nameHeader);
-        assertEquals("Дата рождения", birthdayHeader);
-        assertEquals("Вход на сайт", signInHeader);
-        assertEquals("Телефон", phoneHeader);
-        assertEquals("Email", emailHeader);
-        assertEquals("Адрес доставки", addressHeader);
-        assertEquals("Нас. пункт", deliveryCityHeader);
-        assertEquals("Адрес", deliveryAddressHeader);
+        Assertions.assertAll(
+                () -> assertEquals("Личные данные", personalDataHeader),
+                () -> assertEquals("О вас", aboutYouHeader),
+                () -> assertEquals("Имя, можно с фамилией", nameHeader),
+                () -> assertEquals("Дата рождения", birthdayHeader),
+                () -> assertEquals("Вход на сайт", signInHeader),
+                () -> assertEquals("Телефон", phoneHeader),
+                () -> assertEquals("Email", emailHeader),
+                () -> assertEquals("Адрес доставки", addressHeader),
+                () -> assertEquals("Нас. пункт", deliveryCityHeader),
+                () -> assertEquals("Адрес", deliveryAddressHeader));
     }
 
     //Получение и изменения значений в полях
@@ -79,9 +80,10 @@ public class PersonalAreaTest extends TestBase {
         Thread.sleep(500);
         personalData.clickOnSaveButton();
         String finalName = personalData.getName();
-        assertNotEquals(firstName, secondName);
-        assertNotEquals(secondName, finalName);
-        assertEquals(firstName, finalName);
+        Assertions.assertAll(
+                () -> assertNotEquals(firstName, secondName),
+                () -> assertNotEquals(secondName, finalName),
+                () -> assertEquals(firstName, finalName));
     }
 
     @Test
@@ -100,9 +102,10 @@ public class PersonalAreaTest extends TestBase {
         }
         personalData.clickOnSaveButton();
         String last = personalData.getDeliveryCity();
-        assertNotEquals(first, second);
-        assertNotEquals(second, last);
-        assertEquals(first, last);
+        Assertions.assertAll(
+                () -> assertNotEquals(first, second),
+                () -> assertNotEquals(second, last),
+                () -> assertEquals(first, last));
     }
 
     @Test
@@ -121,18 +124,20 @@ public class PersonalAreaTest extends TestBase {
         }
         personalData.clickOnSaveButton();
         String last = personalData.getDeliveryAddress();
-        assertNotEquals(first, second);
-        assertNotEquals(second, last);
-        assertEquals(first, last);
+        Assertions.assertAll(
+                () -> assertNotEquals(first, second),
+                () -> assertNotEquals(second, last),
+                () -> assertEquals(first, last));
     }
 
-    //изменять поля телефон и email в ЛК запрещено(поэтому просто проверяем значения)
+    //Изменять поля телефон и email в ЛК запрещено(поэтому просто проверяем значения)
     @Test
     public void getPhoneNumberAndMail() {
         String phone = personalData.getPhone();
         String email = personalData.getEmail();
-        assertEquals("+7(950)197-89-05", phone);
-        assertEquals("test13@mail.com", email);
+        Assertions.assertAll(
+                () -> assertEquals("+7(950)197-89-05", phone),
+                () -> assertEquals("test13@mail.com", email));
     }
 
     //Негативные тесты
@@ -166,11 +171,12 @@ public class PersonalAreaTest extends TestBase {
         String orderAddressHeader = personalData.getOrderAddressHeader();
         String orderRecipientHeader = personalData.getOrderRecipientHeader();
         String orderYouOrderedHeader = personalData.getOrderYouOrderedHeader();
-        assertEquals("Тестовый заказ", orderStatus);
-        assertEquals("Дата заказа", orderDataHeader);
-        assertEquals("Адрес доставки", orderAddressHeader);
-        assertEquals("Получатель", orderRecipientHeader);
-        assertEquals("Вы заказали", orderYouOrderedHeader);
+        Assertions.assertAll(
+                () -> assertEquals("Тестовый заказ", orderStatus),
+                () -> assertEquals("Дата заказа", orderDataHeader),
+                () -> assertEquals("Адрес доставки", orderAddressHeader),
+                () -> assertEquals("Получатель", orderRecipientHeader),
+                () -> assertEquals("Вы заказали", orderYouOrderedHeader));
     }
 
     //Проверка отображения всех данных последнего заказа(сверка с БД)
@@ -195,14 +201,14 @@ public class PersonalAreaTest extends TestBase {
         String lastOrderContent = personalData.getLastOrderContent();
         String lastOrderPrice = String.valueOf(personalData.getLastOrderPrice());
         String lastOrderFinalSum = String.valueOf(personalData.getLastOrderFinalPrice());
-
-        assertEquals("Заказ №" + lastOrderNumber, orderNumber);
-        assertEquals(lastOrderData, orderData);
-        assertEquals(lastOrderAddress, orderAddress);
-        assertEquals(lastOrderRecipient, orderRecipient);
-        assertEquals(lastOrderContent.substring(0,20), orderContent.substring(0, 20));
-        assertEquals(lastOrderPrice, resultPrice);
-        assertEquals(lastOrderFinalSum, finalSum);
+        Assertions.assertAll(
+                () -> assertEquals("Заказ №" + lastOrderNumber, orderNumber),
+                () -> assertEquals(lastOrderData, orderData),
+                () -> assertEquals(lastOrderAddress, orderAddress),
+                () -> assertEquals(lastOrderRecipient, orderRecipient),
+                () -> assertEquals(lastOrderContent.substring(0, 20), orderContent.substring(0, 20)),
+                () -> assertEquals(lastOrderPrice, resultPrice),
+                () -> assertEquals(lastOrderFinalSum, finalSum));
     }
 
     //Сверяем кол-во заказов у пользователя

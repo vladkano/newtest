@@ -29,7 +29,7 @@ public class TagTest extends TestBase {
     public void tagIsVisibleBracelets() {
         driver.get(getUrl + "catalog/braslety");
         String firstTag = tag.getTag();
-        assertEquals("ЭКСКЛЮЗИВ", firstTag);
+        assertEquals("DEMI-FINE", firstTag);
     }
 
     @Test

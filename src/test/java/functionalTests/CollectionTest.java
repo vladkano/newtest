@@ -28,7 +28,7 @@ public class CollectionTest extends TestBase {
     public void countOfCollectionItems() {
         driver.get(getUrl + "catalog/");
         List<String> namesItems = collection.getNamesItems();
-        List<WebElement> site = driver.findElements(By.xpath("//h3[@class='catalog-card__name']"));
+        List<WebElement> site = driver.findElements(By.xpath("//li[@class='product-variant']/ancestor::div[@class='catalog-card__description']/h3"));
         assertEquals(namesItems.get(0), site.get(0).getAttribute("textContent"));
     }
 

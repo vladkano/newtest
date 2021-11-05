@@ -11,6 +11,7 @@ import collectionAndSet.Set;
 import filters.Filters;
 import filters.Size;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -62,10 +63,11 @@ public class ProductCardsTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         String sizeHeader = size.getSizeHeader();
-        assertNotEquals(firstCurrentSize, secondCurrentSize);
-        assertNotEquals(secondCurrentSize, thirdCurrentSize);
-        assertNotEquals(firstCurrentSize, thirdCurrentSize);
-        assertEquals("Размер: " + thirdCurrentSize, sizeHeader);
+        Assertions.assertAll(
+                () -> assertNotEquals(firstCurrentSize, secondCurrentSize),
+                () -> assertNotEquals(secondCurrentSize, thirdCurrentSize),
+                () -> assertNotEquals(firstCurrentSize, thirdCurrentSize),
+                () -> assertEquals("Размер: " + thirdCurrentSize, sizeHeader));
     }
 
     //с размером 15,5
@@ -86,12 +88,12 @@ public class ProductCardsTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         String sizeHeader = size.getSizeHeader();
-        assertNotEquals(firstCurrentSize, secondCurrentSize);
-        assertNotEquals(secondCurrentSize, thirdCurrentSize);
-        assertNotEquals(firstCurrentSize, thirdCurrentSize);
-        assertEquals("Размер: " + thirdCurrentSize, sizeHeader);
+        Assertions.assertAll(
+                () -> assertNotEquals(firstCurrentSize, secondCurrentSize),
+                () -> assertNotEquals(secondCurrentSize, thirdCurrentSize),
+                () -> assertNotEquals(firstCurrentSize, thirdCurrentSize),
+                () -> assertEquals("Размер: " + thirdCurrentSize, sizeHeader));
     }
-
 
     //с размером 16
     @Test
@@ -111,10 +113,11 @@ public class ProductCardsTest extends TestBase {
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         String sizeHeader = size.getSizeHeader();
-        assertNotEquals(firstCurrentSize, secondCurrentSize);
-        assertNotEquals(secondCurrentSize, thirdCurrentSize);
-        assertNotEquals(firstCurrentSize, thirdCurrentSize);
-        assertEquals("Размер: " + thirdCurrentSize, sizeHeader);
+        Assertions.assertAll(
+                () -> assertNotEquals(firstCurrentSize, secondCurrentSize),
+                () -> assertNotEquals(secondCurrentSize, thirdCurrentSize),
+                () -> assertNotEquals(firstCurrentSize, thirdCurrentSize),
+                () -> assertEquals("Размер: " + thirdCurrentSize, sizeHeader));
     }
 
     /*
@@ -237,8 +240,9 @@ public class ProductCardsTest extends TestBase {
         basket.clickToOkButton();
         set.clickOnFirstItemFromSet();
         String currentUrl = driver.getCurrentUrl();
-        assertEquals("Украшения из образа", setHeader);
-        assertEquals(href, currentUrl);
+        Assertions.assertAll(
+                () -> assertEquals("Украшения из образа", setHeader),
+                () -> assertEquals(href, currentUrl));
     }
 
     @Test
@@ -253,8 +257,9 @@ public class ProductCardsTest extends TestBase {
         basket.clickToOkButton();
         set.clickOnFirstItemFromSet();
         String currentUrl = driver.getCurrentUrl();
-        assertEquals("Украшения из образа", setHeader);
-        assertEquals(href, currentUrl);
+        Assertions.assertAll(
+                () -> assertEquals("Украшения из образа", setHeader),
+                () -> assertEquals(href, currentUrl));
     }
 
     @Test
@@ -269,8 +274,9 @@ public class ProductCardsTest extends TestBase {
         basket.clickToOkButton();
         set.clickOnFirstItemFromSet();
         String currentUrl = driver.getCurrentUrl();
-        assertEquals("Украшения из образа", setHeader);
-        assertEquals(href, currentUrl);
+        Assertions.assertAll(
+                () -> assertEquals("Украшения из образа", setHeader),
+                () -> assertEquals(href, currentUrl));
     }
 
     @Test
@@ -285,8 +291,9 @@ public class ProductCardsTest extends TestBase {
         basket.clickToOkButton();
         set.clickOnFirstItemFromSet();
         String currentUrl = driver.getCurrentUrl();
-        assertEquals("Украшения из образа", setHeader);
-        assertEquals(href, currentUrl);
+        Assertions.assertAll(
+                () -> assertEquals("Украшения из образа", setHeader),
+                () -> assertEquals(href, currentUrl));
     }
 
 
@@ -349,9 +356,10 @@ public class ProductCardsTest extends TestBase {
         String designerText = designers.getDesignerText();
         String description = designers.getDesignerDescription(text);
         String descriptionNew = description.replaceAll("\n", "");
-        assertEquals(text, photoAlt);
-        assertEquals(text, designerName);
-        assertEquals(descriptionNew.substring(0, 20), designerText.substring(0, 20));
+        Assertions.assertAll(
+                () -> assertEquals(text, photoAlt),
+                () -> assertEquals(text, designerName),
+                () -> assertEquals(descriptionNew.substring(0, 20), designerText.substring(0, 20)));
     }
 
     @Test
@@ -364,9 +372,10 @@ public class ProductCardsTest extends TestBase {
         String designerName = designers.getDesignerName();
         String designerText = designers.getDesignerText();
         String description = designers.getDesignerDescription(text);
-        assertEquals(text, photoAlt);
-        assertEquals(text, designerName);
-        assertEquals(description.substring(0, 100), designerText.substring(0, 100));
+        Assertions.assertAll(
+                () -> assertEquals(text, photoAlt),
+                () -> assertEquals(text, designerName),
+                () -> assertEquals(description.substring(0, 20), designerText.substring(0, 20)));
     }
 
     @Test
@@ -380,9 +389,10 @@ public class ProductCardsTest extends TestBase {
         String designerText = designers.getDesignerText();
         String description = designers.getDesignerDescription(text);
         String descriptionNew = description.replaceAll("<br>", "");
-        assertEquals(text, photoAlt);
-        assertEquals(text, designerName);
-        assertEquals(descriptionNew.substring(0, 100), designerText.substring(0, 100));
+        Assertions.assertAll(
+                () -> assertEquals(text, photoAlt),
+                () -> assertEquals(text, designerName),
+                () -> assertEquals(descriptionNew.substring(0, 20), designerText.substring(0, 20)));
     }
 
     @Test
@@ -395,9 +405,10 @@ public class ProductCardsTest extends TestBase {
         String designerName = designers.getDesignerName();
         String designerText = designers.getDesignerText();
         String description = designers.getDesignerDescription(text);
-        assertEquals(text, photoAlt);
-        assertEquals(text, designerName);
-        assertEquals(description.substring(0, 50), designerText.substring(0, 50));
+        Assertions.assertAll(
+                () -> assertEquals(text, photoAlt),
+                () -> assertEquals(text, designerName),
+                () -> assertEquals(description.substring(0, 20), designerText.substring(0, 20)));
     }
 
     //Кнопка перехода к товарам дизайнера
@@ -453,8 +464,9 @@ public class ProductCardsTest extends TestBase {
         String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
         shopTheLook.clickOnShopTheLookPhoto();
         String frisbuyMarker = shopTheLook.getFrisbuyMarker();
-        assertEquals("Shop the look", shopTheLookHeader);
-        assertEquals("Пожаловаться", frisbuyMarker);
+        Assertions.assertAll(
+                () -> assertEquals("Shop the look", shopTheLookHeader),
+                () -> assertEquals("Пожаловаться", frisbuyMarker));
     }
 
     @Test
@@ -464,8 +476,9 @@ public class ProductCardsTest extends TestBase {
         String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
         shopTheLook.clickOnShopTheLookPhoto();
         String frisbuyMarker = shopTheLook.getFrisbuyMarker();
-        assertEquals("Shop the look", shopTheLookHeader);
-        assertEquals("Пожаловаться", frisbuyMarker);
+        Assertions.assertAll(
+                () -> assertEquals("Shop the look", shopTheLookHeader),
+                () -> assertEquals("Пожаловаться", frisbuyMarker));
     }
 
     @Test
@@ -475,8 +488,9 @@ public class ProductCardsTest extends TestBase {
         String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
         shopTheLook.clickOnShopTheLookPhoto();
         String frisbuyMarker = shopTheLook.getFrisbuyMarker();
-        assertEquals("Shop the look", shopTheLookHeader);
-        assertEquals("Пожаловаться", frisbuyMarker);
+        Assertions.assertAll(
+                () -> assertEquals("Shop the look", shopTheLookHeader),
+                () -> assertEquals("Пожаловаться", frisbuyMarker));
     }
 
     @Test
@@ -486,8 +500,9 @@ public class ProductCardsTest extends TestBase {
         String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
         shopTheLook.clickOnShopTheLookPhoto();
         String frisbuyMarker = shopTheLook.getFrisbuyMarker();
-        assertEquals("Shop the look", shopTheLookHeader);
-        assertEquals("Пожаловаться", frisbuyMarker);
+        Assertions.assertAll(
+                () -> assertEquals("Shop the look", shopTheLookHeader),
+                () -> assertEquals("Пожаловаться", frisbuyMarker));
     }
 
 
@@ -528,23 +543,24 @@ public class ProductCardsTest extends TestBase {
         String guaranteeText = productCard.clickToGuaranteeButton()
                 .getGuaranteeText();
 
-        assertEquals("Состав:", specification.substring(0, 7));
-        assertEquals("Цветной", tsvetnoy);
-        assertEquals("Метрополис", metropolis);
-        assertEquals("Афимолл", afimoll);
-        assertEquals("Атриум", atrium);
-        assertEquals("APR Санкт-Петербург", redBridge);
-        assertEquals("Ювелирные украшения", jewelryCareHeader);
-        assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
-                "в них спирта)", jewelryCareText);
-        assertEquals("Бижутерия", bijouterieCareHeader);
-        assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
-                "их перед душем и нанесением косметики.\n" +
-                " Подробнее о хранении и уходе.", bijouterieCareText);
-        assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
-        assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
-                "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
-                " Подробнее о гарантии.", guaranteeText);
+        Assertions.assertAll(
+                () -> assertEquals("Состав:", specification.substring(0, 7)),
+                () -> assertEquals("Цветной", tsvetnoy),
+                () -> assertEquals("Метрополис", metropolis),
+                () -> assertEquals("Афимолл", afimoll),
+                () -> assertEquals("Атриум", atrium),
+                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
+                () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
+                        "в них спирта)", jewelryCareText),
+                () -> assertEquals("Бижутерия", bijouterieCareHeader),
+                () -> assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
+                        "их перед душем и нанесением косметики.\n" +
+                        " Подробнее о хранении и уходе.", bijouterieCareText),
+                () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
+                () -> assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
+                        "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
+                        " Подробнее о гарантии.", guaranteeText));
     }
 
     @Test
@@ -573,23 +589,24 @@ public class ProductCardsTest extends TestBase {
         String guaranteeText = productCard.clickToGuaranteeButton()
                 .getGuaranteeText();
 
-        assertEquals("Состав:", specification.substring(0, 7));
-        assertEquals("Цветной", tsvetnoy);
-        assertEquals("Метрополис", metropolis);
-        assertEquals("Афимолл", afimoll);
-        assertEquals("Атриум", atrium);
-        assertEquals("APR Санкт-Петербург", redBridge);
-        assertEquals("Ювелирные украшения", jewelryCareHeader);
-        assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
-                "в них спирта)", jewelryCareText);
-        assertEquals("Бижутерия", bijouterieCareHeader);
-        assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
-                "их перед душем и нанесением косметики.\n" +
-                " Подробнее о хранении и уходе.", bijouterieCareText);
-        assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
-        assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
-                "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
-                " Подробнее о гарантии.", guaranteeText);
+        Assertions.assertAll(
+                () -> assertEquals("Состав:", specification.substring(0, 7)),
+                () -> assertEquals("Цветной", tsvetnoy),
+                () -> assertEquals("Метрополис", metropolis),
+                () -> assertEquals("Афимолл", afimoll),
+                () -> assertEquals("Атриум", atrium),
+                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
+                () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
+                        "в них спирта)", jewelryCareText),
+                () -> assertEquals("Бижутерия", bijouterieCareHeader),
+                () -> assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
+                        "их перед душем и нанесением косметики.\n" +
+                        " Подробнее о хранении и уходе.", bijouterieCareText),
+                () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
+                () -> assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
+                        "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
+                        " Подробнее о гарантии.", guaranteeText));
     }
 
     @Test
@@ -618,23 +635,24 @@ public class ProductCardsTest extends TestBase {
         String guaranteeText = productCard.clickToGuaranteeButton()
                 .getGuaranteeText();
 
-        assertEquals("Состав:", specification.substring(0, 7));
-        assertEquals("Цветной", tsvetnoy);
-        assertEquals("Метрополис", metropolis);
-        assertEquals("Афимолл", afimoll);
-        assertEquals("Атриум", atrium);
-        assertEquals("APR Санкт-Петербург", redBridge);
-        assertEquals("Ювелирные украшения", jewelryCareHeader);
-        assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
-                "в них спирта)", jewelryCareText);
-        assertEquals("Бижутерия", bijouterieCareHeader);
-        assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
-                "их перед душем и нанесением косметики.\n" +
-                " Подробнее о хранении и уходе.", bijouterieCareText);
-        assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
-        assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
-                "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
-                " Подробнее о гарантии.", guaranteeText);
+        Assertions.assertAll(
+                () -> assertEquals("Состав:", specification.substring(0, 7)),
+                () -> assertEquals("Цветной", tsvetnoy),
+                () -> assertEquals("Метрополис", metropolis),
+                () -> assertEquals("Афимолл", afimoll),
+                () -> assertEquals("Атриум", atrium),
+                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
+                () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
+                        "в них спирта)", jewelryCareText),
+                () -> assertEquals("Бижутерия", bijouterieCareHeader),
+                () -> assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
+                        "их перед душем и нанесением косметики.\n" +
+                        " Подробнее о хранении и уходе.", bijouterieCareText),
+                () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
+                () -> assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
+                        "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
+                        " Подробнее о гарантии.", guaranteeText));
     }
 
     @Test
@@ -663,23 +681,24 @@ public class ProductCardsTest extends TestBase {
         String guaranteeText = productCard.clickToGuaranteeButton()
                 .getGuaranteeText();
 
-        assertEquals("Состав:", specification.substring(0, 7));
-        assertEquals("Цветной", tsvetnoy);
-        assertEquals("Метрополис", metropolis);
-        assertEquals("Афимолл", afimoll);
-        assertEquals("Атриум", atrium);
-        assertEquals("APR Санкт-Петербург", redBridge);
-        assertEquals("Ювелирные украшения", jewelryCareHeader);
-        assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
-                "в них спирта)", jewelryCareText);
-        assertEquals("Бижутерия", bijouterieCareHeader);
-        assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
-                "их перед душем и нанесением косметики.\n" +
-                " Подробнее о хранении и уходе.", bijouterieCareText);
-        assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56));
-        assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
-                "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
-                " Подробнее о гарантии.", guaranteeText);
+        Assertions.assertAll(
+                () -> assertEquals("Состав:", specification.substring(0, 7)),
+                () -> assertEquals("Цветной", tsvetnoy),
+                () -> assertEquals("Метрополис", metropolis),
+                () -> assertEquals("Афимолл", afimoll),
+                () -> assertEquals("Атриум", atrium),
+                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
+                () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
+                        "в них спирта)", jewelryCareText),
+                () -> assertEquals("Бижутерия", bijouterieCareHeader),
+                () -> assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
+                        "их перед душем и нанесением косметики.\n" +
+                        " Подробнее о хранении и уходе.", bijouterieCareText),
+                () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
+                () -> assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
+                        "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
+                        " Подробнее о гарантии.", guaranteeText));
     }
 
     //Отображение верного Кода изделия в карточке товара
@@ -798,8 +817,9 @@ public class ProductCardsTest extends TestBase {
         }
         basket.clickOnNameLink();
         String recentlyViewedProductsHeader = productCard.getRecentlyViewedProductsHeader();
-        assertEquals("Вы смотрели", recentlyViewedProductsHeader);
-        assertEquals(productList, viewedProductList);
+        Assertions.assertAll(
+                () -> assertEquals("Вы смотрели", recentlyViewedProductsHeader),
+                () -> assertEquals(productList, viewedProductList));
     }
 
     //Проверка по цене товара

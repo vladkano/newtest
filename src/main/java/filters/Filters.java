@@ -224,7 +224,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=1 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and catalog_id=1 and is_archive = 0 and price != 0 and filter_id = 147 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -250,7 +250,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and catalog_id=5 and is_archive = 0 and price != 0 and filter_id = 149 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -276,7 +276,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and filter_id = 150 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -303,7 +303,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and catalog_id=3 and is_archive = 0 and price != 0 and filter_id = 148 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -330,7 +330,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=4 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and catalog_id=4 and is_archive = 0 and price != 0 and filter_id = 151 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -356,7 +356,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 156 " +
                 "and item_sku.url is not null and balance > 0 and discount >= 10 " +
                 "group by item_catalog_position.position";
         try {
@@ -382,7 +382,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 155 " +
                 "and item_sku.url is not null and balance > 0 and discount >= 30 " +
                 "group by item_catalog_position.position";
         try {
@@ -408,7 +408,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 155 " +
                 "and item_sku.url is not null and balance > 0 and discount >= 50 " +
                 "group by item_catalog_position.position";
         try {
@@ -434,7 +434,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 155 " +
                 "and item_sku.url is not null and balance > 0 and discount >= 70 " +
                 "group by item_catalog_position.position";
         try {
@@ -461,7 +461,7 @@ public class Filters extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'sale' " +
                 "and item_sku.url is not null and balance > 0 and discount >= 10 " +
                 "group by item_catalog_position.position";
         try {
@@ -475,7 +475,6 @@ public class Filters extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        System.out.println(i);
         worker.getSession().disconnect();
     }
 }

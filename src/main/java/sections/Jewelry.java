@@ -37,7 +37,7 @@ public class Jewelry extends Base {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and (base_metal_group_id = 2 or base_metal_group_id = 11) " +
-                "and item_sku.url is not null and balance > 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and filter_id = 155 " +
                 "group by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -66,7 +66,7 @@ public class Jewelry extends Base {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and (base_metal_group_id = 2 or base_metal_group_id = 11) " +
-                "and item_sku.url is not null and balance > 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and filter_id = 155 " +
                 "group by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -95,7 +95,7 @@ public class Jewelry extends Base {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and (base_metal_group_id = 2 or base_metal_group_id = 11) " +
-                "and item_sku.url is not null and balance > 0 and section = 'catalog' and subsection is null " +
+                "and item_sku.url is not null and balance > 0 and filter_id = 155 " +
                 "group by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();

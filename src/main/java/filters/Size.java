@@ -209,7 +209,7 @@ public class Size extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 155 " +
                 "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14,5' and item_sku.url is not null and balance > 0 " +
                 " group by item_catalog_position.position ";
         try {
@@ -239,7 +239,7 @@ public class Size extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 155 " +
                 "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '15,5' and item_sku.url is not null and balance > 0 " +
                 " group by item_catalog_position.position ";
         try {
@@ -269,7 +269,7 @@ public class Size extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 155 " +
                 "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = 'Универсальный' and item_sku.url is not null and balance > 0 " +
                 " group by item_catalog_position.position";
         try {

@@ -6,6 +6,7 @@ import collectionAndSet.Collection;
 import filters.Filters;
 import filters.Size;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -36,8 +37,9 @@ public class WishListTest extends TestBase {
         assertTrue(numbers > 0);
         String url = driver.getCurrentUrl();
         String header = wishlist.getWishListHeader();
-        assertEquals(getUrl + "wishlist/", url);
-        assertEquals("Избранное", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "wishlist/", url),
+                () -> assertEquals("Избранное", header));
     }
 
     //Блок тестов по добавлению в избранное из страниц каталога
@@ -71,7 +73,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0,26), itemNameFromWishlist.substring(0,26));
+        assertEquals(itemName.substring(0, 26), itemNameFromWishlist.substring(0, 26));
     }
 
     //Серьги
@@ -115,7 +117,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0,14), itemNameFromWishlist.substring(0, 14));
+        assertEquals(itemName.substring(0, 14), itemNameFromWishlist.substring(0, 14));
     }
 
     //Новинки
@@ -126,7 +128,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0,20), itemNameFromWishlist.substring(0,20));
+        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
     }
 
     //Распродажа
@@ -154,8 +156,9 @@ public class WishListTest extends TestBase {
         wishlist.clickToTransferToBasketButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
-        assertEquals(itemName, itemNameFromWishlist);
-        assertEquals(itemNameFromWishlist, basketProductName);
+        Assertions.assertAll(
+                () -> assertEquals(itemName, itemNameFromWishlist),
+                () -> assertEquals(itemNameFromWishlist, basketProductName));
     }
 
     //Обычный товар с размером
@@ -176,8 +179,9 @@ public class WishListTest extends TestBase {
         wishlist.clickToTransferToBasketButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
-        assertEquals(itemName, itemNameFromWishlist);
-        assertEquals(itemNameFromWishlist, basketProductName);
+        Assertions.assertAll(
+                () -> assertEquals(itemName, itemNameFromWishlist),
+                () -> assertEquals(itemNameFromWishlist, basketProductName));
     }
 
 
@@ -194,8 +198,9 @@ public class WishListTest extends TestBase {
         wishlist.clickToTransferToBasketButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
-        assertEquals(itemName, itemNameFromWishlist);
-        assertEquals(itemNameFromWishlist, basketProductName);
+        Assertions.assertAll(
+                () -> assertEquals(itemName, itemNameFromWishlist),
+                () -> assertEquals(itemNameFromWishlist, basketProductName));
     }
 
     //Товар из коллекции с размером
@@ -218,8 +223,9 @@ public class WishListTest extends TestBase {
         wishlist.clickToTransferToBasketButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
-        assertEquals(itemName, itemNameFromWishlist);
-        assertEquals(itemNameFromWishlist, basketProductName);
+        Assertions.assertAll(
+                () -> assertEquals(itemName, itemNameFromWishlist),
+                () -> assertEquals(itemNameFromWishlist, basketProductName));
     }
 
     @AfterEach
