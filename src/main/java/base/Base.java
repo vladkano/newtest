@@ -30,7 +30,7 @@ public class Base {
     public By getImageLink() {
         return imageLink;
     }
-    
+
 
     private By imageLink = By.xpath("//picture/img");
     protected By secondImageLink = By.xpath("(//picture/img)[3]");

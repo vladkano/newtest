@@ -3,8 +3,8 @@ package functionalTests;
 import baseForTests.TestBase;
 import catalog.*;
 import filters.Filters;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
@@ -42,8 +42,9 @@ public class CatalogTest extends TestBase {
             siteList.add(s);
         }
         //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     @Test
@@ -61,11 +62,9 @@ public class CatalogTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем размеры и содержание списков
-        SoftAssertions s = new SoftAssertions();
-        s.assertThat(sqlSize).isEqualTo(numberOnly);
-        s.assertThat(siteList.subList(0, 47)).isEqualTo(sqlList.subList(0, 47));
-        s.assertAll();
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
 
     }
 
@@ -85,8 +84,9 @@ public class CatalogTest extends TestBase {
             siteList.add(s);
         }
         //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     @Test
@@ -105,8 +105,9 @@ public class CatalogTest extends TestBase {
             siteList.add(s);
         }
         //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     @Test
@@ -125,8 +126,9 @@ public class CatalogTest extends TestBase {
             siteList.add(s);
         }
         //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size()));
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
 
@@ -146,8 +148,9 @@ public class CatalogTest extends TestBase {
             siteList.add(s);
         }
         //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size()));
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size())));
     }
 
     @Test
@@ -166,8 +169,9 @@ public class CatalogTest extends TestBase {
             siteList.add(s);
         }
         //сравниваем содержание списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     //Кол-во наименование в базе и на странице, проверка по наименованию
@@ -183,7 +187,7 @@ public class CatalogTest extends TestBase {
             String s = text.getText();
             siteList.add(s.substring(0, 6));
         }
-        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
@@ -199,7 +203,7 @@ public class CatalogTest extends TestBase {
             String s = text.getText();
             siteList.add(s.substring(0, 5));
         }
-        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
@@ -215,7 +219,7 @@ public class CatalogTest extends TestBase {
             String s = text.getText();
             siteList.add(s.substring(0, 4));
         }
-        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
@@ -229,10 +233,10 @@ public class CatalogTest extends TestBase {
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s);
-//            siteList.add(s.substring(0, 6));
+//            siteList.add(s);
+            siteList.add(s.substring(0, 12));
         }
-        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем первые несколько символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
@@ -248,7 +252,7 @@ public class CatalogTest extends TestBase {
             String s = text.getText();
             siteList.add(s.substring(0, 9));
         }
-        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, siteList.size()), siteList.subList(0, siteList.size()));
     }
 
@@ -264,7 +268,7 @@ public class CatalogTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, siteList.size()), siteList.subList(0, siteList.size()));
     }
 
@@ -281,7 +285,7 @@ public class CatalogTest extends TestBase {
             String s = text.getText();
             siteList.add(s.substring(0, 9));
         }
-        //сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, siteList.size()), siteList.subList(0, siteList.size()));
     }
 

@@ -3,6 +3,7 @@ package functionalTests;
 import baseForTests.TestBase;
 import filters.*;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -47,9 +48,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(1), siteList.get(1));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(5), siteList.get(5)));
     }
 
     @Test
@@ -62,9 +64,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(10), siteList.get(10));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(10), siteList.get(10)));
     }
 
     @Test
@@ -77,9 +80,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0).substring(0, 28), siteList.get(0).substring(0, 28));
-        assertEquals(sqlList.get(8).substring(0, 23), siteList.get(8).substring(0, 23));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(8), siteList.get(8)));
     }
 
     @Test
@@ -92,9 +96,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -107,9 +112,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
-        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     //ВСТАВКИ
@@ -129,9 +135,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -144,9 +151,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(1), siteList.get(1));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -159,9 +167,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -174,9 +183,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     //МАТЕРИАЛ
@@ -197,9 +207,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -212,9 +223,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
 
@@ -276,9 +288,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0).substring(0, 9), siteList.get(0).substring(0, 9));
-        assertEquals(sqlList.get(2).substring(0, 22), siteList.get(2).substring(0, 22));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -291,9 +304,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -306,9 +320,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     //ПОКРЫТИЕ
@@ -328,9 +343,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -343,9 +359,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     //Размер кольца
@@ -365,9 +382,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -380,9 +398,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     @Test
@@ -395,9 +414,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
 
@@ -417,10 +437,10 @@ public class FiltersTest extends TestBase {
         getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        //сравниваем размеры и содержание списков
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     @Test
@@ -432,10 +452,10 @@ public class FiltersTest extends TestBase {
         getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        //сравниваем размеры и содержание списков
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     @Test
@@ -448,9 +468,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
 
@@ -512,11 +533,12 @@ public class FiltersTest extends TestBase {
         filters.clickToAllEarringsButton2();
         Thread.sleep(2000);
         String numberOfProducts7 = filters.getNumberOfProducts();
-        assertNotEquals(numberOfProducts1, numberOfProducts2);
-        assertNotEquals(numberOfProducts3, numberOfProducts4);
-        assertEquals(numberOfProducts5, numberOfProducts3);
-        assertEquals(numberOfProducts6, numberOfProducts2);
-        assertEquals(numberOfProducts7, numberOfProducts1);
+        Assertions.assertAll(
+                () -> assertNotEquals(numberOfProducts1, numberOfProducts2),
+                () -> assertNotEquals(numberOfProducts3, numberOfProducts4),
+                () -> assertEquals(numberOfProducts5, numberOfProducts3),
+                () -> assertEquals(numberOfProducts6, numberOfProducts2),
+                () -> assertEquals(numberOfProducts7, numberOfProducts1));
     }
 
 
@@ -543,14 +565,17 @@ public class FiltersTest extends TestBase {
         filters.clickToFiftyPercentButton();
         Thread.sleep(2000);
         String numberOfProducts5 = filters.getNumberOfProducts();
-        filters.clickToSeventyPercentButton();
-        Thread.sleep(2000);
-        String numberOfProducts6 = filters.getNumberOfProducts();
-        assertNotEquals(numberOfProducts1, numberOfProducts2);
-        assertEquals(numberOfProducts2, numberOfProducts3);
-        assertNotEquals(numberOfProducts3, numberOfProducts4);
-        assertNotEquals(numberOfProducts4, numberOfProducts5);
-        assertNotEquals(numberOfProducts5, numberOfProducts6);
+
+        //Скидки 70% бывают не всегда
+//        filters.clickToSeventyPercentButton();
+//        Thread.sleep(2000);
+//        String numberOfProducts6 = filters.getNumberOfProducts();
+        Assertions.assertAll(
+                () -> assertNotEquals(numberOfProducts1, numberOfProducts2),
+                () -> assertEquals(numberOfProducts2, numberOfProducts3),
+                () -> assertNotEquals(numberOfProducts3, numberOfProducts4),
+                () -> assertNotEquals(numberOfProducts4, numberOfProducts5));
+//                () -> assertNotEquals(numberOfProducts5, numberOfProducts6));
     }
 
     //Проверяем, что выводится правильное кол-во изделий
@@ -566,9 +591,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(5), siteList.get(5));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     //Скидки 30%
@@ -582,9 +608,10 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(5), siteList.get(5));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
     //Скидки 50%
@@ -598,27 +625,29 @@ public class FiltersTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        System.out.println(sqlList.size());
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(5), siteList.get(5));
-        assertEquals(sqlList.get(2), siteList.get(2));
+        Assertions.assertAll(
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
-    //Скидки 70%
-    @Test
-    public void seventyPercentDiscounts() {
-        filters.clickToFilterButton();
-        filters.clickToSeventyPercentButton();
-        filters.clickToShowProductsButton();
-        List<String> sqlList = filters.getSeventyPercentDiscountItems();
-        getProductsListFromPage();
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.size(), numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(1), siteList.get(1));
-    }
+
+    //Скидки 70% бывают не всегда
+//    @Test
+//    public void seventyPercentDiscounts() {
+//        filters.clickToFilterButton();
+//        filters.clickToSeventyPercentButton();
+//        filters.clickToShowProductsButton();
+//        List<String> sqlList = filters.getSeventyPercentDiscountItems();
+//        getProductsListFromPage();
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        Assertions.assertAll(
+//                () -> assertEquals(sqlList.size(), numberOnly),
+//                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+//                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+//    }
 
 
     //Тесты кнопок с фильтрами(шаблоны фильтров) временно отключен, будет что-то новое(Юра Пронин)

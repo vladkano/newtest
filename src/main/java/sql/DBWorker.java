@@ -30,8 +30,10 @@ public class DBWorker {
             String strSshHost = "77.223.106.149";
             String strRemoteHost = "localhost"; // hostname or ip of your database server
             int nRemotePort = 3306; // remote port number of your database
-            String strDbUser = "pd_prod_user"; // database loging username
-            String strDbPassword = "cGXIH452yfgYTus@%yt"; // database login password
+//            String strDbUser = "pd_prod_user"; // database loging username
+//            String strDbPassword = "cGXIH452yfgYTus@%yt"; // database login password
+            String strDbUser = "rundkvist"; // database loging username
+            String strDbPassword = "VHJohg658VH308ybjVKH"; // database login password
 
             final JSch jsch = new JSch();
             jsch.addIdentity("D:\\.ssh\\id_rsa");
@@ -170,7 +172,6 @@ public class DBWorker {
 //        }
 
 
-
         //Старый Тест
 
 //        try {
@@ -198,8 +199,6 @@ public class DBWorker {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-
-
 
 
         //БОЙ

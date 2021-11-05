@@ -3,9 +3,9 @@ package functionalTests;
 import baseForTests.TestBase;
 import filters.Filters;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import sections.NewItems;
 
@@ -40,8 +40,9 @@ public class NewItemsTest extends TestBase {
             siteList.add(s);
         }
         //сравниваем содержание и порядок списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     //Проверка по наименованию дизайнера

@@ -6,7 +6,6 @@ import catalog.*;
 import collectionAndSet.Collection;
 import collectionAndSet.Set;
 import filters.*;
-import filters.DesignersFilter;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import mainPage.MainPage;
 import mainPage.MainPageBanner;

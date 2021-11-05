@@ -54,7 +54,7 @@ public class Tags extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
-                "and catalog_id=1 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'sergi' " +
+                "and catalog_id=1 and is_archive = 0 and price != 0 and filter_id = 147 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position LIMIT 1";
         try {
@@ -81,7 +81,7 @@ public class Tags extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
-                "and catalog_id=4 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'broshi' " +
+                "and catalog_id=4 and is_archive = 0 and price != 0 and filter_id = 151 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position LIMIT 1";
         try {
@@ -108,7 +108,7 @@ public class Tags extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
-                "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'koltsa' " +
+                "and catalog_id=5 and is_archive = 0 and price != 0 and filter_id = 149 " +
                 "and item_sku.url is not null and balance > 0 " +
 
                 "group by item_catalog_position.position LIMIT 1";
@@ -135,7 +135,7 @@ public class Tags extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
-                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and filter_id = 150 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position LIMIT 1";
         try {

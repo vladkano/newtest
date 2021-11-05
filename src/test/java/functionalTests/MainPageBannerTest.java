@@ -3,6 +3,7 @@ package functionalTests;
 import baseForTests.TestBase;
 import mainPage.MainPageBanner;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -94,11 +95,11 @@ public class MainPageBannerTest extends TestBase {
         banner.clickToOkButton();
         String href = banner.getMainCatalogHref();
         banner.clickToMainCatalogHref();
-        String header = banner.getMainBannerHeader();
+        String header = banner.getMainCatalogHeader();
         String url = driver.getCurrentUrl();
-        assertEquals(href, url);
-        assertEquals(" Стилизация уха – это такая игра. Соберите, как конструктор," +
-                " сет из каффов и серег, замените пару деталей, поэкспериментируйте... ", header);
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals("Фильтр", header));
     }
 
     @Test
@@ -107,8 +108,9 @@ public class MainPageBannerTest extends TestBase {
         banner.clickToCatalogHref();
         String url = driver.getCurrentUrl();
         String header = banner.getMainCatalogHeader();
-        assertEquals(href, url);
-        assertEquals("Фильтр", header);
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals("Фильтр", header));
     }
 
     @Test
@@ -117,8 +119,9 @@ public class MainPageBannerTest extends TestBase {
         banner.clickToSixCatalogHref();
         String url = driver.getCurrentUrl();
         String header = banner.getMainCatalogHeader();
-        assertEquals(href, url);
-        assertEquals("Фильтр", header);
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals("Фильтр", header));
     }
 
     @Test

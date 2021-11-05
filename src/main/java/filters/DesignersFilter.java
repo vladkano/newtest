@@ -54,7 +54,7 @@ public class DesignersFilter extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 60 " +
                 "and item_sku.url is not null and balance > 0 and designer.name = 'Aleksandr Sinitsyn' " +
                 "group by item_catalog_position.position";
         try {
@@ -80,7 +80,7 @@ public class DesignersFilter extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 29 " +
                 "and item_sku.url is not null and balance > 0 and designer.name = 'Prosto Jewlry' " +
                 "group by item_catalog_position.position";
         try {
@@ -106,7 +106,7 @@ public class DesignersFilter extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
+                "and is_archive = 0 and price != 0 and filter_id = 8 " +
                 "and item_sku.url is not null and balance > 0 and designer.name = 'Avgvst' " +
                 "group by item_catalog_position.position";
         try {
@@ -126,27 +126,27 @@ public class DesignersFilter extends Base {
     public static void main(String[] args) {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item.name from item_sku " +
-                "JOIN item ON item_sku.item_id = item.id " +
+        String query = "SELECT item.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and tag_id = 1)" +
-                "and is_archive = 0 and price != 0 and item_sku.url is not null " +
-                "and designer.name = 'Aleksandr Sinitsyn' and item_sku.show != 0 and catalog.show !=0" +
-                " group by item_sku.id ";
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0 and section = 'designer' " +
+                "and item_sku.url is not null and balance > 0 and designer.name = 'Avgvst' " +
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 name = resultSet.getString("name");
-//                System.out.println(id);
                 text.add(name);
+                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(text.size());
-        System.out.println(text);
         worker.getSession().disconnect();
     }
 }

@@ -24,7 +24,7 @@ public class Necklaces extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and filter_id = 150 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -51,7 +51,7 @@ public class Necklaces extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and filter_id = 150 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -77,7 +77,7 @@ public class Necklaces extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and filter_id = 150 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -211,7 +211,7 @@ public class Necklaces extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=2 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'kole' " +
+                "and catalog_id=2 and is_archive = 0 and price != 0 and filter_id = 150 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -229,12 +229,10 @@ public class Necklaces extends Base {
     }
 
     public static void main(String[] args) {
-
         String query = "SELECT COUNT(*)id from item " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "where catalog_id=2 and is_archive = 0 and price != 0 and item_sku.url is not null";
-
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);

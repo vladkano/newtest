@@ -3,6 +3,7 @@ package functionalTests;
 import baseForTests.TestBase;
 import filters.Filters;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -36,11 +37,12 @@ public class SaleTest extends TestBase {
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s);
+            siteList.add(s.substring(0, 14));
         }
         //сравниваем размеры и содержание списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     //Проверка по наименованию дизайнера. База и на сайте

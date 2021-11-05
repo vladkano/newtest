@@ -27,7 +27,7 @@ public class Bracelets extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety' " +
+                "and catalog_id=3 and is_archive = 0 and price != 0 and filter_id = 148 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -56,7 +56,7 @@ public class Bracelets extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety' " +
+                "and catalog_id=3 and is_archive = 0 and price != 0 and filter_id = 148 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -84,7 +84,7 @@ public class Bracelets extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety' " +
+                "and catalog_id=3 and is_archive = 0 and price != 0 and filter_id = 148 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -121,7 +121,7 @@ public class Bracelets extends Base {
                 "JOIN item_collection_characteristic ON item_collection_consist.item_collection_characteristic_id = item_collection_characteristic.id " +
                 "JOIN item_collection ON item_collection_consist.item_collection_id = item_collection.id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety' " +
+                "and catalog_id=3 and is_archive = 0 and price != 0 and filter_id = 148 " +
                 "and item_sku.url is not null and balance > 0 " +
                 " and item_collection_consist.item_collection_characteristic_id!=0 and item_collection_consist.item_collection_characteristic_value_id != 0" +
                 " and item_collection_consist.item_collection_id != 0" +
@@ -210,7 +210,7 @@ public class Bracelets extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety' " +
+                "and catalog_id=3 and is_archive = 0 and price != 0 and filter_id = 148 " +
                 "and item_sku.url is not null and balance > 0 " +
                 "group by item_catalog_position.position";
         try {
@@ -244,7 +244,7 @@ public class Bracelets extends Base {
                 "JOIN item_collection_characteristic ON item_collection_consist.item_collection_characteristic_id = item_collection_characteristic.id " +
                 "JOIN item_collection ON item_collection_consist.item_collection_id = item_collection.id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=3 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'braslety' " +
+                "and catalog_id=3 and is_archive = 0 and price != 0 and filter_id = 148 " +
                 "and item_sku.url is not null and balance > 0 " +
                 " and item_collection_consist.item_collection_characteristic_id!=0 and item_collection_consist.item_collection_characteristic_value_id != 0" +
                 " and item_collection_consist.item_collection_id != 0" +

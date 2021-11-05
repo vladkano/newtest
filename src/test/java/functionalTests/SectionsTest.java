@@ -4,6 +4,7 @@ import baseForTests.TestBase;
 import catalog.CatalogNavigation;
 import filters.Filters;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
@@ -94,8 +95,9 @@ public class SectionsTest extends TestBase {
         shops.clickToShopsButton();
         String url = driver.getCurrentUrl();
         String shopsHeader = shops.getShopsHeader();
-        assertEquals(getUrl + "shops/", url);
-        assertEquals("МАГАЗИНЫ", shopsHeader);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "shops/", url),
+                () -> assertEquals("МАГАЗИНЫ", shopsHeader));
     }
 
     @Test()
@@ -104,8 +106,9 @@ public class SectionsTest extends TestBase {
         wishlist.clickToWishListButton();
         String url = driver.getCurrentUrl();
         String header = wishlist.getWishListHeader();
-        assertEquals(getUrl + "wishlist/", url);
-        assertEquals("Избранное", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "wishlist/", url),
+                () -> assertEquals("Избранное", header));
     }
 
     //Футер
@@ -115,10 +118,11 @@ public class SectionsTest extends TestBase {
         footer.clickToAboutButton();
         String url = driver.getCurrentUrl();
         String header = footer.getAboutHeader();
-        assertEquals(getUrl + "about/", url);
-        assertEquals("ПРИВЕТ\n" +
-                "И ДОБРО ПОЖАЛОВАТЬ\n" +
-                "В POISON DROP", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "about/", url),
+                () -> assertEquals("ПРИВЕТ\n" +
+                        "И ДОБРО ПОЖАЛОВАТЬ\n" +
+                        "В POISON DROP", header));
     }
 
     @Test()
@@ -127,8 +131,9 @@ public class SectionsTest extends TestBase {
         footer.clickToContactsButton();
         String url = driver.getCurrentUrl();
         String header = footer.getContactsHeader();
-        assertEquals(getUrl + "contacts/", url);
-        assertEquals("Контакты", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "contacts/", url),
+                () -> assertEquals("Контакты", header));
     }
 
     @Test()
@@ -137,8 +142,9 @@ public class SectionsTest extends TestBase {
         footer.clickToShopsButton();
         String url = driver.getCurrentUrl();
         String header = footer.getShopsHeader();
-        assertEquals(getUrl + "shops/", url);
-        assertEquals("МАГАЗИНЫ", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "shops/", url),
+                () -> assertEquals("МАГАЗИНЫ", header));
     }
 
     @Test()
@@ -147,8 +153,9 @@ public class SectionsTest extends TestBase {
         footer.clickToVacancyButton();
         String url = driver.getCurrentUrl();
         String header = footer.getVacancyHeader();
-        assertEquals(getUrl + "vacancy/", url);
-        assertEquals("Доступные вакансии:", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "vacancy/", url),
+                () -> assertEquals("Доступные вакансии:", header));
     }
 
     @Test()
@@ -157,8 +164,9 @@ public class SectionsTest extends TestBase {
         footer.clickToSoglashenieButton();
         String url = driver.getCurrentUrl();
         String header = footer.getSoglashenieHeader();
-        assertEquals(getUrl + "soglashenie-na-ispolzovanie-polzovatelskikh-materialov/", url);
-        assertEquals("Соглашение на использование пользовательских материалов", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "soglashenie-na-ispolzovanie-polzovatelskikh-materialov/", url),
+                () -> assertEquals("Соглашение на использование пользовательских материалов", header));
     }
 
     @Test()
@@ -167,8 +175,9 @@ public class SectionsTest extends TestBase {
         footer.clickToDostavkaButton();
         String url = driver.getCurrentUrl();
         String header = footer.getDostavkaHeader();
-        assertEquals(getUrl + "dostavka-i-oplata/", url);
-        assertEquals("Доставка и оплата", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "dostavka-i-oplata/", url),
+                () -> assertEquals("Доставка и оплата", header));
     }
 
     @Test()
@@ -177,8 +186,9 @@ public class SectionsTest extends TestBase {
         footer.clickToObmenButton();
         String url = driver.getCurrentUrl();
         String header = footer.getObmenHeader();
-        assertEquals(getUrl + "obmen-i-vozvrat/", url);
-        assertEquals("Обмен и возврат", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "obmen-i-vozvrat/", url),
+                () -> assertEquals("Обмен и возврат", header));
     }
 
     @Test()
@@ -187,8 +197,9 @@ public class SectionsTest extends TestBase {
         footer.clickToGarantiiButton();
         String url = driver.getCurrentUrl();
         String header = footer.getGarantiiHeader();
-        assertEquals(getUrl + "garantii/", url);
-        assertEquals("Гарантийный сервис", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "garantii/", url),
+                () -> assertEquals("Гарантийный сервис", header));
     }
 
     @Test()
@@ -197,8 +208,9 @@ public class SectionsTest extends TestBase {
         footer.clickToOfertaButton();
         String url = driver.getCurrentUrl();
         String header = footer.getOfertaHeader();
-        assertEquals(getUrl + "oferta/", url);
-        assertEquals("Оферта", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "oferta/", url),
+                () -> assertEquals("Оферта", header));
     }
 
     @Test()
@@ -207,8 +219,9 @@ public class SectionsTest extends TestBase {
         footer.clickToPersonalnyeDannyeButton();
         String url = driver.getCurrentUrl();
         String header = footer.getPersonalnyeDannyeHeader();
-        assertEquals(getUrl + "polozhenie-ob-obrabotke-i-zashchite-personalnykh-dannykh/", url);
-        assertEquals("Положение об обработке и защите персональных данных", header);
+        Assertions.assertAll(
+                () -> assertEquals(getUrl + "polozhenie-ob-obrabotke-i-zashchite-personalnykh-dannykh/", url),
+                () -> assertEquals("Положение об обработке и защите персональных данных", header));
     }
 
     @Test()
@@ -225,8 +238,9 @@ public class SectionsTest extends TestBase {
         footer.clickToTelegaButton();
         String url = driver.getCurrentUrl();
         String header = footer.getTelegaHeader();
-        assertEquals("https://t.me/impoisoned", url);
-        assertEquals("I am Poisoned", header);
+        Assertions.assertAll(
+                () -> assertEquals("https://t.me/impoisoned", url),
+                () -> assertEquals("I am Poisoned", header));
     }
 
 
@@ -244,8 +258,9 @@ public class SectionsTest extends TestBase {
         footer.clickToYoutubeButton();
         String url = driver.getCurrentUrl();
         String header = footer.getYoutubeHeader();
-        assertEquals("https://www.youtube.com/channel/UCrZvQ1xKouTkYU_MxC6Hv4g", url);
-        assertEquals("Poison Drop", header);
+        Assertions.assertAll(
+                () -> assertEquals("https://www.youtube.com/channel/UCrZvQ1xKouTkYU_MxC6Hv4g", url),
+                () -> assertEquals("Poison Drop", header));
     }
 
     @Test()
@@ -254,12 +269,12 @@ public class SectionsTest extends TestBase {
         footer.clickToWhatsAppButton();
         String url = driver.getCurrentUrl();
         String header = footer.getWhatsAppHeader();
-        assertEquals("https://api.whatsapp.com/send/?phone=74952551533&text&app_absent=0", url);
-        assertEquals("Poison Drop by ООО \"ПойзонДроп\"", header);
+        Assertions.assertAll(
+                () -> assertEquals("https://api.whatsapp.com/send/?phone=74952551533&text&app_absent=0", url),
+                () -> assertEquals("Poison Drop by ООО \"ПойзонДроп\"", header));
     }
 
 
-    //Создан таск https://poisondrop.atlassian.net/browse/PD-617
     //Золото и серебро:
     //Кол-во наименование в базе и на странице, выборочная проверка по наименованию
 
@@ -279,11 +294,12 @@ public class SectionsTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0).substring(0, 28), siteList.get(0).substring(0, 28));
-        assertEquals(sqlList.get(7), siteList.get(7));
-        assertEquals(sqlList.get(19).substring(0, 20), siteList.get(19).substring(0, 20));
+        //Сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        Assertions.assertAll(
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.get(0).substring(0, 24), siteList.get(0).substring(0, 24)),
+                () -> assertEquals(sqlList.get(7), siteList.get(7)),
+                () -> assertEquals(sqlList.get(19).substring(0, 20), siteList.get(19).substring(0, 20)));
     }
 
     //Проверка по наименованию дизайнера
@@ -354,10 +370,10 @@ public class SectionsTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем кол-во
-        assertEquals(trends.listOfBanners(), banners.size());
-        //сравниваем содержание списков
-        assertEquals(sqlList.subList(0, trends.listOfBanners() - 1), siteList.subList(0, trends.listOfBanners() - 1));
+        //сравниваем кол-во и содержание списков
+        Assertions.assertAll(
+                () -> assertEquals(trends.listOfBanners(), banners.size()),
+                () -> assertEquals(sqlList.subList(0, trends.listOfBanners() - 1), siteList.subList(0, trends.listOfBanners() - 1)));
     }
 
     //Ссылки: переход на верную страницу
@@ -371,8 +387,9 @@ public class SectionsTest extends TestBase {
         String url = driver.getCurrentUrl();
         String description = trends.listOfDescription().get(0);
         String s = description.replaceAll("<[^>]*>", "");
-        assertEquals(href, url);
-        assertEquals(s, header);
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(s, header));
     }
 
     @Test
@@ -384,8 +401,9 @@ public class SectionsTest extends TestBase {
         String header = trends.linkHeader();
         String url = driver.getCurrentUrl();
         String description = trends.listOfDescription().get(1);
-        assertEquals(href, url);
-        assertEquals(description, header);
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(description, header));
     }
 
     @Test
@@ -397,8 +415,9 @@ public class SectionsTest extends TestBase {
         String header = trends.linkHeader();
         String url = driver.getCurrentUrl();
         String description = trends.listOfDescription().get(2);
-        assertEquals(href, url);
-        assertEquals(description, header);
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(description, header));
     }
 
     @Test
@@ -410,8 +429,9 @@ public class SectionsTest extends TestBase {
         String header = trends.linkHeader();
         String url = driver.getCurrentUrl();
         String description = trends.listOfDescription().get(9);
-        assertEquals(href, url);
-        assertEquals(description, header);
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(description, header));
     }
 
     @Test
@@ -423,8 +443,9 @@ public class SectionsTest extends TestBase {
         String header = trends.linkHeader();
         String url = driver.getCurrentUrl();
         String description = trends.listOfDescription().get(4);
-        assertEquals(href, url);
-        assertEquals(description.substring(0, 20), header.substring(0, 20));
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(description.substring(0, 20), header.substring(0, 20)));
     }
 
 
@@ -450,12 +471,12 @@ public class SectionsTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        assertEquals(href, url);
-        //сравниваем размер, содержание и порядок списков
-        //сравниваем 1,8 и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
-        assertEquals(sqlList.get(7).substring(0, 20), siteList.get(7).substring(0, 20));
+        //Сравниваем 1,8 и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20)),
+                () -> assertEquals(sqlList.get(7).substring(0, 20), siteList.get(7).substring(0, 20)));
     }
 
     @Test
@@ -477,12 +498,12 @@ public class SectionsTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        assertEquals(href, url);
-        //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
-        assertEquals(sqlList.get(sqlSize - 1), siteList.get(numberOnly - 1));
+        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(sqlSize - 1), siteList.get(numberOnly - 1)));
     }
 
 
@@ -505,9 +526,10 @@ public class SectionsTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        assertEquals(href, url);
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly));
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly)));
     }
 
     //Популярные
@@ -531,10 +553,11 @@ public class SectionsTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        assertEquals(href, url);
-        //сравниваем размер, содержание и порядок списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto));
+        //Сравниваем ссылки, размер, содержание и порядок списков
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto)));
     }
 
     //Последний
@@ -558,11 +581,15 @@ public class SectionsTest extends TestBase {
             siteList.add(s);
         }
         assertEquals(href, url);
-        //сравниваем размер, содержание и порядок списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto));
+        //Сравниваем ссылки, 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(5), siteList.get(5)));
     }
 
+    //Создана задача по багу https://poisondrop.atlassian.net/browse/PD-1390
     //Отображение корректного списка дизайнеров
     @Test
     public void listOfDesigners() {
@@ -581,7 +608,7 @@ public class SectionsTest extends TestBase {
     }
 
 
-    //Выборочная проверка ссылок и товаров по ссылкам
+    //Выборочная проверка ссылок и товаров из таблицы на странице Дизайнеров
     @Test
     public void firstDesigner() {
         driver.get(getUrl + "designers/");
@@ -601,10 +628,11 @@ public class SectionsTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        assertEquals(href, url);
-        //сравниваем размер, содержание и порядок списков
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly));
+        //Сравниваем ссылки, размер, содержание и порядок списков
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly)));
     }
 
     @Test
@@ -627,13 +655,14 @@ public class SectionsTest extends TestBase {
             siteList.add(s);
         }
         assertEquals(href, url);
-        //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0), siteList.get(0));
-        assertEquals(sqlList.get(7), siteList.get(7));
+        //Сравниваем ссылки, размер, содержание и порядок списков
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto)));
     }
 
+    //Создана задача по багу https://poisondrop.atlassian.net/browse/PD-1390
     @Test
     public void thirdDesigner() {
         driver.get(getUrl + "designers/");
@@ -653,12 +682,11 @@ public class SectionsTest extends TestBase {
             String s = text.getText();
             siteList.add(s);
         }
-        assertEquals(href, url);
-        //сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlSize, numberOnly);
-        assertEquals(sqlList.get(0).substring(0, 21), siteList.get(0).substring(0, 21));
-        assertEquals(sqlList.get(2).substring(0, 14), siteList.get(2).substring(0, 14));
-//        assertEquals(sqlList.get(47).substring(0, 28), siteList.get(47).substring(0, 28));
+        //Сравниваем ссылки, размер, содержание и порядок списков
+        Assertions.assertAll(
+                () -> assertEquals(href, url),
+                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly)));
     }
 
     @AfterEach
