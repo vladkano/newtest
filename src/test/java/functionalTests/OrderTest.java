@@ -85,144 +85,144 @@ public class OrderTest extends TestBase {
 
     //Проверка перехода к оплате заказа на сайте, способ доставки: Забрать в фирменном магазине
     //Цветной:
-//    @Test()
-//    public void tsvetnoyAndPhone() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreTsvetnoy(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void tsvetnoyAndWA() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreTsvetnoyWA(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void tsvetnoyAndSms() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreTsvetnoySms(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    //Метрополис:
-//    @Test()
-//    public void metropolisAndPhone() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreMetropolisPhone(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void metropolisAndWA() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreMetropolisWA(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void metropolisAndSms() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreMetropolisSms(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    //Атриум:
-//    @Test()
-//    public void atriumAndPhone() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreAtriumPhone(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void atriumAndWA() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreAtriumWA(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void atriumAndSms() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithCompanyStoreAtriumSms(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    //У Красного моста:
-//    @Test()
-//    public void redBridgeAndPhone() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithRedBridgePhone(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void redBridgeAndWA() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithRedBridgeWA(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void redBridgeAndSms() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithRedBridgeSms(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    //Афимолл:
-//    @Test()
-//    public void afimollAndPhone() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithAfimollPhone(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void afimollAndWA() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithAfimollWA(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
-//
-//    @Test()
-//    public void afimollAndSms() {
-//        basket.clickToItemButton();
-//        basket.clickToItemInBasketButton();
-//        basket.clickToBasketButton();
-//        order.orderWithAfimollSms(phoneForOrder, email, testNameForOrder);
-//        payConfirmAndHeaderCheck();
-//    }
+    @Test()
+    public void tsvetnoyAndPhone() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreTsvetnoy(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void tsvetnoyAndWA() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreTsvetnoyWA(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void tsvetnoyAndSms() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreTsvetnoySms(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    //Метрополис:
+    @Test()
+    public void metropolisAndPhone() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreMetropolisPhone(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void metropolisAndWA() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreMetropolisWA(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void metropolisAndSms() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreMetropolisSms(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    //Атриум:
+    @Test()
+    public void atriumAndPhone() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreAtriumPhone(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void atriumAndWA() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreAtriumWA(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void atriumAndSms() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithCompanyStoreAtriumSms(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    //У Красного моста:
+    @Test()
+    public void redBridgeAndPhone() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithRedBridgePhone(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void redBridgeAndWA() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithRedBridgeWA(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void redBridgeAndSms() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithRedBridgeSms(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    //Афимолл:
+    @Test()
+    public void afimollAndPhone() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithAfimollPhone(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void afimollAndWA() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithAfimollWA(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
+
+    @Test()
+    public void afimollAndSms() {
+        basket.clickToItemButton();
+        basket.clickToItemInBasketButton();
+        basket.clickToBasketButton();
+        order.orderWithAfimollSms(phoneForOrder, email, testNameForOrder);
+        payConfirmAndHeaderCheck();
+    }
 
     //Проверка перехода к оплате заказа на сайте, способ доставки: Доставить в другую страну
     @Test()
@@ -325,8 +325,8 @@ public class OrderTest extends TestBase {
 //                "Москва", "Рублёвское шоссе, д 1", "", "", "", "2", "Москва2");
 //        noPayConfirmAndHeaderCheck();
 //    }
-
-    //Тестовый заказ без оплаты, способ доставки: Цветной
+//
+//    //Тестовый заказ без оплаты, способ доставки: Цветной
 //    @Test()
 //    public void noPayTsvetnoyAndPhone() {
 //        basket.clickToItemButton();

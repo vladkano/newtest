@@ -249,7 +249,7 @@ public class BasketTest extends TestBase {
     public void checkCartHref() {
         basket.clickToCart();
         String url = driver.getCurrentUrl();
-        assertEquals(getUrl + "cart", url);
+        assertEquals(getUrl + "cart/", url);
     }
 
     @Test
@@ -257,7 +257,7 @@ public class BasketTest extends TestBase {
         basket.clickToCartFromNew();
         basket.clickToCart();
         String url = driver.getCurrentUrl();
-        assertEquals(getUrl + "cart", url);
+        assertEquals(getUrl + "cart/", url);
     }
 
     @AfterEach

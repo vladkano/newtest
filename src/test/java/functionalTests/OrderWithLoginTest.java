@@ -27,7 +27,7 @@ public class OrderWithLoginTest extends TestBase {
 //        certificate = new Certificate(driver);
         basket = new Basket(driver);
         mainPage = new MainPage(driver);
-        mainPage.sigInWithPhoneOrEmail(phoneForOrder);
+        mainPage.sigInWithPhone(phoneForOrder);
         String code = order.getPhonePasswordToBuy();
         mainPage.sigInWithPassword(code);
         driver.navigate().to(getUrl);

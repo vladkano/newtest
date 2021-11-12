@@ -21,7 +21,7 @@ public class Basket extends Base {
     private final By basketButton = By.xpath("//span[text()='Перейти в корзину']");
     private final By catalogButton = By.xpath("//a[@href='/catalog/']");
     private final By newCatalogButton = By.xpath("//a[@href='/catalog/new/']");
-    private final By cartCountButton = By.xpath("//span[text()='Перейти в корзину']");
+    private final By cartCountButton = By.xpath("//a[@href='/cart/']");
     private final By okButton = By.xpath("//button[text()='Да']");
     private final By setItemInBasketButton = By.xpath("(//span[text()='В корзину'])[2]");
 
@@ -319,13 +319,11 @@ public class Basket extends Base {
         String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
-                "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=5 and is_archive = 0 and price != 0 and section = 'catalog' and subsection is null " +
-                "and item_sku.url is not null and balance > 1 and sku_characteristic_value.characteristic_value = 'Универсальный'" +
+                "and is_archive = 0 and price > 5000 and filter_id = 155 " +
+                "and item_sku.url is not null " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();

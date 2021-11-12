@@ -323,7 +323,7 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void checkBasketKole() {
         necklaces = new Necklaces(driver);
-        String s = necklaces.getItemsFromSet().get(1);
+        String s = necklaces.getItemsFromSet().get(0);
         driver.get(getUrl + "catalog/kole/" + s);
         basket.clickToOkButton();
         basket.clickToSetItemInBasketButton();
