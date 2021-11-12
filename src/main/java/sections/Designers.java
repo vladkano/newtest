@@ -689,25 +689,29 @@ public class Designers extends Base {
     }
 
     public static void main(String[] args) {
-        String name;
+        String url;
         List<String> text = new ArrayList<>();
-        String query = "select designer.name from designer " +
-                "JOIN item ON item.designer_id = designer.id " +
-                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 " +
-                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
-                "group by designer.name";
+        String query = "select url, sum(ss.balance) from designer " +
+                "join item_sku as si ON i.id=si.item_id " +
+                "join storage_stock as ss ON ss.sku_id=si.id " +
+                "where `show` = 1 " +
+                "group by created_at desc limit 3 " +
+                "HAVING sum(ss.balance) > 0";
+
+//        -- select i.id, sum(ss.balance) from item as i
+//        -- join item_sku as si ON i.id=si.item_id
+//                -- JOIN storage_stock as ss ON ss.sku_id=si.id
+//                -- where i.designer_id=1509
+//                -- group by i.id
+//                -- HAVING sum(ss.balance)>0;
+
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-                text.add(name);
-                System.out.println(name);
+                url = resultSet.getString("url");
+                System.out.println(url);
+                text.add(url);
             }
         } catch (SQLException e) {
             e.printStackTrace();

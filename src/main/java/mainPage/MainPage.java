@@ -15,30 +15,32 @@ public class MainPage extends Base {
 
     private final By sigInButton = By.xpath("//span[@class='icon-with-title header__icon-button']");
     private final By lcButton = By.xpath("//a[@href='/profile?section=personalData']");
-    private final By login = By.id("authLogin");
+    private final By loginWithPhone = By.id("authLogin");
+    private final By loginWithMail = By.xpath("//form/input[@type='email']");
     private final By getPassword = By.xpath("//button/span[text()='Получить код']");
-    private final By authEmail = By.id("authEmail");
+    private final By authEmail = By.xpath("//input[@id ='authEmail']");
+
     private final By authName = By.id("authFullName");
     private final By consentButton = By.xpath("//label[@for='authPersonalDataAgreement']");
     private final By registerButton = By.xpath("//span[text()='Зарегистрироваться']");
-    private final By authPassword = By.id("authCode");
-    private final By authEmailPassword = By.xpath("//input[@id='authCode']");
-    private final By authPhone = By.id("authPhone");
+    private final By registerButtonAttribute = By.xpath("//button[@class='auth-popup__button-send']");
+    private final By authPassword = By.xpath("//form/div/input[@id='authCode']");
     private final By exitButton = By.xpath("//span[text()='Выйти']");
     private final By phoneFromSite = By.xpath("//span[@class='info-box-number']");
-    private final By phoneFromSite2 = By.xpath("(//span[@class='info-box-number'])[2]");
-    private final By mailFromSite = By.id("email_addr");
+    //    private final By phoneFromSite = By.xpath("(//span[@class='info-box-number'])[2]");
+    private final By mailFromSite = By.id("mail");
+    private final By loginByMailButton = By.xpath("//button[text()='Войти по почте']");
+    private final By returnButton = By.xpath("//button[@aria-label='Вернуться на предыдущий шаг']");
+    private final By closeButton = By.xpath("//button[@aria-label='Закрыть форму авторизации']");
 
 
     //headers
-    private final By sigInHeader = By.xpath("//a[@href='/profile?section=personalData']/span");
-    private final By incorrectSigInHeader = By.xpath("//p[@class='message popup-auth__message message_error']");
-    private final By incorrectCodeHeader = By.xpath("//p[text()='Необходимо указать код подтверждения']");
-    private final By incorrectEmailHeader = By.xpath("//p[text()='Необходимо указать электронную почту']");
-    private final By incorrectNameHeader = By.xpath("//p[text()='Необходимо указать имя']");
-    private final By noConsentHeader = By.xpath("//p[@class='message popup-auth__message message_error']");
-    private final By incorrectPhoneHeader = By.xpath("//p[text()='Необходимо указать телефон']");
-    private final By sigOutHeader = By.xpath("//h3[text()='Вход или регистрация']");
+    private final By sigInHeader = By.xpath("//h2[text()='Вход']");
+    private final By incorrectSigInHeader = By.xpath("//p[@class='auth-popup__error']");
+    private final By sigOutHeader = By.xpath("//h2[text()='Вход или регистрация']");
+    private final By incorrectSigInCodeHeader = By.xpath("//p[@class='auth-popup__error']");
+    private final By sigInEmailHeader = By.xpath("//p[@class='auth-popup__prompt']");
+
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -46,6 +48,19 @@ public class MainPage extends Base {
 
 
     //    ---Методы и хедеры--------
+    public void clickOnCloseButton() {
+        driver.findElement(closeButton).click();
+    }
+
+    public void clickOnReturnButton() {
+        driver.findElement(returnButton).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void clickOnConsentButton() {
         driver.findElement(consentButton).click();
     }
@@ -54,12 +69,12 @@ public class MainPage extends Base {
         return driver.findElement(phoneFromSite).getAttribute("textContent");
     }
 
-    public String getPhoneFromSite2() {
-        return driver.findElement(phoneFromSite2).getAttribute("textContent");
+    public String getMailFromSite() {
+        return driver.findElement(mailFromSite).getAttribute("value");
     }
 
-    public String getMailFromSite() {
-        return driver.findElement(mailFromSite).getAttribute("textContent");
+    public void clickOnLoginByMailButton() {
+        driver.findElement(loginByMailButton).click();
     }
 
     public void clickOnExitButton() {
@@ -77,17 +92,20 @@ public class MainPage extends Base {
                 "arguments[0].click();", driver.findElement(lcButton));
     }
 
-    public void typeLogin(String phone) {
-        driver.findElement(login).sendKeys(phone);
+    public void typeLoginWithPhone(String phone) {
+        driver.findElement(loginWithPhone).sendKeys(phone);
+    }
+
+    public void typeLoginWithMail(String email) {
+        driver.findElement(loginWithMail).sendKeys(email);
     }
 
     public void typeEmail(String email) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(authEmail));
         driver.findElement(authEmail).sendKeys(email);
     }
 
-    public void typePhone(String phone) {
-        driver.findElement(authPhone).sendKeys(phone);
-    }
 
     public void typeName(String name) {
         driver.findElement(authName).sendKeys(name);
@@ -97,82 +115,76 @@ public class MainPage extends Base {
         driver.findElement(registerButton).click();
     }
 
+    public Boolean getRegisterButtonAttribute() {
+        return driver.findElement(registerButtonAttribute).isEnabled();
+    }
+
     public void typePassword(String password) {
         driver.findElement(authPassword).sendKeys(password);
     }
 
-    public void typeEmailPassword(String password) {
-        driver.findElement(authEmailPassword).sendKeys(password);
-    }
 
     public void clickOnGetPasswordButton() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.elementToBeClickable(getPassword));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(getPassword));
         driver.findElement(getPassword).click();
     }
 
-    public MainPage sigInWithPhoneOrEmail(String phoneOrEmail) {
+    public MainPage sigInWithPhone(String phone) {
         this.clickOnSigInButton();
-        this.typeLogin(phoneOrEmail);
+        this.typeLoginWithPhone(phone);
         this.clickOnGetPasswordButton();
         return new MainPage(driver);
+    }
+
+    public void sigInWithEmail(String email) {
+        this.clickOnSigInButton();
+        this.clickOnLoginByMailButton();
+        this.typeLoginWithMail(email);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.clickOnGetPasswordButton();
     }
 
 
     public void sigInWithPassword(String password) {
         this.typePassword(password);
-        new MainPage(driver);
     }
 
-    public MainPage registerWithPhoneNumber(String password, String email, String name) {
+    public void registerWithPhoneNumber(String password, String email, String name) {
         this.typePassword(password);
         this.typeEmail(email);
         this.typeName(name);
         this.clickOnRegisterButton();
-        return new MainPage(driver);
     }
 
-    public MainPage registerWithEmail(String password, String phone, String name) {
-        this.typeEmailPassword(password);
-        this.typePhone(phone);
-        this.typeName(name);
-        this.clickOnRegisterButton();
-        return new MainPage(driver);
-    }
-
-    public MainPage registerWithoutConsent(String password, String email, String name) {
+    public void registerWithoutConsent(String password, String email, String name) {
         this.typePassword(password);
         this.typeEmail(email);
         this.typeName(name);
         this.clickOnConsentButton();
         this.clickOnRegisterButton();
-        return new MainPage(driver);
     }
-
-    public MainPage emailRegisterWithoutConsent(String password, String phone, String name) {
-        this.typeEmailPassword(password);
-        this.typePhone(phone);
-        this.typeName(name);
-        this.clickOnConsentButton();
-        this.clickOnRegisterButton();
-        return new MainPage(driver);
-    }
-
 
     public String getIncorrectSigInHeader() {
         return driver.findElement(incorrectSigInHeader).getText();
     }
 
+    public String getIncorrectSigInCodeHeader() {
+        return driver.findElement(incorrectSigInCodeHeader).getText();
+    }
+
+    public String getSigInEmailHeader() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(sigInEmailHeader));
+        return driver.findElement(sigInEmailHeader).getText();
+    }
+
     public String getSigInHeader() {
         return driver.findElement(sigInHeader).getAttribute("textContent");
-    }
-
-    public String getIncorrectEmailHeader() {
-        return driver.findElement(incorrectEmailHeader).getText();
-    }
-
-    public String getIncorrectPhoneHeader() {
-        return driver.findElement(incorrectPhoneHeader).getText();
     }
 
     public String getSigOutHeader() {
@@ -181,51 +193,8 @@ public class MainPage extends Base {
         return driver.findElement(sigOutHeader).getText();
     }
 
-    public String getIncorrectNameHeader() {
-        return driver.findElement(incorrectNameHeader).getText();
-    }
-
-    public String getIncorrectCodeHeader() {
-        return driver.findElement(incorrectCodeHeader).getText();
-    }
-
-    public String getNoConsentHeader() {
-        return driver.findElement(noConsentHeader).getText();
-    }
-
 
     //    ------------SQL---------------------
-    public void deletePhone() {
-        String query = "delete from user where login=+79501978905";
-        try {
-            Statement statement = worker.getCon().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                System.out.println(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void deleteEmail() {
-        String query = "delete from user where login=+79500000000";
-        try {
-            Statement statement = worker.getCon().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                System.out.println(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public String getPhonePassword() {
         try {
             Thread.sleep(1000);
@@ -306,7 +275,6 @@ public class MainPage extends Base {
         }
         System.out.println(code);
         worker.getSession().disconnect();
-
     }
 
 }

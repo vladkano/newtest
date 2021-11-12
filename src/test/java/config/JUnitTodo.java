@@ -69,16 +69,16 @@ public class JUnitTodo {
         }
     }
 
-    @Test
-    public void sigInWithPhoneNumber() {
-        driver.get(getUrl);
-        mainPage = new MainPage(driver);
-        mainPage.sigInWithPhoneOrEmail("+79126459328");
-        String code2 = mainPage.getPhonePassword();
-        mainPage.sigInWithPassword(code2);
-        String heading = mainPage.getSigInHeader();
-        assertEquals("Мария", heading);
-    }
+//    @Test
+//    public void sigInWithPhoneNumber() {
+//        driver.get(getUrl);
+//        mainPage = new MainPage(driver);
+//        mainPage.sigInWithPhone("+79126459328");
+//        String code2 = mainPage.getPhonePassword();
+//        mainPage.sigInWithPassword(code2);
+//        String heading = mainPage.getSigInHeader();
+//        assertEquals("Мария", heading);
+//    }
 
     @AfterEach
     public void tearDown() throws Exception {

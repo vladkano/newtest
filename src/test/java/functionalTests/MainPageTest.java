@@ -4,6 +4,7 @@ import baseForTests.TestBase;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import mainPage.MainPage;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.ResourceLock;
@@ -20,11 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //одноразовый телефон
 //https://onlinesim.ru/
-//https://ru.inethere.com/virtual-number/receive-free-sms/russia/
+//https://ru.temporary-phone-number.com/Russia-Phone-Number/
 
 //одноразовая почта
 //https://temp-mail.org/ru/
-//https://www.crazymailing.com/ru/
 
 @ResourceLock("Code")
 public class MainPageTest extends TestBase {
@@ -47,30 +47,29 @@ public class MainPageTest extends TestBase {
 
 
     //Позитивные Тесты
-    //Регистрация, телефон
+    //Регистрация
     @Test
     public void registrationWithPhoneNumber() {
         personalData = new PersonalData(driver);
         int random_number = a + (int) (Math.random() * b);
         System.out.println("Случайное число: " + random_number);
-
         //телефон
-//        driver.get("https://onlinesim.ru/");
-//        driver.get("https://ru.inethere.com/virtual-number/receive-free-sms/russia/");
         driver.navigate().to("https://ru.temporary-phone-number.com/Russia-Phone-Number/");
         String s = mainPage.getPhoneFromSite();
         String phoneFromSite = s.replace(" ", "");
         System.out.println("phone: " + phoneFromSite);
-
-
         //почта
-        driver.navigate().to("https://www.crazymailing.com/ru/");
+        driver.navigate().to("https://temp-mail.org/ru/");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String mailFromSite = mainPage.getMailFromSite();
         System.out.println("mail: " + mailFromSite);
-
         //заполняем форму
         driver.get(getUrl);
-        mainPage.sigInWithPhoneOrEmail(phoneFromSite);
+        mainPage.sigInWithPhone(phoneFromSite);
         String code = mainPage.getPhonePassword();
         mainPage.registerWithPhoneNumber(code, mailFromSite, "Test Phone" + random_number);
         personalData.clickOnPersonalDataButton();
@@ -78,163 +77,116 @@ public class MainPageTest extends TestBase {
         assertEquals("Test Phone" + random_number, name);
     }
 
-    //Регистрация email
-    @Test
-    public void registrationWithEmail() {
-        personalData = new PersonalData(driver);
-        int random_number = a + (int) (Math.random() * b);
-        System.out.println("Случайное число: " + random_number);
-
-        //телефон
-//        driver.get("https://onlinesim.ru/");
-        driver.navigate().to("https://ru.temporary-phone-number.com/Russia-Phone-Number/");
-        String phoneFromSite = mainPage.getPhoneFromSite2();
-        System.out.println("phone: " + phoneFromSite);
-
-        //почта
-        driver.navigate().to("https://www.crazymailing.com/ru/");
-//        driver.get("https://temp-mail.org/ru/");
-
-        String mailFromSite = mainPage.getMailFromSite();
-        System.out.println("mail: " + mailFromSite);
-
-        //заполняем форму
-        driver.get(getUrl);
-        mainPage.sigInWithPhoneOrEmail(mailFromSite);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String code = mainPage.getEmailPassword();
-        System.out.println("code: " + code);
-        mainPage.registerWithEmail(code, phoneFromSite, "Test Mail" + random_number);
-        personalData.clickOnPersonalDataButton();
-        String name = personalData.getName();
-        assertEquals("Test Mail" + random_number, name);
-    }
-
-
     //Авторизация
+    //По телефону + проверка, что отображаются надписи "Вход или регистрация", Вход
     @Test
     public void signInWithPhoneNumber() {
-        mainPage.sigInWithPhoneOrEmail(phoneForAuthorization);
+        mainPage.sigInWithPhone(phoneForAuthorization);
+        String heading = mainPage.getSigOutHeader();
         String code2 = mainPage.getPhonePassword();
+        String sigInHeader = mainPage.getSigInHeader();
         mainPage.sigInWithPassword(code2);
-//        saveScreenshotPNG(driver);
-
-        /*
-        функционал отключен, имя не отображается с 28.05.2021
-         */
-//        String heading = mainPage.getSigInHeader();
-//        assertEquals("Мария", heading);
+        Assertions.assertAll(
+                () -> assertEquals("Вход или регистрация", heading),
+                () -> assertEquals("Вход", sigInHeader));
     }
 
+    //По почте + проверка, что отображается подпись во время авторизации
     @Test
     public void signInWithEmail() {
-        mainPage.sigInWithPhoneOrEmail(email);
+        mainPage.sigInWithEmail(email);
         String code2 = mainPage.getEmailPassword();
+        String sigInCodeHeader = mainPage.getSigInEmailHeader();
         mainPage.sigInWithPassword(code2);
+        assertEquals("Письма нет? Проверьте спам или отправьте код ещё раз, в работе почтового сервиса бывают сбои", sigInCodeHeader);
     }
 
 
     //Негативные Тесты
     //Регистрация телефон
+
+    //Неправильный код подтверждения + проверка стрелки и крестика
     @Test
-    public void registrationWithoutCode() {
-        mainPage.sigInWithPhoneOrEmail("+79956766482");
-        MainPage head = mainPage.registerWithPhoneNumber("", "test13@mail.com", "Test Name");
-        String heading = head.getIncorrectCodeHeader();
-        assertEquals("Необходимо указать код подтверждения", heading);
+    public void registrationWithWrongCode() {
+        mainPage.sigInWithPhone(phoneForAuthorization);
+        mainPage.sigInWithPassword("1111");
+        String incorrectSigInCodeHeader = mainPage.getIncorrectSigInCodeHeader();
+        mainPage.clickOnReturnButton();
+        String heading = mainPage.getSigOutHeader();
+        mainPage.clickOnCloseButton();
+        Assertions.assertAll(
+                () -> assertEquals("Код подтверждения указан некорректно", incorrectSigInCodeHeader),
+                () -> assertEquals("Вход или регистрация", heading));
     }
 
+    //Проверяем, что кнопка "Зарегистрироваться" не активна, если не заполнено поле "Электронная почта"
     @Test
     public void registrationWithoutEmail() {
-        mainPage.sigInWithPhoneOrEmail("+79956766482");
+        mainPage.sigInWithPhone("+79956766482");
         String code = mainPage.getPhonePassword();
-        MainPage head = mainPage.registerWithPhoneNumber(code, "", "Test Name");
-        String heading = head.getIncorrectEmailHeader();
-        assertEquals("Необходимо указать электронную почту", heading);
+        mainPage.registerWithPhoneNumber(code, "", "Test Name");
+        Boolean registerButtonAttribute = mainPage.getRegisterButtonAttribute();
+        assertEquals(false, registerButtonAttribute);
     }
 
+    //Проверяем, что кнопка "Зарегистрироваться" не активна, если не заполнено поле "Имя, можно с фамилией"
     @Test
     public void registrationWithoutName() {
-        mainPage.sigInWithPhoneOrEmail("+79956766482");
+        mainPage.sigInWithPhone("+79956766482");
         String code = mainPage.getPhonePassword();
-        MainPage head = mainPage.registerWithPhoneNumber(code, "test13@mail.com", "");
-        String heading = head.getIncorrectNameHeader();
-        assertEquals("Необходимо указать имя", heading);
+        mainPage.registerWithPhoneNumber(code, "test13@mail.com", "");
+        Boolean registerButtonAttribute = mainPage.getRegisterButtonAttribute();
+        assertEquals(false, registerButtonAttribute);
     }
 
+    //Проверяем, что кнопка "Зарегистрироваться" не активна, если не нажата кнопка "Согласен на обработку"
     @Test
     public void registrationWithoutConsent() {
-        mainPage.sigInWithPhoneOrEmail("+79956766482");
+        mainPage.sigInWithPhone("+79956766482");
         String code = mainPage.getPhonePassword();
-        MainPage head = mainPage.registerWithoutConsent(code, "test13@mail.com", "Test Name");
-        String heading = head.getNoConsentHeader();
-        assertEquals("Нужно согласиться на обработку персональных данных", heading);
-    }
-
-    //Регистрация Email
-    @Test
-    public void emailRegistrationWithoutCode() {
-        mainPage.sigInWithPhoneOrEmail("owenkvist1@outlook.com");
-        MainPage head = mainPage.registerWithEmail("", "+79500000000", "Test Name");
-        String heading = head.getIncorrectCodeHeader();
-        assertEquals("Необходимо указать код подтверждения", heading);
-    }
-
-
-    @Test
-    public void registrationWithoutPhone() {
-        mainPage.sigInWithPhoneOrEmail("owenkvist1@outlook.com");
-        String code = mainPage.getEmailPassword();
-        MainPage head = mainPage.registerWithEmail(code, "", "Test Name");
-        String heading = head.getIncorrectPhoneHeader();
-        assertEquals("Необходимо указать телефон", heading);
-    }
-
-    @Test
-    public void emailRegistrationWithoutName() {
-        mainPage.sigInWithPhoneOrEmail("owenkvist1@outlook.com");
-        String code = mainPage.getEmailPassword();
-        MainPage head = mainPage.registerWithEmail(code, "+79500000000", "");
-        String heading = head.getIncorrectNameHeader();
-        assertEquals("Необходимо указать имя", heading);
-    }
-
-    @Test
-    public void emailRegistrationWithoutConsent() {
-        mainPage.sigInWithPhoneOrEmail("owenkvist1@outlook.com");
-        String code = mainPage.getEmailPassword();
-        MainPage head = mainPage.emailRegisterWithoutConsent(code, "+79500000000", "Test Name");
-        String heading = head.getNoConsentHeader();
-        assertEquals("Нужно согласиться на обработку персональных данных", heading);
+        mainPage.registerWithoutConsent(code, "test13@mail.com", "Test Name");
+        Boolean registerButtonAttribute = mainPage.getRegisterButtonAttribute();
+        assertEquals(false, registerButtonAttribute);
     }
 
     //Авторизация
     //Телефон
     @Test
     public void signInWithIncorrectPhoneNumber() {
-        MainPage head = mainPage.sigInWithPhoneOrEmail("+7912645932");
+        MainPage head = mainPage.sigInWithPhone("+7912645932");
         String heading = head.getIncorrectSigInHeader();
         assertEquals("+7912645932 - Пожалуйста, укажите верный номер", heading);
     }
 
-    //Авторизация(нет подсказок пока, создан таск https://poisondrop.atlassian.net/browse/PD-809)
-    //Email
-//    @Test
-//    public void sigInWithIncorrectEmail() {
-//        MainPage head = mainPage.sigInWithPhoneOrEmail("+7912645932");
-//        String heading = head.getIncorrectSigInHeader();
-//        assertEquals("+7912645932 - Not valid phone number.", heading);
-//    }
+    //Проверка при вводе почты в окно для ввода телефона
+    @Test
+    public void signInWithEmailInPhoneWindow() {
+        MainPage head = mainPage.sigInWithPhone("test13@mail.com");
+        String heading = head.getIncorrectSigInHeader();
+        assertEquals("Телефон указан неверно", heading);
+    }
 
+    //По почте. Ввод почты, которой нет в базе
+    @Test
+    public void signInWithWrongEmail() {
+        mainPage.sigInWithEmail("test13test@mail.com");
+        String heading = mainPage.getIncorrectSigInHeader();
+        assertEquals("Пользователь с данным email не найден. Попробуйте войти по номеру телефона, либо зарегистрируйтесь", heading);
+    }
+
+    //Email
+    //Проверяем, что кнопка "Получить код" не активна, если некорректно введена почта
+    @Test
+    public void sigInWithIncorrectEmail() {
+        mainPage.sigInWithEmail("owenkvist1@outlook");
+        Boolean registerButtonAttribute = mainPage.getRegisterButtonAttribute();
+        assertEquals(false, registerButtonAttribute);
+    }
 
     //Разлогин
     @Test
     public void signOut() {
-        mainPage.sigInWithPhoneOrEmail(phoneForAuthorization);
+        mainPage.sigInWithPhone(phoneForAuthorization);
         String code2 = mainPage.getPhonePassword();
         mainPage.sigInWithPassword(code2);
         mainPage.clickOnLcInButton();
