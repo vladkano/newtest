@@ -58,10 +58,9 @@ public class ProductCard extends Base {
         return driver.findElement(recentlyViewedProductsHeader).getAttribute("textContent");
     }
 
-    public ProductCard clickToStructureButton() {
+    public void clickToStructureButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(structureButton));
-        return this;
     }
 
     public String getSpecification() {

@@ -28,12 +28,12 @@ public class DBWorker {
         try {
             String strSshUser = "poisondrop"; // SSH loging username
             String strSshHost = "77.223.106.149";
-            String strRemoteHost = "localhost"; // hostname or ip of your database server
+            String strRemoteHost = "10.144.0.12"; // hostname or ip of your database server
             int nRemotePort = 3306; // remote port number of your database
 //            String strDbUser = "pd_prod_user"; // database loging username
 //            String strDbPassword = "cGXIH452yfgYTus@%yt"; // database login password
             String strDbUser = "rundkvist"; // database loging username
-            String strDbPassword = "VHJohg658VH308ybjVKH"; // database login password
+            String strDbPassword = "vCGHIyfx864fhMVtrfvk65"; // database login password
 
             final JSch jsch = new JSch();
             jsch.addIdentity("D:\\.ssh\\id_rsa");
@@ -46,7 +46,7 @@ public class DBWorker {
 
             Class.forName("org.mariadb.jdbc.Driver");
             String url = "jdbc:mysql://localhost:" + forwardedPort;
-            con = DriverManager.getConnection(url + "/new_poisondrop", strDbUser,
+            con = DriverManager.getConnection(url + "/poisondrop", strDbUser,
                     strDbPassword);
 
         } catch (Exception e) {

@@ -36,7 +36,6 @@ public class Footer extends Base {
     private final By ofertaHeader = By.xpath("//h1[text()='Оферта']");
     private final By personalnyeDannyeHeader = By.xpath("//h1[@class='service-page__title']");
     private final By telegaHeader = By.xpath("//span[text()='I am Poisoned']");
-    private final By tikTokHeader = By.xpath("//h2[text()='poisondropru']");
     private final By youtubeHeader = By.xpath("//yt-formatted-string[text()='Poison Drop']");
     private final By whatsAppHeader = By.xpath("//h1[text()='Poison Drop by ООО \"ПойзонДроп\"']");
 
@@ -45,128 +44,114 @@ public class Footer extends Base {
     }
 
 
-    public Footer clickToAboutButton() {
+    public void clickToAboutButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(aboutButton));
-        return this;
     }
 
     public String getAboutHeader() {
         return driver.findElement(aboutHeader).getText();
     }
 
-    public Footer clickToContactsButton() {
+    public void clickToContactsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(contactsButton));
-        return this;
     }
 
     public String getContactsHeader() {
         return driver.findElement(contactsHeader).getText();
     }
 
-    public Footer clickToShopsButton() {
+    public void clickToShopsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(shopsButton));
-        return this;
     }
 
     public String getShopsHeader() {
         return driver.findElement(shopsHeader).getText();
     }
 
-    public Footer clickToVacancyButton() {
+    public void clickToVacancyButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(vacancyButton));
-        return this;
     }
 
     public String getVacancyHeader() {
         return driver.findElement(vacancyHeader).getText();
     }
 
-    public Footer clickToSoglashenieButton() {
+    public void clickToSoglashenieButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(soglashenieButton));
-        return this;
     }
 
     public String getSoglashenieHeader() {
         return driver.findElement(soglashenieHeader).getText();
     }
 
-    public Footer clickToDostavkaButton() {
+    public void clickToDostavkaButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(dostavkaButton));
-        return this;
     }
 
     public String getDostavkaHeader() {
         return driver.findElement(dostavkaHeader).getText();
     }
 
-    public Footer clickToObmenButton() {
+    public void clickToObmenButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(obmenButton));
-        return this;
     }
 
     public String getObmenHeader() {
         return driver.findElement(obmenHeader).getText();
     }
 
-    public Footer clickToGarantiiButton() {
+    public void clickToGarantiiButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(garantiiButton));
-        return this;
     }
 
     public String getGarantiiHeader() {
         return driver.findElement(garantiiHeader).getText();
     }
 
-    public Footer clickToOfertaButton() {
+    public void clickToOfertaButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(ofertaButton));
-        return this;
     }
 
     public String getOfertaHeader() {
         return driver.findElement(ofertaHeader).getText();
     }
 
-    public Footer clickToPersonalnyeDannyeButton() {
+    public void clickToPersonalnyeDannyeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(personalnyeDannyeButton));
-        return this;
     }
 
     public String getPersonalnyeDannyeHeader() {
         return driver.findElement(personalnyeDannyeHeader).getText();
     }
 
-    public Footer clickToInstaButton() {
+    public void clickToInstaButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(instaButton));
-        return this;
     }
 
-    public Footer clickToTelegaButton() {
+    public void clickToTelegaButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(telegaButton));
-        return this;
     }
 
-    public Footer clickToTikTokButton() {
+    public void clickToTikTokButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(tikTokButton));
-        return this;
     }
 
-    public Footer clickToYoutubeButton() {
+    public void clickToYoutubeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(youtubeButton));
-        return this;
     }
 
     public String getYoutubeHeader() {
@@ -177,10 +162,9 @@ public class Footer extends Base {
         return driver.findElement(telegaHeader).getText();
     }
 
-    public Footer clickToWhatsAppButton() {
+    public void clickToWhatsAppButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(whatsAppButton));
-        return this;
     }
 
     public String getWhatsAppHeader() {

@@ -22,7 +22,6 @@ public class Basket extends Base {
     private final By catalogButton = By.xpath("//a[@href='/catalog/']");
     private final By newCatalogButton = By.xpath("//a[@href='/catalog/new/']");
     private final By cartCountButton = By.xpath("//a[@href='/cart/']");
-    private final By okButton = By.xpath("//button[text()='Да']");
     private final By setItemInBasketButton = By.xpath("(//span[text()='В корзину'])[2]");
 
     private final By plus2 = By.xpath("//input[@name='quantity']");
@@ -40,30 +39,26 @@ public class Basket extends Base {
         return driver.findElement(noBasketHeader).getText();
     }
 
-    public Basket clickToItemButton() {
+    public void clickToItemButton() {
         String firstItem = findFirstItemMoreThan5000();
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")));
-        return this;
     }
 
     public void clickToRingButton() {
-        String firstItem = findFirstRing();
+        String firstRing = findFirstRing();
         ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")));
+                "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + firstRing + "']")));
     }
 
-    public Basket clickToAnotherItemButton() {
+    public void clickToAnotherItemButton() {
         String anotherItem = findFirstItemLessThan5000();
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + anotherItem + "']")));
-        return this;
     }
 
-    public Basket clickToItemInBasketButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(itemInBasketButton));
-        return this;
+    public void clickToItemInBasketButton() {
+        click(itemInBasketButton);
     }
 
     public void clickToSetItemInBasketButton() {
@@ -74,6 +69,7 @@ public class Basket extends Base {
     public void clickToPlusBasketButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(plusBasketButton));
+//        click(plusBasketButton);
     }
 
     public String getBasketNumber() {
@@ -81,8 +77,7 @@ public class Basket extends Base {
     }
 
     public void clickToMinusBasketButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(minusBasketButton));
+        click(minusBasketButton);
     }
 
     public Integer getDataMax() {
@@ -94,8 +89,7 @@ public class Basket extends Base {
     }
 
     public void clickToCatalogButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(catalogButton));
+        click(catalogButton);
     }
 
     public String getCartCount() {
@@ -103,13 +97,11 @@ public class Basket extends Base {
     }
 
     public void clickToCart() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(cartCountButton));
+        click(cartCountButton);
     }
 
     public void clickToCartFromNew() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(newCatalogButton));
+        click(newCatalogButton);
     }
 
     public String getInBasketHeader() {
@@ -185,7 +177,7 @@ public class Basket extends Base {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price < 5000 and price > 0 and filter_id = 155 " +
-                "and item_sku.url is not null and balance > 0 " +
+                "and item_sku.url is not null and balance > 1 " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -203,28 +195,56 @@ public class Basket extends Base {
     }
 
 
-    public Integer getBalance() {
-        String name;
-        Map<String, Integer> hashMap = new HashMap<>();
-        String query = "SELECT item_sku.name, balance, reserve, sum(balance) - sum(reserve) as sum  from storage_stock " +
-                "JOIN item_sku ON storage_stock.sku_id = item_sku.id " +
-                "JOIN item ON item.id = item_sku.item_id " +
+    public static Integer findFirstItemIdMoreThan5000() {
+        int id;
+        List<Integer> list = new ArrayList<>();
+        String query = "SELECT item.id from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "where balance - reserve > 0 and price > 5000 " +
-                "group by item_catalog_position.position, item_sku.id";
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price > 5000 and filter_id = 155 " +
+                "and item_sku.url is not null and balance > 1 " +
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-                int summa = resultSet.getInt("sum");
-                hashMap.put(name, summa);
+                id = resultSet.getInt("id");
+                list.add(id);
+//                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String firstItem = findFirstItemMoreThan5000();
+//        System.out.println(list.get(0));
+        return list.get(0);
+    }
+
+    public Integer getBalance() {
+        int id;
+        Map<Integer, Integer> hashMap = new HashMap<>();
+        String query = "SELECT i.id, i.name,sum(ss.balance) AS count FROM item AS i " +
+                "JOIN item_sku AS si ON i.id=si.item_id " +
+                "JOIN storage_stock AS ss ON ss.sku_id=si.id " +
+                "GROUP BY i.id, i.name, si.id " +
+                "HAVING count>0";
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                id = resultSet.getInt("id");
+                int summa = resultSet.getInt("count");
+                hashMap.put(id, summa);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Integer firstItem = findFirstItemIdMoreThan5000();
+//        System.out.println(firstItem);
         return hashMap.get(firstItem);
     }
 
@@ -266,7 +286,7 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.get(2);
+        return list.get(0);
     }
 
     //Вытаскиваем ссылки на браслеты, которые входят в коллекции
@@ -314,29 +334,28 @@ public class Basket extends Base {
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        String name;
-        List<String> list = new ArrayList<>();
-        String query = "SELECT item.name from item " +
-                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
-                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price > 5000 and filter_id = 155 " +
-                "and item_sku.url is not null " +
-                "group by item_catalog_position.position";
+        int id;
+        Map<Integer, Integer> hashMap = new HashMap<>();
+        String query = "SELECT i.id, i.name,sum(ss.balance) AS count FROM item AS i " +
+                "JOIN item_sku AS si ON i.id=si.item_id " +
+                "JOIN storage_stock AS ss ON ss.sku_id=si.id " +
+                "GROUP BY i.id, i.name, si.id " +
+                "HAVING count>0";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-                list.add(name);
-                System.out.println(name);
+                id = resultSet.getInt("id");
+                int summa = resultSet.getInt("count");
+                hashMap.put(id, summa);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        Integer firstItem = findFirstItemIdMoreThan5000();
+        System.out.println(firstItem);
+        System.out.println(hashMap.get(firstItem));
         worker.getSession().disconnect();
     }
 

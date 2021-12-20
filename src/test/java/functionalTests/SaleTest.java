@@ -37,7 +37,7 @@ public class SaleTest extends TestBase {
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s.substring(0, 14));
+            siteList.add(s.substring(0, 9));
         }
         //сравниваем размеры и содержание списков
         Assertions.assertAll(

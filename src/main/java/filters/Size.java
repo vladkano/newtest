@@ -15,8 +15,8 @@ public class Size extends Base {
 
 
     private final By sizeButton = By.xpath("//div[text()='Размер кольца']");
-    private final By firstSizeButton = By.xpath("//div[text()='14,5']");
-    private final By secondSizeButton = By.xpath("//div[text()='15,5']");
+    private final By firstSizeButton = By.xpath("//div[@class='filters__item-left']/div[text()='14']");
+    private final By secondSizeButton = By.xpath("//div[@class='filters__item-left']/div[text()='15,5']");
     private final By thirdSizeButton = By.xpath("//div[@class='filters__section filters__section_size']//div[text()='16']");
     private final By universalSizeButton = By.xpath("//div[text()='Универсальный']");
     private final By currentSize = By.xpath("//div[@data-name='razmer_kolca']/span[@class='product-modification__output']");
@@ -210,7 +210,7 @@ public class Size extends Base {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and filter_id = 155 " +
-                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14,5' and item_sku.url is not null and balance > 0 " +
+                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14' and item_sku.url is not null and balance > 0 " +
                 " group by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();

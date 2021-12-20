@@ -69,7 +69,7 @@ public class PersonalAreaTest extends TestBase {
 
     //Получение и изменения значений в полях
     @Test
-    public void changeName() throws InterruptedException {
+    public void changeName()  {
         String firstName = personalData.getName();
         personalData.clickOnName();
         personalData.typeName("1");
@@ -77,7 +77,7 @@ public class PersonalAreaTest extends TestBase {
         String secondName = personalData.getName();
         personalData.clickOnName();
         personalData.typeName("Тестовое Имя");
-        Thread.sleep(500);
+        sleep(500);
         personalData.clickOnSaveButton();
         String finalName = personalData.getName();
         Assertions.assertAll(
@@ -95,11 +95,7 @@ public class PersonalAreaTest extends TestBase {
         String second = personalData.getDeliveryCity();
         personalData.clickOnDeliveryCity();
         personalData.typeDeliveryCity("Тестовый город");
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(500);
         personalData.clickOnSaveButton();
         String last = personalData.getDeliveryCity();
         Assertions.assertAll(
@@ -117,11 +113,7 @@ public class PersonalAreaTest extends TestBase {
         String second = personalData.getDeliveryAddress();
         personalData.clickOnDeliveryAddress();
         personalData.typeDeliveryAddress("Тестовый адрес 13");
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(500);
         personalData.clickOnSaveButton();
         String last = personalData.getDeliveryAddress();
         Assertions.assertAll(

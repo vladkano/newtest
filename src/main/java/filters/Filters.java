@@ -48,15 +48,18 @@ public class Filters extends Base {
 
 
     public void clickToTenPercentButton() {
-        driver.findElement(tenPercentButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(tenPercentButton));
     }
 
     public void clickToThirtyPercentButton() {
-        driver.findElement(thirtyPercentButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(thirtyPercentButton));
     }
 
     public void clickToFiftyPercentButton() {
-        driver.findElement(fiftyPercentButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(fiftyPercentButton));
     }
 
     public void clickToSeventyPercentButton() {
@@ -73,11 +76,14 @@ public class Filters extends Base {
     }
 
     public void clickToFilterButton() {
-        driver.findElement(filterButton).click();
+        click(filterButton);
     }
 
     public void clickToShowProductsButton() {
-        driver.findElement(showProductsButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(showProductsButton));
+//        click(showProductsButton);
+//        driver.findElement(showProductsButton).click();
     }
 
     public void clickToAllRingsButton() {
@@ -86,11 +92,11 @@ public class Filters extends Base {
     }
 
     public void clickToAllEarringsButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(allEarringsButton));
+        click(allEarringsButton);
     }
 
     public void clickToAllEarringsButton2() {
+//        click(allEarringsButton2);
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(allEarringsButton2));
     }

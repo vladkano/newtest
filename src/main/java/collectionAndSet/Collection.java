@@ -18,7 +18,6 @@ public class Collection extends Base {
     private final By href = By.xpath("//li[@class='product-variant']/a");
     private final By firstItem = By.xpath("//span[@class='material-image']");
     private final By price = By.xpath("//b[@class='price-block__price']");
-    private final By secondHref = By.xpath("(//li[@class='product-variant']/a)[2]");
 
     public Collection(WebDriver driver) {
         super(driver);
@@ -31,18 +30,13 @@ public class Collection extends Base {
     }
 
     public void clickOnFirstItem() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(firstItem));
+        click(firstItem);
     }
 
     public void clickOnFirstHref() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(href));
-    }
-
-    public void clickOnSecondHref() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(secondHref));
+//        click(href);
     }
 
     public String getPrice() {

@@ -60,15 +60,12 @@ public class MainPageTest extends TestBase {
         System.out.println("phone: " + phoneFromSite);
         //почта
         driver.navigate().to("https://temp-mail.org/ru/");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(3000);
         String mailFromSite = mainPage.getMailFromSite();
         System.out.println("mail: " + mailFromSite);
         //заполняем форму
-        driver.get(getUrl);
+        driver.navigate().to(getUrl);
+//        driver.get(getUrl);
         mainPage.sigInWithPhone(phoneFromSite);
         String code = mainPage.getPhonePassword();
         mainPage.registerWithPhoneNumber(code, mailFromSite, "Test Phone" + random_number);
@@ -109,13 +106,13 @@ public class MainPageTest extends TestBase {
     @Test
     public void registrationWithWrongCode() {
         mainPage.sigInWithPhone(phoneForAuthorization);
-        mainPage.sigInWithPassword("1111");
+        mainPage.sigInWithPassword("2222");
         String incorrectSigInCodeHeader = mainPage.getIncorrectSigInCodeHeader();
         mainPage.clickOnReturnButton();
         String heading = mainPage.getSigOutHeader();
         mainPage.clickOnCloseButton();
         Assertions.assertAll(
-                () -> assertEquals("Код подтверждения указан некорректно", incorrectSigInCodeHeader),
+                () -> assertEquals("Неверный код подтверждения", incorrectSigInCodeHeader),
                 () -> assertEquals("Вход или регистрация", heading));
     }
 

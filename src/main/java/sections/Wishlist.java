@@ -20,7 +20,6 @@ public class Wishlist extends Base {
     private final By moveToBasketButton = By.xpath("//span[text()='Оформить заказ']");
     private final By wishListHeader = By.xpath("//h2[text()='Избранное']");
     private final By basketProductName = By.xpath("//h4[@class='cart-item__product-name']");
-    private final By productNameFromTheCard = By.xpath("//h4[@class='cart-item__product-name']");
 
     public Wishlist(WebDriver driver) {
         super(driver);
@@ -30,48 +29,42 @@ public class Wishlist extends Base {
         return driver.findElement(basketProductName).getText();
     }
 
-    public Wishlist clickToMoveToBasketButton() {
+    public void clickToMoveToBasketButton() {
         driver.findElement(moveToBasketButton).click();
-        return this;
     }
 
-    public Wishlist clickToTransferToBasketButton() {
+    public void clickToTransferToBasketButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(transferToBasketButton));
-        return this;
     }
 
     public String getItemName() {
         return driver.findElement(nameLink).getText();
     }
 
-    public Wishlist clickToAddToWishlistFromCatalogButton() {
+    public void clickToAddToWishlistFromCatalogButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(addToFavoritesFromCatalogButton));
-        return this;
     }
 
-    public Wishlist clickToWishListButton() {
+    public void clickToWishListButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(wishListButton));
-        return this;
     }
 
-    public Wishlist clickToWishListInCardListButton() {
+    public void clickToWishListInCardListButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(wishListInCardListButton));
-        return this;
     }
 
     public String getWishListHeader() {
         return driver.findElement(wishListHeader).getText();
     }
 
-    public Wishlist clickToItemButton() {
-        String firstItem = this.findFirstItem();
+    public void clickToItemButton() {
+        String firstItem = findFirstItem();
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(By.xpath("//a[text()=" + "'" + firstItem + "']")));
-        return this;
     }
 
     //SQL

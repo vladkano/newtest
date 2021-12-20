@@ -33,8 +33,7 @@ public class Colors extends Base {
     }
 
     public void clickToCoveringButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(coveringButton));
+        click(coveringButton);
     }
 
     public void clickToColorButton() {

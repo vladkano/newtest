@@ -19,10 +19,9 @@ public class NewItems extends Base {
         super(driver);
     }
 
-    public NewItems clickToNewItemsButton() {
+    public void clickToNewItemsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(newItemsButton));
-        return this;
     }
 
     public List<String> getNames() {

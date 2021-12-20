@@ -25,11 +25,7 @@ public class CatalogNavigationTest extends TestBase {
     public void numberOfItem() {
         driver.get(getUrl + "catalog/koltsa");
         navigation.clickOnShowMoreButton();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(2000);
         List<WebElement> numbers = driver.findElements(numberOfItem);
         assertEquals(96, numbers.size());
     }

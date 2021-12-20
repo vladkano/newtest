@@ -49,20 +49,16 @@ public class MainPage extends Base {
 
     //    ---Методы и хедеры--------
     public void clickOnCloseButton() {
-        driver.findElement(closeButton).click();
+        click(closeButton);
     }
 
     public void clickOnReturnButton() {
-        driver.findElement(returnButton).click();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        click(returnButton);
+        sleep(500);
     }
 
     public void clickOnConsentButton() {
-        driver.findElement(consentButton).click();
+        click(consentButton);
     }
 
     public String getPhoneFromSite() {
@@ -70,49 +66,45 @@ public class MainPage extends Base {
     }
 
     public String getMailFromSite() {
+        sleep(500);
         return driver.findElement(mailFromSite).getAttribute("value");
     }
 
     public void clickOnLoginByMailButton() {
-        driver.findElement(loginByMailButton).click();
+        click(loginByMailButton);
     }
 
     public void clickOnExitButton() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(exitButton));
-        driver.findElement(exitButton).click();
+        click(exitButton);
     }
 
     public void clickOnSigInButton() {
-        driver.findElement(sigInButton).click();
+        click(sigInButton);
     }
 
     public void clickOnLcInButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(lcButton));
+        click(lcButton);
     }
 
     public void typeLoginWithPhone(String phone) {
-        driver.findElement(loginWithPhone).sendKeys(phone);
+        type(phone, loginWithPhone);
     }
 
     public void typeLoginWithMail(String email) {
-        driver.findElement(loginWithMail).sendKeys(email);
+        type(email, loginWithMail);
     }
 
     public void typeEmail(String email) {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(authEmail));
-        driver.findElement(authEmail).sendKeys(email);
+        type(email, authEmail);
     }
 
 
     public void typeName(String name) {
-        driver.findElement(authName).sendKeys(name);
+        type(name, authName);
     }
 
     public void clickOnRegisterButton() {
-        driver.findElement(registerButton).click();
+        click(registerButton);
     }
 
     public Boolean getRegisterButtonAttribute() {
@@ -120,14 +112,12 @@ public class MainPage extends Base {
     }
 
     public void typePassword(String password) {
-        driver.findElement(authPassword).sendKeys(password);
+        type(password, authPassword);
     }
 
 
     public void clickOnGetPasswordButton() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(getPassword));
-        driver.findElement(getPassword).click();
+        click(getPassword);
     }
 
     public MainPage sigInWithPhone(String phone) {
@@ -141,11 +131,7 @@ public class MainPage extends Base {
         this.clickOnSigInButton();
         this.clickOnLoginByMailButton();
         this.typeLoginWithMail(email);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnGetPasswordButton();
     }
 
@@ -196,11 +182,7 @@ public class MainPage extends Base {
 
     //    ------------SQL---------------------
     public String getPhonePassword() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         String code = null;
         String query = "select code from user_authentication_code where id=(SELECT MAX(id) FROM user_authentication_code)";
 
@@ -217,11 +199,7 @@ public class MainPage extends Base {
     }
 
     public String getPhonePasswordForLC() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         String code = null;
         String query = "select code from user_authentication_code where user_id = 157982 and id=(SELECT MAX(id) FROM user_authentication_code)";
 

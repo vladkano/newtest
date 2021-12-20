@@ -72,7 +72,7 @@ public class TestBase {
     protected By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
     protected By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image-hovered']");
     protected By linkOfCollection = By.xpath("//ul[@class='product-modification__variants']//a");
-    protected By countOfBanners = By.xpath("//div[@class='banner']//h3[@class='banner__title']");
+    protected By countOfBanners = By.xpath("//div[@class='banner index-page__banner']/a");
     protected By namesOfTrends = By.xpath("//h4");
     protected By numberOfDesigners = By.xpath("//li[@class='index-designers__name']/a");
     protected By trendBanners = By.xpath("//span[@class='picture']");
@@ -89,12 +89,21 @@ public class TestBase {
             "специальных мероприятиях, скидках и многом другом";
 
 
-    protected String email = "rundkvist@poisondrop.ru";
-    
+    protected String email = "test13@mail.com";
+
     protected List<String> siteList = new ArrayList<>();
     protected List<Integer> priceList = new ArrayList<>();
     protected int siteSize = 0;
     protected final int numberOfFoto = 48;
+
+
+    protected void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void mainSetUp() {
@@ -102,7 +111,7 @@ public class TestBase {
         WebDriverManager.chromedriver().setup();
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);

@@ -29,9 +29,8 @@ public class Designers extends Base {
 
     //карточка товара
     private final By designerPhoto = By.xpath("//span[@class='picture designer-block__picture']//img");
-    private final By designerName = By.xpath("//a[@class='designer-block__link link']");
+    private final By designerName = By.xpath("//a[@class='link designer-block__link']");
     private final By designerText = By.xpath("//p[@class='designer-block__description']");
-    private final By designerButton = By.xpath("//a[@class='button-border link']/span[@class='button__content']");
 
     public Designers(WebDriver driver) {
         super(driver);
@@ -50,7 +49,7 @@ public class Designers extends Base {
 
     public void clickToDesignerButton() {
         ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(designerButton));
+                "arguments[0].click();", driver.findElement(designerName));
     }
 
     public String getDesignerText() {
@@ -194,7 +193,7 @@ public class Designers extends Base {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 name = resultSet.getString("name");
-//                System.out.println(name);
+                System.out.println(name);
                 text.add(name);
             }
         } catch (SQLException e) {
@@ -338,7 +337,7 @@ public class Designers extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        System.out.println(filter);
+        System.out.println(filter);
         return filter;
     }
 
@@ -361,7 +360,7 @@ public class Designers extends Base {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 name = resultSet.getString("name");
-//                System.out.println(name);
+                System.out.println(name);
                 text.add(name);
             }
         } catch (SQLException e) {
@@ -689,34 +688,30 @@ public class Designers extends Base {
     }
 
     public static void main(String[] args) {
-        String url;
+        String name;
         List<String> text = new ArrayList<>();
-        String query = "select url, sum(ss.balance) from designer " +
-                "join item_sku as si ON i.id=si.item_id " +
-                "join storage_stock as ss ON ss.sku_id=si.id " +
-                "where `show` = 1 " +
-                "group by created_at desc limit 3 " +
-                "HAVING sum(ss.balance) > 0";
-
-//        -- select i.id, sum(ss.balance) from item as i
-//        -- join item_sku as si ON i.id=si.item_id
-//                -- JOIN storage_stock as ss ON ss.sku_id=si.id
-//                -- where i.designer_id=1509
-//                -- group by i.id
-//                -- HAVING sum(ss.balance)>0;
-
+        String query = "SELECT item.name from item " +
+                "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
+                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
+                "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and price != 0  and filter_id = " + "" + getFirstFilterID() + " " +
+                "and item_sku.url is not null and balance > 0 " +
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                url = resultSet.getString("url");
-                System.out.println(url);
-                text.add(url);
+                name = resultSet.getString("name");
+                System.out.println(name);
+                text.add(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        System.out.println(text.get(9));
         worker.getSession().disconnect();
 
     }

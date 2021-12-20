@@ -2,7 +2,6 @@ package sections;
 
 import base.Base;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class Shops extends Base {
@@ -14,10 +13,8 @@ public class Shops extends Base {
         super(driver);
     }
 
-    public Shops clickToShopsButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(shopsButton));
-        return this;
+    public void clickToShopsButton() {
+        click(shopsButton);
     }
 
     public String getShopsHeader() {

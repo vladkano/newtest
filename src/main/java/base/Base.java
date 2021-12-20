@@ -1,9 +1,9 @@
 package base;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import sql.DBWorker;
 
 import java.util.List;
@@ -45,10 +45,46 @@ public class Base {
 
     public Base(WebDriver driver) {
         this.driver = driver;
+        wait = new WebDriverWait(driver, 5);
+    }
+
+    public WebDriverWait wait;
+
+    protected WebElement find(By locator) {
+        return driver.findElement(locator);
+    }
+
+    protected void click(By locator) {
+        waitForVisibilityOf(locator, 5);
+        find(locator).click();
+    }
+
+    protected void type(String text, By locator) {
+        waitForVisibilityOf(locator, 5);
+        find(locator).sendKeys(text);
+    }
+
+    private void waitFor(ExpectedCondition<WebElement> conditions, Integer timeOutInSeconds) {
+        timeOutInSeconds = timeOutInSeconds != 0 ? timeOutInSeconds : 30;
+        WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+        wait.until(conditions);
+    }
+
+    private void waitForVisibilityOf(By locator, Integer... timeOutInSeconds) {
+        int attempts = 0;
+        while (attempts < 2) {
+            try {
+                waitFor(ExpectedConditions.visibilityOfElementLocated(locator),
+                        (timeOutInSeconds.length > 0 ? timeOutInSeconds[0] : null));
+                break;
+            } catch (StaleElementReferenceException e) {
+            }
+            attempts++;
+        }
     }
 
     public void clickToOkButton() {
-        driver.findElement(okButton).click();
+        click(okButton);
     }
 
 
@@ -57,7 +93,8 @@ public class Base {
     }
 
     public void clickOnCatalogButton() {
-        driver.findElement(catalogButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(catalogButton));
     }
 
     public void clickOnImageLink() {
@@ -102,6 +139,14 @@ public class Base {
 
     public String getNextDesignerHeader() {
         return driver.findElement(designerHeader).getText();
+    }
+
+    protected void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 

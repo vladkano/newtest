@@ -29,6 +29,7 @@ public class Material extends Base {
 
 
     public void clickToJewelryAlloyButton() {
+//        click(jewelryAlloyButton);
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(jewelryAlloyButton));
     }
@@ -39,7 +40,9 @@ public class Material extends Base {
     }
 
     public void clickToMaterialButton() {
-        driver.findElement(materialButton).click();
+        click(materialButton);
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(materialButton));
     }
 
     public void clickToZemcugButton() {

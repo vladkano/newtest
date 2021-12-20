@@ -170,7 +170,7 @@ public class FiltersTest extends TestBase {
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
                 () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+                () -> assertEquals(sqlList.get(2).substring(0,20), siteList.get(2).substring(0,20)));
     }
 
     @Test
@@ -241,11 +241,7 @@ public class FiltersTest extends TestBase {
         WebElement priceBarRight = driver.findElement(By.xpath("(//div[@class='slider-dot'])[2]"));
         Actions actionsPriceBarRight = act.dragAndDropBy(priceBarRight, -263, 0);
         actionsPriceBarRight.build().perform();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         String secondPriceRangeRight = filters.getPriceRangeRight();
         assertNotEquals(firstPriceRangeRight, secondPriceRangeRight);
     }
@@ -261,11 +257,7 @@ public class FiltersTest extends TestBase {
         WebElement priceBarLeft = driver.findElement(By.xpath("//div[@class='slider-dot']"));
         Actions actionsPriceBarLeft = act.dragAndDropBy(priceBarLeft, 100, 0);
         actionsPriceBarLeft.build().perform();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         String secondPriceRangeLeft = filters.getPriceRangeLeft();
         assertNotEquals(firstPriceRangeLeft, secondPriceRangeLeft);
     }
@@ -440,7 +432,7 @@ public class FiltersTest extends TestBase {
         //сравниваем размеры и содержание списков
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
+                () -> assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size())));
     }
 
     @Test
@@ -455,7 +447,7 @@ public class FiltersTest extends TestBase {
         //сравниваем размеры и содержание списков
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
+                () -> assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size())));
     }
 
     @Test
@@ -507,31 +499,33 @@ public class FiltersTest extends TestBase {
      */
 
     @Test
-    public void resetFiltersByCategory() throws InterruptedException {
+    public void resetFiltersByCategory()  {
         material = new Material(driver);
         colors = new Colors(driver);
         filters.clickToFilterButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts1 = filters.getNumberOfProducts();
         filters.clickToAllEarringsButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts2 = filters.getNumberOfProducts();
         material.clickToMaterialButton();
+        sleep(2000);
         material.clickToJewelryAlloyButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts3 = filters.getNumberOfProducts();
         colors.clickToColorButton();
+        sleep(2000);
         colors.clickToWhiteButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts4 = filters.getNumberOfProducts();
         colors.clickToWhiteButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts5 = filters.getNumberOfProducts();
         material.clickToJewelryAlloyButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts6 = filters.getNumberOfProducts();
         filters.clickToAllEarringsButton2();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts7 = filters.getNumberOfProducts();
         Assertions.assertAll(
                 () -> assertNotEquals(numberOfProducts1, numberOfProducts2),
@@ -550,20 +544,20 @@ public class FiltersTest extends TestBase {
      */
 
     @Test
-    public void discountsFilter() throws InterruptedException {
+    public void discountsFilter() {
         filters.clickToFilterButton();
         String numberOfProducts1 = filters.getNumberOfProducts();
         filters.clickToAllDiscountsButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts2 = filters.getNumberOfProducts();
         filters.clickToTenPercentButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts3 = filters.getNumberOfProducts();
         filters.clickToThirtyPercentButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts4 = filters.getNumberOfProducts();
         filters.clickToFiftyPercentButton();
-        Thread.sleep(2000);
+        sleep(2000);
         String numberOfProducts5 = filters.getNumberOfProducts();
 
         //Скидки 70% бывают не всегда

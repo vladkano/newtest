@@ -20,10 +20,9 @@ public class Man extends Base {
         super(driver);
     }
 
-    public Man clickToManButton() {
+    public void clickToManButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(manButton));
-        return this;
     }
 
     public List<String> getNames() {

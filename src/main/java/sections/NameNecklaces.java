@@ -35,101 +35,85 @@ public class NameNecklaces extends Base {
     }
 
 
-    public NameNecklaces clickToFirstTypeOrderButton() {
+    public void clickToFirstTypeOrderButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(orderButton));
-        return this;
     }
 
-    public NameNecklaces clickToSecondTypeButton() {
+    public void clickToSecondTypeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(secondTypeButton));
-        return this;
     }
 
-    public NameNecklaces clickToThirdTypeButton() {
+    public void clickToThirdTypeButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(thirdTypeButton));
-        return this;
     }
 
-    public NameNecklaces clickToSecondFontButton() {
+    public void clickToSecondFontButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(secondFontButton));
-        return this;
     }
 
-    public NameNecklaces clickToThirdFontButton() {
+    public void clickToThirdFontButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(thirdFontButton));
-        return this;
     }
 
-    public NameNecklaces clickToFourthFontButton() {
+    public void clickToFourthFontButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(fourthFontButton));
-        return this;
     }
 
-    public NameNecklaces clickToFiveFontButton() {
+    public void clickToFiveFontButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(fiveFontButton));
-        return this;
     }
 
-    public NameNecklaces clickToSixFontButton() {
+    public void clickToSixFontButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(sixFontButton));
-        return this;
     }
 
-    public NameNecklaces clickToRhodiumButton() {
+    public void clickToRhodiumButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(rhodiumButton));
-        return this;
     }
 
-    public NameNecklaces clickToGildingButton() {
+    public void clickToGildingButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(gildingButton));
-        return this;
     }
 
-    public NameNecklaces clickToGoldButton() {
+    public void clickToGoldButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(goldButton));
-        return this;
     }
 
-    public NameNecklaces clickToWhiteGoldButton() {
+    public void clickToWhiteGoldButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(whiteGoldButton));
-        return this;
     }
 
-    public NameNecklaces typeNecklaceText(String text) {
+    public void typeNecklaceText(String text) {
         driver.findElement(necklaceText).sendKeys(text);
-        return this;
     }
 
-    public NameNecklaces firstTypeOrder(String text) {
+    public void firstTypeOrder(String text) {
         this.typeNecklaceText(text);
         this.clickToFirstTypeOrderButton();
-        return new NameNecklaces(driver);
     }
 
-    public NameNecklaces secondTypeOrder(String text) {
+    public void secondTypeOrder(String text) {
         this.clickToSecondTypeButton();
         this.typeNecklaceText(text);
         this.clickToFirstTypeOrderButton();
-        return new NameNecklaces(driver);
     }
 
-    public NameNecklaces thirdTypeOrder(String text) {
+    public void thirdTypeOrder(String text) {
         this.clickToThirdTypeButton();
         this.typeNecklaceText(text);
         this.clickToFirstTypeOrderButton();
-        return new NameNecklaces(driver);
     }
 
     public String getBasketNumber() {
@@ -144,18 +128,18 @@ public class NameNecklaces extends Base {
         return driver.findElement(price).getAttribute("textContent");
     }
 
-    public void checkPriceAndFont() throws InterruptedException {
-        Thread.sleep(1000);
+    public void checkPriceAndFont()  {
+        sleep(1000);
         String firstFont = this.getFontSrc();
         String firstPrice = this.getPrice();
 //        System.out.println(firstPrice);
         this.clickToRhodiumButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String secondFont = this.getFontSrc();
         String secondPrice = this.getPrice();
 //        System.out.println(secondPrice);
         this.clickToGildingButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String thirdFont = this.getFontSrc();
         String thirdPrice = this.getPrice();
 //        System.out.println(secondPrice);

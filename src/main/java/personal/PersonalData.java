@@ -132,35 +132,31 @@ public class PersonalData extends Base {
         return driver.findElement(emptyNameHeader).getText();
     }
 
-    public PersonalData clickOnDeliveryAddress() {
+    public void clickOnDeliveryAddress() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(profileDeliveryAddress));
         driver.findElement(profileDeliveryAddress).clear();
-        return this;
     }
 
     public String getDeliveryAddress() {
         return driver.findElement(profileDeliveryAddress).getAttribute("value");
     }
 
-    public PersonalData typeDeliveryAddress(String address) {
+    public void typeDeliveryAddress(String address) {
         driver.findElement(profileDeliveryAddress).sendKeys(address);
-        return this;
     }
 
-    public PersonalData clickOnDeliveryCity() {
+    public void clickOnDeliveryCity() {
         driver.findElement(profileDeliveryCity).click();
         driver.findElement(profileDeliveryCity).clear();
-        return this;
     }
 
     public String getDeliveryCity() {
         return driver.findElement(profileDeliveryCity).getAttribute("value");
     }
 
-    public PersonalData typeDeliveryCity(String city) {
+    public void typeDeliveryCity(String city) {
         driver.findElement(profileDeliveryCity).sendKeys(city);
-        return this;
     }
 
     public String getEmail() {
@@ -171,11 +167,10 @@ public class PersonalData extends Base {
         return driver.findElement(profilePhone).getAttribute("value");
     }
 
-    public PersonalData clickOnBirthday() {
+    public void clickOnBirthday() {
         driver.findElement(profileBirthday).click();
         driver.findElement(profileBirthday).clear();
         driver.findElement(profileBirthday).click();
-        return this;
     }
 
 //    public String getBirthday() {
@@ -187,35 +182,30 @@ public class PersonalData extends Base {
 //        return this;
 //    }
 
-    public PersonalData clickOnName() {
-        driver.findElement(profileFullName).click();
+    public void clickOnName() {
+        click(profileFullName);
         driver.findElement(profileFullName).clear();
-        return this;
     }
 
     public String getName() {
         return driver.findElement(profileFullName).getAttribute("value");
     }
 
-    public PersonalData typeName(String name) {
+    public void typeName(String name) {
         driver.findElement(profileFullName).sendKeys(name);
-        return this;
     }
 
-    public PersonalData clickOnSaveButton() {
+    public void clickOnSaveButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(saveButton));
-        return this;
     }
 
-    public PersonalData clickOnGoOutButton() {
+    public void clickOnGoOutButton() {
         driver.findElement(goOutButton).click();
-        return this;
     }
 
-    public PersonalData clickOnPersonalDataButton() {
-        driver.findElement(personalDataButton).click();
-        return this;
+    public void clickOnPersonalDataButton() {
+        click(personalDataButton);
     }
 
     public String getPersonalDataHeader() {
@@ -287,9 +277,8 @@ public class PersonalData extends Base {
             e.printStackTrace();
         }
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        String format = sdf.format(date);
-//        System.out.println(date);
-        return format;
+        //        System.out.println(date);
+        return sdf.format(date);
     }
 
     public String getLastOrderAddress() {
@@ -367,7 +356,7 @@ public class PersonalData extends Base {
     }
 
     public Integer getNumberOfOrdersSql() {
-        Integer number = null;
+        int number;
         List<Integer> orders = new ArrayList<>();
         String query = "select final_sum from `order`" +
                 "where user_id = 157982 and retail_status_id is not null";
@@ -403,7 +392,7 @@ public class PersonalData extends Base {
     }
 
     public static void main(String[] args) {
-        Integer number = null;
+        int number;
         List<Integer> orders = new ArrayList<>();
         String query = "select final_sum from `order`" +
                 "where user_id = 157982 and retail_status_id is not null";

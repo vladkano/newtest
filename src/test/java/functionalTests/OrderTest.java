@@ -25,7 +25,6 @@ public class OrderTest extends TestBase {
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-//        assertEquals("Заплатить", header);
         assertEquals("Оплата заказа", header.substring(0, 13));
     }
 
@@ -268,12 +267,16 @@ public class OrderTest extends TestBase {
         payConfirmAndHeaderCheck();
     }
 
+    //Переход к оплате с использованием промокода
     @Test()
-    public void postomatAndKazakhstan() {
+    public void orderWithPromo() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
-        order.orderWithPickPointWA(phoneForOrder, email, testNameForOrder, "Казахстан\n", "Нур-Султан\n", "Петрова");
+        order.usePromocode("iampoisoned");
+        order.orderWithAllStrings(phoneForOrder, email, testNameForOrder,
+                "Екатеринбург", "ул Родонитовая, д 10", "2", "2", "2",
+                "2", "Test Comment", "Test");
         payConfirmAndHeaderCheck();
     }
 

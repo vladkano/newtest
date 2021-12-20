@@ -472,7 +472,7 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void checkingShopTheLookBlockBraslety() {
         shopTheLook = new ShopTheLook(driver);
-        driver.get(getUrl + "catalog/braslety/braslet_flow_black_iz_tonkix_cepocek");
+        driver.get(getUrl + "catalog/braslety/osnovnaya_xarakteristika_razmer_19_74");
         String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
         shopTheLook.clickOnShopTheLookPhoto();
         String frisbuyMarker = shopTheLook.getFrisbuyMarker();
@@ -788,7 +788,7 @@ public class ProductCardsTest extends TestBase {
     public void constructorKoltsa() {
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/koltsa/");
-        collection.clickOnSecondHref();
+        collection.clickOnFirstHref();
         String firstName = basket.getHeader();
         collection.clickOnFirstItem();
         String secondName = basket.getHeader();

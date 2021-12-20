@@ -8,26 +8,22 @@ public class Search extends Base {
 
     private final By searchButton = By.xpath("//span[@aria-label='Поиск']");
     private final By searchText = By.xpath("//input[@aria-label='Поиск']");
-    private final By goSearchButton = By.xpath("//button[@class='search-form__submit button-border hidden_mobile-tablet']");
 
     public Search(WebDriver driver) {
         super(driver);
     }
 
 
-    public Search clickOnSearchButton() {
-        driver.findElement(searchButton).click();
-        return this;
+    public void clickOnSearchButton() {
+        click(searchButton);
     }
 
-    public Search typeText(String text) {
-        driver.findElement(searchText).sendKeys(text);
-        return this;
+    public void typeText(String text) {
+        type(text, searchText);
     }
 
-    public Search getSearch(String text) {
+    public void getSearch(String text) {
         this.clickOnSearchButton();
         this.typeText(text);
-        return new Search(driver);
     }
 }

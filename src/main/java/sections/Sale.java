@@ -20,10 +20,9 @@ public class Sale extends Base {
         super(driver);
     }
 
-    public Sale clickToSaleButton() {
+    public void clickToSaleButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(saleButton));
-        return this;
     }
 
     public List<String> getNames() {
@@ -46,7 +45,7 @@ public class Sale extends Base {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
 //                System.out.println(name);
-                text.add(name.substring(0, 14));
+                text.add(name.substring(0, 9));
             }
         } catch (SQLException e) {
             e.printStackTrace();

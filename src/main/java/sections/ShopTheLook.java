@@ -2,7 +2,6 @@ package sections;
 
 import base.Base;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class ShopTheLook extends Base {
@@ -16,21 +15,16 @@ public class ShopTheLook extends Base {
         super(driver);
     }
 
-    public ShopTheLook clickToShopTheLookButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(shopTheLookButton));
-        return this;
+    public void clickToShopTheLookButton() {
+        click(shopTheLookButton);
     }
 
     public String getShopTheLookHeader() {
         return driver.findElement(shopTheLookHeader).getText();
     }
 
-    public ShopTheLook clickOnShopTheLookPhoto() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(shopTheLookPhoto));
-//        driver.findElement(shopTheLookPhoto).click();
-        return this;
+    public void clickOnShopTheLookPhoto() {
+        click(shopTheLookPhoto);
     }
 
     public String getFrisbuyMarker() {

@@ -50,13 +50,13 @@ public class NameNecklacesTest extends TestBase {
     //Проверяем кнопки с шрифтами
     //Первый тип подвески
     @Test
-    public void fontsOfFirstTypeNecklace() throws InterruptedException {
+    public void fontsOfFirstTypeNecklace() {
         String firstFont = nameNecklaces.getFontSrc();
         nameNecklaces.clickToSecondFontButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String secondFont = nameNecklaces.getFontSrc();
         nameNecklaces.clickToThirdFontButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String thirdFont = nameNecklaces.getFontSrc();
         assertNotEquals(firstFont, secondFont);
         assertNotEquals(secondFont, thirdFont);
@@ -64,23 +64,23 @@ public class NameNecklacesTest extends TestBase {
 
     //Второй тип подвески
     @Test
-    public void fontsOfSecondTypeNecklace() throws InterruptedException {
+    public void fontsOfSecondTypeNecklace() {
         nameNecklaces.clickToSecondTypeButton();
         String firstFont = nameNecklaces.getFontSrc();
         nameNecklaces.clickToSecondFontButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String secondFont = nameNecklaces.getFontSrc();
         nameNecklaces.clickToThirdFontButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String thirdFont = nameNecklaces.getFontSrc();
         nameNecklaces.clickToFourthFontButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String fourthFont = nameNecklaces.getFontSrc();
         nameNecklaces.clickToFiveFontButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String fiveFont = nameNecklaces.getFontSrc();
         nameNecklaces.clickToSixFontButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String sixFont = nameNecklaces.getFontSrc();
         assertNotEquals(firstFont, secondFont);
         assertNotEquals(secondFont, thirdFont);
@@ -91,11 +91,11 @@ public class NameNecklacesTest extends TestBase {
 
     //Третий тип подвески
     @Test
-    public void fontsOfThirdTypeNecklace() throws InterruptedException {
+    public void fontsOfThirdTypeNecklace() {
         nameNecklaces.clickToThirdTypeButton();
         String firstFont = nameNecklaces.getFontSrc();
         nameNecklaces.clickToSecondFontButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String secondFont = nameNecklaces.getFontSrc();
         assertNotEquals(firstFont, secondFont);
     }
@@ -124,16 +124,16 @@ public class NameNecklacesTest extends TestBase {
 
     //Проверяем кнопку "золото" желтое и белое. Второй тип подвески(меняется цена и картинка)
     @Test
-    public void goldOfSecondTypeNecklace() throws InterruptedException {
+    public void goldOfSecondTypeNecklace() {
         nameNecklaces.clickToSecondTypeButton();
         String firstFont = nameNecklaces.getFontSrc();
         String firstPrice = nameNecklaces.getPrice();
         nameNecklaces.clickToGoldButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String secondFont = nameNecklaces.getFontSrc();
         String secondPrice = nameNecklaces.getPrice();
         nameNecklaces.clickToWhiteGoldButton();
-        Thread.sleep(1000);
+        sleep(1000);
         String thirdFont = nameNecklaces.getFontSrc();
         String thirdPrice = nameNecklaces.getPrice();
         assertNotEquals(firstFont, secondFont);

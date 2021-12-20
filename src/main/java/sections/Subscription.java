@@ -18,9 +18,8 @@ public class Subscription extends Base {
     }
 
 
-    public Subscription typeEmail(String email) {
-        driver.findElement(subscriptionMail).sendKeys(email);
-        return this;
+    public void typeEmail(String email) {
+        type(email, subscriptionMail);
     }
 
     public String getSubscriptionText() {
@@ -31,9 +30,8 @@ public class Subscription extends Base {
         return driver.findElement(subscriptionButton).getText();
     }
 
-    public Subscription clickOnSubscriptionButton() {
-        driver.findElement(subscriptionButton).click();
-        return this;
+    public void clickOnSubscriptionButton() {
+        click(subscriptionButton);
     }
 
     public String getSuccessfulSubscriptionText() {
@@ -44,15 +42,9 @@ public class Subscription extends Base {
         return driver.findElement(failedSubscriptionText).getText();
     }
 
-    public Subscription subscriptionWithEmail(String email) {
+    public void subscriptionWithEmail(String email) {
         this.typeEmail(email);
         this.clickOnSubscriptionButton();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return this;
     }
 
 

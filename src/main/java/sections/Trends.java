@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Trends extends Base {
 
-    private final By trendsButton = By.xpath("//a[text()='Тренды']");
+    private final By trendsButton = By.xpath("//a[@href='/trend/']");
     private final By mainHref = By.xpath("//a[@class='trend-item js-trend-item trend-item_big']");
     private final By firstHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[2]");
     private final By secondHref = By.xpath("//div[@class='trends-page__grid js-trends-grid']/a[3]");
@@ -31,30 +31,27 @@ public class Trends extends Base {
         return driver.findElement(fourthFineHref).getAttribute("href");
     }
 
-    public Trends clickToFourthFineHref() {
+    public void clickToFourthFineHref() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(fourthFineHref));
-        return this;
     }
 
     public String getThirdHref() {
         return driver.findElement(thirdHref).getAttribute("href");
     }
 
-    public Trends clickToThirdHref() {
+    public void clickToThirdHref() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(thirdHref));
-        return this;
     }
 
     public String getSecondHref() {
         return driver.findElement(secondHref).getAttribute("href");
     }
 
-    public Trends clickToSecondHref() {
+    public void clickToSecondHref() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(secondHref));
-        return this;
     }
 
     public String getFirstHref() {
@@ -65,32 +62,29 @@ public class Trends extends Base {
         return driver.findElement(linkHeader).getAttribute("textContent");
     }
 
-    public Trends clickToFirstHref() {
+    public void clickToFirstHref() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(firstHref));
-        return this;
     }
 
-    public Trends clickToTrendsButton() {
+    public void clickToTrendsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(trendsButton));
-        return this;
     }
 
     public String getMainHref() {
         return driver.findElement(mainHref).getAttribute("href");
     }
 
-    public Trends clickToMainHref() {
+    public void clickToMainHref() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(mainHref));
-        return this;
     }
 
 
     //SQL
     public Integer listOfBanners() {
-        Integer count = 0;
+        int count = 0;
         String query = "SELECT count(url) as countURL from trend " +
                 "where `show` = 1";
         try {

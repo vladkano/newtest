@@ -21,10 +21,9 @@ public class Jewelry extends Base {
         super(driver);
     }
 
-    public Jewelry clickToJewelryButton() {
+    public void clickToJewelryButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(jewelryButton));
-        return this;
     }
 
     public List<String> getNames() {

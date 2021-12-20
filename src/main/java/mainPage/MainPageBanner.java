@@ -16,24 +16,19 @@ public class MainPageBanner extends Base {
 
     private final By carouselButton = By.xpath("//button[@aria-label='Carousel Page 2']");
     private final By designerButton = By.xpath("//*[@id='tns1-item4']//span");
-    private final By mainCatalogHref = By.xpath("//div[@class='banner main-banner']//a[@class ='banner__link']");
-    private final By bestsellerNameButton = By.xpath("//*[@id='tns1-item1']//span");
-    private final By countOfBanners = By.xpath("//div[@class='banner__content']/a");
+    private final By mainCatalogHref = By.xpath("//div[@class='main-banner']/a");
+    private final By countOfBanners = By.xpath("//div[@class='banner index-page__banner']/a");
 
     private final By designerButtonHeader = By.xpath("//*[@id='tns1-item4']//div[@class='catalog-card__designer']/a");
     private final By nameButtonHeader = By.xpath("//h3[@class='catalog-card__name']/a");
     private final By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
-    private final By mainCatalogHeader = By.xpath("//span[text()='Фильтр']");
+//    private final By mainCatalogHeader = By.xpath("//span[text()='Фильтр']");
+    private final By mainCatalogHeader = By.xpath("//h4[text()='Самой сверкающей']");
     private final By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
-    private final By mainBannerHeader = By.xpath("//h1[@class='whiteColor']");
 
 
     public MainPageBanner(WebDriver driver) {
         super(driver);
-    }
-
-    public String getMainBannerHeader() {
-        return driver.findElement(mainBannerHeader).getAttribute("textContent");
     }
 
     //находит элемент на странице перекрытый другими элементами и кликает на него
@@ -64,7 +59,7 @@ public class MainPageBanner extends Base {
     }
 
     public void clickToMainCatalogHref() {
-        driver.findElement(mainCatalogHref).click();
+        click(mainCatalogHref);
     }
 
     public String getMainCatalogHeader() {

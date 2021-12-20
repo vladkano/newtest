@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,14 +17,16 @@ import java.sql.Statement;
 public class Order extends Base {
 
     private final By changeCityButton = By.xpath("//span[@class='order-delivery__location-city-output']");
-    private final By otherCityButton = By.xpath("//button[text()='Нет, другой']");
     private final By locationSearch = By.id("locationSearch");
     private final By locationButton = By.xpath("//li[@class='location-choose__variant']/p");
 
     private final By orderPhone = By.xpath("//input[@id='orderPhone']");
     private final By orderEmail = By.xpath("//input[@id='orderEmail']");
     private final By orderFio = By.xpath("//input[@id='orderName']");
-    private final By orderAddress = By.xpath("//textarea[@id='deliveryAddress']");
+    private final By orderAddressButton = By.xpath("//textarea[@id='deliveryAddress']");
+    private final By orderAddress = By.xpath("//input[@id='addressAutocomplete']");
+    private final By orderAddressCloseButton = By.xpath("//button[text()='Закрыть']");
+    private final By chooseAddressButton = By.xpath("//li[@class='address-autocomplete__variant']/b");
     private final By orderApartment = By.xpath("//input[@id='deliveryApartment']");
     private final By orderFrontDoor = By.xpath("//input[@id='deliveryFrontDoor']");
     private final By orderFloor = By.xpath("//input[@id='deliveryFloor']");
@@ -39,7 +42,7 @@ public class Order extends Base {
     private final By citySearchBox = By.xpath("(//input[@class='reg'])[2]");
     private final By addCommentButton = By.xpath("//button[text()='Добавить комментарий к заказу']");
 
-    private final By authPassword = By.xpath("//div[@class='verify-form__row']/input[@name='code']");
+    private final By authPassword = By.xpath("//input[@id='verificationCode']");
     private final By whatsAppButton = By.xpath("//span[text()='Сообщение в WhatsApp']");
     private final By smsButton = By.xpath("//span[text()='СМС о статусе заказа']");
     private final By companyStoreButton = By.xpath("//span[text()='Забрать в фирменном магазине']");
@@ -47,17 +50,12 @@ public class Order extends Base {
     private final By redBridgeStoreButton = By.xpath("//span[text()='Poison Drop в Универмаге «Au Pont Rouge. У Красного моста»']");
     private final By atriumStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Атриум»']");
     private final By afimollStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Афимолл»']");
-    private final By internationalButton = By.xpath("//span[text()='Доставить в другую страну']");
-    private final By orderCountry = By.xpath("//input[@id='internationalCountry']");
-    private final By orderInternationalCity = By.xpath("//input[@id='internationalCity']");
-    private final By orderInternationalAddress = By.xpath("//input[@id='internationalAddress']");
     private final By noPayButton = By.xpath("//label[@for='offlinePayment']/span");
     private final By pickPointButton = By.xpath("//b[text()='В постамат']");
     private final By selectPostomatButton = By.xpath("//span[text()='Выбрать постамат']");
     private final By searchboxButton = By.xpath("//div[@class='combobox searchbox']/span");
     private final By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6601-054\"); return false;']");
     private final By belarusButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9001-009\"); return false;']");
-    private final By kazakhstanButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"9405-029\"); return false;']");
     private final By selectButton = By.xpath("//div[text()='ВЫБРАТЬ']");
     private final By paperButton = By.xpath("//span[text()='Бумажный']");
     private final By firstPrice = By.xpath("//b[@class='cart-price__total']");
@@ -65,6 +63,10 @@ public class Order extends Base {
     private final By frame = By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']");
     private final By firstSectionOrderButton = By.xpath("//div[@class='certificate-value-form__wrap']//span[text()='Заказать']");
     private final By ordinaryDeliveryButton = By.xpath("//label[@for='ordinaryDelivery']/span[@class='order-delivery__courier-type-variant']");
+    private final By promoButton = By.xpath("//button[@class='cart-promocode__trigger']/span");
+    private final By orderPromocode = By.xpath("//input[@id='promocodeInput']");
+    private final By enterPromoCodeButton = By.xpath("//button[@aria-label='Применить промокод']/span");
+
 
     //headers
     private final By payHeader = By.xpath("//span[contains(text(), 'Оплата заказа')]");
@@ -74,44 +76,34 @@ public class Order extends Base {
         super(driver);
     }
 
+    public void usePromocode(String promo) {
+        click(promoButton);
+        type(promo, orderPromocode);
+        click(enterPromoCodeButton);
+    }
+
 
     public void clickOnOrdinaryDeliveryButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(ordinaryDeliveryButton));
+        click(ordinaryDeliveryButton);
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(ordinaryDeliveryButton));
     }
 
-    public static void main(String[] args) {
-        String code = "";
-        String query = "select code from user_authentication_code where phone=+79126459328";
-
-        try {
-            Statement statement = worker.getCon().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                code = resultSet.getString("code");
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println(code);
-        worker.getSession().disconnect();
-    }
-
-    public Order clickToFirstSectionOrderButton() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(firstSectionOrderButton));
-        driver.findElement(firstSectionOrderButton).click();
-        return this;
+    public void clickToFirstSectionOrderButton() {
+        click(firstSectionOrderButton);
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(firstSectionOrderButton));
+//        driver.findElement(firstSectionOrderButton).click();
     }
 
     public void clickOnLocationButton() {
-        driver.findElement(locationButton).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(locationButton));
+//        click(locationButton);
     }
 
     public void typeLocationSearch(String searchCity) {
-        driver.findElement(locationSearch).sendKeys(searchCity);
+        type(searchCity, locationSearch);
     }
 
     public void clickOnChangeCityButton() {
@@ -138,42 +130,49 @@ public class Order extends Base {
     }
 
     public void typePhone(String phone) {
-        driver.findElement(orderPhone).sendKeys(phone);
+        type(phone, orderPhone);
     }
 
     public void typeEmail(String email) {
-        driver.findElement(orderEmail).sendKeys(email);
+        type(email, orderEmail);
     }
 
     public void typeFio(String fio) {
-        driver.findElement(orderFio).sendKeys(fio);
+        type(fio, orderFio);
     }
 
-    public void typeOrderAddress(String address) {
-        driver.findElement(orderAddress).sendKeys(address);
+    public void addAddress(String address) {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(By.xpath("//span[text()='Закрыть и больше не показывать']")));
+        click(orderAddressButton);
+        type(address, orderAddress);
+        click(chooseAddressButton);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(orderAddressCloseButton));
     }
 
     public void typeApartment(String apartment) {
-        driver.findElement(orderApartment).sendKeys(apartment);
+        type(apartment, orderApartment);
     }
 
     public void typeFrontDoor(String frontDoor) {
-        driver.findElement(orderFrontDoor).sendKeys(frontDoor);
+        type(frontDoor, orderFrontDoor);
     }
 
     public void typeFloor(String floor) {
-        driver.findElement(orderFloor).sendKeys(floor);
+        type(floor, orderFloor);
     }
 
     public void typeHouseCode(String houseCode) {
-        driver.findElement(orderHouseCode).sendKeys(houseCode);
+        type(houseCode, orderHouseCode);
     }
 
     public void typeCommentForCourier(String commentForCourier) {
-        driver.findElement(orderCommentForCourier).sendKeys(commentForCourier);
+        type(commentForCourier, orderCommentForCourier);
     }
 
     public void typeComment(String comment) {
+
         driver.findElement(orderComment).sendKeys(comment);
     }
 
@@ -197,35 +196,24 @@ public class Order extends Base {
         js.executeScript("arguments[0].click()", driver.findElement(addCommentButton));
     }
 
-    public void typePassword(String password) {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(authPassword));
-        driver.findElement(authPassword).sendKeys(password);
-        driver.findElement(authPassword).sendKeys(String.valueOf(password));
-    }
-
-    public Order clickOnWhatsAppButton() {
+    public void clickOnWhatsAppButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(whatsAppButton));
-        return this;
     }
 
-    public Order clickOnSmsButton() {
+    public void clickOnSmsButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(smsButton));
-        return this;
     }
 
-    public Order clickOnCompanyStoreButton() {
+    public void clickOnCompanyStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(companyStoreButton));
-        return this;
     }
 
-    public Order clickOnPickPointButton() {
+    public void clickOnPickPointButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(pickPointButton));
-        return this;
     }
 
     public void clickOnSelectPostomatButton() {
@@ -238,84 +226,58 @@ public class Order extends Base {
                 "arguments[0].click();", driver.findElement(searchboxButton));
     }
 
-    public Order clickOnMetropolisStoreButton() {
+    public void clickOnMetropolisStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(metropolisStoreButton));
-        return this;
     }
 
-    public Order clickOnRedBridgeStoreButton() {
+    public void clickOnRedBridgeStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(redBridgeStoreButton));
-        return this;
     }
 
-    public Order clickOnAtriumStoreButton() {
+    public void clickOnAtriumStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(atriumStoreButton));
-        return this;
     }
 
-    public Order clickOnAfimollStoreButton() {
+    public void clickOnAfimollStoreButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(afimollStoreButton));
-        return this;
     }
 
-    public void clickOnInternationalButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(internationalButton));
-    }
-
-    public void typeCountry(String country) {
-        driver.findElement(orderCountry).sendKeys(country);
-    }
-
-    public void typeInternationalCity(String internationalCity) {
-        driver.findElement(orderInternationalCity).sendKeys(internationalCity);
-    }
-
-    public void typeInternationalAddress(String internationalAddress) {
-        driver.findElement(orderInternationalAddress).sendKeys(internationalAddress);
-    }
-
-    public Order clickOnNoPayButton() {
+    public void clickOnNoPayButton() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(noPayButton));
-        return this;
     }
 
     public void confirmWithPassword(String password) {
-        this.typePassword(password);
-        new Order(driver);
+        type(password, authPassword);
     }
 
     public void typeSearchBox(String search) {
-        driver.findElement(searchBox).sendKeys(search);
+        type(search, searchBox);
     }
 
     public void typeCountrySearchBox(String searchCountry) {
-        driver.findElement(countrySearchBox).sendKeys(searchCountry);
+        type(searchCountry, countrySearchBox);
     }
 
     public void typeCitySearchBox(String searchCity) {
-        driver.findElement(citySearchBox).sendKeys(searchCity);
+        type(searchCity, citySearchBox);
     }
 
     public void clickOnRodonitButton() {
-        driver.findElement(rodonitButton).click();
+        click(rodonitButton);
     }
 
     public void clickOnBelarusButton() {
-        driver.findElement(belarusButton).click();
+        click(belarusButton);
     }
 
-    public void clickOnKazakhstanButton() {
-        driver.findElement(kazakhstanButton).click();
-    }
 
     public void clickOnSelectButton() {
-        driver.findElement(selectButton).click();
+        click(selectButton);
     }
 
     public void clickOnPaperButton() {
@@ -331,13 +293,9 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnLocationButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -350,9 +308,9 @@ public class Order extends Base {
         new Order(driver);
     }
 
-    public Order orderWithLoginAndAllStrings(String address, String apartment,
-                                             String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
-        this.typeOrderAddress(address);
+    public void orderWithLoginAndAllStrings(String address, String apartment,
+                                            String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -362,7 +320,6 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
     public void orderWithWhatsApp(String phone, String email, String fio, String city, String address, String apartment,
@@ -372,13 +329,9 @@ public class Order extends Base {
         this.typeFio(fio);
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnLocationButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -387,13 +340,11 @@ public class Order extends Base {
         this.typeCommentForCourier(commentForCourier);
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-
-        new Order(driver);
     }
 
-    public Order orderWithLoginAndWA(String address, String apartment,
-                                     String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
-        this.typeOrderAddress(address);
+    public void orderWithLoginAndWA(String address, String apartment,
+                                    String frontDoor, String floor, String houseCode, String commentForCourier) {
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -402,24 +353,19 @@ public class Order extends Base {
         this.typeCommentForCourier(commentForCourier);
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
     //Заказы без оплаты
-    public Order orderWithNoPayAndPhone(String phone, String email, String fio, String city, String address, String apartment,
-                                        String frontDoor, String floor, String houseCode, String commentForCourier) {
+    public void orderWithNoPayAndPhone(String phone, String email, String fio, String city, String address, String apartment,
+                                       String frontDoor, String floor, String houseCode, String commentForCourier) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnLocationButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -428,12 +374,11 @@ public class Order extends Base {
         this.typeCommentForCourier(commentForCourier);
         this.clickOnNoPayButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order orderWithNoPayLoginAndPhone(String address, String apartment,
-                                             String frontDoor, String floor, String houseCode, String commentForCourier) {
-        this.typeOrderAddress(address);
+    public void orderWithNoPayLoginAndPhone(String address, String apartment,
+                                            String frontDoor, String floor, String houseCode, String commentForCourier) {
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -442,18 +387,17 @@ public class Order extends Base {
         this.typeCommentForCourier(commentForCourier);
         this.clickOnNoPayButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order orderWithDvdNoPayAndWA(String phone, String email, String fio, String city, String address, String apartment,
-                                        String frontDoor, String floor, String houseCode, String commentForCourier) {
+    public void orderWithDvdNoPayAndWA(String phone, String email, String fio, String city, String address, String apartment,
+                                       String frontDoor, String floor, String houseCode, String commentForCourier) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
         this.clickOnLocationButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -464,12 +408,11 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order orderWithNoPayLoginAndWA(String address, String apartment,
-                                          String frontDoor, String floor, String houseCode, String commentForCourier) {
-        this.typeOrderAddress(address);
+    public void orderWithNoPayLoginAndWA(String address, String apartment,
+                                         String frontDoor, String floor, String houseCode, String commentForCourier) {
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -479,50 +422,46 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
     //Цветной:
-    public Order orderWithCompanyStoreTsvetnoy(String phone, String email, String fio) {
+    public void orderWithCompanyStoreTsvetnoy(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnPayButton();
-        return new Order(driver);
+
     }
 
-    public Order orderWithCompanyStoreTsvetnoyWA(String phone, String email, String fio) {
+    public void orderWithCompanyStoreTsvetnoyWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithCompanyStoreTsvetnoySms(String phone, String email, String fio) {
+    public void orderWithCompanyStoreTsvetnoySms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order tsvetnoyWithNoPayAndPhone(String phone, String email, String fio) {
+    public void tsvetnoyWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnNoPayButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order tsvetnoyWithNoPayAndWA(String phone, String email, String fio) {
+    public void tsvetnoyWithNoPayAndWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -530,10 +469,9 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order tsvetnoyWithNoPayAndSms(String phone, String email, String fio) {
+    public void tsvetnoyWithNoPayAndSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -541,21 +479,19 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnSmsButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
     //Метрополис:
-    public Order orderWithCompanyStoreMetropolisPhone(String phone, String email, String fio) {
+    public void orderWithCompanyStoreMetropolisPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnMetropolisStoreButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithCompanyStoreMetropolisWA(String phone, String email, String fio) {
+    public void orderWithCompanyStoreMetropolisWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -563,10 +499,9 @@ public class Order extends Base {
         this.clickOnMetropolisStoreButton();
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithCompanyStoreMetropolisSms(String phone, String email, String fio) {
+    public void orderWithCompanyStoreMetropolisSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -574,10 +509,9 @@ public class Order extends Base {
         this.clickOnMetropolisStoreButton();
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order metropolisWithNoPayAndPhone(String phone, String email, String fio) {
+    public void metropolisWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -585,10 +519,9 @@ public class Order extends Base {
         this.clickOnMetropolisStoreButton();
         this.clickOnNoPayButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order metropolisWithNoPayAndWA(String phone, String email, String fio) {
+    public void metropolisWithNoPayAndWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -597,10 +530,9 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order metropolisWithNoPayAndSms(String phone, String email, String fio) {
+    public void metropolisWithNoPayAndSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -609,21 +541,19 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnSmsButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
     //Атриум:
-    public Order orderWithCompanyStoreAtriumPhone(String phone, String email, String fio) {
+    public void orderWithCompanyStoreAtriumPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnAtriumStoreButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithCompanyStoreAtriumWA(String phone, String email, String fio) {
+    public void orderWithCompanyStoreAtriumWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -631,10 +561,9 @@ public class Order extends Base {
         this.clickOnAtriumStoreButton();
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithCompanyStoreAtriumSms(String phone, String email, String fio) {
+    public void orderWithCompanyStoreAtriumSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -642,10 +571,9 @@ public class Order extends Base {
         this.clickOnAtriumStoreButton();
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order atriumWithNoPayAndPhone(String phone, String email, String fio) {
+    public void atriumWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -653,10 +581,9 @@ public class Order extends Base {
         this.clickOnAtriumStoreButton();
         this.clickOnNoPayButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order atriumWithNoPayAndWA(String phone, String email, String fio) {
+    public void atriumWithNoPayAndWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -665,10 +592,9 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order atriumWithNoPayAndSMS(String phone, String email, String fio) {
+    public void atriumWithNoPayAndSMS(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -677,21 +603,19 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnSmsButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
     //У Красного моста:
-    public Order orderWithRedBridgePhone(String phone, String email, String fio) {
+    public void orderWithRedBridgePhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnRedBridgeStoreButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithRedBridgeWA(String phone, String email, String fio) {
+    public void orderWithRedBridgeWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -699,10 +623,9 @@ public class Order extends Base {
         this.clickOnRedBridgeStoreButton();
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithRedBridgeSms(String phone, String email, String fio) {
+    public void orderWithRedBridgeSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -710,10 +633,9 @@ public class Order extends Base {
         this.clickOnRedBridgeStoreButton();
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order redBridgeWithNoPayAndPhone(String phone, String email, String fio) {
+    public void redBridgeWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -721,10 +643,9 @@ public class Order extends Base {
         this.clickOnRedBridgeStoreButton();
         this.clickOnNoPayButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order redBridgeWithNoPayAndWA(String phone, String email, String fio) {
+    public void redBridgeWithNoPayAndWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -733,10 +654,9 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order redBridgeWithNoPayAndSms(String phone, String email, String fio) {
+    public void redBridgeWithNoPayAndSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -745,21 +665,19 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnSmsButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
     //Афимолл:
-    public Order orderWithAfimollPhone(String phone, String email, String fio) {
+    public void orderWithAfimollPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnCompanyStoreButton();
         this.clickOnAfimollStoreButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithAfimollWA(String phone, String email, String fio) {
+    public void orderWithAfimollWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -767,10 +685,9 @@ public class Order extends Base {
         this.clickOnAfimollStoreButton();
         this.clickOnWhatsAppButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithAfimollSms(String phone, String email, String fio) {
+    public void orderWithAfimollSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -778,10 +695,9 @@ public class Order extends Base {
         this.clickOnAfimollStoreButton();
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order afimollWithNoPayAndPhone(String phone, String email, String fio) {
+    public void afimollWithNoPayAndPhone(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -789,10 +705,9 @@ public class Order extends Base {
         this.clickOnAfimollStoreButton();
         this.clickOnNoPayButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order afimollWithNoPayAndWA(String phone, String email, String fio) {
+    public void afimollWithNoPayAndWA(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -801,10 +716,9 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnWhatsAppButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order afimollWithNoPayAndSms(String phone, String email, String fio) {
+    public void afimollWithNoPayAndSms(String phone, String email, String fio) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -813,52 +727,25 @@ public class Order extends Base {
         this.clickOnNoPayButton();
         this.clickOnSmsButton();
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
     //Доставить в другую страну:
-    public Order internationalWithPhone(String phone, String email, String fio, String city,
-                                        String internationalCity, String comment) {
+    public void internationalWithPhone(String phone, String email, String fio, String city,
+                                       String internationalCity, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnLocationButton();
-        this.typeOrderAddress(internationalCity);
+        type(internationalCity, orderAddressButton);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order internationalWithLoginAndPhone(String country, String internationalCity, String internationalAddress) {
-        this.clickOnInternationalButton();
-        this.typeCountry(country);
-        this.typeInternationalCity(internationalCity);
-        this.typeInternationalAddress(internationalAddress);
-        this.clickOnPayButton();
-        return new Order(driver);
-    }
-
-    public Order internationalWithWhatsApp(String phone, String email, String fio, String country, String internationalCity, String internationalAddress) {
-        this.typePhone(phone);
-        this.typeEmail(email);
-        this.typeFio(fio);
-        this.clickOnInternationalButton();
-        this.typeCountry(country);
-        this.typeInternationalCity(internationalCity);
-        this.typeInternationalAddress(internationalAddress);
-        this.clickOnWhatsAppButton();
-        this.clickOnPayButton();
-        return new Order(driver);
-    }
 
     //PickPoint
-    public Order orderWithPickPointPhone(String phone, String email, String fio, String country, String city, String search) {
+    public void orderWithPickPointPhone(String phone, String email, String fio, String country, String city, String search) {
         String oldWindowsSet = driver.getWindowHandle();
         this.typePhone(phone);
         this.typeEmail(email);
@@ -877,10 +764,9 @@ public class Order extends Base {
         this.clickOnSelectButton();
         driver.switchTo().window(oldWindowsSet);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderPickPointWithLogin(String country, String city, String search) {
+    public void orderPickPointWithLogin(String country, String city, String search) {
         String oldWindowsSet = driver.getWindowHandle();
         this.clickOnPickPointButton();
         this.clickOnSelectPostomatButton();
@@ -896,10 +782,9 @@ public class Order extends Base {
         this.clickOnSelectButton();
         driver.switchTo().window(oldWindowsSet);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithPickPointSMS(String phone, String email, String fio, String country, String city, String search) {
+    public void orderWithPickPointSMS(String phone, String email, String fio, String country, String city, String search) {
         String oldWindowsSet = driver.getWindowHandle();
         this.typePhone(phone);
         this.typeEmail(email);
@@ -919,44 +804,20 @@ public class Order extends Base {
         driver.switchTo().window(oldWindowsSet);
         this.clickOnSmsButton();
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order orderWithPickPointWA(String phone, String email, String fio, String country, String city, String search) {
-        String oldWindowsSet = driver.getWindowHandle();
-        this.typePhone(phone);
-        this.typeEmail(email);
-        this.typeFio(fio);
-        this.clickOnPickPointButton();
-        this.clickOnSelectPostomatButton();
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        WebElement postomatFrame = wait.until(ExpectedConditions.presenceOfElementLocated(frame));
-        driver.switchTo().frame(postomatFrame);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Россия']")));
-        this.typeCountrySearchBox(country);
-        this.typeCitySearchBox(city);
-        this.typeSearchBox(search);
-        this.clickOnSearchboxButton();
-        this.clickOnKazakhstanButton();
-        this.clickOnSelectButton();
-        driver.switchTo().window(oldWindowsSet);
-        this.clickOnWhatsAppButton();
-        this.clickOnPayButton();
-        return new Order(driver);
-    }
 
     //Сертификаты:
-    public Order elCertificateWithPhone(String phone, String email, String fio, String comment) {
+    public void elCertificateWithPhone(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order elCertificateWithWA(String phone, String email, String fio, String comment) {
+    public void elCertificateWithWA(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -967,36 +828,29 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithPhone(String phone, String email, String fio, String comment) {
+    public void certificateWithPhone(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
     //Бумажный
-    public Order paperCertificateWithPhone(String phone, String email, String fio, String city,
-                                           String address, String apartment, String frontDoor, String floor, String houseCode,
-                                           String commentForCourier, String comment) {
+    public void paperCertificateWithPhone(String phone, String email, String fio, String city,
+                                          String address, String apartment, String frontDoor, String floor, String houseCode,
+                                          String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         this.clickOnLocationButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -1006,22 +860,17 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
     //Бумажный
-    public Order certificateWithPhoneAndLogin(String city, String address, String apartment, String frontDoor, String floor, String houseCode,
-                                              String commentForCourier, String comment) {
+    public void certificateWithPhoneAndLogin(String city, String address, String apartment, String frontDoor, String floor, String houseCode,
+                                             String commentForCourier, String comment) {
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnLocationButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -1031,23 +880,18 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithWA(String phone, String email, String fio, String city, String address, String apartment,
-                                   String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public void certificateWithWA(String phone, String email, String fio, String city, String address, String apartment,
+                                  String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnLocationButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -1058,13 +902,12 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithWAAndLogin(String address, String apartment,
-                                           String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public void certificateWithWAAndLogin(String address, String apartment,
+                                          String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.clickOnPaperButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -1075,10 +918,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithTsvetnoyAndPhone(String phone, String email, String fio, String comment) {
+    public void certificateWithTsvetnoyAndPhone(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -1087,19 +929,17 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithLoginTsvetnoyAndPhone(String comment) {
+    public void certificateWithLoginTsvetnoyAndPhone(String comment) {
         this.clickOnPaperButton();
         this.clickOnCompanyStoreButton();
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithMetropolisAndWA(String phone, String email, String fio, String comment) {
+    public void certificateWithMetropolisAndWA(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -1110,10 +950,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithLoginMetropolisAndWA(String comment) {
+    public void certificateWithLoginMetropolisAndWA(String comment) {
         this.clickOnPaperButton();
         this.clickOnCompanyStoreButton();
         this.clickOnMetropolisStoreButton();
@@ -1121,10 +960,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithAtriumAndSMS(String phone, String email, String fio, String comment) {
+    public void certificateWithAtriumAndSMS(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -1135,10 +973,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithLoginAtriumAndSMS(String comment) {
+    public void certificateWithLoginAtriumAndSMS(String comment) {
         this.clickOnPaperButton();
         this.clickOnCompanyStoreButton();
         this.clickOnAtriumStoreButton();
@@ -1146,10 +983,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithRedBridgeAndPhone(String phone, String email, String fio, String comment) {
+    public void certificateWithRedBridgeAndPhone(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -1159,76 +995,60 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithLoginRedBridgeAndPhone(String comment) {
+    public void certificateWithLoginRedBridgeAndPhone(String comment) {
         this.clickOnPaperButton();
         this.clickOnCompanyStoreButton();
         this.clickOnRedBridgeStoreButton();
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
     //Доставить в другую страну:
-    public Order certificateWithInternationalAndWA(String phone, String email, String fio, String city,
-                                                   String internationalCity, String comment) {
+    public void certificateWithInternationalAndWA(String phone, String email, String fio, String city,
+                                                  String internationalCity, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnLocationButton();
-        this.typeOrderAddress(internationalCity);
+        type(internationalCity, orderAddressButton);
         this.clickOnWhatsAppButton();
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithLoginInternationalAndWA(String city, String internationalCity, String comment) {
+    public void certificateWithLoginInternationalAndWA(String city, String internationalCity, String comment) {
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnLocationButton();
-        this.typeOrderAddress(internationalCity);
+        type(internationalCity, orderAddressButton);
         this.clickOnWhatsAppButton();
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnPayButton();
-        return new Order(driver);
     }
 
     //Бумажный сертификат без оплаты:
-    public Order certificateWithNoPayAndPhone(String phone, String email, String fio, String city, String address, String apartment,
-                                              String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public void certificateWithNoPayAndPhone(String phone, String email, String fio, String city, String address, String apartment,
+                                             String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
         this.clickOnPaperButton();
         this.clickOnChangeCityButton();
         this.typeLocationSearch(city);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         this.clickOnLocationButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -1239,13 +1059,12 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithNoPayLoginAndPhone(String address, String apartment,
-                                                   String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
+    public void certificateWithNoPayLoginAndPhone(String address, String apartment,
+                                                  String frontDoor, String floor, String houseCode, String commentForCourier, String comment) {
         this.clickOnPaperButton();
-        this.typeOrderAddress(address);
+        addAddress(address);
         this.typeApartment(apartment);
         this.typeFrontDoor(frontDoor);
         this.clickOnAddAdresButton();
@@ -1256,10 +1075,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithNoPayMetropolisAndSMS(String phone, String email, String fio, String comment) {
+    public void certificateWithNoPayMetropolisAndSMS(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -1271,10 +1089,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithNoPayLoginMetropolisAndSMS(String comment) {
+    public void certificateWithNoPayLoginMetropolisAndSMS(String comment) {
         this.clickOnPaperButton();
         this.clickOnCompanyStoreButton();
         this.clickOnMetropolisStoreButton();
@@ -1283,10 +1100,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithNoPayLoginTsvetnoyAndWA(String comment) {
+    public void certificateWithNoPayLoginTsvetnoyAndWA(String comment) {
         this.clickOnPaperButton();
         this.clickOnCompanyStoreButton();
         this.clickOnNoPayButton();
@@ -1294,10 +1110,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithNoPayTsvetnoyAndWA(String phone, String email, String fio, String comment) {
+    public void certificateWithNoPayTsvetnoyAndWA(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -1308,10 +1123,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithNoPayAtriumAndPhone(String phone, String email, String fio, String comment) {
+    public void certificateWithNoPayAtriumAndPhone(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -1322,10 +1136,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithNoPayLoginAtriumAndPhone(String comment) {
+    public void certificateWithNoPayLoginAtriumAndPhone(String comment) {
         this.clickOnPaperButton();
         this.clickOnCompanyStoreButton();
         this.clickOnAtriumStoreButton();
@@ -1333,10 +1146,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithNoPayRedBridgeAndWA(String phone, String email, String fio, String comment) {
+    public void certificateWithNoPayRedBridgeAndWA(String phone, String email, String fio, String comment) {
         this.typePhone(phone);
         this.typeEmail(email);
         this.typeFio(fio);
@@ -1348,10 +1160,9 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
-    public Order certificateWithNoPayLoginRedBridgeAndWA(String comment) {
+    public void certificateWithNoPayLoginRedBridgeAndWA(String comment) {
         this.clickOnPaperButton();
         this.clickOnCompanyStoreButton();
         this.clickOnRedBridgeStoreButton();
@@ -1360,16 +1171,11 @@ public class Order extends Base {
         this.clickOnAddCommentButton();
         this.typeComment(comment);
         this.clickOnOrderButton();
-        return new Order(driver);
     }
 
     //SQL
     public String getPhonePassword() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         String code = "";
         String query = "select code from user_authentication_code where phone=+79126459328";
         try {
@@ -1397,6 +1203,25 @@ public class Order extends Base {
             e.printStackTrace();
         }
         return code;
+    }
+
+    public static void main(String[] args) {
+        String code = "";
+        String query = "select code from user_authentication_code where phone=+79126459328";
+
+        try {
+            Statement statement = worker.getCon().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                code = resultSet.getString("code");
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(code);
+        worker.getSession().disconnect();
     }
 
 }

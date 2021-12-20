@@ -28,7 +28,7 @@ public class MainPageBannerTest extends TestBase {
     //Отображение баннеров на главной странице
     @Test
     public void mainBannerIsVisible() {
-        List<WebElement> mainBanner = driver.findElements(By.xpath("//div[@class='banner main-banner']"));
+        List<WebElement> mainBanner = driver.findElements(By.xpath("//div[@class='main-banner']"));
         assertEquals(1, mainBanner.size());
     }
 
@@ -42,7 +42,7 @@ public class MainPageBannerTest extends TestBase {
     @Test
     public void bestsellersIsVisible() {
         List<String> bestsellers = new ArrayList<>();
-        List<WebElement> best = driver.findElements(By.xpath("//div[@class='container index-page__bestsellers-slider']//h3[@class='catalog-card__name']"));
+        List<WebElement> best = driver.findElements(By.xpath("//h3[@class='catalog-card__name']/a"));
 //        List<WebElement> elements = best.subList(0, 5);
         for (WebElement name : best) {
             String textBanner = name.getAttribute("textContent");
@@ -68,8 +68,7 @@ public class MainPageBannerTest extends TestBase {
     @Test
     public void bestsellersPrice() {
         List<Integer> bestsellers = new ArrayList<>();
-        List<WebElement> best = driver.findElements(By.xpath("//div[@class='container index-page__bestsellers-slider']//b"));
-//        List<WebElement> elements = best.subList(0, 5);
+        List<WebElement> best = driver.findElements(By.xpath("//b[@class='price-block__price']"));
         for (WebElement name : best) {
             String s = name.getAttribute("textContent");
             String replace = s.replace(" ", "");
@@ -84,7 +83,7 @@ public class MainPageBannerTest extends TestBase {
     //Отображение блока Shop The Look
     @Test
     public void shopTheLookIsVisible() {
-        int banners = driver.findElements(countOfBanners).size();
+        int banners = driver.findElements(By.xpath("//div[@class='frisbuy-post-provider-instagram']")).size();
         assertTrue(banners > 0);
     }
 
@@ -99,7 +98,7 @@ public class MainPageBannerTest extends TestBase {
         String url = driver.getCurrentUrl();
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals("Фильтр", header));
+                () -> assertEquals("Самой сверкающей", header));
     }
 
     @Test

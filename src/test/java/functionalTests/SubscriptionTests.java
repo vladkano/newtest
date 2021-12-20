@@ -112,7 +112,7 @@ public class SubscriptionTests extends TestBase {
 
     @Test()
     public void checkSubscriptionTextProductCard() {
-        driver.get(getUrl + "test");
+        driver.get(getUrl+ "catalog/");
         subscription.clickOnNameLink();
         String subscriptionText = subscription.getSubscriptionText();
         String subscriptionButtonText = subscription.getSubscriptionButtonText();
