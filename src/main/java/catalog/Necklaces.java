@@ -85,7 +85,7 @@ public class Necklaces extends Base {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 price = resultSet.getInt("price");
-                discount = resultSet.getInt("discount");
+                discount = Math.toIntExact(Math.round(resultSet.getDouble("discount")));
                 int priceNew = price - discount;
 //                System.out.println(discount);
                 text.add(priceNew);

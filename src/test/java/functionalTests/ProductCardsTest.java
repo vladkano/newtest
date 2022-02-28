@@ -10,6 +10,7 @@ import collectionAndSet.Collection;
 import collectionAndSet.Set;
 import filters.Filters;
 import filters.Size;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+@Epic("Тесты карточки товара")
 public class ProductCardsTest extends TestBase {
 
     @BeforeEach
@@ -58,16 +60,16 @@ public class ProductCardsTest extends TestBase {
         String firstCurrentSize = size.getCurrentSize();
         size.clickToFirstCurrentSizeButton();
         String secondCurrentSize = size.getCurrentSize();
-        size.clickToSecondCurrentSizeButton();
-        String thirdCurrentSize = size.getCurrentSize();
+//        size.clickToSecondCurrentSizeButton();
+//        String thirdCurrentSize = size.getCurrentSize();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         String sizeHeader = size.getSizeHeader();
         Assertions.assertAll(
                 () -> assertNotEquals(firstCurrentSize, secondCurrentSize),
-                () -> assertNotEquals(secondCurrentSize, thirdCurrentSize),
-                () -> assertNotEquals(firstCurrentSize, thirdCurrentSize),
-                () -> assertEquals("Размер: " + thirdCurrentSize, sizeHeader));
+//                () -> assertNotEquals(secondCurrentSize, thirdCurrentSize),
+//                () -> assertNotEquals(firstCurrentSize, thirdCurrentSize),
+                () -> assertEquals("Размер: " + secondCurrentSize, sizeHeader));
     }
 
     //с размером 15,5
@@ -108,16 +110,16 @@ public class ProductCardsTest extends TestBase {
         String firstCurrentSize = size.getCurrentSize();
         size.clickToFirstCurrentSizeButton();
         String secondCurrentSize = size.getCurrentSize();
-        size.clickToSecondCurrentSizeButton();
-        String thirdCurrentSize = size.getCurrentSize();
+//        size.clickToSecondCurrentSizeButton();
+//        String thirdCurrentSize = size.getCurrentSize();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         String sizeHeader = size.getSizeHeader();
         Assertions.assertAll(
                 () -> assertNotEquals(firstCurrentSize, secondCurrentSize),
-                () -> assertNotEquals(secondCurrentSize, thirdCurrentSize),
-                () -> assertNotEquals(firstCurrentSize, thirdCurrentSize),
-                () -> assertEquals("Размер: " + thirdCurrentSize, sizeHeader));
+//                () -> assertNotEquals(secondCurrentSize, thirdCurrentSize),
+//                () -> assertNotEquals(firstCurrentSize, thirdCurrentSize),
+                () -> assertEquals("Размер: " + secondCurrentSize, sizeHeader));
     }
 
     /*
@@ -283,7 +285,7 @@ public class ProductCardsTest extends TestBase {
     public void checkSetWindowKoltsa() {
         set = new Set(driver);
         rings = new Rings(driver);
-        String s = rings.getItemsFromSet().get(0);
+        String s = rings.getItemsFromSet().get(1);
         driver.get(getUrl + "catalog/koltsa/" + s);
         set.getSetWindow();
         String setHeader = set.getSetHeader();
@@ -312,7 +314,7 @@ public class ProductCardsTest extends TestBase {
     @Test
     public void checkBasketBraslety() {
         bracelets = new Bracelets(driver);
-        String s = bracelets.getItemsFromSet().get(1);
+        String s = bracelets.getItemsFromSet().get(0);
         driver.get(getUrl + "catalog/braslety/" + s);
         basket.clickToOkButton();
         basket.clickToSetItemInBasketButton();
@@ -515,7 +517,7 @@ public class ProductCardsTest extends TestBase {
     */
 
 
-    //Не работает пока 1с не настроен полностью
+
     //Отображение 4 блоков(СОСТАВ И ХАРАКТЕРИСТИКИ, УХОД ЗА УКРАШЕНИЯМИ, "ДОСТАВКА, ОПЛАТА, ВОЗВРАТ", ГАРАНТИЯ 6 МЕСЯЦЕВ)
     @Test
     public void checkingBlocksSergi() {
@@ -524,12 +526,15 @@ public class ProductCardsTest extends TestBase {
         size.clickOnImageLink();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
-        String tsvetnoy = productCard.clickToAvailabilityButton()
-                .getTsvetnoy();
-        String metropolis = productCard.getMetropolis();
-        String afimoll = productCard.getAfimoll();
-        String atrium = productCard.getAtrium();
-        String redBridge = productCard.getRedBridge();
+        String availabilityText = productCard.clickToAvailabilityButton()
+                .getAvailabilityText();
+
+//        String tsvetnoy = productCard.clickToAvailabilityButton()
+//                .getTsvetnoy();
+//        String metropolis = productCard.getMetropolis();
+//        String afimoll = productCard.getAfimoll();
+//        String atrium = productCard.getAtrium();
+//        String redBridge = productCard.getRedBridge();
 
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
@@ -544,12 +549,14 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
 
         Assertions.assertAll(
-                () -> assertEquals("Состав:", specification.substring(0, 7)),
-                () -> assertEquals("Цветной", tsvetnoy),
-                () -> assertEquals("Метрополис", metropolis),
-                () -> assertEquals("Афимолл", afimoll),
-                () -> assertEquals("Атриум", atrium),
-                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
+                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
+                        "день", availabilityText),
+//                () -> assertEquals("Цветной", tsvetnoy),
+//                () -> assertEquals("Метрополис", metropolis),
+//                () -> assertEquals("Афимолл", afimoll),
+//                () -> assertEquals("Атриум", atrium),
+//                () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
@@ -570,12 +577,14 @@ public class ProductCardsTest extends TestBase {
         size.clickOnImageLink();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
-        String tsvetnoy = productCard.clickToAvailabilityButton()
-                .getTsvetnoy();
-        String metropolis = productCard.getMetropolis();
-        String afimoll = productCard.getAfimoll();
-        String atrium = productCard.getAtrium();
-        String redBridge = productCard.getRedBridge();
+        String availabilityText = productCard.clickToAvailabilityButton()
+                .getAvailabilityText();
+//        String tsvetnoy = productCard.clickToAvailabilityButton()
+//                .getTsvetnoy();
+//        String metropolis = productCard.getMetropolis();
+//        String afimoll = productCard.getAfimoll();
+//        String atrium = productCard.getAtrium();
+//        String redBridge = productCard.getRedBridge();
 
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
@@ -590,12 +599,14 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
 
         Assertions.assertAll(
-                () -> assertEquals("Состав:", specification.substring(0, 7)),
-                () -> assertEquals("Цветной", tsvetnoy),
-                () -> assertEquals("Метрополис", metropolis),
-                () -> assertEquals("Афимолл", afimoll),
-                () -> assertEquals("Атриум", atrium),
-                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
+                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
+                        "день", availabilityText),
+//                () -> assertEquals("Цветной", tsvetnoy),
+//                () -> assertEquals("Метрополис", metropolis),
+//                () -> assertEquals("Афимолл", afimoll),
+//                () -> assertEquals("Атриум", atrium),
+//                () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
@@ -616,12 +627,14 @@ public class ProductCardsTest extends TestBase {
         size.clickOnImageLink();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
-        String tsvetnoy = productCard.clickToAvailabilityButton()
-                .getTsvetnoy();
-        String metropolis = productCard.getMetropolis();
-        String afimoll = productCard.getAfimoll();
-        String atrium = productCard.getAtrium();
-        String redBridge = productCard.getRedBridge();
+        String availabilityText = productCard.clickToAvailabilityButton()
+                .getAvailabilityText();
+//        String tsvetnoy = productCard.clickToAvailabilityButton()
+//                .getTsvetnoy();
+//        String metropolis = productCard.getMetropolis();
+//        String afimoll = productCard.getAfimoll();
+//        String atrium = productCard.getAtrium();
+//        String redBridge = productCard.getRedBridge();
 
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
@@ -636,12 +649,14 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
 
         Assertions.assertAll(
-                () -> assertEquals("Состав:", specification.substring(0, 7)),
-                () -> assertEquals("Цветной", tsvetnoy),
-                () -> assertEquals("Метрополис", metropolis),
-                () -> assertEquals("Афимолл", afimoll),
-                () -> assertEquals("Атриум", atrium),
-                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
+                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
+                        "день", availabilityText),
+//                () -> assertEquals("Цветной", tsvetnoy),
+//                () -> assertEquals("Метрополис", metropolis),
+//                () -> assertEquals("Афимолл", afimoll),
+//                () -> assertEquals("Атриум", atrium),
+//                () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
@@ -662,12 +677,14 @@ public class ProductCardsTest extends TestBase {
         size.clickOnImageLink();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
-        String tsvetnoy = productCard.clickToAvailabilityButton()
-                .getTsvetnoy();
-        String metropolis = productCard.getMetropolis();
-        String afimoll = productCard.getAfimoll();
-        String atrium = productCard.getAtrium();
-        String redBridge = productCard.getRedBridge();
+        String availabilityText = productCard.clickToAvailabilityButton()
+                .getAvailabilityText();
+//        String tsvetnoy = productCard.clickToAvailabilityButton()
+//                .getTsvetnoy();
+//        String metropolis = productCard.getMetropolis();
+//        String afimoll = productCard.getAfimoll();
+//        String atrium = productCard.getAtrium();
+//        String redBridge = productCard.getRedBridge();
 
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
@@ -682,12 +699,14 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
 
         Assertions.assertAll(
-                () -> assertEquals("Состав:", specification.substring(0, 7)),
-                () -> assertEquals("Цветной", tsvetnoy),
-                () -> assertEquals("Метрополис", metropolis),
-                () -> assertEquals("Афимолл", afimoll),
-                () -> assertEquals("Атриум", atrium),
-                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
+                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
+                        "день", availabilityText),
+//                () -> assertEquals("Цветной", tsvetnoy),
+//                () -> assertEquals("Метрополис", metropolis),
+//                () -> assertEquals("Афимолл", afimoll),
+//                () -> assertEquals("Атриум", atrium),
+//                () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),

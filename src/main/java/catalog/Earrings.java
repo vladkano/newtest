@@ -87,7 +87,7 @@ public class Earrings extends Base {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 price = resultSet.getInt("price");
-                discount = resultSet.getInt("discount");
+                discount = Math.toIntExact(Math.round(resultSet.getDouble("discount")));
                 int priceNew = price - discount;
 //                System.out.println(discount);
                 text.add(priceNew);
@@ -230,50 +230,30 @@ public class Earrings extends Base {
 
     //Проверка запросов
     public static void main(String[] args) {
-        String name;
-        String name2;
-        String name3;
-        String name4;
-
-        List<String> list = new ArrayList<>();
-        String query = "SELECT item.name, catalog.url, item_collection.url, item_collection_characteristic.url, item_collection_characteristic_value.url from catalog " +
-                "JOIN item ON catalog.id = item.catalog_id " +
+        int price, discount;
+        List<Integer> text = new ArrayList<>();
+        String query = "SELECT item_sku.price, (price * discount/100) as discount from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN item_sku ON item_sku.item_id = item.id " +
+                "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
-                "JOIN sku_picture_list ON item_sku.id = sku_picture_list.sku_id " +
-                "JOIN item_collection_consist ON item.id = item_collection_consist.item_id " +
-                "JOIN item_collection_characteristic_value ON item_collection_consist.item_collection_characteristic_value_id = item_collection_characteristic_value.id " +
-                "JOIN item_collection_characteristic ON item_collection_consist.item_collection_characteristic_id = item_collection_characteristic.id " +
-                "JOIN item_collection ON item_collection_consist.item_collection_id = item_collection.id " +
-                "where EXISTS (SELECT * FROM item_sku WHERE item_sku.id = sku_picture_list.sku_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=1 and is_archive = 0 and price != 0 and section = 'catalog' and subsection = 'sergi'" +
+                "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and catalog_id=1 and is_archive = 0 and price != 0 and filter_id = 147 " +
                 "and item_sku.url is not null and balance > 0 " +
-                " and item_collection_consist.item_collection_characteristic_id!=0 and item_collection_consist.item_collection_characteristic_value_id != 0" +
-                " and item_collection_consist.item_collection_id != 0" +
-                " group by item_catalog_position.position" +
-                " order by item.code";
-
+                "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-
             while (resultSet.next()) {
-                name = resultSet.getString("url");
-                name2 = resultSet.getString("item_collection.url");
-                name3 = resultSet.getString("item_collection_characteristic.url");
-                name4 = resultSet.getString("item_collection_characteristic_value.url");
-
-                list.add(getUrl + name + "/" + name2 + "/?" + name3 + "=" + name4);
-//                System.out.println(name + name2 + name3 + name4);
+                price = resultSet.getInt("price");
+                discount = resultSet.getInt("discount");
+                int priceNew = price - discount;
+                System.out.println(priceNew);
+                text.add(priceNew);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-//        System.out.println(list);
-        String first = list.get(0);
-        System.out.println(first);
 
         worker.getSession().disconnect();
 //        System.out.println("метод getNames: " + text);

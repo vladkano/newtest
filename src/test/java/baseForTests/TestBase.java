@@ -10,12 +10,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import mainPage.MainPage;
 import mainPage.MainPageBanner;
 import order.Order;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import personal.PersonalData;
 import productCards.Picture;
 import productCards.ProductCard;
@@ -87,10 +88,7 @@ public class TestBase {
     protected String subscriptionName = "Подписаться";
     protected String subscriptionHeader = "Узнавайте первыми о новинках, " +
             "специальных мероприятиях, скидках и многом другом";
-
-
     protected String email = "test13@mail.com";
-
     protected List<String> siteList = new ArrayList<>();
     protected List<Integer> priceList = new ArrayList<>();
     protected int siteSize = 0;
@@ -105,13 +103,31 @@ public class TestBase {
         }
     }
 
+    private void waitFor(ExpectedCondition<WebElement> conditions, Integer timeOutInSeconds) {
+        timeOutInSeconds = timeOutInSeconds != 0 ? timeOutInSeconds : 30;
+        WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+        wait.until(conditions);
+    }
+
+    protected void waitForVisibilityOf(By locator, Integer... timeOutInSeconds) {
+        int attempts = 0;
+        while (attempts < 2) {
+            try {
+                waitFor(ExpectedConditions.visibilityOfElementLocated(locator),
+                        (timeOutInSeconds.length > 0 ? timeOutInSeconds[0] : null));
+                break;
+            } catch (StaleElementReferenceException e) {
+            }
+            attempts++;
+        }
+    }
 
     public void mainSetUp() {
         ChromeOptions options = new ChromeOptions();
         WebDriverManager.chromedriver().setup();
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -124,7 +140,7 @@ public class TestBase {
     //Бой
     protected String getUrl = "https://poisondrop.ru/";
 
-    //1С Тест(Сталинград)
+    //Тест(Сталинград)
 //    protected String getUrl = "https://stalingrad.poisondrop.org.ru/";
 
     //Тест(Севастополь)
@@ -133,41 +149,6 @@ public class TestBase {
     //Тест(Курск)
 //    protected String getUrl = "https://kursk.poisontestdrop.ru/";
 
-    //Накст
-//    protected String getUrl = "https://nuxt.poisondrop.org.ru/";
 
-
-    //Не используемые адреса
-
-    //Старый тест
-//    protected String getUrl = "https://qa.poisondrop.org.ru/";
-    //тест нового сервера
-    //private String getUrl = "http://77.223.106.149/catalog/";
-
-    //тесты
-    //private String getUrl = "http://176.53.182.129:8088/catalog/";
-    //private String getUrl = "http://176.53.181.34:8088/catalog/";
-
-
-//    @BeforeEach
-//    public void start() {
-//
-//        WebDriverManager.chromedriver().setup();
-////        WebDriverManager.firefoxdriver().setup();
-////        WebDriverManager.edgedriver().setup();
-//        ChromeOptions options = new ChromeOptions();
-////        options.setHeadless(true);
-//        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-//        driver = new ChromeDriver(options);
-////        driver = new FirefoxDriver(options);
-////        driver = new EdgeDriver(options);
-//
-//        driver.get(getUrl);
-//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//        driver.manage().window().maximize();
-//
-//        Runtime.getRuntime().addShutdownHook(
-//                new Thread(() -> { driver.quit(); driver = null; }));
-//    }
 
 }

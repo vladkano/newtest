@@ -3,6 +3,8 @@ package functionalTests;
 import baseForTests.TestBase;
 import catalog.*;
 import collectionAndSet.Collection;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,10 +13,10 @@ import org.openqa.selenium.WebElement;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Epic("Тесты товаров входящих в коллекции")
 public class CollectionTest extends TestBase {
 
     @BeforeEach
@@ -23,8 +25,22 @@ public class CollectionTest extends TestBase {
         collection = new Collection(driver);
     }
 
-    //Проверяем первый товар, который входит в коллекцию: база sql и на сайте
+    /**
+     * Вспомогательный метод для тестов:
+     * <p>
+     * Проверка на дублирование ссылок
+     */
+    public void checkDouble() {
+        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
+        HashSet<WebElement> set = new HashSet<>(listOfLinks);
+        assertEquals(set.size(), listOfLinks.size());
+    }
+
+    /**
+     * Проверяем первый товар, который входит в коллекцию: БД и сайт
+     */
     @Test
+    @Description("Проверяем первый товар, который входит в коллекцию: БД и сайт")
     public void countOfCollectionItems() {
         driver.get(getUrl + "catalog/");
         List<String> namesItems = collection.getNamesItems();
@@ -32,8 +48,13 @@ public class CollectionTest extends TestBase {
         assertEquals(namesItems.get(0), site.get(0).getAttribute("textContent"));
     }
 
-    //Проверка правильности формирования ссылок и их работоспособность
+    /**
+     * Проверка правильности формирования ссылок и их работоспособность:
+     * <p>
+     * Каталог(все изделия)
+     */
     @Test
+    @Description("Проверка правильности формирования ссылок и их работоспособность: Каталог(все изделия)")
     public void firstLinkOfItems() {
         driver.get(getUrl + "catalog/");
         String href = collection.getHref();
@@ -42,7 +63,11 @@ public class CollectionTest extends TestBase {
         assertEquals(url, href);
     }
 
+    /**
+     * Каталог(Браслеты)
+     */
     @Test
+    @Description("Проверка правильности формирования ссылок и их работоспособность: Каталог(Браслеты)")
     public void firstLinkOfBracelets() {
         bracelets = new Bracelets(driver);
         driver.get(getUrl + "catalog/braslety");
@@ -52,7 +77,11 @@ public class CollectionTest extends TestBase {
         assertEquals(url, href);
     }
 
+    /**
+     * Каталог(Броши)
+     */
     @Test
+    @Description("Проверка правильности формирования ссылок и их работоспособность: Каталог(Броши)")
     public void firstLinkOfBrooches() {
         brooches = new Brooches(driver);
         driver.get(getUrl + "catalog/broshi");
@@ -62,7 +91,11 @@ public class CollectionTest extends TestBase {
         assertEquals(url, href);
     }
 
+    /**
+     * Каталог(Серьги)
+     */
     @Test
+    @Description("Проверка правильности формирования ссылок и их работоспособность: Каталог(Серьги)")
     public void firstLinkOfEarrings() {
         earrings = new Earrings(driver);
         driver.get(getUrl + "catalog/sergi");
@@ -72,7 +105,11 @@ public class CollectionTest extends TestBase {
         assertEquals(url, href);
     }
 
+    /**
+     * Каталог(Колье)
+     */
     @Test
+    @Description("Проверка правильности формирования ссылок и их работоспособность: Каталог(Колье)")
     public void firstLinkOfNecklaces() {
         necklaces = new Necklaces(driver);
         driver.get(getUrl + "catalog/kole");
@@ -82,7 +119,11 @@ public class CollectionTest extends TestBase {
         assertEquals(url, href);
     }
 
+    /**
+     * Каталог(Кольца)
+     */
     @Test
+    @Description("Проверка правильности формирования ссылок и их работоспособность: Каталог(Кольца)")
     public void firstLinkOfRings() {
         rings = new Rings(driver);
         driver.get(getUrl + "catalog/koltsa");
@@ -92,53 +133,66 @@ public class CollectionTest extends TestBase {
         assertEquals(url, href);
     }
 
-    //Проверка, что под товаром ссылки на другие товары коллекции не дублируются
+    /**
+     * Проверка, что под товаром ссылки на другие товары коллекции не дублируются:
+     * <p>
+     * Каталог(все изделия)
+     */
     @Test
+    @Description("Проверка, что под товаром ссылки на другие товары коллекции не дублируются: Каталог(все изделия)")
     public void checkDoubleMain() {
         driver.get(getUrl + "catalog/");
-        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        HashSet<WebElement> set = new HashSet<>(listOfLinks);
-        assertEquals(set.size(), listOfLinks.size());
+        checkDouble();
     }
 
+    /**
+     * Каталог(Браслеты)
+     */
     @Test
+    @Description("Проверка, что под товаром ссылки на другие товары коллекции не дублируются: Каталог(Браслеты)")
     public void checkDoubleBracelets() {
         driver.get(getUrl + "catalog/braslety");
-        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertEquals(set.size(), listOfLinks.size());
+        checkDouble();
     }
 
+    /**
+     * Каталог(Броши)
+     */
     @Test
+    @Description("Проверка, что под товаром ссылки на другие товары коллекции не дублируются: Каталог(Броши)")
     public void checkDoubleBrooches() {
         driver.get(getUrl + "catalog/broshi");
-        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertEquals(set.size(), listOfLinks.size());
+        checkDouble();
     }
 
+    /**
+     * Каталог(Серьги)
+     */
     @Test
+    @Description("Проверка, что под товаром ссылки на другие товары коллекции не дублируются: Каталог(Серьги)")
     public void checkDoubleEarrings() {
         driver.get(getUrl + "catalog/sergi");
-        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertEquals(set.size(), listOfLinks.size());
+        checkDouble();
     }
 
+    /**
+     * Каталог(Колье)
+     */
     @Test
+    @Description("Проверка, что под товаром ссылки на другие товары коллекции не дублируются: Каталог(Колье)")
     public void checkDoubleNecklaces() {
         driver.get(getUrl + "catalog/kole");
-        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertEquals(set.size(), listOfLinks.size());
+        checkDouble();
     }
 
+    /**
+     * Каталог(Кольца)
+     */
     @Test
+    @Description("Проверка, что под товаром ссылки на другие товары коллекции не дублируются: Каталог(Кольца)")
     public void checkDoubleRings() {
         driver.get(getUrl + "catalog/koltsa");
-        List<WebElement> listOfLinks = driver.findElements(linkOfCollection);
-        Set<WebElement> set = new HashSet<>(listOfLinks);
-        assertEquals(set.size(), listOfLinks.size());
+        checkDouble();
     }
 
     @AfterEach

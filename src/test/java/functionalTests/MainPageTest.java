@@ -2,13 +2,16 @@ package functionalTests;
 
 import baseForTests.TestBase;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Epic;
 import mainPage.MainPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.ResourceLock;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
@@ -26,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //одноразовая почта
 //https://temp-mail.org/ru/
 
+@Epic("Тесты регистрации и авторизации")
 @ResourceLock("Code")
 public class MainPageTest extends TestBase {
 
@@ -46,6 +50,7 @@ public class MainPageTest extends TestBase {
     }
 
 
+    
     //Позитивные Тесты
     //Регистрация
     @Test
@@ -65,11 +70,14 @@ public class MainPageTest extends TestBase {
         System.out.println("mail: " + mailFromSite);
         //заполняем форму
         driver.navigate().to(getUrl);
-//        driver.get(getUrl);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(By.xpath("//span[text()='Закрыть и больше не показывать']")));
+        sleep(2000);
         mainPage.sigInWithPhone(phoneFromSite);
         String code = mainPage.getPhonePassword();
         mainPage.registerWithPhoneNumber(code, mailFromSite, "Test Phone" + random_number);
         personalData.clickOnPersonalDataButton();
+        sleep(2000);
         String name = personalData.getName();
         assertEquals("Test Phone" + random_number, name);
     }
@@ -180,7 +188,7 @@ public class MainPageTest extends TestBase {
         assertEquals(false, registerButtonAttribute);
     }
 
-    //Разлогин
+    //Разлогин. Проверка того, что при нажатии на кнопку "Выйти" в ЛК, происходит выход из ЛК
     @Test
     public void signOut() {
         mainPage.sigInWithPhone(phoneForAuthorization);

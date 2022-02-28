@@ -1,6 +1,7 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import io.qameta.allure.Epic;
 import mainPage.MainPageBanner;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +17,7 @@ import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Epic("Тесты отображения баннеров на главной странице")
 public class MainPageBannerTest extends TestBase {
 
     @BeforeEach
@@ -94,11 +96,11 @@ public class MainPageBannerTest extends TestBase {
         banner.clickToOkButton();
         String href = banner.getMainCatalogHref();
         banner.clickToMainCatalogHref();
-        String header = banner.getMainCatalogHeader();
+        String header = banner.getFirstCatalogHeader();
         String url = driver.getCurrentUrl();
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals("Самой сверкающей", header));
+                () -> assertEquals("Фильтр", header));
     }
 
     @Test
@@ -106,7 +108,7 @@ public class MainPageBannerTest extends TestBase {
         String href = banner.getCatalogHref();
         banner.clickToCatalogHref();
         String url = driver.getCurrentUrl();
-        String header = banner.getMainCatalogHeader();
+        String header = banner.getFirstCatalogHeader();
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals("Фильтр", header));
@@ -117,7 +119,7 @@ public class MainPageBannerTest extends TestBase {
         String href = banner.getSixCatalogHref();
         banner.clickToSixCatalogHref();
         String url = driver.getCurrentUrl();
-        String header = banner.getMainCatalogHeader();
+        String header = banner.getFirstCatalogHeader();
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals("Фильтр", header));

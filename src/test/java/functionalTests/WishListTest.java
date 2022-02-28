@@ -5,6 +5,7 @@ import basket.Basket;
 import collectionAndSet.Collection;
 import filters.Filters;
 import filters.Size;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,15 +16,14 @@ import sections.Wishlist;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Epic("Тесты избранного")
 public class WishListTest extends TestBase {
-
 
     @BeforeEach
     public void setUp() {
         mainSetUp();
         wishlist = new Wishlist(driver);
     }
-
 
     //Проверка, что товар добавился в избранное из карточки товара + урл и заголовок корректны
     @Test()
