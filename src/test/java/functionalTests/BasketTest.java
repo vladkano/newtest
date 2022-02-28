@@ -5,6 +5,7 @@ import basket.Basket;
 import filters.Filters;
 import filters.Size;
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.OutputType;
@@ -12,13 +13,12 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+@Epic("Тесты переноса товаров в корзину")
 public class BasketTest extends TestBase {
 
     String testMethodName;
@@ -82,30 +82,34 @@ public class BasketTest extends TestBase {
 //    }
 
 
-    //Проверяем работают ли кнопки корзины на разных типах товаров
-    //Обычный товар без размера
+    /**
+     * Проверяем работают ли кнопки корзины на разных типах товаров
+     * <p>
+     * Обычный товар без размера
+     */
     @Test
     @Description("Проверяем работают ли кнопки корзины на разных типах товаров. " +
             "Обычный товар без размера")
     @DisplayName("inBasketButton")
-    public void inBasketButton(TestInfo testInfo) {
+    public void inBasketButton() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
-//        System.out.println(testInfo.getDisplayName());
     }
 
     @Test
+    @Description("Проверка кнопки 'плюс', увеличение количества товаров при добавлении в корзину обычного товара без размера")
     public void plusButton() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         basket.clickToPlusBasketButton();
         String number = basket.getBasketNumber();
-        assertEquals("2", number);
+        assertEquals("2", number, "Ошибка увеличения количества товара при добавлении в корзину");
     }
 
     @Test
+    @Description("Проверка кнопки 'минус', уменьшение количества товаров при добавлении в корзину обычного товара без размера")
     public void minusButton() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
@@ -115,8 +119,11 @@ public class BasketTest extends TestBase {
         assertEquals("1", number);
     }
 
-    //Обычный товар с размером
+    /**
+     * Обычный товар с размером
+     */
     @Test
+    @Description("Добавление в корзину обычного товара с размером")
     public void inBasketButtonWithSize() {
         filters = new Filters(driver);
         size = new Size(driver);
@@ -130,6 +137,7 @@ public class BasketTest extends TestBase {
     }
 
     @Test
+    @Description("Проверка кнопки 'плюс', увеличение количества товаров при добавлении в корзину обычного товара с размером")
     public void plusButtonWithSize() {
         filters = new Filters(driver);
         size = new Size(driver);
@@ -144,6 +152,7 @@ public class BasketTest extends TestBase {
     }
 
     @Test
+    @Description("Проверка кнопки 'минус', уменьшение количества товаров при добавлении в корзину обычного товара с размером")
     public void minusButtonWithSize() {
         filters = new Filters(driver);
         size = new Size(driver);
@@ -159,8 +168,11 @@ public class BasketTest extends TestBase {
     }
 
 
-    //Товар из коллекции без размера
+    /**
+     * Товар из коллекции без размера
+     */
     @Test
+    @Description("Добавление в корзину товара без размера из коллекции")
     public void inBasketButtonWithCollection() {
         driver.navigate().to(basket.getSecondLinkOfCollection());
         basket.clickToItemInBasketButton();
@@ -169,6 +181,7 @@ public class BasketTest extends TestBase {
     }
 
     @Test
+    @Description("Проверка кнопки 'плюс', увеличение количества товаров при добавлении в корзину товара без размера из коллекции")
     public void plusButtonWithCollection() {
         driver.navigate().to(basket.getSecondLinkOfCollection());
         basket.clickToItemInBasketButton();
@@ -178,6 +191,7 @@ public class BasketTest extends TestBase {
     }
 
     @Test
+    @Description("Проверка кнопки 'минус', уменьшение количества товаров при добавлении в корзину товара без размера из коллекции")
     public void minusButtonWithCollection() {
         driver.navigate().to(basket.getSecondLinkOfCollection());
         basket.clickToItemInBasketButton();
@@ -188,8 +202,11 @@ public class BasketTest extends TestBase {
     }
 
 
-    //Товар из коллекции с размером
+    /**
+     * Товар из коллекции с размером
+     */
     @Test
+    @Description("Добавление в корзину товара из коллекции с размером")
     public void inBasketButtonWithCollectionAndSize() {
         driver.navigate().to(basket.getFirstLinkOfCollection());
         basket.clickToItemInBasketButton();
@@ -198,6 +215,7 @@ public class BasketTest extends TestBase {
     }
 
     @Test
+    @Description("Проверка кнопки 'плюс', увеличение количества товаров при добавлении в корзину товара из коллекции с размером")
     public void plusButtonWithCollectionAndSize() {
         driver.navigate().to(basket.getFirstLinkOfCollection());
         basket.clickToItemInBasketButton();
@@ -207,6 +225,7 @@ public class BasketTest extends TestBase {
     }
 
     @Test
+    @Description("Проверка кнопки 'минус', уменьшение количества товаров при добавлении в корзину товара из коллекции с размером")
     public void minusButtonWithCollectionAndSize() {
         driver.navigate().to(basket.getFirstLinkOfCollection());
         basket.clickToItemInBasketButton();
@@ -217,32 +236,31 @@ public class BasketTest extends TestBase {
     }
 
 
-    //Проверка того, что нельзя положить в корзину больше товара, чем есть на остатках.
+    /**
+     * Проверка того, что нельзя положить в корзину больше товара, чем есть на остатках.
+     */
     @Test
-    public void balanceItem() {
+    @Description("Проверка того, что нельзя положить в корзину больше товара, чем есть на остатках")
+    public void checkBalanceItem() {
         takeScreenshot("Open catalog");
         Integer balance = basket.getBalance();
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         Integer dataMax = basket.getDataMax();
-        takeScreenshot("Item In Basket");
-        assertEquals(balance, dataMax);
-    }
-
-    @Test
-    public void checkBalance() {
-        Integer balance = basket.getBalance();
-        basket.clickToItemButton();
-        basket.clickToItemInBasketButton();
+        assertEquals(balance, dataMax, "Неверный data-max в счётчике товаров");
         for (int i = 0; i < balance - 1; i++) {
             basket.clickToPlusBasketButton();
         }
         Integer number = Integer.valueOf(basket.getBasketNumber());
-        assertEquals(balance, number);
+        takeScreenshot("Item In Basket");
+        assertEquals(balance, number, "Неверное число в счётчике товаров");
     }
 
-    //Кнопка "Перейти в корзину" ведет на getUrl + "cart"
+    /**
+     * Кнопка "Перейти в корзину" ведет на getUrl + "cart"
+     */
     @Test
+    @Description("Проверка кнопки 'Перейти в корзину' со страницы заказа после добавления в корзину")
     public void checkHref() {
         basket.clickToAnotherItemButton();
         basket.clickToItemInBasketButton();
@@ -252,8 +270,11 @@ public class BasketTest extends TestBase {
     }
 
 
-    //Если товар уже находится в корзине, в карточке товара отображается кнопка "В корзине"
+    /**
+     * Если товар уже находится в корзине, в карточке товара отображается кнопка "В корзине"
+     */
     @Test
+    @Description("Проверка изменения кнопки 'В корзину' -> 'В корзине', при добавлении товара в корзину")
     public void inBasket() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
@@ -261,9 +282,13 @@ public class BasketTest extends TestBase {
         assertEquals("В корзине", header);
     }
 
-    //Значок корзины на всех страницах сайта отображает количество товаров в корзине
-    //кладем в корзину 2 разных товара, затем переходим на страницу каталога и проверяем что в корзине отображается верное число товаров
+    /**
+     * Значок корзины на всех страницах сайта отображает количество товаров в корзине
+     * <p>
+     * Кладем в корзину 2 разных товара, затем переходим на страницу каталога и проверяем что в корзине отображается верное число товаров
+     */
     @Test
+    @Description("Кладем в корзину 2 разных товара, переходим на страницу каталога и проверяем число на иконке корзины")
     public void checkNumber() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
@@ -277,8 +302,11 @@ public class BasketTest extends TestBase {
         assertEquals("2", cartCount);
     }
 
-    //Ссылка со значком корзины на всех страницах сайта ведет на getUrl + "cart"
+    /**
+     * Ссылка со значком корзины на всех страницах сайта ведет на getUrl + "cart"
+     */
     @Test
+    @Description("Проверка иконки корзины из 'Каталога'")
     public void checkCartHref() {
         basket.clickToCart();
         String url = driver.getCurrentUrl();
@@ -286,6 +314,7 @@ public class BasketTest extends TestBase {
     }
 
     @Test
+    @Description("Проверка иконки корзины из 'Новинок'")
     public void checkCartHrefFromNew() {
         basket.clickToCartFromNew();
         basket.clickToCart();

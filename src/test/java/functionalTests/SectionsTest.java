@@ -3,6 +3,7 @@ package functionalTests;
 import baseForTests.TestBase;
 import catalog.CatalogNavigation;
 import filters.Filters;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Epic("Тесты разделов и футеров")
 public class SectionsTest extends TestBase {
 
     @BeforeEach
@@ -78,7 +80,7 @@ public class SectionsTest extends TestBase {
         certificate = new Certificate(driver);
         certificate.clickToCertificateButton();
         String url = driver.getCurrentUrl();
-        assertEquals(getUrl + "certificate/", url);
+        assertEquals(getUrl + "certificate", url);
     }
 
     @Test()
@@ -417,7 +419,7 @@ public class SectionsTest extends TestBase {
         String description = trends.listOfDescription().get(2);
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals(description, header));
+                () -> assertEquals(description.substring(0, 20), header.substring(0, 20)));
     }
 
     @Test
@@ -465,6 +467,7 @@ public class SectionsTest extends TestBase {
         //sql:
         List<String> sqlList = designers.getFirstLinkNames();
         int sqlSize = sqlList.size();
+        System.out.println(sqlSize);
         //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {

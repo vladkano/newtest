@@ -2,6 +2,7 @@ package functionalTests;
 
 import baseForTests.TestBase;
 import filters.Filters;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Epic("Тесты раздела Новинки")
 public class NewItemsTest extends TestBase {
 
     @BeforeEach

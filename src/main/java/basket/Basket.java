@@ -230,7 +230,7 @@ public class Basket extends Base {
                 "JOIN item_sku AS si ON i.id=si.item_id " +
                 "JOIN storage_stock AS ss ON ss.sku_id=si.id " +
                 "GROUP BY i.id, i.name, si.id " +
-                "HAVING count>0";
+                "HAVING count>1";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -327,7 +327,6 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return list.get(0);
     }
 

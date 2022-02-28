@@ -1,6 +1,7 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import tags.Tags;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Epic("Тесты тегов у товаров в каталоге")
 public class TagTest extends TestBase {
 
     @BeforeEach

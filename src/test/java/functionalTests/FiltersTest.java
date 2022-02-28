@@ -2,6 +2,8 @@ package functionalTests;
 
 import baseForTests.TestBase;
 import filters.*;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +19,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+@Epic("Тесты фильтров")
 public class FiltersTest extends TestBase {
 
     @BeforeEach
@@ -27,7 +30,14 @@ public class FiltersTest extends TestBase {
         filters.clickToOkButton();
     }
 
+    /**
+     * Вспомогательные методы для тестов:
+     * <p>
+     * Получить список изделий с сайта
+     */
     public void getProductsListFromPage() {
+        sleep(2000);
+//        waitForVisibilityOf(numberOfItem, 5);
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getAttribute("textContent");
@@ -36,9 +46,70 @@ public class FiltersTest extends TestBase {
         }
     }
 
-    //Проверяем работу фильтров
-    //ТИП ИЗДЕЛИЯ
+    /**
+     * Фильтр по вставкам
+     */
+    public void getFilterByInserts() {
+        material = new Material(driver);
+        filters.clickToFilterButton();
+        material.clickToInsertButton();
+    }
+
+    /**
+     * Фильтр по материалам
+     */
+    public void getFilterByMaterials() {
+        material = new Material(driver);
+        filters.clickToFilterButton();
+        material.clickToMaterialButton();
+    }
+
+    /**
+     * Фильтр по цвету изделия
+     */
+    public void getColorFilter() {
+        colors = new Colors(driver);
+        filters.clickToFilterButton();
+        colors.clickToColorButton();
+    }
+
+    /**
+     * Фильтр по покрытию
+     */
+    public void getCoveringFilter() {
+        colors = new Colors(driver);
+        filters.clickToFilterButton();
+        colors.clickToCoveringButton();
+    }
+
+    /**
+     * Фильтр по размеру кольца
+     */
+    public void getSizeFilter() {
+        size = new Size(driver);
+        filters.clickToFilterButton();
+        size.clickToSizeButton();
+    }
+
+    /**
+     * Фильтр по дизайнеру
+     */
+    public void getDesignersFilter() {
+        designersFilter = new DesignersFilter(driver);
+        filters.clickToFilterButton();
+        designersFilter.clickToDesignersButton();
+    }
+
+
+    /**
+     * Проверяем работу фильтров:
+     * <p>
+     * По типу изделия:
+     * <p>
+     * Серьги
+     */
     @Test
+    @Description("Проверяем работу фильтров: По типу изделия(Серьги)")
     public void typeOfItemEarrings() {
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
@@ -54,7 +125,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(5), siteList.get(5)));
     }
 
+    /**
+     * Кольца
+     */
     @Test
+    @Description("Проверяем работу фильтров: По типу изделия(Кольца)")
     public void typeOfItemRings() {
         filters.clickToFilterButton();
         filters.clickToAllRingsButton();
@@ -70,7 +145,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(10), siteList.get(10)));
     }
 
+    /**
+     * Колье
+     */
     @Test
+    @Description("Проверяем работу фильтров: По типу изделия(Колье)")
     public void typeOfItemNecklaces() {
         filters.clickToFilterButton();
         filters.clickToAllNecklacesButton();
@@ -86,7 +165,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(8), siteList.get(8)));
     }
 
+    /**
+     * Браслеты
+     */
     @Test
+    @Description("Проверяем работу фильтров: По типу изделия(Браслеты)")
     public void typeOfItemBracelets() {
         filters.clickToFilterButton();
         filters.clickToAllBraceletsButton();
@@ -102,7 +185,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
+    /**
+     * Броши
+     */
     @Test
+    @Description("Проверяем работу фильтров: По типу изделия(Броши)")
     public void typeOfItemBrooches() {
         filters.clickToFilterButton();
         filters.clickToAllBroochesButton();
@@ -118,14 +205,13 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
-    //ВСТАВКИ
-    public void getFilterByInserts() {
-        material = new Material(driver);
-        filters.clickToFilterButton();
-        material.clickToInsertButton();
-    }
-
+    /**
+     * По вставкам:
+     * <p>
+     * Жемчуг
+     */
     @Test
+    @Description("Проверяем работу фильтров: По вставкам(Жемчуг)")
     public void getPearl() {
         getFilterByInserts();
         material.clickToZemcugButton();
@@ -141,7 +227,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
+    /**
+     * Кристаллы
+     */
     @Test
+    @Description("Проверяем работу фильтров: По вставкам(Кристаллы)")
     public void getCrystals() {
         getFilterByInserts();
         material.clickToKristallyButton();
@@ -157,7 +247,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
+    /**
+     * Камни
+     */
     @Test
+    @Description("Проверяем работу фильтров: По вставкам(Камни)")
     public void getStones() {
         getFilterByInserts();
         material.clickToKamenButton();
@@ -170,10 +264,14 @@ public class FiltersTest extends TestBase {
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
                 () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2).substring(0,20), siteList.get(2).substring(0,20)));
+                () -> assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20)));
     }
 
+    /**
+     * Стекло
+     */
     @Test
+    @Description("Проверяем работу фильтров: По вставкам(Стекло)")
     public void getGlass() {
         getFilterByInserts();
         material.clickToStekloButton();
@@ -189,15 +287,13 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
-    //МАТЕРИАЛ
-    public void getFilterByMaterials() {
-        material = new Material(driver);
-        filters.clickToFilterButton();
-        material.clickToMaterialButton();
-    }
-
-
+    /**
+     * По материалам:
+     * <p>
+     * Бронза
+     */
     @Test
+    @Description("Проверяем работу фильтров: По материалам(Бронза)")
     public void getBronze() {
         getFilterByMaterials();
         material.clickToBronzeButton();
@@ -213,7 +309,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
+    /**
+     * Серебро
+     */
     @Test
+    @Description("Проверяем работу фильтров: По материалам(Серебро)")
     public void getSilver() {
         getFilterByMaterials();
         material.clickToSilverButton();
@@ -230,15 +330,20 @@ public class FiltersTest extends TestBase {
     }
 
 
-    //Тест слайдера с ценой
+    /**
+     * Тесты слайдера с ценой:
+     * <p>
+     * Правый ползунок
+     */
     @Test
+    @Description("Проверяем работу фильтров: Тест слайдера с ценой(Правый ползунок)")
     public void rightBarWithPrice() {
         filters.clickToFilterButton();
         String firstPriceRangeRight = filters.getPriceRangeRight();
         Actions act = new Actions(driver);
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='slider-dot']")));
-        WebElement priceBarRight = driver.findElement(By.xpath("(//div[@class='slider-dot'])[2]"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='vue-slider-dot-handle']")));
+        WebElement priceBarRight = driver.findElement(By.xpath("(//div[@class='vue-slider-dot-handle'])[2]"));
         Actions actionsPriceBarRight = act.dragAndDropBy(priceBarRight, -263, 0);
         actionsPriceBarRight.build().perform();
         sleep(1000);
@@ -247,14 +352,20 @@ public class FiltersTest extends TestBase {
     }
 
 
+    /**
+     * Тесты слайдера с ценой:
+     * <p>
+     * Левый ползунок
+     */
     @Test
+    @Description("Проверяем работу фильтров: Тест слайдера с ценой(Левый ползунок)")
     public void leftBarWithPrice() {
         filters.clickToFilterButton();
         String firstPriceRangeLeft = filters.getPriceRangeLeft();
         Actions act = new Actions(driver);
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='slider-dot']")));
-        WebElement priceBarLeft = driver.findElement(By.xpath("//div[@class='slider-dot']"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='vue-slider-dot-handle']")));
+        WebElement priceBarLeft = driver.findElement(By.xpath("//div[@class='vue-slider-dot-handle']"));
         Actions actionsPriceBarLeft = act.dragAndDropBy(priceBarLeft, 100, 0);
         actionsPriceBarLeft.build().perform();
         sleep(1000);
@@ -263,14 +374,13 @@ public class FiltersTest extends TestBase {
     }
 
 
-    //Цвета
-    public void getColorFilter() {
-        colors = new Colors(driver);
-        filters.clickToFilterButton();
-        colors.clickToColorButton();
-    }
-
+    /**
+     * По цвету изделия:
+     * <p>
+     * Зелёный
+     */
     @Test
+    @Description("Проверяем работу фильтров: По цвету изделия(Зелёный)")
     public void getGreen() {
         getColorFilter();
         colors.clickToGreenButton();
@@ -286,7 +396,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
+    /**
+     * Синий
+     */
     @Test
+    @Description("Проверяем работу фильтров: По цвету изделия(Синий)")
     public void getBlue() {
         getColorFilter();
         colors.clickToBlueButton();
@@ -302,7 +416,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
+    /**
+     * Мульти
+     */
     @Test
+    @Description("Проверяем работу фильтров: По цвету изделия(Мульти)")
     public void getMix() {
         getColorFilter();
         colors.clickToMixButton();
@@ -318,14 +436,13 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
-    //ПОКРЫТИЕ
-    public void getCoveringFilter() {
-        colors = new Colors(driver);
-        filters.clickToFilterButton();
-        colors.clickToCoveringButton();
-    }
-
+    /**
+     * По покрытию:
+     * <p>
+     * Родий
+     */
     @Test
+    @Description("Проверяем работу фильтров: По покрытию(Родий)")
     public void getRhodium() {
         getCoveringFilter();
         colors.clickToRodiiButton();
@@ -341,7 +458,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
+    /**
+     * Розовое золото
+     */
     @Test
+    @Description("Проверяем работу фильтров: По покрытию(Розовое золото)")
     public void getPinkGold() {
         getCoveringFilter();
         colors.clickToPinkGoldButton();
@@ -354,17 +475,16 @@ public class FiltersTest extends TestBase {
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
                 () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+                () -> assertEquals(sqlList.get(1), siteList.get(1)));
     }
 
-    //Размер кольца
-    public void getSizeFilter() {
-        size = new Size(driver);
-        filters.clickToFilterButton();
-        size.clickToSizeButton();
-    }
-
+    /**
+     * По размеру кольца:
+     * <p>
+     * 14
+     */
     @Test
+    @Description("Проверяем работу фильтров: По размеру кольца(14))")
     public void getFirstSize() {
         getSizeFilter();
         size.clickToFirstSizeButton();
@@ -380,7 +500,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
+    /**
+     * 15,5
+     */
     @Test
+    @Description("Проверяем работу фильтров: По размеру кольца(15,5))")
     public void getSecondSize() {
         getSizeFilter();
         size.clickToSecondSizeButton();
@@ -396,7 +520,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
+    /**
+     * 16
+     */
     @Test
+    @Description("Проверяем работу фильтров: По размеру кольца(16))")
     public void getUniversalSize() {
         getSizeFilter();
         size.clickToUniversalSizeButton();
@@ -413,14 +541,13 @@ public class FiltersTest extends TestBase {
     }
 
 
-    //Дизайнеры
-    public void getDesignersFilter() {
-        designersFilter = new DesignersFilter(driver);
-        filters.clickToFilterButton();
-        designersFilter.clickToDesignersButton();
-    }
-
+    /**
+     * По дизайнеру:
+     * <p>
+     * Aleksandr Sinitsyn
+     */
     @Test
+    @Description("Проверяем работу фильтров: По дизайнеру(Aleksandr Sinitsyn)")
     public void getSinitsyn() {
         getDesignersFilter();
         designersFilter.clickToSinitsynButton();
@@ -432,10 +559,14 @@ public class FiltersTest extends TestBase {
         //сравниваем размеры и содержание списков
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size())));
+                () -> assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteSize)));
     }
 
+    /**
+     * Prosto Jewlry
+     */
     @Test
+    @Description("Проверяем работу фильтров: По дизайнеру(Prosto Jewlry)")
     public void getProstoJewlry() {
         getDesignersFilter();
         designersFilter.clickToJewlryButton();
@@ -450,7 +581,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size())));
     }
 
+    /**
+     * Avgvst
+     */
     @Test
+    @Description("Проверяем работу фильтров: По дизайнеру(Avgvst)")
     public void getAvgvst() {
         getDesignersFilter();
         designersFilter.clickToAvgvstButton();
@@ -467,9 +602,13 @@ public class FiltersTest extends TestBase {
     }
 
 
-    //Проверка кнопки "Сбросить всё" фильтр
-    //Внутри фильтра
+    /**
+     * Проверка кнопки "Сбросить всё" фильтр
+     * <p>
+     * Внутри фильтра
+     */
     @Test
+    @Description("Проверка кнопки 'Сбросить всё' фильтр. Внутри фильтра")
     public void resetFilter() {
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
@@ -479,8 +618,11 @@ public class FiltersTest extends TestBase {
         assertNotEquals(countHeader, countHeader2);
     }
 
-    //Выйдя из фильтра
+    /**
+     * Выйдя из фильтра. В каталоге
+     */
     @Test
+    @Description("Проверка кнопки 'Сбросить всё' фильтр. Выйдя из фильтра. В каталоге")
     public void resetFilterExit() {
         filters.clickToFilterButton();
         filters.clickToAllEarringsButton();
@@ -492,40 +634,40 @@ public class FiltersTest extends TestBase {
     }
 
 
-    /*
-    Сброс фильтров по категориям(Последовательно выбираем фильтры: Серьги, Ювелирный сплав, белый).
-    Затем сбрасываем их в обратной последовательности.
-    Смотрим, чтобы менялось кол-во
+    /**
+     * Сброс фильтров по категориям(Последовательно выбираем фильтры: Серьги, Ювелирный сплав, белый).
+     * Затем сбрасываем их в обратной последовательности.
+     * Смотрим, чтобы менялось кол-во
      */
-
     @Test
-    public void resetFiltersByCategory()  {
+    @Description("Сброс фильтров по категориям(Последовательно выбираем фильтры: Серьги, Ювелирный сплав, белый)")
+    public void resetFiltersByCategory() {
         material = new Material(driver);
         colors = new Colors(driver);
         filters.clickToFilterButton();
-        sleep(2000);
+        sleep(3000);
         String numberOfProducts1 = filters.getNumberOfProducts();
         filters.clickToAllEarringsButton();
-        sleep(2000);
+        sleep(3000);
         String numberOfProducts2 = filters.getNumberOfProducts();
         material.clickToMaterialButton();
-        sleep(2000);
+        sleep(3000);
         material.clickToJewelryAlloyButton();
-        sleep(2000);
+        sleep(3000);
         String numberOfProducts3 = filters.getNumberOfProducts();
         colors.clickToColorButton();
-        sleep(2000);
+        sleep(3000);
         colors.clickToWhiteButton();
-        sleep(2000);
+        sleep(3000);
         String numberOfProducts4 = filters.getNumberOfProducts();
         colors.clickToWhiteButton();
-        sleep(2000);
+        sleep(3000);
         String numberOfProducts5 = filters.getNumberOfProducts();
         material.clickToJewelryAlloyButton();
-        sleep(2000);
+        sleep(3000);
         String numberOfProducts6 = filters.getNumberOfProducts();
         filters.clickToAllEarringsButton2();
-        sleep(2000);
+        sleep(3000);
         String numberOfProducts7 = filters.getNumberOfProducts();
         Assertions.assertAll(
                 () -> assertNotEquals(numberOfProducts1, numberOfProducts2),
@@ -536,14 +678,15 @@ public class FiltersTest extends TestBase {
     }
 
 
-    //Фильтры со скидками
-
-    /*
-    /Проверка фильтра со скидками(переключение между фильтрами: Все скидки, от 10, 30, 50 и 70%)
-    Смотрим чтобы менялось кол-во
+    /**
+     * Фильтры со скидками:
+     * <p>
+     * Проверка фильтра со скидками(переключение между фильтрами: Все скидки, от 10, 30, 50%)
+     * <p>
+     * Смотрим чтобы менялось кол-во
      */
-
     @Test
+    @Description("Проверка фильтра со скидками(переключение между фильтрами: Все скидки, от 10, 30, 50%)")
     public void discountsFilter() {
         filters.clickToFilterButton();
         String numberOfProducts1 = filters.getNumberOfProducts();
@@ -559,23 +702,20 @@ public class FiltersTest extends TestBase {
         filters.clickToFiftyPercentButton();
         sleep(2000);
         String numberOfProducts5 = filters.getNumberOfProducts();
-
-        //Скидки 70% бывают не всегда
-//        filters.clickToSeventyPercentButton();
-//        Thread.sleep(2000);
-//        String numberOfProducts6 = filters.getNumberOfProducts();
         Assertions.assertAll(
                 () -> assertNotEquals(numberOfProducts1, numberOfProducts2),
                 () -> assertEquals(numberOfProducts2, numberOfProducts3),
                 () -> assertNotEquals(numberOfProducts3, numberOfProducts4),
                 () -> assertNotEquals(numberOfProducts4, numberOfProducts5));
-//                () -> assertNotEquals(numberOfProducts5, numberOfProducts6));
     }
 
-    //Проверяем, что выводится правильное кол-во изделий
-
-    //Все скидки
+    /**
+     * Проверяем, что выводится правильное кол-во изделий:
+     * <p>
+     * Кнопка 'Все скидки'
+     */
     @Test
+    @Description("Проверяем, что выводится правильное кол-во изделий: Кнопка 'Все скидки'")
     public void allDiscounts() {
         filters.clickToFilterButton();
         filters.clickToAllDiscountsButton();
@@ -588,11 +728,14 @@ public class FiltersTest extends TestBase {
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
                 () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+                () -> assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20)));
     }
 
-    //Скидки 30%
+    /**
+     * Кнопка 'от 30%'
+     */
     @Test
+    @Description("Проверяем, что выводится правильное кол-во изделий: Кнопка 'от 30%'")
     public void thirtyPercentDiscounts() {
         filters.clickToFilterButton();
         filters.clickToThirtyPercentButton();
@@ -608,8 +751,11 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
-    //Скидки 50%
+    /**
+     * Кнопка 'от 50%'
+     */
     @Test
+    @Description("Проверяем, что выводится правильное кол-во изделий: Кнопка 'от 50%'")
     public void fiftyPercentDiscounts() {
         filters.clickToFilterButton();
         filters.clickToFiftyPercentButton();
@@ -625,125 +771,6 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
-
-    //Скидки 70% бывают не всегда
-//    @Test
-//    public void seventyPercentDiscounts() {
-//        filters.clickToFilterButton();
-//        filters.clickToSeventyPercentButton();
-//        filters.clickToShowProductsButton();
-//        List<String> sqlList = filters.getSeventyPercentDiscountItems();
-//        getProductsListFromPage();
-//        String countHeader = filters.getCountHeader();
-//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-//        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        Assertions.assertAll(
-//                () -> assertEquals(sqlList.size(), numberOnly),
-//                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-//                () -> assertEquals(sqlList.get(2), siteList.get(2)));
-//    }
-
-
-    //Тесты кнопок с фильтрами(шаблоны фильтров) временно отключен, будет что-то новое(Юра Пронин)
-//    @Test
-//    public void filterButtonEarrings() {
-//        earrings = new Earrings(driver);
-//        filters.clickToEarringsButton();
-//        List<String> sqlList = earrings.getNamesForFilters();
-//        int sqlSize = sqlList.size();
-//        List<WebElement> elements = driver.findElements(numberOfItem);
-//        for (WebElement text : elements) {
-//            String s = text.getAttribute("textContent");
-//            siteList.add(s);
-//            siteSize = siteList.size();
-//        }
-//        String countHeader = filters.getCountHeader();
-//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(1), siteList.get(1));
-//    }
-//
-//    @Test
-//    public void filterButtonRings() {
-//        rings = new Rings(driver);
-//        filters.clickToRingsButton();
-//        List<String> sqlList = rings.getNamesForFilters();
-//        int sqlSize = sqlList.size();
-//        List<WebElement> elements = driver.findElements(numberOfItem);
-//        for (WebElement text : elements) {
-//            String s = text.getAttribute("textContent");
-//            siteList.add(s);
-//        }
-//        String countHeader = filters.getCountHeader();
-//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
-//    }
-//
-//    @Test
-//    public void filterButtonNecklaces() {
-//        necklaces = new Necklaces(driver);
-//        filters.clickToNecklacesButton();
-//        List<String> sqlList = necklaces.getNamesForFilters();
-//        int sqlSize = sqlList.size();
-//        List<WebElement> elements = driver.findElements(numberOfItem);
-//        for (WebElement text : elements) {
-//            String s = text.getAttribute("textContent");
-//            siteList.add(s);
-//            siteSize = siteList.size();
-//        }
-//        String countHeader = filters.getCountHeader();
-//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
-//        assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20));
-//    }
-//
-//    @Test
-//    public void filterButtonBracelets() {
-//        bracelets = new Bracelets(driver);
-//        filters.clickToBraceletsButton();
-//        List<String> sqlList = bracelets.getNamesForFilters();
-//        int sqlSize = sqlList.size();
-//        List<WebElement> elements = driver.findElements(numberOfItem);
-//        for (WebElement text : elements) {
-//            String s = text.getAttribute("textContent");
-//            siteList.add(s);
-//            siteSize = siteList.size();
-//        }
-//        String countHeader = filters.getCountHeader();
-//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.get(0), siteList.get(0));
-//        assertEquals(sqlList.get(2), siteList.get(2));
-//    }
-//
-//    @Test
-//    public void filterButtonBrooches() throws InterruptedException {
-//        brooches = new Brooches(driver);
-//        filters.clickToBroochesButton();
-//        Thread.sleep(500);
-//        List<String> sqlList = brooches.getNamesForFilters();
-//        int sqlSize = sqlList.size();
-//        List<WebElement> elements = driver.findElements(numberOfItem);
-//        for (WebElement text : elements) {
-//            String s = text.getAttribute("textContent");
-//            siteList.add(s);
-//            siteSize = siteList.size();
-//        }
-//        String countHeader = filters.getCountHeader();
-//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-//        //сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-//        assertEquals(sqlSize, numberOnly);
-//        assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20));
-//        assertEquals(sqlList.get(2), siteList.get(2));
-//    }
 
     @AfterEach
     public void tearDownEach() {

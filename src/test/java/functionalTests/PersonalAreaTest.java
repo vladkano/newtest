@@ -1,6 +1,8 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import mainPage.MainPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +16,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+@Epic("Тесты личного кабинета пользователя")
 @ResourceLock("Code")
 @NotThreadSafe
 public class PersonalAreaTest extends TestBase {
@@ -31,9 +34,13 @@ public class PersonalAreaTest extends TestBase {
         personalData.clickOnPersonalDataButton();
     }
 
-    //Позитивные тесты
-    //Выход из ЛК
+    /**
+     * Позитивные тесты
+     * <p>
+     * Выход из личного кабинета
+     */
     @Test
+    @Description("Выход из личного кабинета")
     public void goOut() {
         personalData.clickOnGoOutButton();
         mainPage.clickOnSigInButton();
@@ -41,8 +48,11 @@ public class PersonalAreaTest extends TestBase {
         assertEquals("Вход или регистрация", heading);
     }
 
-    //Отображение элементов и полей
+    /**
+     * Отображение элементов и полей на странице личного кабинета
+     */
     @Test
+    @Description("Отображение элементов и полей на странице личного кабинета")
     public void visibilityOfElements() {
         String personalDataHeader = personalData.getPersonalDataHeader();
         String aboutYouHeader = personalData.getAboutYouHeader();
@@ -52,8 +62,12 @@ public class PersonalAreaTest extends TestBase {
         String phoneHeader = personalData.getProfilePhoneHeader();
         String emailHeader = personalData.getProfileEmailHeader();
         String addressHeader = personalData.getDeliveryAddressHeader();
-        String deliveryCityHeader = personalData.getProfileDeliveryCityHeader();
         String deliveryAddressHeader = personalData.getProfileDeliveryAddressHeader();
+        String apartmentsHeader = personalData.getApartmentsHeader();
+        String entranceHeader = personalData.getEntranceHeader();
+        String floorHeader = personalData.getFloorHeader();
+        String intercomHeader = personalData.getIntercomHeader();
+
         Assertions.assertAll(
                 () -> assertEquals("Личные данные", personalDataHeader),
                 () -> assertEquals("О вас", aboutYouHeader),
@@ -63,13 +77,21 @@ public class PersonalAreaTest extends TestBase {
                 () -> assertEquals("Телефон", phoneHeader),
                 () -> assertEquals("Email", emailHeader),
                 () -> assertEquals("Адрес доставки", addressHeader),
-                () -> assertEquals("Нас. пункт", deliveryCityHeader),
-                () -> assertEquals("Адрес", deliveryAddressHeader));
+                () -> assertEquals("Адрес", deliveryAddressHeader),
+                () -> assertEquals("Квартира, офис", apartmentsHeader),
+                () -> assertEquals("Подъезд", entranceHeader),
+                () -> assertEquals("Этаж", floorHeader),
+                () -> assertEquals("Домофон", intercomHeader));
     }
 
-    //Получение и изменения значений в полях
+    /**
+     * Получение и изменения значений в полях
+     * <p>
+     * Изменение имени пользователя
+     */
     @Test
-    public void changeName()  {
+    @Description("Изменение имени пользователя")
+    public void changeName() {
         String firstName = personalData.getName();
         personalData.clickOnName();
         personalData.typeName("1");
@@ -77,7 +99,6 @@ public class PersonalAreaTest extends TestBase {
         String secondName = personalData.getName();
         personalData.clickOnName();
         personalData.typeName("Тестовое Имя");
-        sleep(500);
         personalData.clickOnSaveButton();
         String finalName = personalData.getName();
         Assertions.assertAll(
@@ -86,44 +107,87 @@ public class PersonalAreaTest extends TestBase {
                 () -> assertEquals(firstName, finalName));
     }
 
+    /**
+     * Проверяем что адрес доставки можно изменить
+     */
     @Test
-    public void changeDeliveryCity() {
+    @Description("Проверяем что адрес доставки можно изменить")
+    public void changeDeliveryAddress() {
         String first = personalData.getDeliveryCity();
-        personalData.clickOnDeliveryCity();
-        personalData.typeDeliveryCity("Тестовая улица");
-        personalData.clickOnSaveButton();
+        personalData.addAddress("Санкт-Петербург, пр-кт Просвещения, д 20");
+        personalData.clickOnSaveAddressButton();
         String second = personalData.getDeliveryCity();
-        personalData.clickOnDeliveryCity();
-        personalData.typeDeliveryCity("Тестовый город");
-        sleep(500);
-        personalData.clickOnSaveButton();
+        sleep(1000);
+        personalData.addAddress("Санкт-Петербург, пр-кт Просвещения, д 10");
+        personalData.clickOnSaveAddressButton();
+        String saveAddressHeader = personalData.getSaveAddressHeader();
         String last = personalData.getDeliveryCity();
         Assertions.assertAll(
                 () -> assertNotEquals(first, second),
                 () -> assertNotEquals(second, last),
-                () -> assertEquals(first, last));
+                () -> assertEquals(first, last),
+                () -> assertEquals("Сохранено", saveAddressHeader));
     }
 
+    /**
+     * Проверяем что изменения по полям: квартира, подъезд, этаж и домофон можно сохранить
+     */
     @Test
-    public void changeDeliveryAddress() {
-        String first = personalData.getDeliveryAddress();
-        personalData.clickOnDeliveryAddress();
-        personalData.typeDeliveryAddress("Тестовая улица дом 2");
-        personalData.clickOnSaveButton();
-        String second = personalData.getDeliveryAddress();
-        personalData.clickOnDeliveryAddress();
-        personalData.typeDeliveryAddress("Тестовый адрес 13");
-        sleep(500);
-        personalData.clickOnSaveButton();
-        String last = personalData.getDeliveryAddress();
+    @Description("Проверяем что изменения по полям: квартира, подъезд, этаж и домофон можно сохранить")
+    public void changeDeliveryApartmentAndFloor() {
+        String first = personalData.getApartmentsDeliveryAddress();
+        personalData.addApartments("1");
+        String second = personalData.getApartmentsDeliveryAddress();
+        personalData.addApartments("2");
+        String saveAddressHeader = personalData.getSaveAddressHeader();
+        String last = personalData.getApartmentsDeliveryAddress();
+
+        String firstEntrance = personalData.getEntranceDeliveryAddress();
+        personalData.addEntrance("3");
+        String secondEntrance = personalData.getEntranceDeliveryAddress();
+        personalData.addEntrance("2");
+        String saveAddressHeader2 = personalData.getSaveAddressHeader();
+        String lastEntrance = personalData.getApartmentsDeliveryAddress();
+
+        String firstFloor = personalData.getFloorDeliveryAddress();
+        personalData.addFloor("4");
+        String secondFloor = personalData.getFloorDeliveryAddress();
+        personalData.addFloor("2");
+        String saveAddressHeader3 = personalData.getSaveAddressHeader();
+        String lastFloor = personalData.getFloorDeliveryAddress();
+
+        String firstIntercom = personalData.getIntercomDeliveryAddress();
+        personalData.addIntercom("да");
+        String secondIntercom = personalData.getIntercomDeliveryAddress();
+        personalData.addIntercom("нет");
+        String saveAddressHeader4 = personalData.getSaveAddressHeader();
+        String lastIntercom = personalData.getIntercomDeliveryAddress();
+
         Assertions.assertAll(
                 () -> assertNotEquals(first, second),
                 () -> assertNotEquals(second, last),
-                () -> assertEquals(first, last));
+                () -> assertEquals(first, last),
+                () -> assertEquals("Сохранено", saveAddressHeader),
+                () -> assertNotEquals(firstEntrance, secondEntrance),
+                () -> assertNotEquals(secondEntrance, lastEntrance),
+                () -> assertEquals(firstEntrance, lastEntrance),
+                () -> assertEquals("Сохранено", saveAddressHeader2),
+                () -> assertNotEquals(firstFloor, secondFloor),
+                () -> assertNotEquals(secondFloor, lastFloor),
+                () -> assertEquals(firstFloor, lastFloor),
+                () -> assertEquals("Сохранено", saveAddressHeader3),
+                () -> assertNotEquals(firstIntercom, secondIntercom),
+                () -> assertNotEquals(secondIntercom, lastIntercom),
+                () -> assertEquals(firstIntercom, lastIntercom),
+                () -> assertEquals("Сохранено", saveAddressHeader4));
+
     }
 
-    //Изменять поля телефон и email в ЛК запрещено(поэтому просто проверяем значения)
+    /**
+     * Изменять поля телефон и email в ЛК запрещено(поэтому просто проверяем значения)
+     */
     @Test
+    @Description("Изменять поля телефон и email в ЛК запрещено(поэтому просто проверяем значения)")
     public void getPhoneNumberAndMail() {
         String phone = personalData.getPhone();
         String email = personalData.getEmail();
@@ -132,30 +196,60 @@ public class PersonalAreaTest extends TestBase {
                 () -> assertEquals("test13@mail.com", email));
     }
 
-    //Негативные тесты
-    //Не заполнено поле "Имя"
+    /**
+     * Негативные тесты
+     * <p>
+     * Не заполнено поле "Имя"
+     */
     @Test
+    @Description("Не заполнено поле 'Имя'")
     public void emptyFieldName() {
         personalData.clickOnName();
-        personalData.clickOnSaveButton();
         String header = personalData.getEmptyNameHeader();
         assertEquals("Необходимо указать имя", header);
     }
 
-    //Не заполнено поле "Дата рождения"
+    /**
+     * Не заполнено поле "Дата рождения"
+     */
     @Test
+    @Description("Не заполнено поле 'Дата рождения'")
     public void emptyFieldBirthday() {
         personalData.clickOnBirthday();
-        personalData.clickOnSaveButton();
         String header = personalData.getEmptyBirthdayHeader();
         assertEquals("Ошибка! День рождения должен быть указан в формате дд.мм", header);
     }
 
-
-    //Тесты отображения заказов в ЛК(номер, статус, дата, адрес, получатель, состав, доставка, итого)
-
-    //Проверка отображения заголовков в заказе
+    /**
+     * Нельзя изменить поле "Дата рождения"
+     */
     @Test
+    @Description("Проверяем, что нельзя изменить поле 'Дата рождения'")
+    public void changeFieldBirthday() {
+        personalData.typeBirthday("12.12");
+        String birthdayError = personalData.getBirthdayError();
+        assertEquals("Повторное изменение дня рождения из личного кабинета невозможно. Свяжитесь с оператором.", birthdayError);
+    }
+
+    /**
+     * Некорректно заполнено поле "Адрес"
+     */
+    @Test
+    @Description("Некорректно заполнено поле 'Адрес'")
+    public void incorrectAddressField() {
+        personalData.addIncorrectAddress("Тестовая аллея");
+        String profileDeliveryAddressError = personalData.getProfileDeliveryAddressError();
+        assertEquals("Адрес указан не полностью", profileDeliveryAddressError);
+    }
+
+
+    /**
+     * Тесты отображения заказов в ЛК(номер, статус, дата, адрес, получатель, состав, доставка, итого)
+     * <p>
+     * Проверка отображения заголовков в заказе
+     */
+    @Test
+    @Description("Проверка отображения заголовков в заказе")
     public void checkingOrderHeaders() {
         String orderStatus = personalData.clickOnOrdersButton()
                 .getOrderStatus();
@@ -171,8 +265,11 @@ public class PersonalAreaTest extends TestBase {
                 () -> assertEquals("Вы заказали", orderYouOrderedHeader));
     }
 
-    //Проверка отображения всех данных последнего заказа(сверка с БД)
+    /**
+     * Проверка отображения всех данных последнего заказа(сверка с БД)
+     */
     @Test
+    @Description("Проверка отображения всех данных последнего заказа(сверка с БД)")
     public void checkingLastOrder() {
         //site
         String orderNumber = personalData.clickOnOrdersButton()
@@ -203,18 +300,17 @@ public class PersonalAreaTest extends TestBase {
                 () -> assertEquals(lastOrderFinalSum, finalSum));
     }
 
-    //Сверяем кол-во заказов у пользователя
+    /**
+     * Сверяем кол-во заказов у пользователя
+     */
     @Test
+    @Description("Сверяем кол-во заказов у пользователя")
     public void checkingOrderList() {
         Integer numberOfOrdersSql = personalData.getNumberOfOrdersSql();
         Integer numberOfOrders = personalData.clickOnOrdersButton()
                 .getNumberOfOrders();
         assertEquals(numberOfOrdersSql, numberOfOrders);
     }
-
-
-    //Валидации и ограничений по полям пока нет создан таск https://poisondrop.atlassian.net/browse/PD-814
-
 
     @AfterEach
     public void tearDownEach() {

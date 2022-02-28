@@ -22,6 +22,7 @@ public class ProductCard extends Base {
     private final By afimoll = By.xpath("//span[text()='Афимолл']");
     private final By atrium = By.xpath("//span[text()='Атриум']");
     private final By redBridge = By.xpath("//span[text()='APR Санкт-Петербург']");
+    private final By availabilityText = By.xpath("//p[@class='storages-list__description']");
 
     private final By jewelryCareButton = By.xpath("//h3[text()='Состав и характеристики']");
     private final By jewelryCareHeader = By.xpath("//h4[text()='Ювелирные украшения']");
@@ -91,6 +92,10 @@ public class ProductCard extends Base {
 
     public String getRedBridge() {
         return driver.findElement(redBridge).getAttribute("textContent");
+    }
+
+    public String getAvailabilityText() {
+        return driver.findElement(availabilityText).getAttribute("textContent");
     }
 
     public ProductCard clickToJewelryCareButton() {

@@ -1,6 +1,7 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import sections.Subscription;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Epic("Тесты всплывающего окна с подпиской")
 public class SubscriptionTests extends TestBase {
 
     @BeforeEach

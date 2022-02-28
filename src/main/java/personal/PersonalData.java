@@ -1,10 +1,7 @@
 package personal;
 
 import base.Base;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,14 +17,19 @@ public class PersonalData extends Base {
 
     private final By goOutButton = By.xpath("//span[text()='Выйти']");
     private final By personalDataButton = By.xpath("//a[@href='/profile?section=personalData']");
-    private final By saveButton = By.xpath("//span[text()='Сохранить']");
-    private final By profileFullName = By.id("profileFullName");
-    private final By profileBirthday = By.id("profileBirthday");
+    private final By saveButton = By.xpath("//span[text()='Сохранить данные']");
+    private final By profileFullName = By.xpath("//div[@class='text-input']/input");
+    private final By profileBirthday = By.xpath("//input[@placeholder='дд.мм']");
     private final By profilePhone = By.id("profilePhone");
-    private final By profileEmail = By.id("profileEmail");
-    private final By profileDeliveryCity = By.id("profileDeliveryCity");
-    private final By profileDeliveryAddress = By.id("profileDeliveryAddress");
+    private final By profileEmail = By.xpath("//input[@placeholder='mail@mail.ru']");
+    private final By profileDeliveryCity = By.id("addressArea");
+    private final By apartmentsDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[5]");
+    private final By entranceDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[6]");
+    private final By floorDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[7]");
+    private final By intercomDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[8]");
     private final By ordersButton = By.xpath("//span[text()='Заказы']");
+    private final By saveAddressButton = By.xpath("//span[text()='Сохранить адрес']");
+    private final By chooseAddressButton = By.xpath("//ul[@class='autocomplete-list']/li");
 
 
     //headers
@@ -39,10 +41,14 @@ public class PersonalData extends Base {
     private final By profilePhoneHeader = By.xpath("//label[text()='Телефон']");
     private final By profileEmailHeader = By.xpath("//label[text()='Email']");
     private final By deliveryAddressHeader = By.xpath("//legend[text()='Адрес доставки']");
-    private final By profileDeliveryCityHeader = By.xpath("//label[text()='Нас. пункт']");
     private final By profileDeliveryAddressHeader = By.xpath("//label[text()='Адрес']");
+    private final By apartmentsHeader = By.xpath("//label[text()='Квартира, офис']");
+    private final By entranceHeader = By.xpath("//label[text()='Подъезд']");
+    private final By floorHeader = By.xpath("//label[text()='Этаж']");
+    private final By intercomHeader = By.xpath("//label[text()='Домофон']");
+
     private final By emptyNameHeader = By.xpath("//p[text()='Необходимо указать имя']");
-    private final By emptyBirthdayHeader = By.xpath("//p[@class='message message_error']");
+    private final By emptyBirthdayHeader = By.xpath("//p[@class='text-input__message message message_error']");
     private final By orderNumber = By.xpath("//h3[@class='order-card__title order-card__number']");
     private final By orderStatus = By.xpath("//b[@class='order-card__status order-card__status_test']");
     private final By orderDataHeader = By.xpath("//span[text()='Дата заказа']");
@@ -55,6 +61,9 @@ public class PersonalData extends Base {
     private final By orderContent = By.xpath("//h4[@class='order-product__product-name']/a");
     private final By orderPrice = By.xpath("//b[@class='price-block__price']");
     private final By orderFinalPrice = By.xpath("//p[@class='order-card__total-sum']");
+    private final By saveAddressHeader = By.xpath("//p[text()='Сохранено']");
+    private final By profileBirthdayError = By.xpath("//p[@class='submit-block__message message message_error']");
+    private final By profileDeliveryAddressError = By.xpath("//p[@class='text-input__message message message_error']");
 
 
     public PersonalData(WebDriver driver) {
@@ -132,22 +141,8 @@ public class PersonalData extends Base {
         return driver.findElement(emptyNameHeader).getText();
     }
 
-    public void clickOnDeliveryAddress() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(profileDeliveryAddress));
-        driver.findElement(profileDeliveryAddress).clear();
-    }
-
-    public String getDeliveryAddress() {
-        return driver.findElement(profileDeliveryAddress).getAttribute("value");
-    }
-
-    public void typeDeliveryAddress(String address) {
-        driver.findElement(profileDeliveryAddress).sendKeys(address);
-    }
-
     public void clickOnDeliveryCity() {
-        driver.findElement(profileDeliveryCity).click();
+        click(profileDeliveryCity);
         driver.findElement(profileDeliveryCity).clear();
     }
 
@@ -155,8 +150,40 @@ public class PersonalData extends Base {
         return driver.findElement(profileDeliveryCity).getAttribute("value");
     }
 
-    public void typeDeliveryCity(String city) {
-        driver.findElement(profileDeliveryCity).sendKeys(city);
+    public void clickOnApartmentsDeliveryAddress() {
+        click(apartmentsDeliveryAddress);
+        driver.findElement(apartmentsDeliveryAddress).clear();
+    }
+
+    public String getApartmentsDeliveryAddress() {
+        return driver.findElement(apartmentsDeliveryAddress).getAttribute("value");
+    }
+
+    public void clickOnEntranceDeliveryAddress() {
+        click(entranceDeliveryAddress);
+        driver.findElement(entranceDeliveryAddress).clear();
+    }
+
+    public String getEntranceDeliveryAddress() {
+        return driver.findElement(entranceDeliveryAddress).getAttribute("value");
+    }
+
+    public void clickOnFloorDeliveryAddress() {
+        click(floorDeliveryAddress);
+        driver.findElement(floorDeliveryAddress).clear();
+    }
+
+    public String getFloorDeliveryAddress() {
+        return driver.findElement(floorDeliveryAddress).getAttribute("value");
+    }
+
+    public void clickOnIntercomDeliveryAddress() {
+        click(intercomDeliveryAddress);
+        driver.findElement(intercomDeliveryAddress).clear();
+    }
+
+    public String getIntercomDeliveryAddress() {
+        return driver.findElement(intercomDeliveryAddress).getAttribute("value");
     }
 
     public String getEmail() {
@@ -169,22 +196,31 @@ public class PersonalData extends Base {
 
     public void clickOnBirthday() {
         driver.findElement(profileBirthday).click();
-        driver.findElement(profileBirthday).clear();
-        driver.findElement(profileBirthday).click();
+        driver.findElement(profileBirthday).sendKeys(Keys.CONTROL + "a");
+        driver.findElement(profileBirthday).sendKeys(Keys.DELETE);
+        clickOnSaveButton();
     }
 
-//    public String getBirthday() {
-//        return driver.findElement(profileBirthday).getAttribute("value");
-//    }
-//
-//    public PersonalData typeBirthday(String birthday) {
-//        driver.findElement(profileBirthday).sendKeys(birthday);
-//        return this;
-//    }
+    public String getBirthdayError() {
+        return driver.findElement(profileBirthdayError).getText();
+    }
+
+    public String getProfileDeliveryAddressError() {
+        return driver.findElement(profileDeliveryAddressError).getText();
+    }
+
+    public void typeBirthday(String birthday) {
+        driver.findElement(profileBirthday).click();
+        driver.findElement(profileBirthday).clear();
+        driver.findElement(profileBirthday).sendKeys(birthday);
+        clickOnSaveButton();
+    }
 
     public void clickOnName() {
         click(profileFullName);
-        driver.findElement(profileFullName).clear();
+        driver.findElement(profileFullName).sendKeys(Keys.CONTROL + "a");
+        driver.findElement(profileFullName).sendKeys(Keys.DELETE);
+        clickOnSaveButton();
     }
 
     public String getName() {
@@ -196,8 +232,13 @@ public class PersonalData extends Base {
     }
 
     public void clickOnSaveButton() {
+        click(saveButton);
+    }
+
+    public void clickOnSaveAddressButton() {
         ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(saveButton));
+                "arguments[0].click();", driver.findElement(saveAddressButton));
+//        click(saveAddressButton);
     }
 
     public void clickOnGoOutButton() {
@@ -210,6 +251,10 @@ public class PersonalData extends Base {
 
     public String getPersonalDataHeader() {
         return driver.findElement(personalDataHeader).getText();
+    }
+
+    public String getSaveAddressHeader() {
+        return driver.findElement(saveAddressHeader).getText();
     }
 
     public String getAboutYouHeader() {
@@ -240,12 +285,60 @@ public class PersonalData extends Base {
         return driver.findElement(deliveryAddressHeader).getText();
     }
 
-    public String getProfileDeliveryCityHeader() {
-        return driver.findElement(profileDeliveryCityHeader).getText();
-    }
-
     public String getProfileDeliveryAddressHeader() {
         return driver.findElement(profileDeliveryAddressHeader).getText();
+    }
+
+    public String getApartmentsHeader() {
+        return driver.findElement(apartmentsHeader).getText();
+    }
+
+    public String getEntranceHeader() {
+        return driver.findElement(entranceHeader).getText();
+    }
+
+    public String getFloorHeader() {
+        return driver.findElement(floorHeader).getText();
+    }
+
+    public String getIntercomHeader() {
+        return driver.findElement(intercomHeader).getText();
+    }
+
+    public void addAddress(String address) {
+        clickOnDeliveryCity();
+        type(address, profileDeliveryCity);
+        click(chooseAddressButton);
+    }
+
+    public void addIncorrectAddress(String address) {
+        clickOnDeliveryCity();
+        type(address, profileDeliveryCity);
+        clickOnSaveAddressButton();
+    }
+
+    public void addApartments(String apartments) {
+        clickOnApartmentsDeliveryAddress();
+        type(apartments, apartmentsDeliveryAddress);
+        clickOnSaveAddressButton();
+    }
+
+    public void addEntrance(String entrance) {
+        clickOnEntranceDeliveryAddress();
+        type(entrance, entranceDeliveryAddress);
+        clickOnSaveAddressButton();
+    }
+
+    public void addFloor(String floor) {
+        clickOnFloorDeliveryAddress();
+        type(floor, floorDeliveryAddress);
+        clickOnSaveAddressButton();
+    }
+
+    public void addIntercom(String intercom) {
+        clickOnIntercomDeliveryAddress();
+        type(intercom, intercomDeliveryAddress);
+        clickOnSaveAddressButton();
     }
 
     public String getLastOrderNumber() {

@@ -1,6 +1,7 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import io.qameta.allure.Epic;
 import order.Order;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import sections.NameNecklaces;
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("Тесты раздела именной подвески")
 @Disabled
 public class NameNecklacesTest extends TestBase {
 

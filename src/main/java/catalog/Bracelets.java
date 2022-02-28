@@ -74,7 +74,8 @@ public class Bracelets extends Base {
     }
 
     public List<Integer> getPrice() {
-        int price, discount;
+        int price;
+        double discount;
         List<Integer> text = new ArrayList<>();
         String query = "SELECT item_sku.price, (price * discount/100) as discount from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
@@ -91,8 +92,11 @@ public class Bracelets extends Base {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 price = resultSet.getInt("price");
-                discount = Math.toIntExact(Math.round(resultSet.getDouble("discount")));
-                Integer priceNew = price - discount;
+//                discount = Math.toIntExact(Math.round(resultSet.getDouble("discount")));
+//                Integer priceNew = price - discount;
+
+                discount = resultSet.getDouble("discount");
+                int priceNew = (int) Math.round(price - discount);
 //                System.out.println(discount);
                 text.add(priceNew);
             }

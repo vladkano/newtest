@@ -22,8 +22,8 @@ public class MainPageBanner extends Base {
     private final By designerButtonHeader = By.xpath("//*[@id='tns1-item4']//div[@class='catalog-card__designer']/a");
     private final By nameButtonHeader = By.xpath("//h3[@class='catalog-card__name']/a");
     private final By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
-//    private final By mainCatalogHeader = By.xpath("//span[text()='Фильтр']");
-    private final By mainCatalogHeader = By.xpath("//h4[text()='Самой сверкающей']");
+    private final By firstCatalogHeader = By.xpath("//span[text()='Фильтр']");
+    private final By mainCatalogHeader = By.xpath("//h1[text()='Самой сверкающей']");
     private final By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
 
 
@@ -64,6 +64,10 @@ public class MainPageBanner extends Base {
 
     public String getMainCatalogHeader() {
         return driver.findElement(mainCatalogHeader).getAttribute("textContent");
+    }
+
+    public String getFirstCatalogHeader() {
+        return driver.findElement(firstCatalogHeader).getAttribute("textContent");
     }
 
     public String getCatalogHref() {

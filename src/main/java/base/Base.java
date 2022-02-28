@@ -21,8 +21,6 @@ public class Base {
     //Тест(Курск)
 //    protected static String mainPageUrl = "https://kursk.poisontestdrop.ru/";
 
-    //Накст
-//    protected static String mainPageUrl = "https://nuxt.poisondrop.org.ru/";
 
     protected static String getUrl = mainPageUrl + "catalog/";
 
