@@ -126,7 +126,7 @@ public class PersonalAreaTest extends TestBase {
                 () -> assertNotEquals(first, second),
                 () -> assertNotEquals(second, last),
                 () -> assertEquals(first, last),
-                () -> assertEquals("Сохранено", saveAddressHeader));
+                () -> assertEquals("сохранено", saveAddressHeader));
     }
 
     /**
@@ -167,19 +167,19 @@ public class PersonalAreaTest extends TestBase {
                 () -> assertNotEquals(first, second),
                 () -> assertNotEquals(second, last),
                 () -> assertEquals(first, last),
-                () -> assertEquals("Сохранено", saveAddressHeader),
+                () -> assertEquals("сохранено", saveAddressHeader),
                 () -> assertNotEquals(firstEntrance, secondEntrance),
                 () -> assertNotEquals(secondEntrance, lastEntrance),
                 () -> assertEquals(firstEntrance, lastEntrance),
-                () -> assertEquals("Сохранено", saveAddressHeader2),
+                () -> assertEquals("сохранено", saveAddressHeader2),
                 () -> assertNotEquals(firstFloor, secondFloor),
                 () -> assertNotEquals(secondFloor, lastFloor),
                 () -> assertEquals(firstFloor, lastFloor),
-                () -> assertEquals("Сохранено", saveAddressHeader3),
+                () -> assertEquals("сохранено", saveAddressHeader3),
                 () -> assertNotEquals(firstIntercom, secondIntercom),
                 () -> assertNotEquals(secondIntercom, lastIntercom),
                 () -> assertEquals(firstIntercom, lastIntercom),
-                () -> assertEquals("Сохранено", saveAddressHeader4));
+                () -> assertEquals("сохранено", saveAddressHeader4));
 
     }
 
@@ -206,7 +206,7 @@ public class PersonalAreaTest extends TestBase {
     public void emptyFieldName() {
         personalData.clickOnName();
         String header = personalData.getEmptyNameHeader();
-        assertEquals("Необходимо указать имя", header);
+        assertEquals("необходимо указать имя", header);
     }
 
     /**
@@ -217,7 +217,7 @@ public class PersonalAreaTest extends TestBase {
     public void emptyFieldBirthday() {
         personalData.clickOnBirthday();
         String header = personalData.getEmptyBirthdayHeader();
-        assertEquals("Ошибка! День рождения должен быть указан в формате дд.мм", header);
+        assertEquals("ошибка! день рождения должен быть указан в формате дд.мм", header);
     }
 
     /**

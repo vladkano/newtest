@@ -13,7 +13,7 @@ import java.util.List;
 
 public class NewItems extends Base {
 
-    private final By newItemsButton = By.xpath("//a[text()='Новинки']");
+    private final By newItemsButton = By.xpath("//a[text()='новинки']");
 
     public NewItems(WebDriver driver) {
         super(driver);

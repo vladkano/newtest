@@ -80,9 +80,9 @@ public class Filters extends Base {
     }
 
     public void clickToShowProductsButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(showProductsButton));
-//        click(showProductsButton);
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(showProductsButton));
+        click(showProductsButton);
 //        driver.findElement(showProductsButton).click();
     }
 

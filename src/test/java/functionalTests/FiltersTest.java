@@ -474,8 +474,7 @@ public class FiltersTest extends TestBase {
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(1), siteList.get(1)));
+                () -> assertEquals(sqlList.get(0), siteList.get(0)));
     }
 
     /**

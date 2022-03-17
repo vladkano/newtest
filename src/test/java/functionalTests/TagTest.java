@@ -31,16 +31,19 @@ public class TagTest extends TestBase {
     public void tagIsVisibleBracelets() {
         driver.get(getUrl + "catalog/braslety");
         String firstTag = tag.getTag();
-        assertEquals("DEMI-FINE", firstTag);
+        assertEquals("ЭКСКЛЮЗИВ", firstTag);
     }
 
-    @Test
-    public void tagIsVisibleNecklaces() {
-        driver.get(getUrl + "catalog/kole");
-        String firstTag = tag.getTag();
-        String sqlTag = tag.nameNecklacesTags();
-        assertEquals(sqlTag.toUpperCase(), firstTag);
-    }
+    /**
+     * В разделе колье среди первых 48 нет товаров с тегами
+     */
+//    @Test
+//    public void tagIsVisibleNecklaces() {
+//        driver.get(getUrl + "catalog/kole");
+//        String firstTag = tag.getTag();
+//        String sqlTag = tag.nameNecklacesTags();
+//        assertEquals(sqlTag.toUpperCase(), firstTag);
+//    }
 
     @Test
     public void tagIsVisibleRings() {
@@ -69,14 +72,17 @@ public class TagTest extends TestBase {
         assertEquals(firstTag, tagsFromSql);
     }
 
-    @Test
-    public void tagIsCorrectNecklaces() {
-        driver.get(getUrl + "catalog/kole");
-        String firstTag = tag.getNecklacesTag();
-        String outputTag = Character.toUpperCase(firstTag.charAt(0)) + firstTag.substring(1);
-        String tagsFromSql = tag.nameNecklacesTags();
-        assertEquals(tagsFromSql, outputTag);
-    }
+    /**
+     * В разделе колье среди первых 48 нет товаров с тегами
+     */
+//    @Test
+//    public void tagIsCorrectNecklaces() {
+//        driver.get(getUrl + "catalog/kole");
+//        String firstTag = tag.getNecklacesTag();
+//        String outputTag = Character.toUpperCase(firstTag.charAt(0)) + firstTag.substring(1);
+//        String tagsFromSql = tag.nameNecklacesTags();
+//        assertEquals(tagsFromSql, outputTag);
+//    }
 
     @Test
     public void tagIsCorrectRings() {

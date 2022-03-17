@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class Shops extends Base {
 
-    private final By shopsButton = By.xpath("//span[text()='Магазины']");
+    private final By shopsButton = By.xpath("//span[text()='магазины']");
     private final By shopsHeader = By.xpath("//h1[text()='Магазины']");
 
     public Shops(WebDriver driver) {

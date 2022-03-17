@@ -28,7 +28,7 @@ public class Certificate extends Base {
     private final By secondSectionValue = By.xpath("(//div[@class='counter__value']//input[@name='certificate-value'])[2]");
     private final By thirdSectionValue = By.xpath("(//div[@class='counter__value']//input[@name='certificate-value'])[3]");
     private final By checkValue = By.xpath("//input[@name='quantity']");
-    private final By certificatesButton = By.xpath("//a[text()='Сертификаты']");
+    private final By certificatesButton = By.xpath("//a[text()='сертификаты']");
 
     private final By receiverName = By.xpath("//input[@id='receiverName']");
     private final By senderName = By.xpath("//input[@id='senderName']");

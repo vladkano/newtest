@@ -67,13 +67,14 @@ public class SectionsTest extends TestBase {
         assertEquals(getUrl + "designers/", url);
     }
 
-    @Test()
-    public void shopTheLookButton() {
-        shopTheLook = new ShopTheLook(driver);
-        shopTheLook.clickToShopTheLookButton();
-        String url = driver.getCurrentUrl();
-        assertEquals(getUrl + "shop-the-look/", url);
-    }
+    //Раздел отключен с 14.03.2022
+//    @Test()
+//    public void shopTheLookButton() {
+//        shopTheLook = new ShopTheLook(driver);
+//        shopTheLook.clickToShopTheLookButton();
+//        String url = driver.getCurrentUrl();
+//        assertEquals(getUrl + "shop-the-look/", url);
+//    }
 
     @Test()
     public void certificatesButton() {
@@ -242,7 +243,7 @@ public class SectionsTest extends TestBase {
         String header = footer.getTelegaHeader();
         Assertions.assertAll(
                 () -> assertEquals("https://t.me/impoisoned", url),
-                () -> assertEquals("I am Poisoned", header));
+                () -> assertEquals("Poison Drop", header));
     }
 
 

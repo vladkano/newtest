@@ -26,7 +26,9 @@ public class Basket extends Base {
 
     private final By plus2 = By.xpath("//input[@name='quantity']");
     private final By max = By.xpath("//div[@class='counter']");
-    private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter']");
+//    private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter']");
+    private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter _with-offset']");
+
     private final By inBasket = By.xpath("//span[text()='В корзине']");
     private final By noBasketHeader = By.xpath("//p[text()='Этого украшения сейчас нет в наличии']");
 

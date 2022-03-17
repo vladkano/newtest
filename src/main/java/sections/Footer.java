@@ -7,16 +7,16 @@ import org.openqa.selenium.WebDriver;
 
 public class Footer extends Base {
 
-    private final By aboutButton = By.xpath("//a[text()='О нас']");
-    private final By contactsButton = By.xpath("//a[text()='Контакты']");
-    private final By shopsButton = By.xpath("//a[text()='Адреса магазинов']");
-    private final By vacancyButton = By.xpath("//a[text()='Вакансии']");
-    private final By soglashenieButton = By.xpath("//a[text()='Пользовательское соглашение']");
-    private final By dostavkaButton = By.xpath("//a[text()='Доставка и оплата']");
-    private final By obmenButton = By.xpath("//a[text()='Обмен и возврат']");
-    private final By garantiiButton = By.xpath("//a[text()='Гарантии']");
-    private final By ofertaButton = By.xpath("//a[text()='Оферта']");
-    private final By personalnyeDannyeButton = By.xpath("//a[text()='Персональные данные']");
+    private final By aboutButton = By.xpath("//a[text()='о нас']");
+    private final By contactsButton = By.xpath("//a[text()='контакты']");
+    private final By shopsButton = By.xpath("//a[text()='адреса магазинов']");
+    private final By vacancyButton = By.xpath("//a[text()='вакансии']");
+    private final By soglashenieButton = By.xpath("//a[text()='пользовательское соглашение']");
+    private final By dostavkaButton = By.xpath("//a[text()='доставка и оплата']");
+    private final By obmenButton = By.xpath("//a[text()='обмен и возврат']");
+    private final By garantiiButton = By.xpath("//a[text()='гарантии']");
+    private final By ofertaButton = By.xpath("//a[text()='оферта']");
+    private final By personalnyeDannyeButton = By.xpath("//a[text()='персональные данные']");
     private final By instaButton = By.xpath("//a[@aria-label='instagram']");
     private final By telegaButton = By.xpath("//a[@aria-label='telegram']");
     private final By tikTokButton = By.xpath("//a[@aria-label='tik-tok']");
@@ -35,7 +35,7 @@ public class Footer extends Base {
     private final By garantiiHeader = By.xpath("//h1[text()='Гарантийный сервис']");
     private final By ofertaHeader = By.xpath("//h1[text()='Оферта']");
     private final By personalnyeDannyeHeader = By.xpath("//h1[@class='service-page__title']");
-    private final By telegaHeader = By.xpath("//span[text()='I am Poisoned']");
+    private final By telegaHeader = By.xpath("//span[text()='Poison Drop']");
     private final By youtubeHeader = By.xpath("//yt-formatted-string[text()='Poison Drop']");
     private final By whatsAppHeader = By.xpath("//h1[text()='Poison Drop by ООО \"ПойзонДроп\"']");
 

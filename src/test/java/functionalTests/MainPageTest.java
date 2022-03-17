@@ -65,11 +65,12 @@ public class MainPageTest extends TestBase {
         System.out.println("phone: " + phoneFromSite);
         //почта
         driver.navigate().to("https://temp-mail.org/ru/");
-        sleep(3000);
+        sleep(5000);
         String mailFromSite = mainPage.getMailFromSite();
         System.out.println("mail: " + mailFromSite);
         //заполняем форму
-        driver.navigate().to(getUrl);
+//        driver.navigate().to(getUrl);
+        driver.get(getUrl);
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(By.xpath("//span[text()='Закрыть и больше не показывать']")));
         sleep(2000);
@@ -92,8 +93,8 @@ public class MainPageTest extends TestBase {
         String sigInHeader = mainPage.getSigInHeader();
         mainPage.sigInWithPassword(code2);
         Assertions.assertAll(
-                () -> assertEquals("Вход или регистрация", heading),
-                () -> assertEquals("Вход", sigInHeader));
+                () -> assertEquals("вход или регистрация", heading),
+                () -> assertEquals("вход", sigInHeader));
     }
 
     //По почте + проверка, что отображается подпись во время авторизации
@@ -103,25 +104,26 @@ public class MainPageTest extends TestBase {
         String code2 = mainPage.getEmailPassword();
         String sigInCodeHeader = mainPage.getSigInEmailHeader();
         mainPage.sigInWithPassword(code2);
-        assertEquals("Письма нет? Проверьте спам или отправьте код ещё раз, в работе почтового сервиса бывают сбои", sigInCodeHeader);
+//        assertEquals("Письма нет? Проверьте спам или отправьте код ещё раз, в работе почтового сервиса бывают сбои", sigInCodeHeader);
+        assertEquals("если письма нет, проверьте спам или отправьте код ещё раз, в работе почтового сервиса бывают сбои", sigInCodeHeader);
     }
 
 
     //Негативные Тесты
     //Регистрация телефон
 
-    //Неправильный код подтверждения + проверка стрелки и крестика
+    //Неправильный код подтверждения + проверка крестика
     @Test
     public void registrationWithWrongCode() {
         mainPage.sigInWithPhone(phoneForAuthorization);
         mainPage.sigInWithPassword("2222");
         String incorrectSigInCodeHeader = mainPage.getIncorrectSigInCodeHeader();
-        mainPage.clickOnReturnButton();
-        String heading = mainPage.getSigOutHeader();
+//        mainPage.clickOnReturnButton();
+//        String heading = mainPage.getSigOutHeader();
         mainPage.clickOnCloseButton();
         Assertions.assertAll(
-                () -> assertEquals("Неверный код подтверждения", incorrectSigInCodeHeader),
-                () -> assertEquals("Вход или регистрация", heading));
+                () -> assertEquals("Неверный код подтверждения", incorrectSigInCodeHeader));
+//                () -> assertEquals("вход или регистрация", heading));
     }
 
     //Проверяем, что кнопка "Зарегистрироваться" не активна, если не заполнено поле "Электронная почта"
@@ -160,7 +162,7 @@ public class MainPageTest extends TestBase {
     public void signInWithIncorrectPhoneNumber() {
         MainPage head = mainPage.sigInWithPhone("+7912645932");
         String heading = head.getIncorrectSigInHeader();
-        assertEquals("+7912645932 - Пожалуйста, укажите верный номер", heading);
+        assertEquals("+7912645932 - по техническим причинам отправка SMS на данный номер невозможна.", heading);
     }
 
     //Проверка при вводе почты в окно для ввода телефона
@@ -168,7 +170,7 @@ public class MainPageTest extends TestBase {
     public void signInWithEmailInPhoneWindow() {
         MainPage head = mainPage.sigInWithPhone("test13@mail.com");
         String heading = head.getIncorrectSigInHeader();
-        assertEquals("Телефон указан неверно", heading);
+        assertEquals("телефон указан неверно", heading);
     }
 
     //По почте. Ввод почты, которой нет в базе
@@ -176,7 +178,7 @@ public class MainPageTest extends TestBase {
     public void signInWithWrongEmail() {
         mainPage.sigInWithEmail("test13test@mail.com");
         String heading = mainPage.getIncorrectSigInHeader();
-        assertEquals("Пользователь с данным email не найден. Попробуйте войти по номеру телефона, либо зарегистрируйтесь", heading);
+        assertEquals("пользователь с данным email не найден. попробуйте войти по номеру телефона, либо зарегистрируйтесь", heading);
     }
 
     //Email
