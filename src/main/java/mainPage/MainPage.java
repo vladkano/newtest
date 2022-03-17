@@ -4,6 +4,8 @@ import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,28 +18,28 @@ public class MainPage extends Base {
     private final By sigInButton = By.xpath("//span[@class='icon-with-title header__icon-button']");
     private final By lcButton = By.xpath("//a[@href='/profile?section=personalData']");
     private final By loginWithPhone = By.id("authLogin");
-    private final By loginWithMail = By.xpath("//form/input[@type='email']");
-    private final By getPassword = By.xpath("//button/span[text()='Получить код']");
+    private final By loginWithMail = By.xpath("//input[@type='email']");
+    private final By getPassword = By.xpath("//button/span[text()='получить код']");
     private final By authEmail = By.xpath("//input[@id ='authEmail']");
 
     private final By authName = By.id("authFullName");
     private final By consentButton = By.xpath("//label[@for='authPersonalDataAgreement']");
-    private final By registerButton = By.xpath("//span[text()='Зарегистрироваться']");
+    private final By registerButton = By.xpath("//span[text()='зарегистрироваться']");
     private final By registerButtonAttribute = By.xpath("//button[@class='auth-popup__button-send']");
-    private final By authPassword = By.xpath("//form/div/input[@id='authCode']");
+    private final By authPassword = By.xpath("//input[@id='authCode']");
     private final By exitButton = By.xpath("//span[text()='Выйти']");
     private final By phoneFromSite = By.xpath("//span[@class='info-box-number']");
     //    private final By phoneFromSite = By.xpath("(//span[@class='info-box-number'])[2]");
     private final By mailFromSite = By.id("mail");
-    private final By loginByMailButton = By.xpath("//button[text()='Войти по почте']");
+    private final By loginByMailButton = By.xpath("//button[text()='войти по почте']");
     private final By returnButton = By.xpath("//button[@aria-label='Вернуться на предыдущий шаг']");
     private final By closeButton = By.xpath("//button[@aria-label='Закрыть форму авторизации']");
 
 
     //headers
-    private final By sigInHeader = By.xpath("//h2[text()='Вход']");
+    private final By sigInHeader = By.xpath("//h2[text()='вход']");
     private final By incorrectSigInHeader = By.xpath("//p[@class='auth-popup__error']");
-    private final By sigOutHeader = By.xpath("//h2[text()='Вход или регистрация']");
+    private final By sigOutHeader = By.xpath("//h2[text()='вход или регистрация']");
     private final By incorrectSigInCodeHeader = By.xpath("//p[@class='auth-popup__error']");
     private final By sigInEmailHeader = By.xpath("//p[@class='auth-popup__prompt']");
 
@@ -66,7 +68,8 @@ public class MainPage extends Base {
     }
 
     public String getMailFromSite() {
-        sleep(500);
+//        WebDriverWait wait = new WebDriverWait(driver, 5);
+//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Копия']")));
         return driver.findElement(mailFromSite).getAttribute("value");
     }
 

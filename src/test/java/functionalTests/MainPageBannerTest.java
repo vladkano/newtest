@@ -83,10 +83,11 @@ public class MainPageBannerTest extends TestBase {
     }
 
     //Отображение блока Shop The Look
+    //Раздел отключен 14.03.2022(поэтому проверяем, что раздел недоступен)
     @Test
-    public void shopTheLookIsVisible() {
+    public void shopTheLookIsNotVisible() {
         int banners = driver.findElements(By.xpath("//div[@class='frisbuy-post-provider-instagram']")).size();
-        assertTrue(banners > 0);
+        assertTrue(banners <= 0);
     }
 
 

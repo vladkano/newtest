@@ -85,16 +85,16 @@ public class ProductCardsTest extends TestBase {
         String firstCurrentSize = size.getCurrentSize();
         size.clickToFirstCurrentSizeButton();
         String secondCurrentSize = size.getCurrentSize();
-        size.clickToSecondCurrentSizeButton();
-        String thirdCurrentSize = size.getCurrentSize();
+//        size.clickToSecondCurrentSizeButton();
+//        String thirdCurrentSize = size.getCurrentSize();
         basket.clickToItemInBasketButton();
         basket.clickToBasketButton();
         String sizeHeader = size.getSizeHeader();
         Assertions.assertAll(
                 () -> assertNotEquals(firstCurrentSize, secondCurrentSize),
-                () -> assertNotEquals(secondCurrentSize, thirdCurrentSize),
-                () -> assertNotEquals(firstCurrentSize, thirdCurrentSize),
-                () -> assertEquals("Размер: " + thirdCurrentSize, sizeHeader));
+//                () -> assertNotEquals(secondCurrentSize, thirdCurrentSize),
+//                () -> assertNotEquals(firstCurrentSize, thirdCurrentSize),
+                () -> assertEquals("Размер: " + secondCurrentSize, sizeHeader));
     }
 
     //с размером 16
@@ -458,54 +458,57 @@ public class ProductCardsTest extends TestBase {
         assertEquals(designerNameBeforeClick, designerNameAfterClick);
     }
 
+    /**
+     * Раздел SHOP THE LOOK отключен 17.03.2022
+     */
     //Отображение блока SHOP THE LOOK(надпись, фото и клик по нему)
-    @Test
-    public void checkingShopTheLookBlockSergi() {
-        shopTheLook = new ShopTheLook(driver);
-        driver.get(getUrl + "catalog/sergi/rockah_bronzovye_sergi_s_barocnymi_zemcuzinami/?pokritie=zoloto");
-        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
-        shopTheLook.clickOnShopTheLookPhoto();
-        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
-        Assertions.assertAll(
-                () -> assertEquals("Shop the look", shopTheLookHeader),
-                () -> assertEquals("Пожаловаться", frisbuyMarker));
-    }
-
-    @Test
-    public void checkingShopTheLookBlockBraslety() {
-        shopTheLook = new ShopTheLook(driver);
-        driver.get(getUrl + "catalog/braslety/osnovnaya_xarakteristika_razmer_19_74");
-        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
-        shopTheLook.clickOnShopTheLookPhoto();
-        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
-        Assertions.assertAll(
-                () -> assertEquals("Shop the look", shopTheLookHeader),
-                () -> assertEquals("Пожаловаться", frisbuyMarker));
-    }
-
-    @Test
-    public void checkingShopTheLookBlockKole() {
-        shopTheLook = new ShopTheLook(driver);
-        driver.get(getUrl + "catalog/kole/crystalline_pozolocennoe_kole_cep_s_kamnyami/?stone=zelyonyi-zad");
-        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
-        shopTheLook.clickOnShopTheLookPhoto();
-        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
-        Assertions.assertAll(
-                () -> assertEquals("Shop the look", shopTheLookHeader),
-                () -> assertEquals("Пожаловаться", frisbuyMarker));
-    }
-
-    @Test
-    public void checkingShopTheLookBlockKoltsa() {
-        shopTheLook = new ShopTheLook(driver);
-        driver.get(getUrl + "catalog/koltsa/kolco_s_lunnym_kamnem_ogranki_baget_16");
-        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
-        shopTheLook.clickOnShopTheLookPhoto();
-        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
-        Assertions.assertAll(
-                () -> assertEquals("Shop the look", shopTheLookHeader),
-                () -> assertEquals("Пожаловаться", frisbuyMarker));
-    }
+//    @Test
+//    public void checkingShopTheLookBlockSergi() {
+//        shopTheLook = new ShopTheLook(driver);
+//        driver.get(getUrl + "catalog/sergi/rockah_bronzovye_sergi_s_barocnymi_zemcuzinami/?pokritie=zoloto");
+//        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
+//        shopTheLook.clickOnShopTheLookPhoto();
+//        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
+//        Assertions.assertAll(
+//                () -> assertEquals("Shop the look", shopTheLookHeader),
+//                () -> assertEquals("Пожаловаться", frisbuyMarker));
+//    }
+//
+//    @Test
+//    public void checkingShopTheLookBlockBraslety() {
+//        shopTheLook = new ShopTheLook(driver);
+//        driver.get(getUrl + "catalog/braslety/osnovnaya_xarakteristika_razmer_19_74");
+//        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
+//        shopTheLook.clickOnShopTheLookPhoto();
+//        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
+//        Assertions.assertAll(
+//                () -> assertEquals("Shop the look", shopTheLookHeader),
+//                () -> assertEquals("Пожаловаться", frisbuyMarker));
+//    }
+//
+//    @Test
+//    public void checkingShopTheLookBlockKole() {
+//        shopTheLook = new ShopTheLook(driver);
+//        driver.get(getUrl + "catalog/kole/crystalline_pozolocennoe_kole_cep_s_kamnyami/?stone=zelyonyi-zad");
+//        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
+//        shopTheLook.clickOnShopTheLookPhoto();
+//        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
+//        Assertions.assertAll(
+//                () -> assertEquals("Shop the look", shopTheLookHeader),
+//                () -> assertEquals("Пожаловаться", frisbuyMarker));
+//    }
+//
+//    @Test
+//    public void checkingShopTheLookBlockKoltsa() {
+//        shopTheLook = new ShopTheLook(driver);
+//        driver.get(getUrl + "catalog/koltsa/kolco_s_lunnym_kamnem_ogranki_baget_16");
+//        String shopTheLookHeader = shopTheLook.getShopTheLookHeader();
+//        shopTheLook.clickOnShopTheLookPhoto();
+//        String frisbuyMarker = shopTheLook.getFrisbuyMarker();
+//        Assertions.assertAll(
+//                () -> assertEquals("Shop the look", shopTheLookHeader),
+//                () -> assertEquals("Пожаловаться", frisbuyMarker));
+//    }
 
 
     /* Отображение блоков:
@@ -515,8 +518,6 @@ public class ProductCardsTest extends TestBase {
     -ГАРАНТИЯ 6 МЕСЯЦЕВ
     -Код
     */
-
-
 
     //Отображение 4 блоков(СОСТАВ И ХАРАКТЕРИСТИКИ, УХОД ЗА УКРАШЕНИЯМИ, "ДОСТАВКА, ОПЛАТА, ВОЗВРАТ", ГАРАНТИЯ 6 МЕСЯЦЕВ)
     @Test
@@ -565,9 +566,11 @@ public class ProductCardsTest extends TestBase {
                         "их перед душем и нанесением косметики.\n" +
                         " Подробнее о хранении и уходе.", bijouterieCareText),
                 () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
-                () -> assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
-                        "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
-                        " Подробнее о гарантии.", guaranteeText));
+                () -> assertEquals("На украшения, купленные в магазинах или на сайте Poison Drop, действует гарантия шесть месяцев, если украшение было с производственным браком.\n" +
+                        " Что это?дефекты литья, украшение внутри с порамидефекты крепления, на украшении видны следы клеякамень плохо закреплен, он шатается и выпадает без воздействия на " +
+                        "украшениедефекты эмали, она вздувается и отслаиваетсянесоответствие или отсутствие пробы для серебра или золотаневерный состав сплава, металл краснеет или зеленеетна вставках" +
+                        " (камнях или жемчужинах) есть пятнанезамкнутые кольца или звенья в цепинесимметричность украшения (если только это не было задумкой дизайнера)дефекты покрытия: оно стерлось" +
+                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами Подробнее о гарантии.", guaranteeText));
     }
 
     @Test
@@ -579,13 +582,6 @@ public class ProductCardsTest extends TestBase {
         String specification = productCard.getSpecification();
         String availabilityText = productCard.clickToAvailabilityButton()
                 .getAvailabilityText();
-//        String tsvetnoy = productCard.clickToAvailabilityButton()
-//                .getTsvetnoy();
-//        String metropolis = productCard.getMetropolis();
-//        String afimoll = productCard.getAfimoll();
-//        String atrium = productCard.getAtrium();
-//        String redBridge = productCard.getRedBridge();
-
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
         String jewelryCareText = productCard.getJewelryCareText();
@@ -594,19 +590,12 @@ public class ProductCardsTest extends TestBase {
 
         String deliveryText = productCard.clickToDeliveryButton()
                 .getDeliveryText();
-
         String guaranteeText = productCard.clickToGuaranteeButton()
                 .getGuaranteeText();
-
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
                 () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
                         "день", availabilityText),
-//                () -> assertEquals("Цветной", tsvetnoy),
-//                () -> assertEquals("Метрополис", metropolis),
-//                () -> assertEquals("Афимолл", afimoll),
-//                () -> assertEquals("Атриум", atrium),
-//                () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
@@ -615,9 +604,11 @@ public class ProductCardsTest extends TestBase {
                         "их перед душем и нанесением косметики.\n" +
                         " Подробнее о хранении и уходе.", bijouterieCareText),
                 () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
-                () -> assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
-                        "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
-                        " Подробнее о гарантии.", guaranteeText));
+                () -> assertEquals("На украшения, купленные в магазинах или на сайте Poison Drop, действует гарантия шесть месяцев, если украшение было с производственным браком.\n" +
+                        " Что это?дефекты литья, украшение внутри с порамидефекты крепления, на украшении видны следы клеякамень плохо закреплен, он шатается и выпадает без воздействия на " +
+                        "украшениедефекты эмали, она вздувается и отслаиваетсянесоответствие или отсутствие пробы для серебра или золотаневерный состав сплава, металл краснеет или зеленеетна вставках" +
+                        " (камнях или жемчужинах) есть пятнанезамкнутые кольца или звенья в цепинесимметричность украшения (если только это не было задумкой дизайнера)дефекты покрытия: оно стерлось" +
+                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами Подробнее о гарантии.", guaranteeText));
     }
 
     @Test
@@ -629,34 +620,19 @@ public class ProductCardsTest extends TestBase {
         String specification = productCard.getSpecification();
         String availabilityText = productCard.clickToAvailabilityButton()
                 .getAvailabilityText();
-//        String tsvetnoy = productCard.clickToAvailabilityButton()
-//                .getTsvetnoy();
-//        String metropolis = productCard.getMetropolis();
-//        String afimoll = productCard.getAfimoll();
-//        String atrium = productCard.getAtrium();
-//        String redBridge = productCard.getRedBridge();
-
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
         String jewelryCareText = productCard.getJewelryCareText();
         String bijouterieCareHeader = productCard.getBijouterieCareHeader();
         String bijouterieCareText = productCard.getBijouterieCareText();
-
         String deliveryText = productCard.clickToDeliveryButton()
                 .getDeliveryText();
-
         String guaranteeText = productCard.clickToGuaranteeButton()
                 .getGuaranteeText();
-
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
                 () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
                         "день", availabilityText),
-//                () -> assertEquals("Цветной", tsvetnoy),
-//                () -> assertEquals("Метрополис", metropolis),
-//                () -> assertEquals("Афимолл", afimoll),
-//                () -> assertEquals("Атриум", atrium),
-//                () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
@@ -665,9 +641,11 @@ public class ProductCardsTest extends TestBase {
                         "их перед душем и нанесением косметики.\n" +
                         " Подробнее о хранении и уходе.", bijouterieCareText),
                 () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
-                () -> assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
-                        "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
-                        " Подробнее о гарантии.", guaranteeText));
+                () -> assertEquals("На украшения, купленные в магазинах или на сайте Poison Drop, действует гарантия шесть месяцев, если украшение было с производственным браком.\n" +
+                        " Что это?дефекты литья, украшение внутри с порамидефекты крепления, на украшении видны следы клеякамень плохо закреплен, он шатается и выпадает без воздействия на " +
+                        "украшениедефекты эмали, она вздувается и отслаиваетсянесоответствие или отсутствие пробы для серебра или золотаневерный состав сплава, металл краснеет или зеленеетна вставках" +
+                        " (камнях или жемчужинах) есть пятнанезамкнутые кольца или звенья в цепинесимметричность украшения (если только это не было задумкой дизайнера)дефекты покрытия: оно стерлось" +
+                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами Подробнее о гарантии.", guaranteeText));
     }
 
     @Test
@@ -679,34 +657,19 @@ public class ProductCardsTest extends TestBase {
         String specification = productCard.getSpecification();
         String availabilityText = productCard.clickToAvailabilityButton()
                 .getAvailabilityText();
-//        String tsvetnoy = productCard.clickToAvailabilityButton()
-//                .getTsvetnoy();
-//        String metropolis = productCard.getMetropolis();
-//        String afimoll = productCard.getAfimoll();
-//        String atrium = productCard.getAtrium();
-//        String redBridge = productCard.getRedBridge();
-
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
         String jewelryCareText = productCard.getJewelryCareText();
         String bijouterieCareHeader = productCard.getBijouterieCareHeader();
         String bijouterieCareText = productCard.getBijouterieCareText();
-
         String deliveryText = productCard.clickToDeliveryButton()
                 .getDeliveryText();
-
         String guaranteeText = productCard.clickToGuaranteeButton()
                 .getGuaranteeText();
-
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
                 () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
                         "день", availabilityText),
-//                () -> assertEquals("Цветной", tsvetnoy),
-//                () -> assertEquals("Метрополис", metropolis),
-//                () -> assertEquals("Афимолл", afimoll),
-//                () -> assertEquals("Атриум", atrium),
-//                () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
@@ -715,9 +678,11 @@ public class ProductCardsTest extends TestBase {
                         "их перед душем и нанесением косметики.\n" +
                         " Подробнее о хранении и уходе.", bijouterieCareText),
                 () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
-                () -> assertEquals("На все украшения в Poison Drop мы даём гарантию 6 месяцев с момента покупки. Если\n" +
-                        "вещь сломается в течение гарантийного срока, мы отремонтируем её или вернём деньги.\n" +
-                        " Подробнее о гарантии.", guaranteeText));
+                () -> assertEquals("На украшения, купленные в магазинах или на сайте Poison Drop, действует гарантия шесть месяцев, если украшение было с производственным браком.\n" +
+                        " Что это?дефекты литья, украшение внутри с порамидефекты крепления, на украшении видны следы клеякамень плохо закреплен, он шатается и выпадает без воздействия на " +
+                        "украшениедефекты эмали, она вздувается и отслаиваетсянесоответствие или отсутствие пробы для серебра или золотаневерный состав сплава, металл краснеет или зеленеетна вставках" +
+                        " (камнях или жемчужинах) есть пятнанезамкнутые кольца или звенья в цепинесимметричность украшения (если только это не было задумкой дизайнера)дефекты покрытия: оно стерлось" +
+                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами Подробнее о гарантии.", guaranteeText));
     }
 
     //Отображение верного Кода изделия в карточке товара

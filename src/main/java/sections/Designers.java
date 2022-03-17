@@ -17,7 +17,7 @@ public class Designers extends Base {
 
     private final String url = mainPageUrl + "designers/";
 
-    private final By designersButton = By.xpath("//a[text()='Дизайнеры']");
+    private final By designersButton = By.xpath("//a[@href='/designers/']");
     private final By designersFirstHref = By.xpath("//div[@class='new-designers__wrapper']/a");
     private final By designersSecondHref = By.xpath("//div[@class='new-designers__wrapper']/a[2]");
     private final By designersThirdHref = By.xpath("//div[@class='new-designers__wrapper']/a[3]");

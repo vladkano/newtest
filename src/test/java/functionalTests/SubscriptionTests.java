@@ -10,7 +10,7 @@ import sections.Subscription;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Epic("Тесты всплывающего окна с подпиской")
+@Epic("Тесты окна с подпиской")
 public class SubscriptionTests extends TestBase {
 
     @BeforeEach

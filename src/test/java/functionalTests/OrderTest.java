@@ -237,7 +237,7 @@ public class OrderTest extends TestBase {
         payConfirmAndHeaderCheck();
     }
 
-    //Доставка до постомата
+    //Доставка до постамата
     //работает только для ЕКБ
     @Test()
     public void postomatAndRussian() {
@@ -374,7 +374,7 @@ public class OrderTest extends TestBase {
 //        noPayConfirmAndHeaderCheck();
 //    }
 //
-   ////Афимолл
+//   //Афимолл
 //    @Test()
 //    public void noPayAfimollAndPhone() {
 //        putItemInBasket();

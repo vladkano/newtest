@@ -39,7 +39,7 @@ public class Base {
     protected By nameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
     protected By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
     protected By priceFromProductCard = By.xpath("//b[@class='price-block__price']");
-    protected By okButton = By.xpath("//button[text()='Да']");
+    protected By okButton = By.xpath("//button[text()='да']");
 
     public Base(WebDriver driver) {
         this.driver = driver;

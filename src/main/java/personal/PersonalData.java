@@ -27,7 +27,7 @@ public class PersonalData extends Base {
     private final By entranceDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[6]");
     private final By floorDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[7]");
     private final By intercomDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[8]");
-    private final By ordersButton = By.xpath("//span[text()='Заказы']");
+    private final By ordersButton = By.xpath("//span[text()='мои заказы']");
     private final By saveAddressButton = By.xpath("//span[text()='Сохранить адрес']");
     private final By chooseAddressButton = By.xpath("//ul[@class='autocomplete-list']/li");
 
@@ -47,7 +47,7 @@ public class PersonalData extends Base {
     private final By floorHeader = By.xpath("//label[text()='Этаж']");
     private final By intercomHeader = By.xpath("//label[text()='Домофон']");
 
-    private final By emptyNameHeader = By.xpath("//p[text()='Необходимо указать имя']");
+    private final By emptyNameHeader = By.xpath("//p[text()='необходимо указать имя']");
     private final By emptyBirthdayHeader = By.xpath("//p[@class='text-input__message message message_error']");
     private final By orderNumber = By.xpath("//h3[@class='order-card__title order-card__number']");
     private final By orderStatus = By.xpath("//b[@class='order-card__status order-card__status_test']");
@@ -61,7 +61,7 @@ public class PersonalData extends Base {
     private final By orderContent = By.xpath("//h4[@class='order-product__product-name']/a");
     private final By orderPrice = By.xpath("//b[@class='price-block__price']");
     private final By orderFinalPrice = By.xpath("//p[@class='order-card__total-sum']");
-    private final By saveAddressHeader = By.xpath("//p[text()='Сохранено']");
+    private final By saveAddressHeader = By.xpath("//p[text()='сохранено']");
     private final By profileBirthdayError = By.xpath("//p[@class='submit-block__message message message_error']");
     private final By profileDeliveryAddressError = By.xpath("//p[@class='text-input__message message message_error']");
 
