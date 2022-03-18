@@ -85,9 +85,8 @@ public class TestBase {
     protected String phoneForAuthorization = "+79501978905";
     protected String phoneForOrder = "9126459328";
     protected String testNameForOrder = "Александр Тест";
-    protected String subscriptionName = "Подписаться";
-    protected String subscriptionHeader = "Узнавайте первыми о новинках, " +
-            "специальных мероприятиях, скидках и многом другом";
+    protected String subscriptionName = "подписаться";
+    protected String subscriptionHeader = "подписчики нашей рассылки выбирают самые классные украшения.";
     protected String email = "test13@mail.com";
     protected List<String> siteList = new ArrayList<>();
     protected List<Integer> priceList = new ArrayList<>();
@@ -141,7 +140,7 @@ public class TestBase {
     protected String getUrl = "https://poisondrop.ru/";
 
     //Тест(Сталинград)
-//    protected String getUrl = "https://stalingrad.poisondrop.org.ru/";
+//    protected String getUrl = "https://stalingrad.poisontestdrop.ru/";
 
     //Тест(Севастополь)
 //    protected String getUrl = "https://sevastopol.poisontestdrop.ru/";

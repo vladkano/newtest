@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -27,7 +28,7 @@ public class MainPage extends Base {
     private final By registerButton = By.xpath("//span[text()='зарегистрироваться']");
     private final By registerButtonAttribute = By.xpath("//button[@class='auth-popup__button-send']");
     private final By authPassword = By.xpath("//input[@id='authCode']");
-    private final By exitButton = By.xpath("//span[text()='Выйти']");
+    private final By exitButton = By.xpath("//a[text()='выход']");
     private final By phoneFromSite = By.xpath("//span[@class='info-box-number']");
     //    private final By phoneFromSite = By.xpath("(//span[@class='info-box-number'])[2]");
     private final By mailFromSite = By.id("mail");
@@ -78,6 +79,10 @@ public class MainPage extends Base {
     }
 
     public void clickOnExitButton() {
+        Actions action = new Actions(driver);
+        WebElement elem = driver.findElement(lcButton);
+        action.moveToElement(elem);
+        action.perform();
         click(exitButton);
     }
 

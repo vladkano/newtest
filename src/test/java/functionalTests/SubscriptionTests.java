@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import sections.Subscription;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -92,16 +93,6 @@ public class SubscriptionTests extends TestBase {
     }
 
     @Test()
-    public void checkSubscriptionTextShopTheLook() {
-        driver.get(getUrl + "shop-the-look/");
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
-    }
-
-    @Test()
     public void checkSubscriptionTextSale() {
         driver.get(getUrl + "catalog/sale/");
         String subscriptionText = subscription.getSubscriptionText();
@@ -130,7 +121,7 @@ public class SubscriptionTests extends TestBase {
         driver.get(getUrl);
         subscription.subscriptionWithEmail("ran.owen@rambler.ru");
         String successfulSubscriptionText = subscription.getSuccessfulSubscriptionText();
-        assertEquals("Спасибо! Адрес ran.owen@rambler.ru подписан на рассылку", successfulSubscriptionText);
+        assertEquals("наш почтовый голубь уже вылетел.", successfulSubscriptionText);
     }
 
     //Неудачная попытка подписки
@@ -138,8 +129,8 @@ public class SubscriptionTests extends TestBase {
     public void failedSubscription() {
         driver.get(getUrl);
         subscription.subscriptionWithEmail("ran.owen@");
-        String failedSubscriptionText = subscription.getFailedSubscriptionText();
-        assertEquals("Почта указана некорректно", failedSubscriptionText);
+        String failedSubscriptionText = subscription.getSubscriptionText();
+        assertEquals("подписчики нашей рассылки выбирают самые классные украшения.", failedSubscriptionText);
     }
 
     @AfterEach

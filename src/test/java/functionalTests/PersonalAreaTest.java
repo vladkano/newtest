@@ -37,18 +37,6 @@ public class PersonalAreaTest extends TestBase {
     /**
      * Позитивные тесты
      * <p>
-     * Выход из личного кабинета
-     */
-    @Test
-    @Description("Выход из личного кабинета")
-    public void goOut() {
-        personalData.clickOnGoOutButton();
-        mainPage.clickOnSigInButton();
-        String heading = mainPage.getSigOutHeader();
-        assertEquals("Вход или регистрация", heading);
-    }
-
-    /**
      * Отображение элементов и полей на странице личного кабинета
      */
     @Test
