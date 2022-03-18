@@ -15,7 +15,7 @@ public class Base {
     //Бой
     protected static String mainPageUrl = "https://poisondrop.ru/";
     //Тест(Сталинград)
-//    protected static String mainPageUrl = "https://stalingrad.poisondrop.org.ru/";
+//    protected static String mainPageUrl = "https://stalingrad.poisontestdrop.ru/";
     //Тест(Севастополь)
 //    protected static String mainPageUrl = "https://sevastopol.poisontestdrop.ru/";
     //Тест(Курск)

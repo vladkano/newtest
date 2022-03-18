@@ -200,7 +200,7 @@ public class MainPageTest extends TestBase {
         mainPage.clickOnExitButton();
         mainPage.clickOnSigInButton();
         String heading = mainPage.getSigOutHeader();
-        assertEquals("Вход или регистрация", heading);
+        assertEquals("вход или регистрация", heading);
     }
 
 

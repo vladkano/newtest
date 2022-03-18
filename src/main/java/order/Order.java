@@ -71,6 +71,8 @@ public class Order extends Base {
     //headers
     private final By payHeader = By.xpath("//span[contains(text(), 'Оплата заказа')]");
     private final By orderHeader = By.xpath("//span[text()='Мы приняли ваш заказ']");
+    private final By interHeader = By.xpath("//p[text()='Международная доставка временно недоступна']");
+
 
     public Order(WebDriver driver) {
         super(driver);
@@ -119,6 +121,10 @@ public class Order extends Base {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(orderHeader));
         return driver.findElement(orderHeader).getAttribute("textContent");
+    }
+
+    public String getInterHeader() {
+        return driver.findElement(interHeader).getText();
     }
 
     public void typePhone(String phone) {
@@ -625,10 +631,10 @@ public class Order extends Base {
         this.typeLocationSearch(city);
         sleep(1000);
         this.clickOnLocationButton();
-        type(internationalCity, orderAddressButton);
-        this.clickOnAddCommentButton();
-        this.typeComment(comment);
-        this.clickOnPayButton();
+//        type(internationalCity, orderAddressButton);
+//        this.clickOnAddCommentButton();
+//        this.typeComment(comment);
+//        this.clickOnPayButton();
     }
 
 

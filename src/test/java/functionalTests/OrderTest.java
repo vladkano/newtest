@@ -217,6 +217,7 @@ public class OrderTest extends TestBase {
         payConfirmAndHeaderCheck();
     }
 
+    //Международная доставка отключена
     //Проверка перехода к оплате заказа на сайте, способ доставки: Доставить в другую страну
     @Test()
     public void internationalAndPhone() {
@@ -225,17 +226,18 @@ public class OrderTest extends TestBase {
         order.internationalWithPhone(phoneForOrder, email, testNameForOrder,
                 "Минск", "улица Пушкина 12", "Test");
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        String interHeader = order.getInterHeader();
         assertTrue(finalPrice > price);
-        payConfirmAndHeaderCheck();
+        assertEquals("Международная доставка временно недоступна", interHeader);
     }
 
-    @Test()
-    public void internationalAndWhatsApp() {
-        putItemInBasket();
-        order.internationalWithPhone(phoneForOrder, email, testNameForOrder,
-                "Рим", "Гладиаторов дом 20м", "Test");
-        payConfirmAndHeaderCheck();
-    }
+//    @Test()
+//    public void internationalAndWhatsApp() {
+//        putItemInBasket();
+//        order.internationalWithPhone(phoneForOrder, email, testNameForOrder,
+//                "Рим", "Гладиаторов дом 20м", "Test");
+//        payConfirmAndHeaderCheck();
+//    }
 
     //Доставка до постамата
     //работает только для ЕКБ
