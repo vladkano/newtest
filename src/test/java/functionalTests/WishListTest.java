@@ -5,6 +5,7 @@ import basket.Basket;
 import collectionAndSet.Collection;
 import filters.Filters;
 import filters.Size;
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -25,8 +26,23 @@ public class WishListTest extends TestBase {
         wishlist = new Wishlist(driver);
     }
 
-    //Проверка, что товар добавился в избранное из карточки товара + урл и заголовок корректны
+    /**
+     * Вспомогательный метод для тестов:<p>
+     * Добавление товара в избранное и сравнение наименования изделий в каталоге и в избранном
+     */
+    public void addItemToFavoritesAndCheckNames() {
+        String itemName = wishlist.getItemName();
+        wishlist.clickToAddToWishlistFromCatalogButton();
+        wishlist.clickToWishListButton();
+        String itemNameFromWishlist = wishlist.getItemName();
+        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
+    }
+
+    /**
+     * Проверка того, что товар добавился в избранное из карточки товара + урл и заголовок корректны.
+     */
     @Test()
+    @Description("Проверка того, что товар добавился в избранное из карточки товара + урл и заголовок корректны")
     public void wishListCheckButton() {
         driver.get(getUrl + "catalog/");
         wishlist.clickToOkButton();
@@ -42,111 +58,107 @@ public class WishListTest extends TestBase {
                 () -> assertEquals("Избранное", header));
     }
 
-    //Блок тестов по добавлению в избранное из страниц каталога
-    //Каталог
+    /**
+     * Блок тестов по добавлению в избранное со страниц каталога:<p>
+     * Основной каталог
+     */
     @Test()
+    @Description("Блок тестов по добавлению в избранное со страниц каталога: Основной каталог")
     public void addToWishlistFromCatalog() {
         driver.get(getUrl + "catalog/");
-        String itemName = wishlist.getItemName();
-        wishlist.clickToAddToWishlistFromCatalogButton();
-        wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
+        addItemToFavoritesAndCheckNames();
     }
 
-    //Браслеты
+    /**
+     * Блок тестов по добавлению в избранное со страниц каталога:<p>
+     * Браслеты
+     */
     @Test()
+    @Description("Блок тестов по добавлению в избранное со страниц каталога: Браслеты")
     public void addToWishlistFromBracelets() {
         driver.get(getUrl + "catalog/braslety/");
-        String itemName = wishlist.getItemName();
-        wishlist.clickToAddToWishlistFromCatalogButton();
-        wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName, itemNameFromWishlist);
+        addItemToFavoritesAndCheckNames();
     }
 
-    //Кольца
+    /**
+     * Блок тестов по добавлению в избранное со страниц каталога:<p>
+     * Кольца
+     */
     @Test()
+    @Description("Блок тестов по добавлению в избранное со страниц каталога: Кольца")
     public void addToWishlistFromRings() {
         driver.get(getUrl + "catalog/koltsa/");
-        String itemName = wishlist.getItemName();
-        wishlist.clickToAddToWishlistFromCatalogButton();
-        wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0, 26), itemNameFromWishlist.substring(0, 26));
+        addItemToFavoritesAndCheckNames();
     }
 
-    //Серьги
+    /**
+     * Серьги
+     */
     @Test()
+    @Description("Блок тестов по добавлению в избранное со страниц каталога: Серьги")
     public void addToWishlistFromEarrings() {
         driver.get(getUrl + "catalog/sergi/");
-        String itemName = wishlist.getItemName();
-        wishlist.clickToAddToWishlistFromCatalogButton();
-        wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0, 19), itemNameFromWishlist.substring(0, 19));
+        addItemToFavoritesAndCheckNames();
     }
 
-    //Колье
+    /**
+     * Колье
+     */
     @Test()
+    @Description("Блок тестов по добавлению в избранное со страниц каталога: Колье")
     public void addToWishlistFromNecklaces() {
         driver.get(getUrl + "catalog/kole/");
-        String itemName = wishlist.getItemName();
-        wishlist.clickToAddToWishlistFromCatalogButton();
-        wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName, itemNameFromWishlist);
+        addItemToFavoritesAndCheckNames();
     }
 
-    //Броши
+    /**
+     * Броши
+     */
     @Test()
+    @Description("Блок тестов по добавлению в избранное со страниц каталога: Броши")
     public void addToWishlistFromBrooches() {
         driver.get(getUrl + "catalog/broshi/");
-        String itemName = wishlist.getItemName();
-        wishlist.clickToAddToWishlistFromCatalogButton();
-        wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
+        addItemToFavoritesAndCheckNames();
     }
 
-    //Мужики
+    /**
+     * Мужики
+     */
     @Test()
+    @Description("Блок тестов по добавлению в избранное со страниц каталога: Мужики")
     public void addToWishlistFromMen() {
         driver.get(getUrl + "catalog/men/");
-        String itemName = wishlist.getItemName();
-        wishlist.clickToAddToWishlistFromCatalogButton();
-        wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0, 14), itemNameFromWishlist.substring(0, 14));
+        addItemToFavoritesAndCheckNames();
     }
 
-    //Новинки
+    /**
+     * Новинки
+     */
     @Test()
+    @Description("Блок тестов по добавлению в избранное со страниц каталога: Новинки")
     public void addToWishlistFromNewItems() {
         driver.get(getUrl + "catalog/new/");
-        String itemName = wishlist.getItemName();
-        wishlist.clickToAddToWishlistFromCatalogButton();
-        wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
+        addItemToFavoritesAndCheckNames();
     }
 
-    //Распродажа
+    /**
+     * Sale
+     */
     @Test()
+    @Description("Блок тестов по добавлению в избранное со страниц каталога: Sale")
     public void addToWishlistFromSale() {
         driver.get(getUrl + "catalog/sale/");
-        String itemName = wishlist.getItemName();
-        wishlist.clickToAddToWishlistFromCatalogButton();
-        wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
-        assertEquals(itemName, itemNameFromWishlist);
+        addItemToFavoritesAndCheckNames();
     }
 
-    //Перенос из избранного в корзину
 
-    //Добавление в избранное из каталога
-    //Обычный товар без размера
+    /**
+     * Блок тестов по переносу товара из избранного в корзину:<p>
+     * Добавление в избранное из каталога:<p>
+     * Товар без размера.
+     */
     @Test()
+    @Description("Блок тестов по переносу товара из избранного в корзину. Добавление в избранное из каталога: Товар без размера.")
     public void favoritesToBasket() {
         driver.get(getUrl + "catalog/");
         String itemName = wishlist.getItemName();
@@ -158,11 +170,14 @@ public class WishListTest extends TestBase {
         String basketProductName = wishlist.getBasketProductName();
         Assertions.assertAll(
                 () -> assertEquals(itemName, itemNameFromWishlist),
-                () -> assertEquals(itemNameFromWishlist, basketProductName));
+                () -> assertEquals(itemNameFromWishlist.substring(0, 20), basketProductName.substring(0, 20)));
     }
 
-    //Обычный товар с размером
+    /**
+     * Товар с размером.
+     */
     @Test()
+    @Description("Блок тестов по переносу товара из избранного в корзину. Добавление в избранное из каталога: Товар с размером.")
     public void favoritesToBasketWithSize() {
         filters = new Filters(driver);
         size = new Size(driver);
@@ -177,17 +192,21 @@ public class WishListTest extends TestBase {
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
         wishlist.clickToTransferToBasketButton();
+        String wishListProductSize = wishlist.getWishListProductSize();
+        wishlist.clickToTransferToBasketWithSizeButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
         Assertions.assertAll(
                 () -> assertEquals(itemName, itemNameFromWishlist),
-                () -> assertEquals(itemNameFromWishlist, basketProductName));
+                () -> assertEquals(itemNameFromWishlist + "\n" + "Размер: " + wishListProductSize, basketProductName));
     }
 
-
-    //Добавление в избранное из карточки товара
-    //Товар из коллекции без размера
+    /**
+     * Добавление в избранное из карточки товара:<p>
+     * Товар из коллекции без размера.
+     */
     @Test()
+    @Description("Блок тестов по переносу товара из избранного в корзину. Добавление в избранное из карточки товара: Товар из коллекции без размера.")
     public void favoritesToBasketWithCollection() {
         basket = new Basket(driver);
         driver.navigate().to(basket.getSecondLinkOfCollection());
@@ -203,8 +222,12 @@ public class WishListTest extends TestBase {
                 () -> assertEquals(itemNameFromWishlist, basketProductName));
     }
 
-    //Товар из коллекции с размером
+    /**
+     * Добавление в избранное из карточки товара:<p>
+     * Товар из коллекции с размером.
+     */
     @Test()
+    @Description("Блок тестов по переносу товара из избранного в корзину. Добавление в избранное из карточки товара: Товар из коллекции с размером.")
     public void favoritesToBasketWithCollectionAndSize() {
         filters = new Filters(driver);
         size = new Size(driver);
@@ -221,11 +244,13 @@ public class WishListTest extends TestBase {
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemName();
         wishlist.clickToTransferToBasketButton();
+        String wishListProductSize = wishlist.getWishListProductSize();
+        wishlist.clickToTransferToBasketWithSizeButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
         Assertions.assertAll(
-                () -> assertEquals(itemName.substring(0,20), itemNameFromWishlist.substring(0,20)),
-                () -> assertEquals(itemNameFromWishlist.substring(0,20), basketProductName.substring(0,20)));
+                () -> assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20)),
+                () -> assertEquals(itemNameFromWishlist + "\n" + "Размер: " + wishListProductSize, basketProductName));
     }
 
     @AfterEach

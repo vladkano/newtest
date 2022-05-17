@@ -15,7 +15,7 @@ import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Epic("Тесты раздела 'Сертификатов'")
+@Epic("Тесты раздела Сертификаты")
 public class CertificateTest extends TestBase {
 
     String number;
@@ -30,8 +30,7 @@ public class CertificateTest extends TestBase {
     }
 
     /**
-     * Вспомогательные методы для тестов:
-     * <p>
+     * Вспомогательные методы для тестов:<p>
      * Кладём сертификат в корзину
      */
     public void putCertificateInBasket() {
@@ -83,10 +82,8 @@ public class CertificateTest extends TestBase {
 
 
     /**
-     * Проверяем работают ли кнопки +- и заказать:
-     * <p>
-     * Первый раздел
-     * <p>
+     * Проверяем работают ли кнопки +- и заказать:<p>
+     * Первый раздел <p>
      * Кнопка '+'
      */
 
@@ -121,8 +118,7 @@ public class CertificateTest extends TestBase {
     }
 
     /**
-     * Второй раздел
-     * <p>
+     * Второй раздел<p>
      * Кнопка '+'
      */
     @Test
@@ -156,13 +152,11 @@ public class CertificateTest extends TestBase {
     }
 
 
-    /**
-     * Пока третий раздел отключен на сайте(https://poisondrop.atlassian.net/browse/PD-1535)
-     */
+
+     // Пока третий раздел отключен на сайте(https://poisondrop.atlassian.net/browse/PD-1535)
 
 //    /**
-//     * Третий раздел
-//     * <p>
+//     * Третий раздел<p>
 //     * Кнопка '+'
 //     */
 //    @Test
@@ -197,8 +191,7 @@ public class CertificateTest extends TestBase {
 
 
     /**
-     * Проверка перехода к оплате заказа на сайте, сертификат тип 1
-     * <p>
+     * Проверка перехода к оплате заказа на сайте, сертификат тип 1 <p>
      * Электронный сертификат
      */
     @Test()
@@ -222,8 +215,7 @@ public class CertificateTest extends TestBase {
 
     //Функционал покупки бумажного сертификата пока отключен
 //    /**
-//     * Проверка перехода к оплате заказа на сайте, сертификат тип 1
-//     * <p>
+//     * Проверка перехода к оплате заказа на сайте, сертификат тип 1 <p>
 //     * Бумажный сертификат
 //     */
 //
@@ -276,17 +268,17 @@ public class CertificateTest extends TestBase {
 //    }
 //
 //    //Пока не понятно если способ связи смс при покупке сертификата
-//    /**
-//     * Способ доставки: Атриум + СМС
-//     */
-//    @Test()
-//    @Description("Проверка перехода к оплате заказа на сайте. Бумажный сертификат тип 1. Способ доставки: самовывоз Атриум. Способ связи: СМС")
-//    public void orderWithCertificateAtriumAndSMS() {
-//        certificate.clickToFirstSectionOrderButton();
-//        putCertificateInBasket();
-//        order.certificateWithAtriumAndSMS(phoneForOrder, email, testNameForOrder, "Тест");
-//        getCodeAndCheckOrder();
-//    }
+////    /**
+////     * Способ доставки: Атриум + СМС
+////     */
+////    @Test()
+////    @Description("Проверка перехода к оплате заказа на сайте. Бумажный сертификат тип 1. Способ доставки: самовывоз Атриум. Способ связи: СМС")
+////    public void orderWithCertificateAtriumAndSMS() {
+////        certificate.clickToFirstSectionOrderButton();
+////        putCertificateInBasket();
+////        order.certificateWithAtriumAndSMS(phoneForOrder, email, testNameForOrder, "Тест");
+////        getCodeAndCheckOrder();
+////    }
 //
 //    /**
 //     * Способ доставки: Афимолл + телефон
@@ -326,8 +318,7 @@ public class CertificateTest extends TestBase {
 //
 //
 //    /**
-//     * Способ доставки: Доставить в другую страну + WA
-//     * <p>
+//     * Способ доставки: Доставить в другую страну + WA <p>
 //     * Проверяем изменение цены с учетом доставки, количество сертификатов в корзине и оформление заказа
 //     */
 //    @Test()
@@ -351,8 +342,7 @@ public class CertificateTest extends TestBase {
 
 
     /**
-     * Проверка перехода к оплате заказа на сайте, сертификат тип 2
-     * <p>
+     * Проверка перехода к оплате заказа на сайте, сертификат тип 2 <p>
      * Электронный сертификат
      */
     @Test()
@@ -382,8 +372,7 @@ public class CertificateTest extends TestBase {
     //2 тип сертификата без заполненного поля "пожелания"(https://poisondrop.atlassian.net/browse/PD-812)
 
 //    /**
-//     * Тестовый заказ без оплаты, оформление заказа с попаданием в 1с и ЦРМ, сертификат тип 2
-//     * <p>
+//     * Тестовый заказ без оплаты, оформление заказа с попаданием в 1с и ЦРМ, сертификат тип 2 <p>
 //     * Бумажный сертификат
 //     */
 //    @Test()
@@ -399,8 +388,7 @@ public class CertificateTest extends TestBase {
 //
 //    //Третий тип сертификата пока отключен на сайте
 //    /**
-//     * Тестовый заказ без оплаты, оформление заказа с попаданием в 1с и ЦРМ, сертификат тип 3
-//     * <p>
+//     * Тестовый заказ без оплаты, оформление заказа с попаданием в 1с и ЦРМ, сертификат тип 3 <p>
 //     * Бумажный сертификат
 //     */
 //
@@ -419,8 +407,7 @@ public class CertificateTest extends TestBase {
 //    }
 //
 //    /**
-//     * Доставка курьером. Номинал 4000 рублей(платная доставка)
-//     * <p>
+//     * Доставка курьером. Номинал 4000 рублей(платная доставка)<p>
 //     * Проверяем изменение цены с учетом доставки, кол-во сертификатов в корзине и оформление заказа
 //     */
 //    @Test()
@@ -460,18 +447,18 @@ public class CertificateTest extends TestBase {
 //
 //    //Пока не понятно если способ связи смс при покупке сертификата
 //
-//    /**
-//     * Способ доставки: Метрополис+SMS
-//     */
-//    @Test()
-//    @Description("Тестовый заказ без оплаты, оформление заказа с попаданием в 1с и ЦРМ, сертификат тип 3. Заполняем поле: пожелания. " +
-//            "Бумажный сертификат тип 3. Способ доставки: самовывоз Метрополис. Способ связи: SMS.")
-//    public void noPayOrderMetropolisWithCertificateAndSMS() {
-//        certificate.thirdSectionOrder("Всего всего!");
-//        putCertificateInBasket();
-//        order.certificateWithNoPayMetropolisAndSMS(phoneForOrder, email, testNameForOrder, "Тест");
-//        getCodeAndCheckOrderWithNoPay();
-//    }
+////    /**
+////     * Способ доставки: Метрополис+SMS
+////     */
+////    @Test()
+////    @Description("Тестовый заказ без оплаты, оформление заказа с попаданием в 1с и ЦРМ, сертификат тип 3. Заполняем поле: пожелания. " +
+////            "Бумажный сертификат тип 3. Способ доставки: самовывоз Метрополис. Способ связи: SMS.")
+////    public void noPayOrderMetropolisWithCertificateAndSMS() {
+////        certificate.thirdSectionOrder("Всего всего!");
+////        putCertificateInBasket();
+////        order.certificateWithNoPayMetropolisAndSMS(phoneForOrder, email, testNameForOrder, "Тест");
+////        getCodeAndCheckOrderWithNoPay();
+////    }
 //
 //    /**
 //     * Способ доставки: Атриум+телефон

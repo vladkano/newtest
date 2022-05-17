@@ -10,6 +10,7 @@ import collectionAndSet.Collection;
 import collectionAndSet.Set;
 import filters.Filters;
 import filters.Size;
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -22,7 +23,6 @@ import productCards.Picture;
 import productCards.ProductCard;
 import search.Search;
 import sections.Designers;
-import sections.ShopTheLook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +42,15 @@ public class ProductCardsTest extends TestBase {
         picture = new Picture(driver);
     }
 
-    /*
-    Переход в раздел колец, в фильтре выбираем кольцо, далее переходим в карточку товара и переключаемся между размерами, далее
-    смотрим чтобы менялся размер, кладем в корзину и проверяем что верный размер попал в корзину
-    */
-
-    //с размером 14
+    /**
+     * Тесты переключения между размерами <p>
+     * Переход в раздел колец, в фильтре выбираем кольцо, далее переходим в карточку товара и переключаемся между размерами, далее
+     * смотрим чтобы менялся размер, кладем в корзину и проверяем что верный размер попал в корзину <p>
+     * С 14 размером
+     */
     @Test
+    @Description("Переход в раздел колец, в фильтре выбираем кольцо, далее переходим в карточку товара и переключаемся между размерами, далее" +
+            " смотрим чтобы менялся размер, кладем в корзину и проверяем что верный размер попал в корзину(С 14 размером)")
     public void changeSize14() {
         driver.get(getUrl + "catalog/koltsa/");
         basket.clickToOkButton();
@@ -72,8 +74,12 @@ public class ProductCardsTest extends TestBase {
                 () -> assertEquals("Размер: " + secondCurrentSize, sizeHeader));
     }
 
-    //с размером 15,5
+    /**
+     * С 15,5 размером
+     */
     @Test
+    @Description("Переход в раздел колец, в фильтре выбираем кольцо, далее переходим в карточку товара и переключаемся между размерами, далее" +
+            " смотрим чтобы менялся размер, кладем в корзину и проверяем что верный размер попал в корзину(С 15,5 размером)")
     public void changeSize155() {
         driver.get(getUrl + "catalog/koltsa/");
         basket.clickToOkButton();
@@ -97,8 +103,12 @@ public class ProductCardsTest extends TestBase {
                 () -> assertEquals("Размер: " + secondCurrentSize, sizeHeader));
     }
 
-    //с размером 16
+    /**
+     * С 16 размером
+     */
     @Test
+    @Description("Переход в раздел колец, в фильтре выбираем кольцо, далее переходим в карточку товара и переключаемся между размерами, далее" +
+            " смотрим чтобы менялся размер, кладем в корзину и проверяем что верный размер попал в корзину(С 16 размером)")
     public void changeSize16() {
         driver.get(getUrl + "catalog/koltsa/");
         basket.clickToOkButton();
@@ -122,39 +132,45 @@ public class ProductCardsTest extends TestBase {
                 () -> assertEquals("Размер: " + secondCurrentSize, sizeHeader));
     }
 
-    /*
-    Если товар только на виртуальном складе(3-5 дней) или только на складе в Питере(7 дней),
-    то должна быть плашка "Доставка от 3-5 дней" (storage id = 1 или 5)
+    /**
+     * Тест неактуален, так как в данный момент(31.03.2022) на виртуальном складе числятся только подарочные сертификаты
+     * Проверяем, что если товар в наличии только на виртуальном складе, то в карточке товара должна быть плашка 'Доставка от 3-5 дней' (storage id = 5)
      */
+//    @Test
+//    @Description("Проверяем, что если товар в наличии только на виртуальном складе, то в карточке товара должна быть плашка 'Доставка от 3-5 дней'")
+//    public void firstCheckPlate() {
+//        search = new Search(driver);
+//        driver.get(getUrl + "catalog");
+//        basket.clickToOkButton();
+//        String firstItem = size.findItem35days();
+//        search.getSearch(firstItem + "\n");
+//        size.clickOnImageLink();
+//        String plateHeader = size.getPlateHeader();
+//        assertEquals("Доставка от 3-5 дней", plateHeader);
+//    }
 
-    //Плашка "Доставка от 3-5 дней"
-    @Test
-    public void firstCheckPlate() {
-        search = new Search(driver);
-        driver.get(getUrl + "catalog");
-        basket.clickToOkButton();
-        String firstItem = size.findItem35days();
-        search.getSearch(firstItem + "\n");
-        size.clickOnImageLink();
-        String plateHeader = size.getPlateHeader();
-        assertEquals("Доставка от 3-5 дней", plateHeader);
-    }
+    //Все плашки отключены на сайте https://tracker.yandex.ru/PD-1818
+//    /**
+//     * Проверяем, что если товар в наличии только на складе в Питере, то в карточке товара должна быть плашка 'Доставка от 7 дней' (storage id = 1)
+//     */
+//    @Test
+//    @Description("Проверяем, что если товар в наличии только на складе в Питере, то в карточке товара должна быть плашка 'Доставка от 7 дней'")
+//    public void secondCheckPlate() {
+//        search = new Search(driver);
+//        driver.get(getUrl + "catalog");
+//        basket.clickToOkButton();
+//        String secondItem = size.findItem7days();
+//        search.getSearch(secondItem + "\n");
+//        size.clickOnImageLink();
+//        String plateHeader = size.getPlateHeader();
+//        assertEquals("Доставка от 7 дней", plateHeader);
+//    }
 
-    //Плашка "Доставка от 7 дней"
+    /**
+     * Проверяем отображение картинок в карточке товара по разделам:
+     */
     @Test
-    public void secondCheckPlate() {
-        search = new Search(driver);
-        driver.get(getUrl + "catalog");
-        basket.clickToOkButton();
-        String secondItem = size.findItem7days();
-        search.getSearch(secondItem + "\n");
-        size.clickOnImageLink();
-        String plateHeader = size.getPlateHeader();
-        assertEquals("Доставка от 7 дней", plateHeader);
-    }
-
-    //Отображение картинок в карточке товара
-    @Test
+    @Description("Проверяем отображение картинок в карточке товара по разделам: Серьги")
     public void checkPictureListSergi() {
         driver.get(getUrl + "catalog/sergi");
         size.clickOnImageLink();
@@ -163,6 +179,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение картинок в карточке товара по разделам: Браслеты")
     public void checkPictureListBraslety() {
         driver.get(getUrl + "catalog/braslety");
         size.clickOnImageLink();
@@ -171,6 +188,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение картинок в карточке товара по разделам: Кольца")
     public void checkPictureListKoltsa() {
         driver.get(getUrl + "catalog/koltsa");
         size.clickOnImageLink();
@@ -179,6 +197,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение картинок в карточке товара по разделам: Колье")
     public void checkPictureListKole() {
         driver.get(getUrl + "catalog/kole");
         size.clickOnImageLink();
@@ -187,9 +206,11 @@ public class ProductCardsTest extends TestBase {
         assertNotEquals(0, size);
     }
 
-
-    //Если товара нет в наличии, то кнопки "в корзину" быть не должно
+    /**
+     * Если товара нет в наличии, то кнопки "в корзину" быть не должно. Проверка по разделам:
+     */
     @Test
+    @Description("Проверяем если товара нет в наличии, то кнопки 'в корзину' быть не должно. Проверка по разделам: Серьги")
     public void checkCartButtonSergi() {
         earrings = new Earrings(driver);
         String s = earrings.getItemsIsOutOfStock().get(0);
@@ -199,6 +220,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем если товара нет в наличии, то кнопки 'в корзину' быть не должно. Проверка по разделам: Браслеты")
     public void checkCartButtonBraslety() {
         bracelets = new Bracelets(driver);
         String s = bracelets.getItemsIsOutOfStock().get(0);
@@ -208,6 +230,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем если товара нет в наличии, то кнопки 'в корзину' быть не должно. Проверка по разделам: Колье")
     public void checkCartButtonKole() {
         necklaces = new Necklaces(driver);
         String s = necklaces.getItemsIsOutOfStock().get(0);
@@ -217,6 +240,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем если товара нет в наличии, то кнопки 'в корзину' быть не должно. Проверка по разделам: Кольца")
     public void checkCartButtonKoltsa() {
         rings = new Rings(driver);
         String s = rings.getItemsIsOutOfStock().get(0);
@@ -226,11 +250,14 @@ public class ProductCardsTest extends TestBase {
     }
 
 
-    /*
-    Если товар входит в коллекцию, то должен отображаться блок "Украшения из образа"
-    Также кликаем на первый товар из блока и смотрим правильно ли совершается переход на страницу товара
+    /**
+     * Если товар входит в коллекцию, то должен отображаться блок "Украшения из образа"
+     * + кликаем на первый товар из блока и смотрим правильно ли совершается переход на страницу товара.
+     * Проверка по разделам:
      */
     @Test
+    @Description("Если товар входит в коллекцию, то должен отображаться блок 'Украшения из образа' " +
+            "+ кликаем на первый товар из блока и смотрим правильно ли совершается переход на страницу товара. Проверка по разделам: Серьги")
     public void checkSetWindowSergi() {
         set = new Set(driver);
         earrings = new Earrings(driver);
@@ -248,6 +275,8 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Если товар входит в коллекцию, то должен отображаться блок 'Украшения из образа' " +
+            "+ кликаем на первый товар из блока и смотрим правильно ли совершается переход на страницу товара. Проверка по разделам: Браслеты")
     public void checkSetWindowBraslety() {
         set = new Set(driver);
         bracelets = new Bracelets(driver);
@@ -265,6 +294,8 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Если товар входит в коллекцию, то должен отображаться блок 'Украшения из образа' " +
+            "+ кликаем на первый товар из блока и смотрим правильно ли совершается переход на страницу товара. Проверка по разделам: Колье")
     public void checkSetWindowKole() {
         set = new Set(driver);
         necklaces = new Necklaces(driver);
@@ -282,6 +313,8 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Если товар входит в коллекцию, то должен отображаться блок 'Украшения из образа' " +
+            "+ кликаем на первый товар из блока и смотрим правильно ли совершается переход на страницу товара. Проверка по разделам: Кольца")
     public void checkSetWindowKoltsa() {
         set = new Set(driver);
         rings = new Rings(driver);
@@ -299,8 +332,12 @@ public class ProductCardsTest extends TestBase {
     }
 
 
-    //Проверяем что товары из блока "Украшения из образа" можно перенести в корзину
+    /**
+     * Проверяем, что товары из блока "Украшения из образа" можно перенести в корзину.
+     * Проверка по разделам:
+     */
     @Test
+    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Серьги")
     public void checkBasketSergi() {
         earrings = new Earrings(driver);
         String s = earrings.getItemsFromSet().get(0);
@@ -312,6 +349,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Браслеты")
     public void checkBasketBraslety() {
         bracelets = new Bracelets(driver);
         String s = bracelets.getItemsFromSet().get(0);
@@ -323,6 +361,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Колье")
     public void checkBasketKole() {
         necklaces = new Necklaces(driver);
         String s = necklaces.getItemsFromSet().get(0);
@@ -334,6 +373,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Кольца")
     public void checkBasketKoltsa() {
         set = new Set(driver);
         rings = new Rings(driver);
@@ -345,9 +385,12 @@ public class ProductCardsTest extends TestBase {
         assertEquals("1", number);
     }
 
-
-    //Отображение блока дизайнеры(фото, название, описание)
+    /**
+     * Проверяем отображение блока дизайнеры(фото, название, описание).
+     * Проверка по разделам:
+     */
     @Test
+    @Description("Проверяем отображение блока дизайнеры(фото, название, описание). Проверка по разделам: Серьги")
     public void checkingDesignersBlockSergi() {
         designers = new Designers(driver);
         driver.get(getUrl + "catalog/sergi/");
@@ -365,6 +408,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение блока дизайнеры(фото, название, описание). Проверка по разделам: Браслеты")
     public void checkingDesignersBlockBraslety() {
         designers = new Designers(driver);
         driver.get(getUrl + "catalog/braslety/");
@@ -381,6 +425,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение блока дизайнеры(фото, название, описание). Проверка по разделам: Колье")
     public void checkingDesignersBlockKole() {
         designers = new Designers(driver);
         driver.get(getUrl + "catalog/kole/");
@@ -398,6 +443,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение блока дизайнеры(фото, название, описание). Проверка по разделам: Кольца")
     public void checkingDesignersBlockKoltsa() {
         designers = new Designers(driver);
         driver.get(getUrl + "catalog/koltsa/");
@@ -413,8 +459,12 @@ public class ProductCardsTest extends TestBase {
                 () -> assertEquals(description.substring(0, 20), designerText.substring(0, 20)));
     }
 
-    //Кнопка перехода к товарам дизайнера
+    /**
+     * Проверяем работу кнопки перехода к товарам дизайнера.
+     * Проверка по разделам:
+     */
     @Test
+    @Description("Проверяем работу кнопки перехода к товарам дизайнера. Проверка по разделам: Серьги")
     public void buttonForNavigatingToDesignerProductsSergi() {
         designers = new Designers(driver);
         driver.get(getUrl + "catalog/sergi/");
@@ -426,6 +476,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем работу кнопки перехода к товарам дизайнера. Проверка по разделам: Браслеты")
     public void buttonForNavigatingToDesignerProductsBraslety() {
         designers = new Designers(driver);
         driver.get(getUrl + "catalog/braslety/");
@@ -437,6 +488,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем работу кнопки перехода к товарам дизайнера. Проверка по разделам: Колье")
     public void buttonForNavigatingToDesignerProductsKole() {
         designers = new Designers(driver);
         driver.get(getUrl + "catalog/kole/");
@@ -448,6 +500,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем работу кнопки перехода к товарам дизайнера. Проверка по разделам: Кольца")
     public void buttonForNavigatingToDesignerProductsKoltsa() {
         designers = new Designers(driver);
         driver.get(getUrl + "catalog/koltsa/");
@@ -511,115 +564,161 @@ public class ProductCardsTest extends TestBase {
 //    }
 
 
-    /* Отображение блоков:
-    -СОСТАВ И ХАРАКТЕРИСТИКИ
-    -УХОД ЗА УКРАШЕНИЯМИ
-    -ДОСТАВКА, ОПЛАТА, ВОЗВРАТ
-    -ГАРАНТИЯ 6 МЕСЯЦЕВ
-    -Код
-    */
-
-    //Отображение 4 блоков(СОСТАВ И ХАРАКТЕРИСТИКИ, УХОД ЗА УКРАШЕНИЯМИ, "ДОСТАВКА, ОПЛАТА, ВОЗВРАТ", ГАРАНТИЯ 6 МЕСЯЦЕВ)
+    /**
+     * Отображение блоков: <p>
+     * -ПОЛУЧЕНИЕ <p>
+     * -СОСТАВ И ХАРАКТЕРИСТИКИ <p>
+     * -НАЛИЧИЕ В МАГАЗИНАХ <p>
+     * -ОПЛАТА, ВОЗВРАТ <p>
+     * -ГАРАНТИЯ 6 МЕСЯЦЕВ <p>
+     * -УХОД ЗА УКРАШЕНИЯМИ <p>
+     * Отображение 6 блоков(ПОЛУЧЕНИЕ, СОСТАВ И ХАРАКТЕРИСТИКИ, НАЛИЧИЕ В МАГАЗИНАХ, "ОПЛАТА, ВОЗВРАТ", ГАРАНТИЯ 6 МЕСЯЦЕВ, УХОД ЗА УКРАШЕНИЯМИ) <p>
+     * Проверка по разделам:
+     */
     @Test
+    @Description("Проверяем отображение 6 блоков(ПОЛУЧЕНИЕ, СОСТАВ И ХАРАКТЕРИСТИКИ, НАЛИЧИЕ В МАГАЗИНАХ, " +
+            "'ОПЛАТА, ВОЗВРАТ', ГАРАНТИЯ 6 МЕСЯЦЕВ, УХОД ЗА УКРАШЕНИЯМИ). Проверка по разделам: Серьги")
     public void checkingBlocksSergi() {
         productCard = new ProductCard(driver);
         driver.get(getUrl + "catalog/sergi/");
         size.clickOnImageLink();
+        String receivingText = productCard.getReceivingText();
+        String receivingCity = productCard.getReceivingCity();
+        String location = productCard.getLocation();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
         String availabilityText = productCard.clickToAvailabilityButton()
                 .getAvailabilityText();
-
-//        String tsvetnoy = productCard.clickToAvailabilityButton()
-//                .getTsvetnoy();
-//        String metropolis = productCard.getMetropolis();
-//        String afimoll = productCard.getAfimoll();
-//        String atrium = productCard.getAtrium();
-//        String redBridge = productCard.getRedBridge();
+        String tsvetnoy = productCard.clickToAvailabilityButton()
+                .getTsvetnoy();
+        String metropolis = productCard.getMetropolis();
+        String afimoll = productCard.getAfimoll();
+        String atrium = productCard.getAtrium();
+        String redBridge = productCard.getRedBridge();
+        String paveletskaya = productCard.getPaveletskaya();
+        String krasnodar = productCard.getKrasnodar();
+        String kazan = productCard.getKazan();
 
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
         String jewelryCareText = productCard.getJewelryCareText();
         String bijouterieCareHeader = productCard.getBijouterieCareHeader();
         String bijouterieCareText = productCard.getBijouterieCareText();
-
         String deliveryText = productCard.clickToDeliveryButton()
                 .getDeliveryText();
-
         String guaranteeText = productCard.clickToGuaranteeButton()
                 .getGuaranteeText();
-
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
-                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
-                        "день", availabilityText),
-//                () -> assertEquals("Цветной", tsvetnoy),
-//                () -> assertEquals("Метрополис", metropolis),
-//                () -> assertEquals("Афимолл", afimoll),
-//                () -> assertEquals("Атриум", atrium),
-//                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом.", availabilityText),
+                () -> assertEquals("Цветной", tsvetnoy),
+                () -> assertEquals("Метрополис", metropolis),
+                () -> assertEquals("Афимолл", afimoll),
+                () -> assertEquals("Атриум", atrium),
+                () -> assertEquals("Павелецкая плаза", paveletskaya),
+                () -> assertEquals("Галерея Краснодар", krasnodar),
+                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("KazanMall", kazan),
+                () -> assertEquals("Доставка", receivingText),
+                () -> assertEquals(receivingCity, location),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
                 () -> assertEquals("Бижутерия", bijouterieCareHeader),
                 () -> assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
-                        "их перед душем и нанесением косметики.\n" +
-                        " Подробнее о хранении и уходе.", bijouterieCareText),
-                () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
+                        "их перед душем и нанесением косметики.", bijouterieCareText),
+                () -> assertEquals("Оплатить заказ можно как наличными курьеру непосредственно при получении заказа", deliveryText.substring(0, 79)),
                 () -> assertEquals("На украшения, купленные в магазинах или на сайте Poison Drop, действует гарантия шесть месяцев, если украшение было с производственным браком.\n" +
                         " Что это?дефекты литья, украшение внутри с порамидефекты крепления, на украшении видны следы клеякамень плохо закреплен, он шатается и выпадает без воздействия на " +
                         "украшениедефекты эмали, она вздувается и отслаиваетсянесоответствие или отсутствие пробы для серебра или золотаневерный состав сплава, металл краснеет или зеленеетна вставках" +
                         " (камнях или жемчужинах) есть пятнанезамкнутые кольца или звенья в цепинесимметричность украшения (если только это не было задумкой дизайнера)дефекты покрытия: оно стерлось" +
-                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами Подробнее о гарантии.", guaranteeText));
+                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами", guaranteeText));
     }
 
     @Test
+    @Description("Проверяем отображение 6 блоков(ПОЛУЧЕНИЕ, СОСТАВ И ХАРАКТЕРИСТИКИ, НАЛИЧИЕ В МАГАЗИНАХ, " +
+            "'ОПЛАТА, ВОЗВРАТ', ГАРАНТИЯ 6 МЕСЯЦЕВ, УХОД ЗА УКРАШЕНИЯМИ). Проверка по разделам: Браслеты")
     public void checkingBlocksBraslety() {
         productCard = new ProductCard(driver);
         driver.get(getUrl + "catalog/braslety/");
         size.clickOnImageLink();
+        String receivingText = productCard.getReceivingText();
+        String receivingCity = productCard.getReceivingCity();
+        String location = productCard.getLocation();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
         String availabilityText = productCard.clickToAvailabilityButton()
                 .getAvailabilityText();
+        String tsvetnoy = productCard.clickToAvailabilityButton()
+                .getTsvetnoy();
+        String metropolis = productCard.getMetropolis();
+        String afimoll = productCard.getAfimoll();
+        String atrium = productCard.getAtrium();
+        String redBridge = productCard.getRedBridge();
+        String paveletskaya = productCard.getPaveletskaya();
+        String krasnodar = productCard.getKrasnodar();
+        String kazan = productCard.getKazan();
+
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
         String jewelryCareText = productCard.getJewelryCareText();
         String bijouterieCareHeader = productCard.getBijouterieCareHeader();
         String bijouterieCareText = productCard.getBijouterieCareText();
-
         String deliveryText = productCard.clickToDeliveryButton()
                 .getDeliveryText();
         String guaranteeText = productCard.clickToGuaranteeButton()
                 .getGuaranteeText();
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
-                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
-                        "день", availabilityText),
+                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом.", availabilityText),
+                () -> assertEquals("Цветной", tsvetnoy),
+                () -> assertEquals("Метрополис", metropolis),
+                () -> assertEquals("Афимолл", afimoll),
+                () -> assertEquals("Атриум", atrium),
+                () -> assertEquals("Павелецкая плаза", paveletskaya),
+                () -> assertEquals("Галерея Краснодар", krasnodar),
+                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("KazanMall", kazan),
+                () -> assertEquals("Доставка", receivingText),
+                () -> assertEquals(receivingCity, location),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
                 () -> assertEquals("Бижутерия", bijouterieCareHeader),
                 () -> assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
-                        "их перед душем и нанесением косметики.\n" +
-                        " Подробнее о хранении и уходе.", bijouterieCareText),
-                () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
+                        "их перед душем и нанесением косметики.", bijouterieCareText),
+                () -> assertEquals("Оплатить заказ можно как наличными курьеру непосредственно при получении заказа", deliveryText.substring(0, 79)),
                 () -> assertEquals("На украшения, купленные в магазинах или на сайте Poison Drop, действует гарантия шесть месяцев, если украшение было с производственным браком.\n" +
                         " Что это?дефекты литья, украшение внутри с порамидефекты крепления, на украшении видны следы клеякамень плохо закреплен, он шатается и выпадает без воздействия на " +
                         "украшениедефекты эмали, она вздувается и отслаиваетсянесоответствие или отсутствие пробы для серебра или золотаневерный состав сплава, металл краснеет или зеленеетна вставках" +
                         " (камнях или жемчужинах) есть пятнанезамкнутые кольца или звенья в цепинесимметричность украшения (если только это не было задумкой дизайнера)дефекты покрытия: оно стерлось" +
-                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами Подробнее о гарантии.", guaranteeText));
+                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами", guaranteeText));
     }
 
     @Test
+    @Description("Проверяем отображение 6 блоков(ПОЛУЧЕНИЕ, СОСТАВ И ХАРАКТЕРИСТИКИ, НАЛИЧИЕ В МАГАЗИНАХ, " +
+            "'ОПЛАТА, ВОЗВРАТ', ГАРАНТИЯ 6 МЕСЯЦЕВ, УХОД ЗА УКРАШЕНИЯМИ). Проверка по разделам: Колье")
     public void checkingBlocksKole() {
         productCard = new ProductCard(driver);
         driver.get(getUrl + "catalog/kole/");
         size.clickOnImageLink();
+        String receivingText = productCard.getReceivingText();
+        String receivingCity = productCard.getReceivingCity();
+        String location = productCard.getLocation();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
         String availabilityText = productCard.clickToAvailabilityButton()
                 .getAvailabilityText();
+        String tsvetnoy = productCard.clickToAvailabilityButton()
+                .getTsvetnoy();
+        String metropolis = productCard.getMetropolis();
+        String afimoll = productCard.getAfimoll();
+        String atrium = productCard.getAtrium();
+        String redBridge = productCard.getRedBridge();
+        String paveletskaya = productCard.getPaveletskaya();
+        String krasnodar = productCard.getKrasnodar();
+        String kazan = productCard.getKazan();
+
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
         String jewelryCareText = productCard.getJewelryCareText();
@@ -631,32 +730,55 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
-                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
-                        "день", availabilityText),
+                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом.", availabilityText),
+                () -> assertEquals("Цветной", tsvetnoy),
+                () -> assertEquals("Метрополис", metropolis),
+                () -> assertEquals("Афимолл", afimoll),
+                () -> assertEquals("Атриум", atrium),
+                () -> assertEquals("Павелецкая плаза", paveletskaya),
+                () -> assertEquals("Галерея Краснодар", krasnodar),
+                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("KazanMall", kazan),
+                () -> assertEquals("Доставка", receivingText),
+                () -> assertEquals(receivingCity, location),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
                 () -> assertEquals("Бижутерия", bijouterieCareHeader),
                 () -> assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
-                        "их перед душем и нанесением косметики.\n" +
-                        " Подробнее о хранении и уходе.", bijouterieCareText),
-                () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
+                        "их перед душем и нанесением косметики.", bijouterieCareText),
+                () -> assertEquals("Оплатить заказ можно как наличными курьеру непосредственно при получении заказа", deliveryText.substring(0, 79)),
                 () -> assertEquals("На украшения, купленные в магазинах или на сайте Poison Drop, действует гарантия шесть месяцев, если украшение было с производственным браком.\n" +
                         " Что это?дефекты литья, украшение внутри с порамидефекты крепления, на украшении видны следы клеякамень плохо закреплен, он шатается и выпадает без воздействия на " +
                         "украшениедефекты эмали, она вздувается и отслаиваетсянесоответствие или отсутствие пробы для серебра или золотаневерный состав сплава, металл краснеет или зеленеетна вставках" +
                         " (камнях или жемчужинах) есть пятнанезамкнутые кольца или звенья в цепинесимметричность украшения (если только это не было задумкой дизайнера)дефекты покрытия: оно стерлось" +
-                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами Подробнее о гарантии.", guaranteeText));
+                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами", guaranteeText));
     }
 
     @Test
+    @Description("Проверяем отображение 6 блоков(ПОЛУЧЕНИЕ, СОСТАВ И ХАРАКТЕРИСТИКИ, НАЛИЧИЕ В МАГАЗИНАХ, " +
+            "'ОПЛАТА, ВОЗВРАТ', ГАРАНТИЯ 6 МЕСЯЦЕВ, УХОД ЗА УКРАШЕНИЯМИ). Проверка по разделам: Кольца")
     public void checkingBlocksKoltsa() {
         productCard = new ProductCard(driver);
         driver.get(getUrl + "catalog/koltsa/");
         size.clickOnImageLink();
+        String receivingText = productCard.getReceivingText();
+        String receivingCity = productCard.getReceivingCity();
+        String location = productCard.getLocation();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
         String availabilityText = productCard.clickToAvailabilityButton()
                 .getAvailabilityText();
+        String tsvetnoy = productCard.clickToAvailabilityButton()
+                .getTsvetnoy();
+        String metropolis = productCard.getMetropolis();
+        String afimoll = productCard.getAfimoll();
+        String atrium = productCard.getAtrium();
+        String redBridge = productCard.getRedBridge();
+        String paveletskaya = productCard.getPaveletskaya();
+        String krasnodar = productCard.getKrasnodar();
+        String kazan = productCard.getKazan();
+
         String jewelryCareHeader = productCard.clickToJewelryCareButton()
                 .getJewelryCareHeader();
         String jewelryCareText = productCard.getJewelryCareText();
@@ -668,25 +790,37 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
-                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом. Обычно на следующий\n" +
-                        "день", availabilityText),
+                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом.", availabilityText),
+                () -> assertEquals("Цветной", tsvetnoy),
+                () -> assertEquals("Метрополис", metropolis),
+                () -> assertEquals("Афимолл", afimoll),
+                () -> assertEquals("Атриум", atrium),
+                () -> assertEquals("Павелецкая плаза", paveletskaya),
+                () -> assertEquals("Галерея Краснодар", krasnodar),
+                () -> assertEquals("APR Санкт-Петербург", redBridge),
+                () -> assertEquals("KazanMall", kazan),
+                () -> assertEquals("Доставка", receivingText),
+                () -> assertEquals(receivingCity, location),
                 () -> assertEquals("Ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("Носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося\n" +
                         "в них спирта)", jewelryCareText),
                 () -> assertEquals("Бижутерия", bijouterieCareHeader),
                 () -> assertEquals("Украшения из ювелирного сплава боятся воды (особенно солёной), крема и парфюма — снимайте\n" +
-                        "их перед душем и нанесением косметики.\n" +
-                        " Подробнее о хранении и уходе.", bijouterieCareText),
-                () -> assertEquals("Доставка по Москве на следующий день, кроме воскресенья.", deliveryText.substring(0, 56)),
+                        "их перед душем и нанесением косметики.", bijouterieCareText),
+                () -> assertEquals("Оплатить заказ можно как наличными курьеру непосредственно при получении заказа", deliveryText.substring(0, 79)),
                 () -> assertEquals("На украшения, купленные в магазинах или на сайте Poison Drop, действует гарантия шесть месяцев, если украшение было с производственным браком.\n" +
                         " Что это?дефекты литья, украшение внутри с порамидефекты крепления, на украшении видны следы клеякамень плохо закреплен, он шатается и выпадает без воздействия на " +
                         "украшениедефекты эмали, она вздувается и отслаиваетсянесоответствие или отсутствие пробы для серебра или золотаневерный состав сплава, металл краснеет или зеленеетна вставках" +
                         " (камнях или жемчужинах) есть пятнанезамкнутые кольца или звенья в цепинесимметричность украшения (если только это не было задумкой дизайнера)дефекты покрытия: оно стерлось" +
-                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами Подробнее о гарантии.", guaranteeText));
+                        " слишком быстро (до 14 дней для серебра, до 45 дней для бижутерии) или покрылось пятнами", guaranteeText));
     }
 
-    //Отображение верного Кода изделия в карточке товара
+    /**
+     * Отображение верного кода изделия в карточке товара <p>
+     * Проверка по разделам:
+     */
     @Test
+    @Description("Проверяем отображение верного кода изделия в карточке товара. Проверка по разделам: Серьги")
     public void checkingCodeSergi() {
         earrings = new Earrings(driver);
         productCard = new ProductCard(driver);
@@ -698,6 +832,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение верного кода изделия в карточке товара. Проверка по разделам: Браслеты")
     public void checkingCodeBraslety() {
         bracelets = new Bracelets(driver);
         productCard = new ProductCard(driver);
@@ -709,6 +844,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение верного кода изделия в карточке товара. Проверка по разделам: Колье")
     public void checkingCodeKole() {
         necklaces = new Necklaces(driver);
         productCard = new ProductCard(driver);
@@ -720,6 +856,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение верного кода изделия в карточке товара. Проверка по разделам: Кольца")
     public void checkingCodeKoltsa() {
         rings = new Rings(driver);
         productCard = new ProductCard(driver);
@@ -731,11 +868,12 @@ public class ProductCardsTest extends TestBase {
     }
 
 
-    /*
-    Проверяем переключение между элементами конструктора(золото/серебро и т.п.)
-    Меняется имя по 4 типам товаров
+    /**
+     * Проверяем переключение между элементами конструктора(золото/серебро и т.п.) <p>
+     * Проверка по разделам:
      */
     @Test
+    @Description("Проверяем отображение верного кода изделия в карточке товара. Проверка по разделам: Серьги")
     public void constructorSergi() {
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/sergi/");
@@ -747,6 +885,7 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение верного кода изделия в карточке товара. Проверка по разделам: Браслеты")
     public void constructorBraslety() {
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/braslety/");
@@ -758,17 +897,19 @@ public class ProductCardsTest extends TestBase {
     }
 
     @Test
+    @Description("Проверяем отображение верного кода изделия в карточке товара. Проверка по разделам: Колье")
     public void constructorKole() {
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/kole/");
         collection.clickOnFirstHref();
         String firstName = basket.getHeader();
-        collection.clickOnFirstItem();
+        collection.clickOnSecondItem();
         String secondName = basket.getHeader();
         assertNotEquals(firstName, secondName);
     }
 
     @Test
+    @Description("Проверяем отображение верного кода изделия в карточке товара. Проверка по разделам: Кольца")
     public void constructorKoltsa() {
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/koltsa/");
@@ -779,11 +920,14 @@ public class ProductCardsTest extends TestBase {
         assertNotEquals(firstName, secondName);
     }
 
-    //Тесты секции "Недавно просмотренных товаров" в карточке товара.
-
-    //Последовательный просмотр 5 товаров и проверка того, что они отразились в секции
-    //Проверка по имени дизайнера
+    /**
+     * Тесты секции "Недавно просмотренных товаров" в карточке товара: <p>
+     * Последовательный просмотр 5 товаров и проверка того, что они отразились в секции: <p>
+     * Проверка по наименованию дизайнера
+     */
     @Test
+    @Description("Проверяем секцию 'Недавно просмотренных товаров'. Последовательный просмотр 5 товаров и проверка того, что они отразились в секции." +
+            " Проверка по наименованию дизайнера")
     public void checkRecentlyViewedProductsDesignerName() {
         List<String> productList = new ArrayList<>();
         List<String> viewedProductList = new ArrayList<>();
@@ -806,8 +950,12 @@ public class ProductCardsTest extends TestBase {
                 () -> assertEquals(productList, viewedProductList));
     }
 
-    //Проверка по цене товара
+    /**
+     * Проверка по цене товара
+     */
     @Test
+    @Description("Проверяем секцию 'Недавно просмотренных товаров'. Последовательный просмотр 5 товаров и проверка того, что они отразились в секции." +
+            " Проверка по цене товара")
     public void checkRecentlyViewedProductsPrice() {
         List<String> listOfPrices = new ArrayList<>();
         List<String> viewedListOfPrices = new ArrayList<>();
@@ -817,7 +965,6 @@ public class ProductCardsTest extends TestBase {
             List<WebElement> elements = driver.findElements(nameLink);
             ((JavascriptExecutor) driver).executeScript(
                     "arguments[0].click();", elements.get(i));
-
             String price = basket.getPriceFromProductCard();
             String priceFromRecentlyViewedProducts = productCard.getPriceFromRecentlyViewedProducts();
             listOfPrices.add(price);
@@ -827,8 +974,11 @@ public class ProductCardsTest extends TestBase {
         assertEquals(listOfPrices, viewedListOfPrices);
     }
 
-    //Смотрим 21 товар и проверяем что среди просмотренных общее кол-во равно 20
+    /**
+     * Смотрим 21 товар и проверяем, что среди просмотренных общее кол-во равно 20.
+     */
     @Test
+    @Description("Проверяем секцию 'Недавно просмотренных товаров'. Смотрим 21 товар и проверяем, что среди просмотренных общее кол-во равно 20")
     public void productsNoMoreThan20() {
         driver.get(getUrl + "catalog");
         for (int i = 0; i <= 20; i++) {

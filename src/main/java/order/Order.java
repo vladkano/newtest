@@ -51,6 +51,7 @@ public class Order extends Base {
     private final By afimollStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Афимолл»']");
     private final By paveletskayaStoreButton = By.xpath("//span[text()='Poison Drop в ТРЦ «Павелецкая плаза»']");
     private final By galleryKrasnodarStoreButton = By.xpath("//span[text()='Poison Drop в ТРЦ «Галерея Краснодар»']");
+    private final By kazanMallStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «KazanMall»']");
     private final By noPayButton = By.xpath("//label[@for='offlinePayment']/span");
     private final By pickPointButton = By.xpath("//b[text()='В постамат']");
     private final By selectPostomatButton = By.xpath("//span[text()='Выбрать постамат']");
@@ -261,6 +262,12 @@ public class Order extends Base {
         clickOnCompanyStoreButton();
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(galleryKrasnodarStoreButton));
+    }
+
+    public void clickOnKazanMallStoreButton() {
+        clickOnCompanyStoreButton();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(kazanMallStoreButton));
     }
 
     public void clickOnNoPayButton() {
@@ -623,6 +630,25 @@ public class Order extends Base {
         clickOnOrderButton();
     }
 
+    /**
+     * Казань Молл
+     */
+
+    public void kazanMallWithWA(String phone, String email, String fio) {
+        basicParameters(phone, email, fio);
+        clickOnKazanMallStoreButton();
+        clickOnWhatsAppButton();
+        clickOnPayButton();
+    }
+
+    public void kazanMallWithNoPayAndSMS(String phone, String email, String fio) {
+        basicParameters(phone, email, fio);
+        clickOnKazanMallStoreButton();
+        clickOnNoPayButton();
+        clickOnSmsButton();
+        clickOnOrderButton();
+    }
+
     //Доставить в другую страну:
     public void internationalWithPhone(String phone, String email, String fio, String city,
                                        String internationalCity, String comment) {
@@ -631,10 +657,19 @@ public class Order extends Base {
         this.typeLocationSearch(city);
         sleep(1000);
         this.clickOnLocationButton();
-//        type(internationalCity, orderAddressButton);
-//        this.clickOnAddCommentButton();
-//        this.typeComment(comment);
-//        this.clickOnPayButton();
+        type(internationalCity, orderAddressButton);
+        this.clickOnAddCommentButton();
+        this.typeComment(comment);
+        this.clickOnPayButton();
+    }
+
+    //Доставить в другую страну(доставка невозможна):
+    public void deliveryIsNotPossible(String phone, String email, String fio, String city) {
+        basicParameters(phone, email, fio);
+        this.clickOnChangeCityButton();
+        this.typeLocationSearch(city);
+        sleep(1000);
+        this.clickOnLocationButton();
     }
 
 

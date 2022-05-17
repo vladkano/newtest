@@ -53,7 +53,7 @@ public class Pirsing extends Base {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and catalog_id=10 and is_archive = 0 and price != 0 and filter_id = 153 " +
-                "and item_sku.url is not null and balance > 0 " +
+                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();

@@ -2,11 +2,13 @@ package apiTests;
 
 import config.TestConfig;
 import config.TestEndpoints;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.*;
 
-
+@Epic("Тесты АПИ")
 public class ApiTest extends TestConfig {
 
 //    private static String requestBody = "{\n" +
@@ -50,8 +52,13 @@ public class ApiTest extends TestConfig {
 //
 //    }
 
-
+    /**
+     * Проверяем работу запросов каталогов:<p>
+     * Серьги
+     */
     @Test
+    @Description("Проверяем работают ли кнопки корзины на разных типах товаров. " +
+            "Обычный товар без размера")
     public void test() {
         given()
                 .log().all().

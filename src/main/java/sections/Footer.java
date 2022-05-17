@@ -17,7 +17,7 @@ public class Footer extends Base {
     private final By garantiiButton = By.xpath("//a[text()='гарантии']");
     private final By ofertaButton = By.xpath("//a[text()='оферта']");
     private final By personalnyeDannyeButton = By.xpath("//a[text()='персональные данные']");
-    private final By instaButton = By.xpath("//a[@aria-label='instagram']");
+    private final By vkButton = By.xpath("//a[@aria-label='vkontakte']");
     private final By telegaButton = By.xpath("//a[@aria-label='telegram']");
     private final By tikTokButton = By.xpath("//a[@aria-label='tik-tok']");
     private final By youtubeButton = By.xpath("//a[@aria-label='youtube']");
@@ -37,7 +37,7 @@ public class Footer extends Base {
     private final By personalnyeDannyeHeader = By.xpath("//h1[@class='service-page__title']");
     private final By telegaHeader = By.xpath("//span[text()='Poison Drop']");
     private final By youtubeHeader = By.xpath("//yt-formatted-string[text()='Poison Drop']");
-    private final By whatsAppHeader = By.xpath("//h1[text()='Poison Drop by ООО \"ПойзонДроп\"']");
+    private final By whatsAppHeader = By.xpath("//h3[text()='Poison Drop by ООО \"ПойзонДроп\"']");
 
     public Footer(WebDriver driver) {
         super(driver);
@@ -134,9 +134,9 @@ public class Footer extends Base {
         return driver.findElement(personalnyeDannyeHeader).getText();
     }
 
-    public void clickToInstaButton() {
+    public void clickToVkButton() {
         ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(instaButton));
+                "arguments[0].click();", driver.findElement(vkButton));
     }
 
     public void clickToTelegaButton() {

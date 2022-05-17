@@ -1,6 +1,7 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,8 +19,12 @@ public class TagTest extends TestBase {
         tag = new Tags(driver);
     }
 
-    //Отображение тегов в каталогах
+    /**
+     * Отображение тегов в каталогах:<p>
+     * Серьги
+     */
     @Test
+    @Description("Отображение тегов в каталогах: Серьги")
     public void tagIsVisibleEarrings() {
         driver.get(getUrl + "catalog/sergi");
         String firstTag = tag.getTag();
@@ -27,7 +32,11 @@ public class TagTest extends TestBase {
         assertEquals(sqlTag.toUpperCase(), firstTag);
     }
 
+    /**
+     * Браслеты
+     */
     @Test
+    @Description("Отображение тегов в каталогах: Браслеты")
     public void tagIsVisibleBracelets() {
         driver.get(getUrl + "catalog/braslety");
         String firstTag = tag.getTag();
@@ -35,17 +44,10 @@ public class TagTest extends TestBase {
     }
 
     /**
-     * В разделе колье среди первых 48 нет товаров с тегами
+     * Кольца
      */
-//    @Test
-//    public void tagIsVisibleNecklaces() {
-//        driver.get(getUrl + "catalog/kole");
-//        String firstTag = tag.getTag();
-//        String sqlTag = tag.nameNecklacesTags();
-//        assertEquals(sqlTag.toUpperCase(), firstTag);
-//    }
-
     @Test
+    @Description("Отображение тегов в каталогах: Кольца")
     public void tagIsVisibleRings() {
         driver.get(getUrl + "catalog/koltsa");
         String firstTag = tag.getTag();
@@ -53,10 +55,12 @@ public class TagTest extends TestBase {
         assertEquals(sqlTag.toUpperCase(), firstTag);
     }
 
-
-    //Отображение верных тегов в каталогах
-    //Отображение всех тегов по товару
+    /**
+     * Отображение всех тегов по товару:<p>
+     * Серьги
+     */
     @Test
+    @Description("Отображение всех тегов по товару: Серьги")
     public void tagIsCorrectEarrings() {
         driver.get(getUrl + "catalog/sergi");
         String firstTag = tag.getEarringsTag();
@@ -64,7 +68,11 @@ public class TagTest extends TestBase {
         assertEquals(tagsFromSql, firstTag);
     }
 
+    /**
+     * Броши
+     */
     @Test
+    @Description("Отображение всех тегов по товару: Броши")
     public void tagIsCorrectBroshi() {
         driver.get(getUrl + "catalog/broshi");
         String firstTag = tag.getBroshiTag();
@@ -73,18 +81,10 @@ public class TagTest extends TestBase {
     }
 
     /**
-     * В разделе колье среди первых 48 нет товаров с тегами
+     * Кольца
      */
-//    @Test
-//    public void tagIsCorrectNecklaces() {
-//        driver.get(getUrl + "catalog/kole");
-//        String firstTag = tag.getNecklacesTag();
-//        String outputTag = Character.toUpperCase(firstTag.charAt(0)) + firstTag.substring(1);
-//        String tagsFromSql = tag.nameNecklacesTags();
-//        assertEquals(tagsFromSql, outputTag);
-//    }
-
     @Test
+    @Description("Отображение всех тегов по товару: Кольца")
     public void tagIsCorrectRings() {
         driver.get(getUrl + "catalog/koltsa");
         String firstTag = tag.getRingsTag();

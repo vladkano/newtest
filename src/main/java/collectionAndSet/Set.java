@@ -2,6 +2,7 @@ package collectionAndSet;
 
 import base.Base;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class Set extends Base {
@@ -23,7 +24,9 @@ public class Set extends Base {
     }
 
     public void clickOnFirstItemFromSet() {
-        driver.findElement(firstItemFromSet).click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(firstItemFromSet));
+//        driver.findElement(firstItemFromSet).click();
     }
 
     public String getHrefFirstItemFromSet() {
