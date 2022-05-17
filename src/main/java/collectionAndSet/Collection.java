@@ -17,6 +17,7 @@ public class Collection extends Base {
 
     private final By href = By.xpath("//li[@class='product-variant']/a");
     private final By firstItem = By.xpath("//span[@class='material-image']");
+    private final By secondItem = By.xpath("(//span[@class='material-image'])[2]");
     private final By price = By.xpath("//b[@class='price-block__price']");
 
     public Collection(WebDriver driver) {
@@ -31,6 +32,10 @@ public class Collection extends Base {
 
     public void clickOnFirstItem() {
         click(firstItem);
+    }
+
+    public void clickOnSecondItem() {
+        click(secondItem);
     }
 
     public void clickOnFirstHref() {

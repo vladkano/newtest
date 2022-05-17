@@ -17,9 +17,13 @@ public class Wishlist extends Base {
     private final By wishListInCardListButton = By.xpath("//span[text()='Wish List']");
     private final By addToFavoritesFromCatalogButton = By.xpath("//span[@class='wish-button__icon-block']");
     private final By transferToBasketButton = By.xpath("//span[text()='В корзину']");
+    private final By transferToBasketWithSizeButton = By.xpath("//button/span[text()='В корзину']");
+
     private final By moveToBasketButton = By.xpath("//span[text()='Оформить заказ']");
     private final By wishListHeader = By.xpath("//h2[text()='Избранное']");
     private final By basketProductName = By.xpath("//h4[@class='cart-item__product-name']");
+    private final By wishListProductSize = By.xpath("//div[@class='ring-size-popup__size ring-size-popup__size_current']");
+
 
     public Wishlist(WebDriver driver) {
         super(driver);
@@ -29,13 +33,24 @@ public class Wishlist extends Base {
         return driver.findElement(basketProductName).getText();
     }
 
+    public String getWishListProductSize() {
+        return driver.findElement(wishListProductSize).getText();
+    }
+
     public void clickToMoveToBasketButton() {
         driver.findElement(moveToBasketButton).click();
     }
 
     public void clickToTransferToBasketButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(transferToBasketButton));
+        click(transferToBasketButton);
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(transferToBasketButton));
+    }
+
+    public void clickToTransferToBasketWithSizeButton() {
+        click(transferToBasketWithSizeButton);
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(transferToBasketWithSizeButton));
     }
 
     public String getItemName() {

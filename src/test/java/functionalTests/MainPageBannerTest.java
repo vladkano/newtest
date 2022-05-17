@@ -1,6 +1,7 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import mainPage.MainPageBanner;
 import org.junit.jupiter.api.AfterEach;
@@ -27,25 +28,36 @@ public class MainPageBannerTest extends TestBase {
         banner = new MainPageBanner(driver);
     }
 
-    //Отображение баннеров на главной странице
+    /**
+     * Поверяем отображение баннеров на главной странице <p>
+     * Видимость главного баннера
+     */
     @Test
+    @Description("Поверяем отображение главного баннера")
     public void mainBannerIsVisible() {
         List<WebElement> mainBanner = driver.findElements(By.xpath("//div[@class='main-banner']"));
         assertEquals(1, mainBanner.size());
     }
 
+    /**
+     * Отображаются все 12 баннеров
+     */
     @Test
+    @Description("Поверяем, что отображаются все 12 баннеров")
     public void bannersIsVisible() {
         List<WebElement> banners = driver.findElements(countOfBanners);
         assertEquals(12, banners.size());
     }
 
-    //Отображение блока бестселлеров на главной странице в правильном порядке
+    /**
+     * Проверяем, что блок бестселлеров отображается на главной странице в правильном порядке <p>
+     * Проверка по наименованию изделия
+     */
     @Test
-    public void bestsellersIsVisible() {
+    @Description("Проверяем, что блок бестселлеров отображается на главной странице в правильном порядке(По наименованию изделия)")
+    public void bestsellersNameIsVisible() {
         List<String> bestsellers = new ArrayList<>();
         List<WebElement> best = driver.findElements(By.xpath("//h3[@class='catalog-card__name']/a"));
-//        List<WebElement> elements = best.subList(0, 5);
         for (WebElement name : best) {
             String textBanner = name.getAttribute("textContent");
             bestsellers.add(textBanner);
@@ -54,11 +66,14 @@ public class MainPageBannerTest extends TestBase {
         assertEquals(sqlList, bestsellers);
     }
 
+    /**
+     * Проверка по наименованию дизайнера
+     */
     @Test
+    @Description("Проверяем, что блок бестселлеров отображается на главной странице в правильном порядке(По наименованию дизайнера)")
     public void bestsellersDesigners() {
         List<String> bestsellers = new ArrayList<>();
         List<WebElement> best = driver.findElements(By.xpath("//div[@class='catalog-card__designer']//a"));
-//        List<WebElement> elements = best.subList(0, 5);
         for (WebElement name : best) {
             String textBanner = name.getAttribute("textContent");
             bestsellers.add(textBanner);
@@ -67,7 +82,11 @@ public class MainPageBannerTest extends TestBase {
         assertEquals(sqlList, bestsellers);
     }
 
+    /**
+     * Проверка по стоимости изделия
+     */
     @Test
+    @Description("Проверяем, что блок бестселлеров отображается на главной странице в правильном порядке(По стоимости изделия)")
     public void bestsellersPrice() {
         List<Integer> bestsellers = new ArrayList<>();
         List<WebElement> best = driver.findElements(By.xpath("//b[@class='price-block__price']"));
@@ -82,17 +101,24 @@ public class MainPageBannerTest extends TestBase {
         assertEquals(sqlList, bestsellers);
     }
 
-    //Отображение блока Shop The Look
-    //Раздел отключен 14.03.2022(поэтому проверяем, что раздел недоступен)
+    /**
+     * Отображение блока Shop The Look <p>
+     * Раздел отключен 14.03.2022(поэтому проверяем, что раздел недоступен)
+     */
     @Test
+    @Description("Проверяем, что блок Shop The Look не отображается на главной странице")
     public void shopTheLookIsNotVisible() {
         int banners = driver.findElements(By.xpath("//div[@class='frisbuy-post-provider-instagram']")).size();
         assertTrue(banners <= 0);
     }
 
 
-    //ссылки: переход на верную страницу
+    /**
+     * Проверяем ссылки: переход на верную страницу <p>
+     * Главный баннер
+     */
     @Test
+    @Description("Проверяем ссылки: переход на верную страницу(главный баннер)")
     public void mainBannerLink() {
         banner.clickToOkButton();
         String href = banner.getMainCatalogHref();
@@ -104,7 +130,11 @@ public class MainPageBannerTest extends TestBase {
                 () -> assertEquals("Фильтр", header));
     }
 
+    /**
+     * Первый баннер
+     */
     @Test
+    @Description("Проверяем ссылки: переход на верную страницу(первый баннер)")
     public void firstBannerLink() {
         String href = banner.getCatalogHref();
         banner.clickToCatalogHref();
@@ -115,7 +145,11 @@ public class MainPageBannerTest extends TestBase {
                 () -> assertEquals("Фильтр", header));
     }
 
+    /**
+     * Шестой баннер
+     */
     @Test
+    @Description("Проверяем ссылки: переход на верную страницу(шестой баннер)")
     public void sixBannerLink() {
         String href = banner.getSixCatalogHref();
         banner.clickToSixCatalogHref();
@@ -126,7 +160,12 @@ public class MainPageBannerTest extends TestBase {
                 () -> assertEquals("Фильтр", header));
     }
 
+    /**
+     * Блок бестселлеров <p>
+     * Переход по наименованию дизайнера
+     */
     @Test
+    @Description("Проверяем ссылки: переход на верную страницу(Блок бестселлеров: по наименованию дизайнера)")
     public void bestsellersDesignerLink() {
         banner.clickToCarouselButton();
         String designerName = banner.getDesignerName();
@@ -135,7 +174,11 @@ public class MainPageBannerTest extends TestBase {
         assertEquals(designerName, header);
     }
 
+    /**
+     * Переход по наименованию изделия
+     */
     @Test
+    @Description("Проверяем ссылки: переход на верную страницу(Блок бестселлеров: по наименованию изделия)")
     public void bestsellersNameLink() {
         String name = banner.getName();
         banner.clickToBestsellerNameButton();

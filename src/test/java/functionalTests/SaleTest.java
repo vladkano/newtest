@@ -2,6 +2,7 @@ package functionalTests;
 
 import baseForTests.TestBase;
 import filters.Filters;
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -27,29 +28,35 @@ public class SaleTest extends TestBase {
         filters = new Filters(driver);
     }
 
-    //Кол-во наименование в базе и на странице, выборочная проверка по наименованию
+    /**
+     * Проверяем количество наименований товаров в базе и на странице раздела 'sale'. <p>
+     * Проверка по наименованию изделия.
+     */
     @Test
-    public void namesOfSale() {
+    @Description("Проверяем количество наименований товаров в базе и на странице раздела 'sale'. Проверка по наименованию изделия.")
+    public void saleCheckingByProductName() {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = sale.getNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s.substring(0, 9));
         }
+        System.out.println(numberOnly);
         //сравниваем размеры и содержание списков
         Assertions.assertAll(
                 () -> assertEquals(sqlSize, numberOnly),
                 () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
-    //Проверка по наименованию дизайнера. База и на сайте
+    /**
+     * Проверка по наименованию дизайнера.
+     */
     @Test
-    public void designersOfSale() {
+    @Description("Проверяем наименования дизайнеров в базе и на странице раздела 'sale'.")
+    public void saleCheckingByDesignerName() {
         List<String> sqlList = sale.getDesigners();
         List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
@@ -60,9 +67,12 @@ public class SaleTest extends TestBase {
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Проверка по цене со скидкой. База и на сайте
+    /**
+     * Проверка по цене со скидкой.
+     */
     @Test
-    public void finalPriceOfSale() {
+    @Description("Проверяем цены с учетом скидок в базе и на странице раздела 'sale'.")
+    public void saleCheckingByFinalPrice() {
         List<Integer> sqlList = sale.getFinalPrice();
         List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
@@ -78,7 +88,7 @@ public class SaleTest extends TestBase {
 
     //Проверка по цене без скидки. База и на сайте
     @Test
-    public void priceOfSale() {
+    public void saleCheckingByPrice() {
         List<Integer> sqlList = sale.getOldPrice();
         //site:
         List<WebElement> elements = driver.findElements(By.xpath("//span[@class='price-block__price price-block__price_old']"));
@@ -95,7 +105,7 @@ public class SaleTest extends TestBase {
 
     //Проверка отображения размера скидки.
     @Test
-    public void amountOfDiscount() {
+    public void saleCheckingDisplayOfDiscountAmount() {
         //sql:
         List<Integer> sqlList = sale.getSale();
         //site:

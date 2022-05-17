@@ -16,7 +16,7 @@ public class Material extends Base {
     private final By materialButton = By.xpath("//div[text()='Материал']");
     private final By insertButton = By.xpath("//div[text()='Вставки']");
     private final By zemcugButton = By.xpath("//div[text()='Жемчуг']");
-    private final By kristallyButton = By.xpath("//div[text()='Кристаллы']");
+    private final By kristallyButton = By.xpath("//div[text()='Кристалл']");
     private final By kamenButton = By.xpath("//div[text()='Натуральный камень']");
     private final By stekloButton = By.xpath("//div[text()='Стекло']");
     private final By bronzeButton = By.xpath("//div[text()='Бронза']");
@@ -240,17 +240,16 @@ public class Material extends Base {
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
         String name;
-        ArrayList<String> text = new ArrayList<>();
+        List<String> text = new ArrayList<>();
         String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
-                "JOIN item_base_metal_group ON item.base_metal_group_id = item_base_metal_group.id " +
+                "JOIN item_base_material ON item.base_material_id = item_base_material.id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and filter_id = 217 " +
-                "and item_sku.url is not null and balance > 0 and item_base_metal_group.name = 'Серебро' " +
+                "and is_archive = 0 and price != 0 and filter_id = 3 " +
+                "and item_sku.url is not null and balance > 0 and item_base_material.name = 'Кристаллы' " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
