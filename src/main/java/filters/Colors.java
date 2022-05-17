@@ -128,6 +128,7 @@ public class Colors extends Base {
         List<String> text = new ArrayList<>();
         String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_color_list ON item.id = item_color_list.item_id " +
                 "JOIN item_color_value ON item_color_list.color_value_id = item_color_value.id " +
@@ -135,7 +136,7 @@ public class Colors extends Base {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and filter_id = 155 " +
-                "and item_sku.url is not null and balance > 0 and item_color_value.name = 'Мульти' " +
+                "and item_sku.url is not null and balance > 0 and item_color_value.name = 'Мульти' and designer.show = 1 " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -156,6 +157,7 @@ public class Colors extends Base {
         List<String> text = new ArrayList<>();
         String query = "SELECT item.name from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_coverage_list ON item.id = item_coverage_list.item_id " +
@@ -164,7 +166,7 @@ public class Colors extends Base {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and filter_id = 155 " +
-                "and item_sku.url is not null and balance > 0 and item_coverage_value.name = 'Родий' " +
+                "and item_sku.url is not null and balance > 0 and item_coverage_value.name = 'Родий' and designer.show = 1 " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();

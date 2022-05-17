@@ -217,7 +217,9 @@ public class PersonalData extends Base {
     }
 
     public void clickOnName() {
-        click(profileFullName);
+//        click(profileFullName);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(profileFullName));
         driver.findElement(profileFullName).sendKeys(Keys.CONTROL + "a");
         driver.findElement(profileFullName).sendKeys(Keys.DELETE);
         clickOnSaveButton();

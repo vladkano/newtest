@@ -37,7 +37,7 @@ public class NewItems extends Base {
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and filter_id = 155 " +
                 "and item_sku.url is not null and balance > 0 " +
-                "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url " +
+                "group by item.id, item.name, designer.id, designer.name, catalog.id, catalog.name, catalog.url and designer.show = 1 " +
                 "order by item_sku.created_at desc";
         try {
             Statement statement = worker.getCon().createStatement();

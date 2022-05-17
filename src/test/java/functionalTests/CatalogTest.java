@@ -27,8 +27,7 @@ public class CatalogTest extends TestBase {
     }
 
     /**
-     * Вспомогательные методы для тестов:
-     * <p>
+     * Вспомогательные методы для тестов:<p>
      * Получаем названия дизайнера с сайта
      */
     public void getDesignerNamesFromSite() {
@@ -43,7 +42,6 @@ public class CatalogTest extends TestBase {
      * Получаем количество картинок с сайта
      */
     public void getPicturesFromSite() {
-        driver.get(getUrl + "catalog/braslety");
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -69,8 +67,7 @@ public class CatalogTest extends TestBase {
 
 
     /**
-     * Сравниваем количество наименований в базе и каталоге(размеры и содержание списков):
-     * <p>
+     * Сравниваем количество наименований в базе и каталоге(размеры и содержание списков):<p>
      * Браслеты(проверка по наименованию дизайнера)
      */
     @Test
@@ -198,8 +195,7 @@ public class CatalogTest extends TestBase {
     }
 
     /**
-     * Сравниваем количество наименований в базе и каталоге(размеры и содержание списков):
-     * <p>
+     * Сравниваем количество наименований в базе и каталоге(размеры и содержание списков):<p>
      * Браслеты(проверка по наименованию изделия)
      */
     @Test
@@ -327,8 +323,7 @@ public class CatalogTest extends TestBase {
     }
 
     /**
-     * Проверяем отображение картинок и их количество.
-     * <p>
+     * Проверяем отображение картинок и их количество.<p>
      * Браслеты(картинки)
      */
     @Test
@@ -407,8 +402,7 @@ public class CatalogTest extends TestBase {
     }
 
     /**
-     * Сравниваем цены в базе и каталоге(первые 48 изделий):
-     * <p>
+     * Сравниваем цены в базе и каталоге(первые 48 изделий):<p>
      * Браслеты(проверка по цене)
      */
     @Test
@@ -469,6 +463,7 @@ public class CatalogTest extends TestBase {
         driver.get(getUrl + "catalog/broshi");
         brooches = new Brooches(driver);
         List<Integer> sqlList = brooches.getPrice();
+
         getPricesFromSite();
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }

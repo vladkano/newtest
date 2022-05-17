@@ -2,6 +2,7 @@ package functionalTests;
 
 import baseForTests.TestBase;
 import filters.Filters;
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +16,7 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Epic("Тесты раздела Новинки")
+@Epic("Тесты раздела Новинок")
 public class NewItemsTest extends TestBase {
 
     @BeforeEach
@@ -27,47 +28,54 @@ public class NewItemsTest extends TestBase {
         newItems.clickToOkButton();
     }
 
-    //Кол-во наименование в базе и на странице, проверка по наименованию
+    /**
+     * Сравниваем количество наименований в базе и на первой странице раздела новинок, проверка по
+     * наименованию изделия(содержание списка и порядок отображения изделий на странице)
+     */
     @Test
-    public void namesOfNewItems() {
+    @Description("Сравниваем количество наименований в базе и на первой странице раздела новинок, " +
+            "проверка по наименованию изделия(количество изделий в разделе, содержание списка и порядок отображения изделий на странице)")
+    public void productNameCheck() {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = newItems.getNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем содержание и порядок списков
         Assertions.assertAll(
                 () -> assertEquals(sqlSize, numberOnly),
                 () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
-    //Проверка по наименованию дизайнера
+    /**
+     * Сравниваем количество наименований в базе и на первой странице раздела новинок, проверка по
+     * наименованию дизайнера(содержание списка и порядок отображения изделий на странице)
+     */
     @Test
-    public void designersOfNewItems() {
-        //sql:
+    @Description("Сравниваем количество наименований в базе и на первой странице раздела новинок, " +
+            "проверка по наименованию дизайнера(содержание списка и порядок отображения изделий на странице)")
+    public void designersNameCheck() {
         List<String> sqlList = newItems.getDesigners();
-        //site:
         List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Проверка на соответствие цены на сайте цене в базе.
+    /**
+     * Проверка на соответствие цены на первой странице раздела новинок цене в
+     * базе данных(содержание списка и порядок отображения изделий на странице)
+     */
     @Test
-    public void priceOfNewItems() {
-        //sql:
+    @Description("Проверка на соответствие цены на первой странице раздела новинок цене в + " +
+            "базе данных(содержание списка и порядок отображения изделий на странице)")
+    public void checkingPricesForNewItems() {
         List<Integer> sqlList = newItems.getPrice();
-        //site:
         List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -76,13 +84,15 @@ public class NewItemsTest extends TestBase {
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
-    //Проверяем отображение картинок и их количество.
+    /**
+     * Проверяем отображение картинок и их количество на первой странице раздела новинок.
+     */
     @Test
-    public void pictureOfNewItems() {
+    @Description("Проверяем отображение картинок и их количество на первой странице раздела новинок")
+    public void displayingPicturesInNewItems() {
         List<WebElement> elements = driver.findElements(numberOfPictures);
         for (WebElement text : elements) {
             String s = text.getText();

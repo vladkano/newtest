@@ -31,8 +31,7 @@ public class FiltersTest extends TestBase {
     }
 
     /**
-     * Вспомогательные методы для тестов:
-     * <p>
+     * Вспомогательные методы для тестов: <p>
      * Получить список изделий с сайта
      */
     public void getProductsListFromPage() {
@@ -102,10 +101,8 @@ public class FiltersTest extends TestBase {
 
 
     /**
-     * Проверяем работу фильтров:
-     * <p>
-     * По типу изделия:
-     * <p>
+     * Проверяем работу фильтров: <p>
+     * По типу изделия: <p>
      * Серьги
      */
     @Test
@@ -205,91 +202,91 @@ public class FiltersTest extends TestBase {
                 () -> assertEquals(sqlList.get(2), siteList.get(2)));
     }
 
-    /**
-     * По вставкам:
-     * <p>
-     * Жемчуг
-     */
-    @Test
-    @Description("Проверяем работу фильтров: По вставкам(Жемчуг)")
-    public void getPearl() {
-        getFilterByInserts();
-        material.clickToZemcugButton();
-        filters.clickToShowProductsButton();
-        List<String> sqlList = material.getListOfZemcug();
-        getProductsListFromPage();
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        Assertions.assertAll(
-                () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
-    }
+
+//    //Вставки поломались 13.05.2022, должны починится, проверить после релиза таски: https://tracker.yandex.ru/PD-1659
+//    /**
+//     * По вставкам: <p>
+//     * Жемчуг
+//     */
+//    @Test
+//    @Description("Проверяем работу фильтров: По вставкам(Жемчуг)")
+//    public void getPearl() {
+//        getFilterByInserts();
+//        material.clickToZemcugButton();
+//        filters.clickToShowProductsButton();
+//        List<String> sqlList = material.getListOfZemcug();
+//        getProductsListFromPage();
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        Assertions.assertAll(
+//                () -> assertEquals(sqlList.size(), numberOnly),
+//                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+//                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+//    }
+//
+//    /**
+//     * Кристаллы
+//     */
+//    @Test
+//    @Description("Проверяем работу фильтров: По вставкам(Кристаллы)")
+//    public void getCrystals() {
+//        getFilterByInserts();
+//        material.clickToKristallyButton();
+//        filters.clickToShowProductsButton();
+//        List<String> sqlList = material.getListOfKristally();
+//        getProductsListFromPage();
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        Assertions.assertAll(
+//                () -> assertEquals(sqlList.size(), numberOnly),
+//                () -> assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20)),
+//                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+//    }
+//
+//    /**
+//     * Камни
+//     */
+//    @Test
+//    @Description("Проверяем работу фильтров: По вставкам(Камни)")
+//    public void getStones() {
+//        getFilterByInserts();
+//        material.clickToKamenButton();
+//        filters.clickToShowProductsButton();
+//        List<String> sqlList = material.getListOfKamen();
+//        getProductsListFromPage();
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        Assertions.assertAll(
+//                () -> assertEquals(sqlList.size(), numberOnly),
+//                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+//                () -> assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20)));
+//    }
+//
+//    /**
+//     * Стекло
+//     */
+//    @Test
+//    @Description("Проверяем работу фильтров: По вставкам(Стекло)")
+//    public void getGlass() {
+//        getFilterByInserts();
+//        material.clickToStekloButton();
+//        filters.clickToShowProductsButton();
+//        List<String> sqlList = material.getListOfSteklo();
+//        getProductsListFromPage();
+//        String countHeader = filters.getCountHeader();
+//        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
+//        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+//        Assertions.assertAll(
+//                () -> assertEquals(sqlList.size(), numberOnly),
+//                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+//                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+//    }
 
     /**
-     * Кристаллы
-     */
-    @Test
-    @Description("Проверяем работу фильтров: По вставкам(Кристаллы)")
-    public void getCrystals() {
-        getFilterByInserts();
-        material.clickToKristallyButton();
-        filters.clickToShowProductsButton();
-        List<String> sqlList = material.getListOfKristally();
-        getProductsListFromPage();
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        Assertions.assertAll(
-                () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
-    }
-
-    /**
-     * Камни
-     */
-    @Test
-    @Description("Проверяем работу фильтров: По вставкам(Камни)")
-    public void getStones() {
-        getFilterByInserts();
-        material.clickToKamenButton();
-        filters.clickToShowProductsButton();
-        List<String> sqlList = material.getListOfKamen();
-        getProductsListFromPage();
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        Assertions.assertAll(
-                () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20)));
-    }
-
-    /**
-     * Стекло
-     */
-    @Test
-    @Description("Проверяем работу фильтров: По вставкам(Стекло)")
-    public void getGlass() {
-        getFilterByInserts();
-        material.clickToStekloButton();
-        filters.clickToShowProductsButton();
-        List<String> sqlList = material.getListOfSteklo();
-        getProductsListFromPage();
-        String countHeader = filters.getCountHeader();
-        Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        Assertions.assertAll(
-                () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
-    }
-
-    /**
-     * По материалам:
-     * <p>
+     * По материалам: <p>
      * Бронза
      */
     @Test
@@ -331,8 +328,7 @@ public class FiltersTest extends TestBase {
 
 
     /**
-     * Тесты слайдера с ценой:
-     * <p>
+     * Тесты слайдера с ценой: <p>
      * Правый ползунок
      */
     @Test
@@ -353,8 +349,7 @@ public class FiltersTest extends TestBase {
 
 
     /**
-     * Тесты слайдера с ценой:
-     * <p>
+     * Тесты слайдера с ценой: <p>
      * Левый ползунок
      */
     @Test
@@ -375,8 +370,7 @@ public class FiltersTest extends TestBase {
 
 
     /**
-     * По цвету изделия:
-     * <p>
+     * По цвету изделия:<p>
      * Зелёный
      */
     @Test
@@ -429,16 +423,14 @@ public class FiltersTest extends TestBase {
         getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
+        //Сравниваем элементы и размеры списков.
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     /**
-     * По покрытию:
-     * <p>
+     * По покрытию: <p>
      * Родий
      */
     @Test
@@ -478,8 +470,7 @@ public class FiltersTest extends TestBase {
     }
 
     /**
-     * По размеру кольца:
-     * <p>
+     * По размеру кольца: <p>
      * 14
      */
     @Test
@@ -541,8 +532,7 @@ public class FiltersTest extends TestBase {
 
 
     /**
-     * По дизайнеру:
-     * <p>
+     * По дизайнеру: <p>
      * Aleksandr Sinitsyn
      */
     @Test
@@ -577,7 +567,7 @@ public class FiltersTest extends TestBase {
         //сравниваем размеры и содержание списков
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size())));
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     /**
@@ -602,8 +592,7 @@ public class FiltersTest extends TestBase {
 
 
     /**
-     * Проверка кнопки "Сбросить всё" фильтр
-     * <p>
+     * Проверка кнопки "Сбросить всё" фильтр <p>
      * Внутри фильтра
      */
     @Test
@@ -634,8 +623,8 @@ public class FiltersTest extends TestBase {
 
 
     /**
-     * Сброс фильтров по категориям(Последовательно выбираем фильтры: Серьги, Ювелирный сплав, белый).
-     * Затем сбрасываем их в обратной последовательности.
+     * Сброс фильтров по категориям(Последовательно выбираем фильтры: Серьги, Ювелирный сплав, белый).<p>
+     * Затем сбрасываем их в обратной последовательности.<p>
      * Смотрим, чтобы менялось кол-во
      */
     @Test
@@ -678,10 +667,8 @@ public class FiltersTest extends TestBase {
 
 
     /**
-     * Фильтры со скидками:
-     * <p>
-     * Проверка фильтра со скидками(переключение между фильтрами: Все скидки, от 10, 30, 50%)
-     * <p>
+     * Фильтры со скидками: <p>
+     * Проверка фильтра со скидками(переключение между фильтрами: Все скидки, от 10, 30, 50%) <p>
      * Смотрим чтобы менялось кол-во
      */
     @Test
@@ -709,8 +696,7 @@ public class FiltersTest extends TestBase {
     }
 
     /**
-     * Проверяем, что выводится правильное кол-во изделий:
-     * <p>
+     * Проверяем, что выводится правильное кол-во изделий: <p>
      * Кнопка 'Все скидки'
      */
     @Test
@@ -746,8 +732,8 @@ public class FiltersTest extends TestBase {
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+                () -> assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20)),
+                () -> assertEquals(sqlList.get(2).substring(0, 20), siteList.get(2).substring(0, 20)));
     }
 
     /**

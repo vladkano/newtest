@@ -2,6 +2,7 @@ package functionalTests;
 
 import baseForTests.TestBase;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import mainPage.MainPage;
 import org.junit.jupiter.api.AfterEach;
@@ -21,13 +22,14 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-//одноразовый телефон
-//https://onlinesim.ru/
-//https://ru.temporary-phone-number.com/Russia-Phone-Number/
-
-//одноразовая почта
-//https://temp-mail.org/ru/
+/**
+ * Одноразовый телефон: <p>
+ * https://onlinesim.ru/ <p>
+ * https://ru.temporary-phone-number.com/Russia-Phone-Number/
+ * <p>
+ * Одноразовая почта:<p>
+ * https://temp-mail.org/ru/
+ */
 
 @Epic("Тесты регистрации и авторизации")
 @ResourceLock("Code")
@@ -40,7 +42,6 @@ public class MainPageTest extends TestBase {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         driver = new ChromeDriver(options);
         driver.get(getUrl);
@@ -50,10 +51,12 @@ public class MainPageTest extends TestBase {
     }
 
 
-    
-    //Позитивные Тесты
-    //Регистрация
+    /**
+     * Позитивные Тесты <p>
+     * Регистрация по номеру телефона
+     */
     @Test
+    @Description("Поверяем возможность зарегистрироваться по номеру телефона")
     public void registrationWithPhoneNumber() {
         personalData = new PersonalData(driver);
         int random_number = a + (int) (Math.random() * b);
@@ -69,10 +72,9 @@ public class MainPageTest extends TestBase {
         String mailFromSite = mainPage.getMailFromSite();
         System.out.println("mail: " + mailFromSite);
         //заполняем форму
-//        driver.navigate().to(getUrl);
         driver.get(getUrl);
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();", driver.findElement(By.xpath("//span[text()='Закрыть и больше не показывать']")));
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(By.xpath("//span[text()='Закрыть и больше не показывать']")));
         sleep(2000);
         mainPage.sigInWithPhone(phoneFromSite);
         String code = mainPage.getPhonePassword();
@@ -83,9 +85,11 @@ public class MainPageTest extends TestBase {
         assertEquals("Test Phone" + random_number, name);
     }
 
-    //Авторизация
-    //По телефону + проверка, что отображаются надписи "Вход или регистрация", Вход
+    /**
+     * Авторизация по номеру телефона + проверка, что отображаются надписи 'Вход или регистрация', 'Вход'
+     */
     @Test
+    @Description("Поверяем возможность авторизации по номеру телефона и отображения надписи 'Вход или регистрация', 'Вход'")
     public void signInWithPhoneNumber() {
         mainPage.sigInWithPhone(phoneForAuthorization);
         String heading = mainPage.getSigOutHeader();
@@ -97,37 +101,42 @@ public class MainPageTest extends TestBase {
                 () -> assertEquals("вход", sigInHeader));
     }
 
-    //По почте + проверка, что отображается подпись во время авторизации
+    /**
+     * Авторизация по почте + проверка, что отображается подпись во время процесса авторизации
+     */
     @Test
+    @Description("Поверяем возможность по почте и отображение информационной подписи во время процесса авторизации")
     public void signInWithEmail() {
         mainPage.sigInWithEmail(email);
         String code2 = mainPage.getEmailPassword();
         String sigInCodeHeader = mainPage.getSigInEmailHeader();
         mainPage.sigInWithPassword(code2);
-//        assertEquals("Письма нет? Проверьте спам или отправьте код ещё раз, в работе почтового сервиса бывают сбои", sigInCodeHeader);
         assertEquals("если письма нет, проверьте спам или отправьте код ещё раз, в работе почтового сервиса бывают сбои", sigInCodeHeader);
     }
 
 
-    //Негативные Тесты
-    //Регистрация телефон
-
-    //Неправильный код подтверждения + проверка крестика
+    /**
+     * Негативные Тесты: <p>
+     * Регистрация по номеру телефона: <p>
+     * Неправильный код подтверждения + проверка кнопки закрытия окна регистрации(нажатие на крестик)
+     */
     @Test
+    @Description("Поверяем что нельзя зарегистрироваться при вводе неверного кода подтверждения " +
+            "+ проверка кнопки закрытия окна регистрации(нажатие на крестик)")
     public void registrationWithWrongCode() {
         mainPage.sigInWithPhone(phoneForAuthorization);
         mainPage.sigInWithPassword("2222");
         String incorrectSigInCodeHeader = mainPage.getIncorrectSigInCodeHeader();
-//        mainPage.clickOnReturnButton();
-//        String heading = mainPage.getSigOutHeader();
         mainPage.clickOnCloseButton();
         Assertions.assertAll(
                 () -> assertEquals("Неверный код подтверждения", incorrectSigInCodeHeader));
-//                () -> assertEquals("вход или регистрация", heading));
     }
 
-    //Проверяем, что кнопка "Зарегистрироваться" не активна, если не заполнено поле "Электронная почта"
+    /**
+     * Проверяем, что кнопка 'Зарегистрироваться' неактивна, если не заполнено поле 'Электронная почта'
+     */
     @Test
+    @Description("Проверяем, что кнопка 'Зарегистрироваться' неактивна, если не заполнено поле 'Электронная почта'")
     public void registrationWithoutEmail() {
         mainPage.sigInWithPhone("+79956766482");
         String code = mainPage.getPhonePassword();
@@ -136,8 +145,11 @@ public class MainPageTest extends TestBase {
         assertEquals(false, registerButtonAttribute);
     }
 
-    //Проверяем, что кнопка "Зарегистрироваться" не активна, если не заполнено поле "Имя, можно с фамилией"
+    /**
+     * Проверяем, что кнопка 'Зарегистрироваться' неактивна, если не заполнено поле 'Имя, можно с фамилией'
+     */
     @Test
+    @Description("Проверяем, что кнопка 'Зарегистрироваться' неактивна, если не заполнено поле 'Имя, можно с фамилией'")
     public void registrationWithoutName() {
         mainPage.sigInWithPhone("+79956766482");
         String code = mainPage.getPhonePassword();
@@ -146,8 +158,12 @@ public class MainPageTest extends TestBase {
         assertEquals(false, registerButtonAttribute);
     }
 
-    //Проверяем, что кнопка "Зарегистрироваться" не активна, если не нажата кнопка "Согласен на обработку"
+    /**
+     * Проверяем, что кнопка 'Зарегистрироваться' неактивна, если не проставлена галочка напротив поля: 'даю согласие на обработку персональных данных'
+     */
     @Test
+    @Description("Проверяем, что кнопка 'Зарегистрироваться' неактивна, если не проставлена галочка напротив поля: " +
+            "'даю согласие на обработку персональных данных'")
     public void registrationWithoutConsent() {
         mainPage.sigInWithPhone("+79956766482");
         String code = mainPage.getPhonePassword();
@@ -156,42 +172,59 @@ public class MainPageTest extends TestBase {
         assertEquals(false, registerButtonAttribute);
     }
 
-    //Авторизация
-    //Телефон
+    /**
+     * Авторизация по номеру телефона: <p>
+     * Неправильно введен номер телефона + проверка отображения подсказки
+     */
     @Test
+    @Description("Поверяем что нельзя авторизоваться при вводе неверного номера телефона + проверка отображения подсказки")
     public void signInWithIncorrectPhoneNumber() {
         MainPage head = mainPage.sigInWithPhone("+7912645932");
         String heading = head.getIncorrectSigInHeader();
         assertEquals("+7912645932 - по техническим причинам отправка SMS на данный номер невозможна.", heading);
     }
 
-    //Проверка при вводе почты в окно для ввода телефона
+    /**
+     * Проверка при вводе почты в окно для ввода телефона + проверка отображения подсказки
+     */
     @Test
+    @Description("Поверяем что нельзя авторизоваться при вводе почты в окно для ввода телефона + проверка отображения подсказки")
     public void signInWithEmailInPhoneWindow() {
         MainPage head = mainPage.sigInWithPhone("test13@mail.com");
         String heading = head.getIncorrectSigInHeader();
         assertEquals("телефон указан неверно", heading);
     }
 
-    //По почте. Ввод почты, которой нет в базе
+    /**
+     * Авторизация по электронной почте: <p>
+     * Ввод почты, которой нет в базе данных + проверка отображения подсказки
+     */
     @Test
+    @Description("Поверяем что нельзя авторизоваться при вводе почты, которой нет в базе данных + проверка отображения подсказки")
     public void signInWithWrongEmail() {
         mainPage.sigInWithEmail("test13test@mail.com");
         String heading = mainPage.getIncorrectSigInHeader();
         assertEquals("пользователь с данным email не найден. попробуйте войти по номеру телефона, либо зарегистрируйтесь", heading);
     }
 
-    //Email
-    //Проверяем, что кнопка "Получить код" не активна, если некорректно введена почта
+    /**
+     * Проверяем, что кнопка 'получить код' неактивна, если некорректно введена электронная почта
+     */
     @Test
+    @Description("Проверяем, что кнопка 'получить код' неактивна, если некорректно введена электронная почта")
     public void sigInWithIncorrectEmail() {
         mainPage.sigInWithEmail("owenkvist1@outlook");
         Boolean registerButtonAttribute = mainPage.getRegisterButtonAttribute();
         assertEquals(false, registerButtonAttribute);
     }
 
-    //Разлогин. Проверка того, что при нажатии на кнопку "Выйти" в ЛК, происходит выход из ЛК
+
+    /**
+     * Выход из аккаунта через личный кабинет <p>
+     * Проверяем, что при наведении на значок личного кабинета и нажатии на кнопку 'выйти' происходит выход из личного кабинета
+     */
     @Test
+    @Description("Проверяем, что при наведении на значок личного кабинета и нажатии на кнопку 'выйти' происходит выход из ЛК")
     public void signOut() {
         mainPage.sigInWithPhone(phoneForAuthorization);
         String code2 = mainPage.getPhonePassword();

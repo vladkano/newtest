@@ -3,6 +3,7 @@ package functionalTests;
 import baseForTests.TestBase;
 import catalog.CatalogNavigation;
 import filters.Filters;
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -24,10 +25,18 @@ public class SectionsTest extends TestBase {
     public void setUp() {
         mainSetUp();
         driver.get(getUrl);
+        footer = new Footer(driver);
+        trends = new Trends(driver);
+        designers = new Designers(driver);
+        filters = new Filters(driver);
     }
 
-    //Проверка, что кнопки разделов на главной странице работают правильно
+    /**
+     * Проверка кнопок разделов на главной странице. <p>
+     * Новинки
+     */
     @Test()
+    @Description("Проверка кнопок разделов на главной странице. Новинки.")
     public void newItemsButton() {
         newItems = new NewItems(driver);
         newItems.clickToNewItemsButton();
@@ -35,7 +44,11 @@ public class SectionsTest extends TestBase {
         assertEquals(getUrl + "catalog/new/", url);
     }
 
+    /**
+     * Золото и серебро
+     */
     @Test()
+    @Description("Проверка кнопок разделов на главной странице. Золото и серебро.")
     public void jewelryButton() {
         jewelry = new Jewelry(driver);
         jewelry.clickToJewelryButton();
@@ -43,7 +56,11 @@ public class SectionsTest extends TestBase {
         assertEquals(getUrl + "jewelry/", url);
     }
 
+    /**
+     * Для мужчин
+     */
     @Test()
+    @Description("Проверка кнопок разделов на главной странице. Для мужчин.")
     public void forManButton() {
         man = new Man(driver);
         man.clickToManButton();
@@ -51,32 +68,33 @@ public class SectionsTest extends TestBase {
         assertEquals(getUrl + "catalog/men/", url);
     }
 
+    /**
+     * Тренды
+     */
     @Test()
+    @Description("Проверка кнопок разделов на главной странице. Тренды.")
     public void trendsButton() {
-        trends = new Trends(driver);
         trends.clickToTrendsButton();
         String url = driver.getCurrentUrl();
         assertEquals(getUrl + "trend/", url);
     }
 
+    /**
+     * Дизайнеры
+     */
     @Test()
+    @Description("Проверка кнопок разделов на главной странице. Дизайнеры.")
     public void designersButton() {
-        designers = new Designers(driver);
         designers.clickToDesignersButton();
         String url = driver.getCurrentUrl();
         assertEquals(getUrl + "designers/", url);
     }
 
-    //Раздел отключен с 14.03.2022
-//    @Test()
-//    public void shopTheLookButton() {
-//        shopTheLook = new ShopTheLook(driver);
-//        shopTheLook.clickToShopTheLookButton();
-//        String url = driver.getCurrentUrl();
-//        assertEquals(getUrl + "shop-the-look/", url);
-//    }
-
+    /**
+     * Сертификаты
+     */
     @Test()
+    @Description("Проверка кнопок разделов на главной странице. Сертификаты.")
     public void certificatesButton() {
         certificate = new Certificate(driver);
         certificate.clickToCertificateButton();
@@ -84,7 +102,11 @@ public class SectionsTest extends TestBase {
         assertEquals(getUrl + "certificate", url);
     }
 
+    /**
+     * Sale
+     */
     @Test()
+    @Description("Проверка кнопок разделов на главной странице. Sale.")
     public void saleButton() {
         sale = new Sale(driver);
         sale.clickToSaleButton();
@@ -92,7 +114,11 @@ public class SectionsTest extends TestBase {
         assertEquals(getUrl + "catalog/sale/", url);
     }
 
+    /**
+     * Магазины
+     */
     @Test()
+    @Description("Проверка кнопок разделов на главной странице. Магазины.")
     public void shopsButton() {
         shops = new Shops(driver);
         shops.clickToShopsButton();
@@ -103,7 +129,11 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("МАГАЗИНЫ", shopsHeader));
     }
 
+    /**
+     * Избранное
+     */
     @Test()
+    @Description("Проверка кнопок разделов на главной странице. Избранное.")
     public void wishListButton() {
         wishlist = new Wishlist(driver);
         wishlist.clickToWishListButton();
@@ -114,10 +144,13 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Избранное", header));
     }
 
-    //Футер
+    /**
+     * Проверка разделов футера. <p>
+     * О нас
+     */
     @Test()
+    @Description("Проверка разделов футера. О нас.")
     public void aboutButton() {
-        footer = new Footer(driver);
         footer.clickToAboutButton();
         String url = driver.getCurrentUrl();
         String header = footer.getAboutHeader();
@@ -128,9 +161,12 @@ public class SectionsTest extends TestBase {
                         "В POISON DROP", header));
     }
 
+    /**
+     * Контакты
+     */
     @Test()
+    @Description("Проверка разделов футера. Контакты.")
     public void contactsButton() {
-        footer = new Footer(driver);
         footer.clickToContactsButton();
         String url = driver.getCurrentUrl();
         String header = footer.getContactsHeader();
@@ -139,9 +175,12 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Контакты", header));
     }
 
+    /**
+     * Адреса магазинов
+     */
     @Test()
+    @Description("Проверка разделов футера. Адреса магазинов.")
     public void footerShopsButton() {
-        footer = new Footer(driver);
         footer.clickToShopsButton();
         String url = driver.getCurrentUrl();
         String header = footer.getShopsHeader();
@@ -150,9 +189,12 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("МАГАЗИНЫ", header));
     }
 
+    /**
+     * Вакансии
+     */
     @Test()
+    @Description("Проверка разделов футера. Вакансии.")
     public void vacancyButton() {
-        footer = new Footer(driver);
         footer.clickToVacancyButton();
         String url = driver.getCurrentUrl();
         String header = footer.getVacancyHeader();
@@ -161,9 +203,12 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Доступные вакансии:", header));
     }
 
+    /**
+     * Пользовательское соглашение
+     */
     @Test()
+    @Description("Проверка разделов футера. Пользовательское соглашение.")
     public void soglashenieButton() {
-        footer = new Footer(driver);
         footer.clickToSoglashenieButton();
         String url = driver.getCurrentUrl();
         String header = footer.getSoglashenieHeader();
@@ -172,9 +217,12 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Соглашение на использование пользовательских материалов", header));
     }
 
+    /**
+     * Доставка и оплата
+     */
     @Test()
+    @Description("Проверка разделов футера. Доставка и оплата.")
     public void dostavkaButton() {
-        footer = new Footer(driver);
         footer.clickToDostavkaButton();
         String url = driver.getCurrentUrl();
         String header = footer.getDostavkaHeader();
@@ -183,9 +231,12 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Доставка и оплата", header));
     }
 
+    /**
+     * Обмен и возврат
+     */
     @Test()
+    @Description("Проверка разделов футера. Обмен и возврат.")
     public void obmenButton() {
-        footer = new Footer(driver);
         footer.clickToObmenButton();
         String url = driver.getCurrentUrl();
         String header = footer.getObmenHeader();
@@ -194,9 +245,12 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Обмен и возврат", header));
     }
 
+    /**
+     * Гарантии
+     */
     @Test()
+    @Description("Проверка разделов футера. Гарантии.")
     public void garantiiButton() {
-        footer = new Footer(driver);
         footer.clickToGarantiiButton();
         String url = driver.getCurrentUrl();
         String header = footer.getGarantiiHeader();
@@ -205,9 +259,12 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Гарантийный сервис", header));
     }
 
+    /**
+     * Оферта
+     */
     @Test()
+    @Description("Проверка разделов футера. Оферта.")
     public void ofertaButton() {
-        footer = new Footer(driver);
         footer.clickToOfertaButton();
         String url = driver.getCurrentUrl();
         String header = footer.getOfertaHeader();
@@ -216,9 +273,12 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Оферта", header));
     }
 
+    /**
+     * Персональные данные
+     */
     @Test()
+    @Description("Проверка разделов футера. Персональные данные.")
     public void personalnyeDannyeButton() {
-        footer = new Footer(driver);
         footer.clickToPersonalnyeDannyeButton();
         String url = driver.getCurrentUrl();
         String header = footer.getPersonalnyeDannyeHeader();
@@ -227,37 +287,48 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Положение об обработке и защите персональных данных", header));
     }
 
+    /**
+     * Вконтакте
+     */
     @Test()
-    public void instaButton() {
-        footer = new Footer(driver);
-        footer.clickToInstaButton();
+    @Description("Проверка разделов футера. Вконтакте.")
+    public void vkButton() {
+        footer.clickToVkButton();
         String url = driver.getCurrentUrl();
-        assertEquals("https://www.instagram.com/poisondropru/", url);
+        assertEquals("https://vk.com/poisondrop", url);
     }
 
+    /**
+     * Телеграм
+     */
     @Test()
+    @Description("Проверка разделов футера. Телеграм.")
     public void telegaButton() {
-        footer = new Footer(driver);
         footer.clickToTelegaButton();
         String url = driver.getCurrentUrl();
-//        String header = footer.getTelegaHeader();
+        String header = footer.getTelegaHeader();
         Assertions.assertAll(
-                () -> assertEquals("https://t.me/impoisoned", url));
-//                () -> assertEquals("Poison Drop", header));
+                () -> assertEquals("https://t.me/impoisoned", url),
+                () -> assertEquals("Poison Drop", header));
     }
 
-
+    /**
+     * Тик Ток
+     */
     @Test()
+    @Description("Проверка разделов футера. Тик Ток.")
     public void tikTokButton() {
-        footer = new Footer(driver);
         footer.clickToTikTokButton();
         String url = driver.getCurrentUrl();
         assertEquals("https://www.tiktok.com/@poisondropru?lang=ru-RU", url);
     }
 
+    /**
+     * Ютуб
+     */
     @Test()
+    @Description("Проверка разделов футера. Ютуб.")
     public void youtubeButton() {
-        footer = new Footer(driver);
         footer.clickToYoutubeButton();
         String url = driver.getCurrentUrl();
         String header = footer.getYoutubeHeader();
@@ -266,9 +337,12 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals("Poison Drop", header));
     }
 
+    /**
+     * Вотсап
+     */
     @Test()
+    @Description("Проверка разделов футера. Вотсап.")
     public void whatsAppButton() {
-        footer = new Footer(driver);
         footer.clickToWhatsAppButton();
         String url = driver.getCurrentUrl();
         String header = footer.getWhatsAppHeader();
@@ -278,20 +352,19 @@ public class SectionsTest extends TestBase {
     }
 
 
-    //Золото и серебро:
-    //Кол-во наименование в базе и на странице, выборочная проверка по наименованию
-
+    /**
+     * Проверка раздела: Золото и серебро.<p>
+     * Количество наименований в базе и на странице, выборочная проверка по наименованию изделия.
+     */
     @Test
-    public void namesOfJewelry() {
+    @Description("Золото и серебро(проверка по наименованию изделия)")
+    public void jewelryNames() {
         driver.get(getUrl + "jewelry/");
         jewelry = new Jewelry(driver);
-        filters = new Filters(driver);
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = jewelry.getNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -305,32 +378,33 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals(sqlList.get(19).substring(0, 20), siteList.get(19).substring(0, 20)));
     }
 
-    //Проверка по наименованию дизайнера
+    /**
+     * Проверка по наименованию дизайнера
+     */
     @Test
-    public void designersOfJewelry() {
+    @Description("Золото и серебро(проверка по наименованию дизайнера)")
+    public void jewelryDesigners() {
         driver.get(getUrl + "jewelry/");
         jewelry = new Jewelry(driver);
-        //sql:
         List<String> sqlList = jewelry.getDesigners();
-        //site:
         List<WebElement> elements = driver.findElements(designerName);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
     }
 
-    //Проверка на соответствие цены на сайте цене в базе.
+    /**
+     * Проверка на соответствие цены на сайте цене в базе.
+     */
     @Test
+    @Description("Золото и серебро(проверка на соответствие цены на сайте цене в базе)")
     public void priceOfJewelry() {
         List<Integer> priceList = new ArrayList<>();
         driver.get(getUrl + "jewelry/");
         jewelry = new Jewelry(driver);
-        //sql:
         List<Integer> sqlList = jewelry.getPrice();
-        //site:
         List<WebElement> elements = driver.findElements(price);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -339,12 +413,14 @@ public class SectionsTest extends TestBase {
             Integer price = parseInt(result);
             priceList.add(price);
         }
-        //сравниваем содержание списков
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }
 
-    //Проверяем отображение картинок и их количество.
+    /**
+     * Проверяем отображения картинок и их количество.
+     */
     @Test
+    @Description("Золото и серебро(проверка отображения картинок и их количество)")
     public void pictureOfJewelry() {
         driver.get(getUrl + "jewelry/");
         List<WebElement> elements = driver.findElements(numberOfPictures);
@@ -356,34 +432,35 @@ public class SectionsTest extends TestBase {
         assertEquals(numberOfFoto, siteSize);
     }
 
-    //Тренды:
-    //Отображение баннеров, работа кнопки "Показать еще", наименование и порядок их отображения
+    /**
+     * Тренды:<p>
+     * Отображение баннеров, работа кнопки "Показать еще", наименование и порядок их отображения
+     */
     @Test
+    @Description("Тренды(отображение баннеров, работа кнопки 'Показать еще', наименование и порядок их отображения)")
     public void bannersIsVisible() {
         driver.get(getUrl + "trend/");
-        trends = new Trends(driver);
         navigation = new CatalogNavigation(driver);
         navigation.clickOnShowMoreButton();
         List<WebElement> banners = driver.findElements(trendBanners);
-        //sql:
         List<String> sqlList = trends.getNames();
-        //site:
         List<WebElement> elements = driver.findElements(namesOfTrends);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем кол-во и содержание списков
         Assertions.assertAll(
                 () -> assertEquals(trends.listOfBanners(), banners.size()),
                 () -> assertEquals(sqlList.subList(0, trends.listOfBanners() - 1), siteList.subList(0, trends.listOfBanners() - 1)));
     }
 
-    //Ссылки: переход на верную страницу
+    /**
+     * Ссылки: переход на верную страницу
+     */
     @Test
+    @Description("Тренды(ссылки: переход на верную страницу)")
     public void mainBannerLink() {
         driver.get(getUrl + "trend/");
-        trends = new Trends(driver);
         String href = trends.getMainHref();
         trends.clickToMainHref();
         String header = trends.linkHeader();
@@ -395,10 +472,13 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals(s, header));
     }
 
+    /**
+     * Проверка перехода по первому баннеру
+     */
     @Test
+    @Description("Тренды(проверка перехода по первому баннеру)")
     public void firstBannerLink() {
         driver.get(getUrl + "trend/");
-        trends = new Trends(driver);
         String href = trends.getFirstHref();
         trends.clickToFirstHref();
         String header = trends.linkHeader();
@@ -409,10 +489,13 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals(description, header));
     }
 
+    /**
+     * Проверка перехода по второму баннеру
+     */
     @Test
+    @Description("Тренды(проверка перехода по второму баннеру)")
     public void secondBannerLink() {
         driver.get(getUrl + "trend/");
-        trends = new Trends(driver);
         String href = trends.getSecondHref();
         trends.clickToSecondHref();
         String header = trends.linkHeader();
@@ -423,10 +506,13 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals(description.substring(0, 20), header.substring(0, 20)));
     }
 
+    /**
+     * Проверка перехода по третьему баннеру
+     */
     @Test
+    @Description("Тренды(проверка перехода по третьему баннеру)")
     public void thirdBannerLink() {
         driver.get(getUrl + "trend/");
-        trends = new Trends(driver);
         String href = trends.getThirdHref();
         trends.clickToThirdHref();
         String header = trends.linkHeader();
@@ -437,10 +523,13 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals(description, header));
     }
 
+    /**
+     * Проверка перехода по четвертому баннеру
+     */
     @Test
+    @Description("Тренды(проверка перехода по четвертому баннеру)")
     public void fourBannerLink() {
         driver.get(getUrl + "trend/");
-        trends = new Trends(driver);
         String href = trends.getFourthFineHref();
         trends.clickToFourthFineHref();
         String header = trends.linkHeader();
@@ -452,30 +541,28 @@ public class SectionsTest extends TestBase {
     }
 
 
-    //Дизайнеры:
-    //Отображение баннеров, наименование и порядок их отображения
-    //Новые
+    /**
+     * Дизайнеры:<p>
+     * Отображение баннеров, наименование и порядок их отображения.<p>
+     * Новые:<p>
+     * Первый баннер
+     */
     @Test
+    @Description("Новые дизайнеры(Отображение баннеров, наименование и порядок их отображения. Первый баннер 'Новые')")
     public void firstDesignersBannerLink() {
         driver.get(getUrl + "designers/");
-        designers = new Designers(driver);
-        filters = new Filters(driver);
         String href = designers.getDesignersFirstHref();
         designers.clickToFirstDesignerHref();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = designers.getFirstLinkNames();
         int sqlSize = sqlList.size();
-        System.out.println(sqlSize);
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //Сравниваем 1,8 и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals(sqlSize, numberOnly),
@@ -483,26 +570,25 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals(sqlList.get(7).substring(0, 20), siteList.get(7).substring(0, 20)));
     }
 
+    /**
+     * Второй баннер
+     */
     @Test
+    @Description("Новые дизайнеры(Отображение баннеров, наименование и порядок их отображения. Второй баннер 'Новые')")
     public void secondDesignersBannerLink() {
         driver.get(getUrl + "designers/");
-        designers = new Designers(driver);
-        filters = new Filters(driver);
         String href = designers.getDesignersSecondHref();
         designers.clickToSecondDesignerHref();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = designers.getSecondLinkNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals(sqlSize, numberOnly),
@@ -511,20 +597,20 @@ public class SectionsTest extends TestBase {
     }
 
 
+    /**
+     * Третий баннер
+     */
     @Test
+    @Description("Новые дизайнеры(Отображение баннеров, наименование и порядок их отображения. Третий баннер 'Новые')")
     public void thirdDesignersBannerLink() {
         driver.get(getUrl + "designers/");
-        designers = new Designers(driver);
-        filters = new Filters(driver);
         String href = designers.getDesignersThirdHref();
         designers.clickToThirdDesignerHref();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = designers.getThirdLinkNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -536,56 +622,52 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly)));
     }
 
-    //Популярные
-    //Первый
+    /**
+     * Популярные:<p>
+     * Первый баннер
+     */
     @Test
+    @Description("Популярные дизайнеры(Отображение баннеров, наименование и порядок их отображения. Первый баннер 'Популярные')")
     public void firstPopularBannerLink() {
         driver.get(getUrl + "designers/");
-        designers = new Designers(driver);
-        filters = new Filters(driver);
         String href = designers.getFirstPopularHref();
         designers.clickToFirstPopularHref();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = designers.getFirstPopularLinkNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //Сравниваем ссылки, размер, содержание и порядок списков
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals(sqlSize, numberOnly),
                 () -> assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto)));
     }
 
-    //Последний
+    /**
+     * Последний баннер
+     */
     @Test
+    @Description("Популярные дизайнеры(Отображение баннеров, наименование и порядок их отображения. Последний баннер 'Популярные')")
     public void lastPopularBannerLink() {
         driver.get(getUrl + "designers/");
-        designers = new Designers(driver);
-        filters = new Filters(driver);
         String href = designers.getLastPopularHref();
         designers.clickToSecondPopularHref();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = designers.getLastPopularLinkNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
         assertEquals(href, url);
-        //Сравниваем ссылки, 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals(sqlSize, numberOnly),
@@ -593,100 +675,95 @@ public class SectionsTest extends TestBase {
                 () -> assertEquals(sqlList.get(5), siteList.get(5)));
     }
 
-    //Создана задача по багу https://poisondrop.atlassian.net/browse/PD-1390
-    //Отображение корректного списка дизайнеров
+    //Создана задача по багу https://tracker.yandex.ru/PD-1390
+
+    /**
+     * Отображение корректного списка дизайнеров на сайте.
+     */
     @Test
+    @Description("Отображение корректного списка дизайнеров на сайте")
     public void listOfDesigners() {
         driver.get(getUrl + "designers/");
-        designers = new Designers(driver);
-        //sql:
         List<String> sqlList = Designers.getListOfDesigners();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfDesigners);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //сравниваем списки
         assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, siteList.size()));
     }
 
-
-    //Выборочная проверка ссылок и товаров из таблицы на странице Дизайнеров
+    /**
+     * Выборочная проверка ссылок и товаров из таблицы на странице дизайнеров:<p>
+     * Первый дизайнер из списка
+     */
     @Test
+    @Description("Выборочная проверка ссылок и товаров из таблицы на странице дизайнеров. Первый дизайнер из списка.")
     public void firstDesigner() {
         driver.get(getUrl + "designers/");
-        designers = new Designers(driver);
-        filters = new Filters(driver);
         String href = designers.getFirstDesignerHref();
         designers.clickToFirstDesignerLink();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = designers.getFirstDesignerNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //Сравниваем ссылки, размер, содержание и порядок списков
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals(sqlSize, numberOnly),
                 () -> assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly)));
     }
 
+    /**
+     * Десятый дизайнер из списка
+     */
     @Test
+    @Description("Выборочная проверка ссылок и товаров из таблицы на странице дизайнеров. Десятый дизайнер из списка.")
     public void secondDesigner() {
         driver.get(getUrl + "designers/");
-        designers = new Designers(driver);
-        filters = new Filters(driver);
         String href = designers.get10DesignerHref();
         designers.clickTo10DesignerLink();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = designers.get10DesignerItemNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        assertEquals(href, url);
-        //Сравниваем ссылки, размер, содержание и порядок списков
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals(sqlSize, numberOnly),
                 () -> assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto)));
     }
 
-    //Создана задача по багу https://poisondrop.atlassian.net/browse/PD-1390
+    //Создана задача по багу https://tracker.yandex.ru/PD-1390
+    /**
+     * Двадцатый дизайнер из списка
+     */
     @Test
+    @Description("Выборочная проверка ссылок и товаров из таблицы на странице дизайнеров. Двадцатый дизайнер из списка.")
     public void thirdDesigner() {
         driver.get(getUrl + "designers/");
-        designers = new Designers(driver);
-        filters = new Filters(driver);
         String href = designers.get20dDesignerHref();
         designers.clickTo20DesignerLink();
         String url = driver.getCurrentUrl();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
-        //sql:
         List<String> sqlList = designers.get20DesignerItemNames();
         int sqlSize = sqlList.size();
-        //site:
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //Сравниваем ссылки, размер, содержание и порядок списков
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals(sqlSize, numberOnly),

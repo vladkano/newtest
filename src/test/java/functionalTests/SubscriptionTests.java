@@ -1,6 +1,7 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -20,103 +21,126 @@ public class SubscriptionTests extends TestBase {
         subscription = new Subscription(driver);
     }
 
+    /**
+     * Вспомогательный метод для тестов:<p>
+     * Проверка того, что блок с подпиской отображается на странице
+     */
+    public void checkSubscription() {
+        String subscriptionText = subscription.getSubscriptionText();
+        String subscriptionButtonText = subscription.getSubscriptionButtonText();
+        Assertions.assertAll(
+                () -> assertEquals(subscriptionHeader, subscriptionText),
+                () -> assertEquals(subscriptionName, subscriptionButtonText));
+    }
 
-    //Проверяем, что Блок с подпиской отображается на разных страницах сайта
+    /**
+     * Проверяем что блок с подпиской отображается на разных страницах сайта:<p>
+     * Главная страница
+     */
     @Test()
+    @Description("Проверяем что блок с подпиской отображается на главной странице")
     public void checkSubscriptionTextMainPage() {
         driver.get(getUrl);
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
+        checkSubscription();
     }
 
+    /**
+     * Новинки
+     */
     @Test()
+    @Description("Проверяем что блок с подпиской отображается на странице новинок")
     public void checkSubscriptionTextNewItems() {
         driver.get(getUrl + "catalog/new/");
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
+        checkSubscription();
     }
 
+    /**
+     * Каталог
+     */
     @Test()
+    @Description("Проверяем что блок с подпиской отображается на странице основного каталога")
     public void checkSubscriptionTextCatalog() {
         driver.get(getUrl + "catalog/");
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
+        checkSubscription();
     }
 
+    /**
+     * Страница золото и серебро
+     */
     @Test()
+    @Description("Проверяем что блок с подпиской отображается на странице 'золото и серебро'")
     public void checkSubscriptionTextJewelry() {
         driver.get(getUrl + "jewelry/");
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
+        checkSubscription();
     }
 
+    /**
+     * Для мужчин
+     */
     @Test()
+    @Description("Проверяем что блок с подпиской отображается на странице 'для мужчин'")
     public void checkSubscriptionTextMen() {
         driver.get(getUrl + "catalog/men/");
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
+        checkSubscription();
     }
 
+    /**
+     * Тренды
+     */
     @Test()
+    @Description("Проверяем что блок с подпиской отображается на странице 'тренды'")
     public void checkSubscriptionTextTrend() {
         driver.get(getUrl + "trend/");
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
+        checkSubscription();
     }
 
+    /**
+     * Дизайнеры
+     */
     @Test()
+    @Description("Проверяем что блок с подпиской отображается на странице 'дизайнеры'")
     public void checkSubscriptionTextDesigners() {
         driver.get(getUrl + "designers/");
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
+        checkSubscription();
     }
 
+    /**
+     * Сертификаты
+     */
     @Test()
+    @Description("Проверяем что блок с подпиской отображается на странице 'сертификаты'")
+    public void checkSubscriptionTextCertificates() {
+        driver.get(getUrl + "certificate/");
+        checkSubscription();
+    }
+
+    /**
+     * Sale
+     */
+    @Test()
+    @Description("Проверяем что блок с подпиской отображается на странице 'sale'")
     public void checkSubscriptionTextSale() {
         driver.get(getUrl + "catalog/sale/");
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
+        checkSubscription();
     }
 
 
+    /**
+     * Проверяем что блок с подпиской отображается в карточке товара.
+     */
     @Test()
+    @Description("Проверяем что блок с подпиской отображается в карточке товара.")
     public void checkSubscriptionTextProductCard() {
-        driver.get(getUrl+ "catalog/");
+        driver.get(getUrl + "catalog/");
         subscription.clickOnNameLink();
-        String subscriptionText = subscription.getSubscriptionText();
-        String subscriptionButtonText = subscription.getSubscriptionButtonText();
-        Assertions.assertAll(
-                () -> assertEquals(subscriptionHeader, subscriptionText),
-                () -> assertEquals(subscriptionName, subscriptionButtonText));
+        checkSubscription();
     }
 
-
-    //Успешная подписка
+    /**
+     * Проверяем что подписка прошла успешно.
+     */
     @Test()
+    @Description("Проверяем что подписка прошла успешно.")
     public void successfulSubscription() {
         driver.get(getUrl);
         subscription.subscriptionWithEmail("ran.owen@rambler.ru");
@@ -124,8 +148,11 @@ public class SubscriptionTests extends TestBase {
         assertEquals("наш почтовый голубь уже вылетел.", successfulSubscriptionText);
     }
 
-    //Неудачная попытка подписки
+    /**
+     * Вводим некорректный адрес эл.почты и смотри что подписка не прошла успешно.
+     */
     @Test()
+    @Description("Вводим некорректный адрес эл.почты и смотри что подписка не прошла успешно.")
     public void failedSubscription() {
         driver.get(getUrl);
         subscription.subscriptionWithEmail("ran.owen@");
