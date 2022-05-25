@@ -166,7 +166,7 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.get(0);
+        return list.get(1);
     }
 
     public static String findFirstItemLessThan5000() {
@@ -288,7 +288,7 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.get(1);
+        return list.get(0);
     }
 
     //Вытаскиваем ссылки на браслеты, которые входят в коллекции

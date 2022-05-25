@@ -940,6 +940,7 @@ public class ProductCardsTest extends TestBase {
             String designerName = basket.getNextDesignerHeader();
             String designerNameFromViewedProducts = productCard.getDesignerNameFromRecentlyViewedProducts();
             productList.add(designerName);
+            System.out.println(designerNameFromViewedProducts);
             viewedProductList.add(designerNameFromViewedProducts);
             basket.clickOnCatalogButton();
         }
