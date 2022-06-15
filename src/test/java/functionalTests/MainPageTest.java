@@ -46,7 +46,7 @@ public class MainPageTest extends TestBase {
         driver = new ChromeDriver(options);
         driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().setSize(new Dimension(1920, 1080));
+        driver.manage().window().fullscreen();
         mainPage = new MainPage(driver);
     }
 

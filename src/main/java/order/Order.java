@@ -35,16 +35,16 @@ public class Order extends Base {
 
     private final By payButton = By.xpath("//span[text()='Оплатить']");
     private final By orderButton = By.xpath("//span[text()='Оформить заказ']");
-    private final By addAddressButton = By.xpath("//span[text()='для курьера']");
+    private final By addAddressButton = By.xpath("//span[text()=' Добавить этаж, домофон, комментарий для курьера ']");
     private final By searchBox = By.xpath("//input[@id='searchbox']");
     private final By countrySearchBox = By.xpath("//input[@class='reg']");
     private final By citySearchBox = By.xpath("(//input[@class='reg'])[2]");
     private final By addCommentButton = By.xpath("//button[text()='Добавить комментарий к заказу']");
 
     private final By authPassword = By.xpath("//input[@id='verificationCode']");
-    private final By whatsAppButton = By.xpath("//span[text()='Сообщение в WhatsApp']");
-    private final By smsButton = By.xpath("//span[text()='СМС о статусе заказа']");
-    private final By companyStoreButton = By.xpath("//span[text()='Забрать в фирменном магазине']");
+    private final By whatsAppButton = By.xpath("//span[text()=' Сообщение в WhatsApp ']");
+    private final By smsButton = By.xpath("//span[text()=' СМС о статусе заказа ']");
+    private final By companyStoreButton = By.xpath("//span[text()=' Забрать в фирменном магазине ']");
     private final By metropolisStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Метрополис»']");
     private final By redBridgeStoreButton = By.xpath("//span[text()='Poison Drop в Универмаге «Au Pont Rouge. У Красного моста»']");
     private final By atriumStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Атриум»']");
@@ -53,7 +53,7 @@ public class Order extends Base {
     private final By galleryKrasnodarStoreButton = By.xpath("//span[text()='Poison Drop в ТРЦ «Галерея Краснодар»']");
     private final By kazanMallStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «KazanMall»']");
     private final By noPayButton = By.xpath("//label[@for='offlinePayment']/span");
-    private final By pickPointButton = By.xpath("//b[text()='В постамат']");
+    private final By pickPointButton = By.xpath("//b[text()=' Постамат ']");
     private final By selectPostomatButton = By.xpath("//span[text()='Выбрать постамат']");
     private final By searchboxButton = By.xpath("//div[@class='combobox searchbox']/span");
     private final By rodonitButton = By.xpath("//div[@onclick='PickPointWidgetHost.showPointBox(\"6601-054\"); return false;']");

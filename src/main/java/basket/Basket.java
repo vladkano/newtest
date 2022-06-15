@@ -199,8 +199,9 @@ public class Basket extends Base {
 
     public static Integer findFirstItemIdMoreThan5000() {
         int id;
+        String coun;
         List<Integer> list = new ArrayList<>();
-        String query = "SELECT item.id, SUM(balance) from item " +
+        String query = "SELECT item.id, SUM(balance) as c from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
@@ -215,13 +216,14 @@ public class Basket extends Base {
 
             while (resultSet.next()) {
                 id = resultSet.getInt("id");
+                coun = resultSet.getString("c");
                 list.add(id);
-//                System.out.println(name);
+//                System.out.println(coun);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        System.out.println(list.get(0));
+        System.out.println(list.get(0));
         return list.get(0);
     }
 
@@ -335,29 +337,30 @@ public class Basket extends Base {
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        String name;
-        List<String> list = new ArrayList<>();
-        String query = "SELECT item.name, SUM(balance) from item " +
+        int id;
+        List<Integer> list = new ArrayList<>();
+        String query = "SELECT item.id, SUM(balance) from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price < 5000 and price > 0 and filter_id = 155 " +
+                "and is_archive = 0 and price > 5000 and filter_id = 155 " +
                 "and item_sku.url is not null " +
-                "group by item_catalog_position.position having SUM(balance) > 1 ";
+                "group by item_catalog_position.position having SUM(balance) > 1";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-                list.add(name);
-                System.out.println(name);
+                id = resultSet.getInt("id");
+                list.add(id);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(list);
         worker.getSession().disconnect();
     }
 

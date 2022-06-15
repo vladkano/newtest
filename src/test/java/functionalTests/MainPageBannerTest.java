@@ -89,7 +89,7 @@ public class MainPageBannerTest extends TestBase {
     @Description("Проверяем, что блок бестселлеров отображается на главной странице в правильном порядке(По стоимости изделия)")
     public void bestsellersPrice() {
         List<Integer> bestsellers = new ArrayList<>();
-        List<WebElement> best = driver.findElements(By.xpath("//b[@class='price-block__price']"));
+        List<WebElement> best = driver.findElements(By.xpath("//span[@class='price-block__price']"));
         for (WebElement name : best) {
             String s = name.getAttribute("textContent");
             String replace = s.replace(" ", "");
@@ -120,14 +120,14 @@ public class MainPageBannerTest extends TestBase {
     @Test
     @Description("Проверяем ссылки: переход на верную страницу(главный баннер)")
     public void mainBannerLink() {
-        banner.clickToOkButton();
+//        banner.clickToOkButton();
         String href = banner.getMainCatalogHref();
         banner.clickToMainCatalogHref();
         String header = banner.getFirstCatalogHeader();
         String url = driver.getCurrentUrl();
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals("Фильтр", header));
+                () -> assertEquals("фильтр", header));
     }
 
     /**
@@ -142,7 +142,7 @@ public class MainPageBannerTest extends TestBase {
         String header = banner.getFirstCatalogHeader();
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals("Фильтр", header));
+                () -> assertEquals("фильтр", header));
     }
 
     /**
@@ -157,7 +157,7 @@ public class MainPageBannerTest extends TestBase {
         String header = banner.getFirstCatalogHeader();
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals("Фильтр", header));
+                () -> assertEquals("фильтр", header));
     }
 
     /**
