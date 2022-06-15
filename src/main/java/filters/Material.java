@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Material extends Base {
 
-    private final By materialButton = By.xpath("//div[text()='Материал']");
+    private final By materialButton = By.xpath("//div[text()='материал']");
     private final By insertButton = By.xpath("//div[text()='Вставки']");
     private final By zemcugButton = By.xpath("//div[text()='Жемчуг']");
     private final By kristallyButton = By.xpath("//div[text()='Кристалл']");

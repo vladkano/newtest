@@ -26,9 +26,11 @@ public class BasketTest extends TestBase {
     @BeforeEach
     public void setUp(TestInfo testInfo) {
         mainSetUp();
+//        driver.get(getUrl + "catalog");
         driver.navigate().to(getUrl + "catalog");
         basket = new Basket(driver);
         basket.clickToOkButton();
+        sleep(2000);
         this.testMethodName = testInfo.getTestMethod().get().getName();
     }
 

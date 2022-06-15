@@ -22,7 +22,7 @@ public class MainPageBanner extends Base {
     private final By designerButtonHeader = By.xpath("//*[@id='tns1-item4']//div[@class='catalog-card__designer']/a");
     private final By nameButtonHeader = By.xpath("//h3[@class='catalog-card__name']/a");
     private final By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
-    private final By firstCatalogHeader = By.xpath("//span[text()='Фильтр']");
+    private final By firstCatalogHeader = By.xpath("//span[text()='фильтр']");
     private final By mainCatalogHeader = By.xpath("//h1[text()='Самой сверкающей']");
     private final By bestsellerNameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
 

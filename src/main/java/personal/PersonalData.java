@@ -23,10 +23,10 @@ public class PersonalData extends Base {
     private final By profilePhone = By.id("profilePhone");
     private final By profileEmail = By.xpath("//input[@placeholder='mail@mail.ru']");
     private final By profileDeliveryCity = By.id("addressArea");
-    private final By apartmentsDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[5]");
-    private final By entranceDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[6]");
-    private final By floorDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[7]");
-    private final By intercomDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[8]");
+    private final By apartmentsDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[4]");
+    private final By entranceDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[5]");
+    private final By floorDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[6]");
+    private final By intercomDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[7]");
     private final By ordersButton = By.xpath("//span[text()='мои заказы']");
     private final By saveAddressButton = By.xpath("//span[text()='Сохранить адрес']");
     private final By chooseAddressButton = By.xpath("//ul[@class='autocomplete-list']/li");
@@ -59,7 +59,7 @@ public class PersonalData extends Base {
     private final By orderAddress = By.xpath("(//td[@class='table__cell']/span)[2]");
     private final By orderRecipient = By.xpath("(//td[@class='table__cell']/span)[3]");
     private final By orderContent = By.xpath("//h4[@class='order-product__product-name']/a");
-    private final By orderPrice = By.xpath("//b[@class='price-block__price']");
+    private final By orderPrice = By.xpath("//span[@class='price-block__price']");
     private final By orderFinalPrice = By.xpath("//p[@class='order-card__total-sum']");
     private final By saveAddressHeader = By.xpath("//p[text()='сохранено']");
     private final By profileBirthdayError = By.xpath("//p[@class='submit-block__message message message_error']");

@@ -34,7 +34,7 @@ public class WishListTest extends TestBase {
         String itemName = wishlist.getItemName();
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
+        String itemNameFromWishlist = wishlist.getItemNameFromFavorites();
         assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
     }
 
@@ -164,7 +164,7 @@ public class WishListTest extends TestBase {
         String itemName = wishlist.getItemName();
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
+        String itemNameFromWishlist = wishlist.getItemNameFromFavorites();
         wishlist.clickToTransferToBasketButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
@@ -190,7 +190,7 @@ public class WishListTest extends TestBase {
         String itemName = wishlist.getItemName();
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
+        String itemNameFromWishlist = wishlist.getItemNameFromFavorites();
         wishlist.clickToTransferToBasketButton();
         String wishListProductSize = wishlist.getWishListProductSize();
         wishlist.clickToTransferToBasketWithSizeButton();
@@ -213,7 +213,7 @@ public class WishListTest extends TestBase {
         String itemName = wishlist.getHeader();
         wishlist.clickToWishListInCardListButton();
         wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
+        String itemNameFromWishlist = wishlist.getItemNameFromFavorites();
         wishlist.clickToTransferToBasketButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
@@ -242,7 +242,7 @@ public class WishListTest extends TestBase {
         String itemName = wishlist.getHeader();
         wishlist.clickToWishListInCardListButton();
         wishlist.clickToWishListButton();
-        String itemNameFromWishlist = wishlist.getItemName();
+        String itemNameFromWishlist = wishlist.getItemNameFromFavorites();
         wishlist.clickToTransferToBasketButton();
         String wishListProductSize = wishlist.getWishListProductSize();
         wishlist.clickToTransferToBasketWithSizeButton();

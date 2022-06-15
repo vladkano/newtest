@@ -71,7 +71,7 @@ public class TestBase {
 
 
     protected By numberOfItem = By.xpath("//h3[@class='catalog-card__name']");
-    protected By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image-hovered']");
+    protected By numberOfPictures = By.xpath("//span[@class='picture catalog-card__image _hovered']");
     protected By linkOfCollection = By.xpath("//ul[@class='product-modification__variants']//a");
     protected By countOfBanners = By.xpath("//div[@class='banner index-page__banner']/a");
     protected By namesOfTrends = By.xpath("//h4");
@@ -79,8 +79,8 @@ public class TestBase {
     protected By trendBanners = By.xpath("//span[@class='picture']");
     protected By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
     protected By showMore = By.xpath("//span[text()='Показать ещё']");
-    protected By designerName = By.xpath("//div/a[@class='link']");
-    protected By price = By.xpath("//div[@class='price-block__main']/b");
+    protected By designerName = By.xpath("//div[@class='catalog-card__designer']/a");
+    protected By price = By.xpath("//div[@class='price-block__main']/span[1]");
 
     protected String phoneForAuthorization = "+79501978905";
     protected String phoneForOrder = "9126459328";
