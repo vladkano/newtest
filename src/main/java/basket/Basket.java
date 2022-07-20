@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class Basket extends Base {
 
-    private final By itemInBasketButton = By.xpath("//button[@class='button-fill product-actions__add-to-cart']");
+    private final By itemInBasketButton = By.xpath("//span[text()='в корзину']");
     private final By plusBasketButton = By.xpath("//button[@class='counter__button counter__button_plus']");
     private final By minusBasketButton = By.xpath("//button[@class='counter__button counter__button_minus']");
     private final By basketButton = By.xpath("//span[text()='Перейти в корзину']");
@@ -29,8 +29,8 @@ public class Basket extends Base {
 //    private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter']");
     private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter _with-offset']");
 
-    private final By inBasket = By.xpath("//span[text()='В корзине']");
-    private final By noBasketHeader = By.xpath("//p[text()='Этого украшения сейчас нет в наличии']");
+    private final By inBasket = By.xpath("//span[text()='в корзине']");
+    private final By noBasketHeader = By.xpath("//p[@class='product-actions__notification']");
 
     public Basket(WebDriver driver) {
         super(driver);
@@ -79,6 +79,8 @@ public class Basket extends Base {
     }
 
     public void clickToMinusBasketButton() {
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(minusBasketButton));
         click(minusBasketButton);
     }
 
@@ -87,7 +89,9 @@ public class Basket extends Base {
     }
 
     public void clickToBasketButton() {
-        driver.findElement(basketButton).click();
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].click();", driver.findElement(basketButton));
+        click(basketButton);
     }
 
     public void clickToCatalogButton() {
@@ -248,7 +252,7 @@ public class Basket extends Base {
             e.printStackTrace();
         }
         Integer firstItem = findFirstItemIdMoreThan5000();
-//        System.out.println(firstItem);
+        System.out.println(hashMap.get(firstItem));
         return hashMap.get(firstItem);
     }
 

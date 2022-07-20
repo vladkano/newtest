@@ -19,8 +19,8 @@ public class Size extends Base {
     private final By secondSizeButton = By.xpath("//div[@class='filters__item-left']/div[text()='15.5']");
     private final By thirdSizeButton = By.xpath("//div[@class='filters__item-left']/div[text()='16']");
     private final By universalSizeButton = By.xpath("//div[text()='Универсальный']");
-    private final By currentSize = By.xpath("//div[@data-name='razmer_kolca']/span[@class='product-modification__output']");
-    private final By firstCurrentSizeButton = By.xpath("//ul/li[2]/label/span[@class='product-variant__variant product-variant__variant_size']");
+    private final By currentSize = By.xpath("//div[@class='product-modification__header']/span[2]");
+    private final By firstCurrentSizeButton = By.xpath("(//span[@class='product-variant__variant product-variant__variant_size'])[2]");
     private final By secondCurrentSizeButton = By.xpath("//ul/li[3]/label/span[@class='product-variant__variant product-variant__variant_size']");
     private final By sizeHeader = By.xpath("//span[@class='cart-item__additional-params']");
     private final By plateHeader = By.xpath("//span[@class='notification__text']");
@@ -201,8 +201,9 @@ public class Size extends Base {
     public List<String> getListOfFirstSize() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item_sku " +
+        String query = "SELECT item_translations.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN item_translations ON item.id = item_translations.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
@@ -211,8 +212,9 @@ public class Size extends Base {
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and filter_id = 155 " +
-                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14' and item_sku.url is not null and balance > 0 and designer.show = 1 " +
-                " group by item_catalog_position.position ";
+                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '14' " +
+                "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
+                "group by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -231,18 +233,20 @@ public class Size extends Base {
     public List<String> getListOfSecondSize() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item_sku " +
+        String query = "SELECT item_translations.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN item_translations ON item.id = item_translations.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and filter_id = 155 " +
-                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '15.5' and item_sku.url is not null and balance > 0 " +
-                " group by item_catalog_position.position ";
+                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = '15.5' " +
+                "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
+                "group by item_catalog_position.position ";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -261,17 +265,19 @@ public class Size extends Base {
     public List<String> getListOfUniversalSize() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_sku.name from item_sku " +
+        String query = "SELECT item_translations.name from item_sku " +
                 "JOIN item ON item_sku.item_id = item.id " +
+                "JOIN item_translations ON item.id = item_translations.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price != 0 and filter_id = 155 " +
-                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = 'Универсальный' and item_sku.url is not null and balance > 0 " +
+                "and sku_characteristic_list.characteristic_id =1 and sku_characteristic_value.characteristic_value = 'Универсальный' " +
+                "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
                 " group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();

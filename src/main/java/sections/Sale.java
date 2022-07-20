@@ -28,17 +28,16 @@ public class Sale extends Base {
     public List<String> getNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item.name from item " +
+        String query = "SELECT item_translations.name from item " +
+                "JOIN item_translations ON item.id = item_translations.item_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 " +
-                "and filter_id = 156 " +
-                "and discount is not null " +
-                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
+                "and is_archive = 0 and price != 0 and filter_id = 156 and discount is not null " +
+                "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -46,7 +45,7 @@ public class Sale extends Base {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
 //                System.out.println(name);
-                text.add(name.substring(0, 9));
+                text.add(name.substring(0, 6));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,9 +66,8 @@ public class Sale extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and filter_id = 156 " +
-                "and discount is not null " +
-                "and item_sku.url is not null and balance > 0 and designer.show = 1  " +
+                "and is_archive = 0 and price != 0 and filter_id = 156 and discount is not null " +
+                "and balance > 0 and designer.show = 1 " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -99,9 +97,8 @@ public class Sale extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and filter_id = 156 " +
-                "and discount is not null " +
-                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
+                "and is_archive = 0 and price != 0 and filter_id = 156 and discount is not null " +
+                "and balance > 0 and designer.show = 1 " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -132,9 +129,8 @@ public class Sale extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and filter_id = 156 " +
-                "and discount is not null " +
-                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
+                "and is_archive = 0 and price != 0 and filter_id = 156 and discount is not null " +
+                "and balance > 0 and designer.show = 1 " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -162,9 +158,8 @@ public class Sale extends Base {
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and filter_id = 156 " +
-                "and discount is not null " +
-                "and item_sku.url is not null and balance > 0 and designer.show = 1 " +
+                "and is_archive = 0 and price != 0 and filter_id = 156 and discount is not null " +
+                "and balance > 0 and designer.show = 1 " +
                 "group by item_catalog_position.position";
         try {
             Statement statement = worker.getCon().createStatement();

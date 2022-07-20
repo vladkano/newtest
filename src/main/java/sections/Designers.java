@@ -28,8 +28,8 @@ public class Designers extends Base {
     private final By numberOfItem = By.xpath("//h3[@class='catalog-card__name']/a");
 
     //карточка товара
-    private final By designerPhoto = By.xpath("//span[@class='picture designer-block__picture']//img");
-    private final By designerName = By.xpath("//a[@class='link designer-block__link']");
+    private final By designerPhoto = By.xpath("//picture[@class='picture designer-block__picture']/img");
+    private final By designerName = By.xpath("//a[@class='designer-block__link']");
     private final By designerText = By.xpath("//p[@class='designer-block__description']");
 
     public Designers(WebDriver driver) {

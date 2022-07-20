@@ -60,7 +60,7 @@ public class JUnitTodo {
             driver.findElement(By.id("addbutton")).click();
 
             // Let's check that the item we added is added in the list.
-            String enteredText = driver.findElementByXPath("/html/body/div/div/div/ul/li[6]/span").getText();
+            String enteredText = driver.findElement(By.id("/html/body/div/div/div/ul/li[6]/span")).getText();
             if (enteredText.equals("Yey, Let's add it to list")) {
                 status = true;
             }

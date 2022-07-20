@@ -13,6 +13,7 @@ import order.Order;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -45,7 +46,7 @@ public class TestBase {
     protected Order order;
     protected Collection collection;
     protected Material material;
-    protected Colors colors;
+    protected ColorsAndCoverage colorsAndCoverage;
     protected Size size;
     protected DesignersFilter designersFilter;
     protected Designers designers;
@@ -123,11 +124,13 @@ public class TestBase {
 
     public void mainSetUp() {
         ChromeOptions options = new ChromeOptions();
+//        EdgeOptions options = new EdgeOptions();
         WebDriverManager.chromedriver().setup();
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+//        options.setCapability(CapabilityType.BROWSER_NAME, "MicrosoftEdge");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
 //        driver = new EdgeDriver(options);
@@ -148,6 +151,7 @@ public class TestBase {
     //Тест(Курск)
 //    protected String getUrl = "https://kursk.poisontestdrop.ru/";
 
-
+    //Тест(Тула)
+//    protected static String getUrl = "https://tula.poisontestdrop.ru/";
 
 }

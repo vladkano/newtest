@@ -369,16 +369,18 @@ public class OrderTest extends TestBase {
         payConfirmAndHeaderCheck();
     }
 
-    /**
-     * Проверка перехода к оплате заказа на сайте, способ доставки: Доставка до постамата(Белоруссия), СМС о статусе заказа.
-     */
-    @Test()
-    @Description("Доставка до постамата. Проверка перехода к оплате заказа на сайте, способ доставки: Доставка до постамата(Белоруссия), Способ связи: СМС о статусе заказа.")
-    public void postomatAndBelarus() {
-        putItemInBasket();
-        order.orderWithPickPointSMS(phoneForOrder, email, testNameForOrder, "Беларусь\n", "Минск\n", "Ленина");
-        payConfirmAndHeaderCheck();
-    }
+
+    //Доставка в Белоруссию более не доступна(Инфа от Юры)
+//    /**
+//     * Проверка перехода к оплате заказа на сайте, способ доставки: Доставка до постамата(Белоруссия), СМС о статусе заказа.
+//     */
+//    @Test()
+//    @Description("Доставка до постамата. Проверка перехода к оплате заказа на сайте, способ доставки: Доставка до постамата(Белоруссия), Способ связи: СМС о статусе заказа.")
+//    public void postomatAndBelarus() {
+//        putItemInBasket();
+//        order.orderWithPickPointSMS(phoneForOrder, email, testNameForOrder, "Беларусь\n", "Минск\n", "Ленина");
+//        payConfirmAndHeaderCheck();
+//    }
 
     /**
      * Проверка перехода к оплате заказа с применением промокода.

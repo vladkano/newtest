@@ -26,11 +26,10 @@ public class BasketTest extends TestBase {
     @BeforeEach
     public void setUp(TestInfo testInfo) {
         mainSetUp();
-//        driver.get(getUrl + "catalog");
         driver.navigate().to(getUrl + "catalog");
         basket = new Basket(driver);
         basket.clickToOkButton();
-        sleep(2000);
+//        sleep(1000);
         this.testMethodName = testInfo.getTestMethod().get().getName();
     }
 
@@ -280,7 +279,7 @@ public class BasketTest extends TestBase {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
         String header = basket.getInBasketHeader();
-        assertEquals("В корзине", header);
+        assertEquals("в корзине", header);
     }
 
     /**
