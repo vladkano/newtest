@@ -13,10 +13,10 @@ import java.util.List;
 
 public class ProductCard extends Base {
 
-    private final By structureButton = By.xpath("//div[@class='accordion']");
+    private final By structureButton = By.xpath("//div[@class='accordion-vue']");
     private final By specification = By.xpath("//p[@class='product-info__specification']");
 
-    private final By availabilityButton = By.xpath("//h3[text()='Наличие в магазинах']");
+    private final By availabilityButton = By.xpath("//h3[text()='наличие в магазинах']");
     private final By tsvetnoy = By.xpath("//span[text()='Цветной']");
     private final By metropolis = By.xpath("//span[text()='Метрополис']");
     private final By afimoll = By.xpath("//span[text()='Афимолл']");
@@ -27,24 +27,24 @@ public class ProductCard extends Base {
     private final By kazan = By.xpath("//span[text()='KazanMall']");
     private final By availabilityText = By.xpath("//p[@class='storages-list__description']");
 
-    private final By jewelryCareButton = By.xpath("//h3[text()='Уход за украшениями']");
-    private final By jewelryCareHeader = By.xpath("//h4[text()='Ювелирные украшения']");
+    private final By jewelryCareButton = By.xpath("//h3[text()='уход за украшениями']");
+    private final By jewelryCareHeader = By.xpath("//h4[text()='ювелирные украшения']");
     private final By jewelryCareText = By.xpath("//div[@id='maintenance-accordion']/p[@class='product-info__text']");
-    private final By bijouterieCareHeader = By.xpath("//h4[text()='Бижутерия']");
+    private final By bijouterieCareHeader = By.xpath("//h4[text()='бижутерия']");
     private final By bijouterieCareText = By.xpath("(//div[@id='maintenance-accordion']/p[@class='product-info__text'])[2]");
 
-    private final By payInfoButton = By.xpath("//h3[text()='Оплата, возврат']");
+    private final By payInfoButton = By.xpath("//h3[text()='оплата, возврат']");
     private final By payInfoText = By.xpath("//div[@id='payment-accordion']/p[@class='product-info__text']");
 
-    private final By guaranteeButton = By.xpath("//h3[text()='Гарантия 6 месяцев']");
+    private final By guaranteeButton = By.xpath("//h3[text()='гарантия 6 месяцев']");
     private final By guaranteeText = By.xpath("//div[@id='warranty-accordion']/p[@class='product-info__text']");
-    private final By code = By.xpath("//div[@class='product-info__code']");
+    private final By code = By.xpath("//p[@class='product-main-info__code hidden_mobile-tablet']");
 
     private final By receivingText = By.xpath("//span[@class='delivery-accordion__title-text']");
-    private final By receivingCity = By.xpath("//span[@class='delivery-accordion__title-city']");
+    private final By receivingCity = By.xpath("//h3[@class='delivery-accordion__title']/span[2]");
     private final By location = By.xpath("//span[@class='icon-with-title__text']");
 
-    private final By recentlyViewedProductsHeader = By.xpath("//h2[text()='Вы смотрели']");
+    private final By recentlyViewedProductsHeader = By.xpath("//h2[text()='вы смотрели']");
     private final By designerNameFromRecentlyViewedProducts = By.xpath("//ul[@class='slider products-slider__list']//div[@class='catalog-card__designer']/a");
     private final By priceFromRecentlyViewedProducts = By.xpath("//section[@class='products-slider container viewed-products']//span[@class='price-block__price']");
 

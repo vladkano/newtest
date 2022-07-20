@@ -246,7 +246,7 @@ public class CatalogTest extends TestBase {
             siteList.add(s.substring(0, 4));
         }
         //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
-        assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
+        assertEquals(sqlList.subList(0, 48), siteList.subList(0, 48));
     }
 
     /**
@@ -297,7 +297,7 @@ public class CatalogTest extends TestBase {
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s);
+            siteList.add(s.substring(0, 18));
         }
         //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, siteList.size()), siteList.subList(0, siteList.size()));

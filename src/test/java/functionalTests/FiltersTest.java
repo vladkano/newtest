@@ -67,18 +67,18 @@ public class FiltersTest extends TestBase {
      * Фильтр по цвету изделия
      */
     public void getColorFilter() {
-        colors = new Colors(driver);
+        colorsAndCoverage = new ColorsAndCoverage(driver);
         filters.clickToFilterButton();
-        colors.clickToColorButton();
+        colorsAndCoverage.clickToColorButton();
     }
 
     /**
      * Фильтр по покрытию
      */
     public void getCoveringFilter() {
-        colors = new Colors(driver);
+        colorsAndCoverage = new ColorsAndCoverage(driver);
         filters.clickToFilterButton();
-        colors.clickToCoveringButton();
+        colorsAndCoverage.clickToCoveringButton();
     }
 
     /**
@@ -204,6 +204,7 @@ public class FiltersTest extends TestBase {
 
 
 //    //Вставки поломались 13.05.2022, должны починится, проверить после релиза таски: https://tracker.yandex.ru/PD-1659
+    //Нужно переписать тесты в новой логике, после выезда переводов
 //    /**
 //     * По вставкам: <p>
 //     * Жемчуг
@@ -377,9 +378,9 @@ public class FiltersTest extends TestBase {
     @Description("Проверяем работу фильтров: По цвету изделия(Зелёный)")
     public void getGreen() {
         getColorFilter();
-        colors.clickToGreenButton();
+        colorsAndCoverage.clickToGreenButton();
         filters.clickToShowProductsButton();
-        List<String> sqlList = colors.getListOfGreenColor();
+        List<String> sqlList = colorsAndCoverage.getListOfGreenColor();
         getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -397,9 +398,9 @@ public class FiltersTest extends TestBase {
     @Description("Проверяем работу фильтров: По цвету изделия(Синий)")
     public void getBlue() {
         getColorFilter();
-        colors.clickToBlueButton();
+        colorsAndCoverage.clickToBlueButton();
         filters.clickToShowProductsButton();
-        List<String> sqlList = colors.getListOfBlueColor();
+        List<String> sqlList = colorsAndCoverage.getListOfBlueColor();
         getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -417,9 +418,9 @@ public class FiltersTest extends TestBase {
     @Description("Проверяем работу фильтров: По цвету изделия(Мульти)")
     public void getMix() {
         getColorFilter();
-        colors.clickToMixButton();
+        colorsAndCoverage.clickToMixButton();
         filters.clickToShowProductsButton();
-        List<String> sqlList = colors.getListOfMixColor();
+        List<String> sqlList = colorsAndCoverage.getListOfMixColor();
         getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -438,9 +439,9 @@ public class FiltersTest extends TestBase {
     @Description("Проверяем работу фильтров: По покрытию(Родий)")
     public void getRhodium() {
         getCoveringFilter();
-        colors.clickToRodiiButton();
+        colorsAndCoverage.clickToRodiiButton();
         filters.clickToShowProductsButton();
-        List<String> sqlList = colors.getListOfRodii();
+        List<String> sqlList = colorsAndCoverage.getListOfRodii();
         getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -458,9 +459,9 @@ public class FiltersTest extends TestBase {
     @Description("Проверяем работу фильтров: По покрытию(Розовое золото)")
     public void getPinkGold() {
         getCoveringFilter();
-        colors.clickToPinkGoldButton();
+        colorsAndCoverage.clickToPinkGoldButton();
         filters.clickToShowProductsButton();
-        List<String> sqlList = colors.getListOfPinkGold();
+        List<String> sqlList = colorsAndCoverage.getListOfPinkGold();
         getProductsListFromPage();
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
@@ -633,7 +634,7 @@ public class FiltersTest extends TestBase {
     @Description("Сброс фильтров по категориям(Последовательно выбираем фильтры: Серьги, Ювелирный сплав, белый)")
     public void resetFiltersByCategory() {
         material = new Material(driver);
-        colors = new Colors(driver);
+        colorsAndCoverage = new ColorsAndCoverage(driver);
         filters.clickToFilterButton();
         sleep(3000);
         String numberOfProducts1 = filters.getNumberOfProducts();
@@ -645,12 +646,12 @@ public class FiltersTest extends TestBase {
         material.clickToJewelryAlloyButton();
         sleep(3000);
         String numberOfProducts3 = filters.getNumberOfProducts();
-        colors.clickToColorButton();
+        colorsAndCoverage.clickToColorButton();
         sleep(3000);
-        colors.clickToWhiteButton();
+        colorsAndCoverage.clickToWhiteButton();
         sleep(3000);
         String numberOfProducts4 = filters.getNumberOfProducts();
-        colors.clickToWhiteButton();
+        colorsAndCoverage.clickToWhiteButton();
         sleep(3000);
         String numberOfProducts5 = filters.getNumberOfProducts();
         material.clickToJewelryAlloyButton();
@@ -714,15 +715,15 @@ public class FiltersTest extends TestBase {
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
+                () -> assertEquals(sqlList.get(0).substring(0,20), siteList.get(0).substring(0,20)),
                 () -> assertEquals(sqlList.get(2).substring(0, 19), siteList.get(2).substring(0, 19)));
     }
 
     /**
-     * Кнопка 'от 30%'
+     * Кнопка 'От 30%'
      */
     @Test
-    @Description("Проверяем, что выводится правильное кол-во изделий: Кнопка 'от 30%'")
+    @Description("Проверяем, что выводится правильное кол-во изделий: Кнопка 'От 30%'")
     public void thirtyPercentDiscounts() {
         filters.clickToFilterButton();
         filters.clickToThirtyPercentButton();
@@ -739,10 +740,10 @@ public class FiltersTest extends TestBase {
     }
 
     /**
-     * Кнопка 'от 50%'
+     * Кнопка 'От 50%'
      */
     @Test
-    @Description("Проверяем, что выводится правильное кол-во изделий: Кнопка 'от 50%'")
+    @Description("Проверяем, что выводится правильное кол-во изделий: Кнопка 'От 50%'")
     public void fiftyPercentDiscounts() {
         filters.clickToFilterButton();
         filters.clickToFiftyPercentButton();
@@ -754,8 +755,9 @@ public class FiltersTest extends TestBase {
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
+//                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
                 () -> assertEquals(sqlList.get(0).substring(0,20), siteList.get(0).substring(0,20)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+                () -> assertEquals(sqlList.get(2).substring(0,20), siteList.get(2).substring(0,20)));
     }
 
 

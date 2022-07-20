@@ -21,6 +21,9 @@ public class Base {
     //Тест(Курск)
 //    protected static String mainPageUrl = "https://kursk.poisontestdrop.ru/";
 
+    //Тест(Тула)
+//    protected static String mainPageUrl = "https://tula.poisontestdrop.ru/";
+
 
     protected static String getUrl = mainPageUrl + "catalog/";
 
@@ -37,9 +40,11 @@ public class Base {
     protected By catalogButton = By.xpath("//a[@href='/catalog/']");
 
     protected By nameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
-    protected By designerHeader = By.xpath("//b[@class='product-main-info__designer-name']");
+    protected By designerHeader = By.xpath("//a[@class='product-main-info__designer-link']");
     protected By priceFromProductCard = By.xpath("//div[@class='price-block price-block_product-card']//span[@class='price-block__price']");
     protected By okButton = By.xpath("//button[text()='да']");
+
+    protected By goodButton = By.xpath("//button[@class='button-default button-default--black']");
 
     public Base(WebDriver driver) {
         this.driver = driver;
@@ -83,6 +88,10 @@ public class Base {
 
     public void clickToOkButton() {
         click(okButton);
+    }
+
+    public void clickToGoodButton() {
+        click(goodButton);
     }
 
 

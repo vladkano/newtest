@@ -35,7 +35,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemNameFromFavorites();
-        assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20));
+        assertEquals(itemName.substring(0, 15), itemNameFromWishlist.substring(0, 15));
     }
 
     /**
@@ -131,6 +131,8 @@ public class WishListTest extends TestBase {
         addItemToFavoritesAndCheckNames();
     }
 
+
+    //создан баг https://tracker.yandex.ru/PD-2160
     /**
      * Новинки
      */

@@ -14,7 +14,7 @@ import java.util.List;
 public class Wishlist extends Base {
 
     private final By wishListButton = By.xpath("//a[@href='/wishlist/']");
-    private final By wishListInCardListButton = By.xpath("//span[text()='Wish List']");
+    private final By wishListInCardListButton = By.xpath("//button[@aria-label='Добавить в избранное']");
     private final By addToFavoritesFromCatalogButton = By.xpath("//span[@class='wish-button__icon-block']");
     private final By transferToBasketButton = By.xpath("//span[text()='В корзину']");
     private final By transferToBasketWithSizeButton = By.xpath("//button[@class='ring-size-popup__add-to-cart button-fill']/span");

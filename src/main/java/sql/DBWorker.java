@@ -34,7 +34,7 @@ public class DBWorker {
             String strDbPassword = "vCGHIyfx864fhMVtrfvk65"; // database login password
 
             final JSch jsch = new JSch();
-            jsch.addIdentity("D:\\.ssh\\id_rsa");
+            jsch.addIdentity("C:\\.ssh\\id_rsa");
             session = jsch.getSession(strSshUser, strSshHost, 10022);
             final Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
@@ -80,30 +80,30 @@ public class DBWorker {
 
 //
         //Севастополь
-//        try {
-//            String strSshUser = "support"; // SSH loging username
-//            String strSshHost = "77.223.106.150";
-//            String strRemoteHost = "localhost"; // hostname or ip of your database server
-//            int nRemotePort = 3306; // remote port number of your database
-//            String strDbUser = "sevastopol"; // database loging username
-//            String strDbPassword = "8jsMOov6wwFf39Qbom"; // database login password
+//            try {
+//                String strSshUser = "support"; // SSH loging username
+//                String strSshHost = "77.223.106.150";
+//                String strRemoteHost = "localhost"; // hostname or ip of your database server
+//                int nRemotePort = 3306; // remote port number of your database
+//                String strDbUser = "sevastopol"; // database loging username
+//                String strDbPassword = "8jsMOov6wwFf39Qbom"; // database login password
 //
-//            final JSch jsch = new JSch();
-//            jsch.addIdentity("D:\\.ssh\\id_rsa");
-//            session = jsch.getSession(strSshUser, strSshHost, 10022);
-//            final Properties config = new Properties();
-//            config.put("StrictHostKeyChecking", "no");
-//            session.setConfig(config);
-//            session.connect();
-//            int forwardedPort = session.setPortForwardingL(0, strRemoteHost, nRemotePort);
+//                final JSch jsch = new JSch();
+//                jsch.addIdentity("C:\\.ssh\\id_rsa");
+//                session = jsch.getSession(strSshUser, strSshHost, 10022);
+//                final Properties config = new Properties();
+//                config.put("StrictHostKeyChecking", "no");
+//                session.setConfig(config);
+//                session.connect();
+//                int forwardedPort = session.setPortForwardingL(0, strRemoteHost, nRemotePort);
 //
-//            Class.forName("org.mariadb.jdbc.Driver");
-//            String url = "jdbc:mysql://localhost:" + forwardedPort;
-//            con = DriverManager.getConnection(url + "/sevastopol", strDbUser,
-//                    strDbPassword);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+//                Class.forName("org.mariadb.jdbc.Driver");
+//                String url = "jdbc:mysql://localhost:" + forwardedPort;
+//                con = DriverManager.getConnection(url + "/sevastopol", strDbUser,
+//                        strDbPassword);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
 
         //Курск
@@ -135,6 +135,35 @@ public class DBWorker {
 //            e.printStackTrace();
 //        }
 
+
+        //Тула
+//        try {
+//            String strSshUser = "root"; // SSH loging username
+//            String strSshHost = "77.223.105.214";
+//            String strRemoteHost = "localhost"; // hostname or ip of your database server
+//            int nRemotePort = 3306; // remote port number of your database
+//            String strDbUser = "pd_prod_user"; // database loging username
+//            String strDbPassword = "cGXIH452yfgYTus@%yt"; // database login password
+//
+//            final JSch jsch = new JSch();
+//
+//            session = jsch.getSession(strSshUser, strSshHost, 10022);
+//            final Properties config = new Properties();
+//            config.put("StrictHostKeyChecking", "no");
+//            config.put("PreferredAuthentications", "password");
+//            session.setPassword("DTs42KDqufVS");
+//            session.setConfig(config);
+//            session.connect();
+//            int forwardedPort = session.setPortForwardingL(0, strRemoteHost, nRemotePort);
+//
+//            Class.forName("org.mariadb.jdbc.Driver");
+//            String url = "jdbc:mysql://localhost:" + forwardedPort;
+//            con = DriverManager.getConnection(url + "/new_poisondrop", strDbUser,
+//                    strDbPassword);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 

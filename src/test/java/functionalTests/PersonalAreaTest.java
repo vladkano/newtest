@@ -243,7 +243,7 @@ public class PersonalAreaTest extends TestBase {
         String orderRecipientHeader = personalData.getOrderRecipientHeader();
         String orderYouOrderedHeader = personalData.getOrderYouOrderedHeader();
         Assertions.assertAll(
-                () -> assertEquals("Тестовый заказ", orderStatus),
+                () -> assertEquals("Не обработан", orderStatus),
                 () -> assertEquals("Дата заказа", orderDataHeader),
                 () -> assertEquals("Адрес доставки", orderAddressHeader),
                 () -> assertEquals("Получатель", orderRecipientHeader),

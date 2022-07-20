@@ -23,10 +23,10 @@ public class PersonalData extends Base {
     private final By profilePhone = By.id("profilePhone");
     private final By profileEmail = By.xpath("//input[@placeholder='mail@mail.ru']");
     private final By profileDeliveryCity = By.id("addressArea");
-    private final By apartmentsDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[4]");
-    private final By entranceDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[5]");
-    private final By floorDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[6]");
-    private final By intercomDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[7]");
+    private final By apartmentsDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[5]");
+    private final By entranceDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[6]");
+    private final By floorDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[7]");
+    private final By intercomDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[8]");
     private final By ordersButton = By.xpath("//span[text()='мои заказы']");
     private final By saveAddressButton = By.xpath("//span[text()='Сохранить адрес']");
     private final By chooseAddressButton = By.xpath("//ul[@class='autocomplete-list']/li");
@@ -50,7 +50,7 @@ public class PersonalData extends Base {
     private final By emptyNameHeader = By.xpath("//p[text()='необходимо указать имя']");
     private final By emptyBirthdayHeader = By.xpath("//p[@class='text-input__message message message_error']");
     private final By orderNumber = By.xpath("//h3[@class='order-card__title order-card__number']");
-    private final By orderStatus = By.xpath("//b[@class='order-card__status order-card__status_test']");
+    private final By orderStatus = By.xpath("//header[@class='order-card__header']//b");
     private final By orderDataHeader = By.xpath("//span[text()='Дата заказа']");
     private final By orderAddressHeader = By.xpath("//span[text()='Адрес доставки']");
     private final By orderRecipientHeader = By.xpath("//span[text()='Получатель']");

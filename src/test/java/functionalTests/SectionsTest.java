@@ -347,7 +347,7 @@ public class SectionsTest extends TestBase {
         String url = driver.getCurrentUrl();
         String header = footer.getWhatsAppHeader();
         Assertions.assertAll(
-                () -> assertEquals("https://api.whatsapp.com/send/?phone=74952551533&text&app_absent=0", url),
+                () -> assertEquals("https://api.whatsapp.com/send/?phone=74952551533&text&type=phone_number&app_absent=0", url),
                 () -> assertEquals("Poison Drop by ООО \"ПойзонДроп\"", header));
     }
 
