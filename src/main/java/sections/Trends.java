@@ -103,14 +103,15 @@ public class Trends extends Base {
     public List<String> getNames() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT name from trend " +
-                "where `show` = 1 " +
-                "group by position, id";
+        String query = "SELECT trend_translations.name from trend_translations " +
+                "JOIN trend ON trend.id = trend_translations.trend_id " +
+                "where `show` = 1 and locale = 'ru' " +
+                "group by position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                name = resultSet.getString("name");
+                name = resultSet.getString("name").replaceAll("<br>", "");
 //                System.out.println(name);
                 text.add(name);
             }
@@ -124,14 +125,15 @@ public class Trends extends Base {
     public List<String> listOfDescription() {
         String description;
         List<String> text = new ArrayList<>();
-        String query = "SELECT description from trend " +
-                "where `show` = 1 " +
+        String query = "SELECT trend_translations.description from trend_translations " +
+                "JOIN trend ON trend.id = trend_translations.trend_id " +
+                "where `show` = 1 and locale = 'ru' " +
                 "group by position";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                description = resultSet.getString("description");
+                description = resultSet.getString("description").replaceAll("<br>", "");
 //                System.out.println(description);
                 text.add(description);
             }

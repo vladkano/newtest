@@ -20,7 +20,6 @@ public class Base {
 //    protected static String mainPageUrl = "https://sevastopol.poisontestdrop.ru/";
     //Тест(Курск)
 //    protected static String mainPageUrl = "https://kursk.poisontestdrop.ru/";
-
     //Тест(Тула)
 //    protected static String mainPageUrl = "https://tula.poisontestdrop.ru/";
 

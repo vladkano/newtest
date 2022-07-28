@@ -157,9 +157,10 @@ public class MainPageBanner extends Base {
 
     public List<Integer> listPriceOfBests() {
         int price;
+        double discount;
         List<Integer> list = new ArrayList<>();
-
-        String query = "SELECT price from item_sku " +
+        String query = "SELECT item_sku_price.price, (item_sku.price * discount/100) as discount from item_sku_price " +
+                "JOIN item_sku ON item_sku_price.item_sku_id = item_sku.id " +
                 "JOIN bestsellers ON bestsellers.sku_id = item_sku.id " +
                 "group by bestsellers.id";
         try {
@@ -168,8 +169,10 @@ public class MainPageBanner extends Base {
 
             while (resultSet.next()) {
                 price = resultSet.getInt("price");
-                list.add(price);
-//                System.out.println(price);
+                discount = resultSet.getDouble("discount");
+                int priceNew = (int) Math.round(price - discount);
+                list.add(priceNew);
+//                System.out.println(priceNew);
             }
         } catch (SQLException e) {
             e.printStackTrace();

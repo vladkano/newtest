@@ -26,7 +26,7 @@ public class Basket extends Base {
 
     private final By plus2 = By.xpath("//input[@name='quantity']");
     private final By max = By.xpath("//div[@class='counter']");
-//    private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter']");
+    //    private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter']");
     private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter _with-offset']");
 
     private final By inBasket = By.xpath("//span[text()='в корзине']");
@@ -79,9 +79,9 @@ public class Basket extends Base {
     }
 
     public void clickToMinusBasketButton() {
-//        ((JavascriptExecutor) driver).executeScript(
-//                "arguments[0].click();", driver.findElement(minusBasketButton));
-        click(minusBasketButton);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", driver.findElement(minusBasketButton));
+//        click(minusBasketButton);
     }
 
     public Integer getDataMax() {
@@ -119,15 +119,18 @@ public class Basket extends Base {
     public static String findFirstItemMoreThan5000() {
         String name;
         List<String> list = new ArrayList<>();
-        String query = "SELECT item.name, SUM(balance) from item " +
+        String query = "SELECT item_translations.name, SUM(balance) from item " +
+                "JOIN item_translations ON item.id = item_translations.item_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price > 5000 and filter_id = 155 " +
-                "and item_sku.url is not null " +
-                "group by item_catalog_position.position having SUM(balance) > 1";
+                "and designer.show = 1 and item_translations.locale = 'ru' " +
+                "group by item_catalog_position.position, item_translations.name, item_sku.id " +
+                "HAVING SUM(balance) > 1";
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -140,7 +143,7 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        System.out.println(list.get(0));
+//        System.out.println("Название товара с остатком более 1 штуки и ценой не менее 5000: " + list.get(0));
         return list.get(0);
     }
 
@@ -207,12 +210,13 @@ public class Basket extends Base {
         List<Integer> list = new ArrayList<>();
         String query = "SELECT item.id, SUM(balance) as c from item " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
                 "and is_archive = 0 and price > 5000 and filter_id = 155 " +
-                "and item_sku.url is not null " +
+                "and designer.show = 1 " +
                 "group by item_catalog_position.position having SUM(balance) > 1";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -227,17 +231,18 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(list.get(0));
+//        System.out.println(list.get(0));
         return list.get(0);
     }
 
     public Integer getBalance() {
         int id;
         Map<Integer, Integer> hashMap = new HashMap<>();
-        String query = "SELECT i.id, i.name,sum(ss.balance) AS count FROM item AS i " +
+        String query = "SELECT i.id, item_translations.name, sum(ss.balance) AS count FROM item AS i " +
+                "JOIN item_translations ON i.id = item_translations.item_id " +
                 "JOIN item_sku AS si ON i.id=si.item_id " +
                 "JOIN storage_stock AS ss ON ss.sku_id=si.id " +
-                "GROUP BY i.id, i.name, si.id " +
+                "GROUP BY i.id, item_translations.name, si.id " +
                 "HAVING count>1";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -252,7 +257,7 @@ public class Basket extends Base {
             e.printStackTrace();
         }
         Integer firstItem = findFirstItemIdMoreThan5000();
-        System.out.println(hashMap.get(firstItem));
+//        System.out.println(hashMap.get(firstItem));
         return hashMap.get(firstItem);
     }
 
@@ -341,30 +346,38 @@ public class Basket extends Base {
 
     //Тесты запросов к базе SQL
     public static void main(String[] args) {
-        int id;
-        List<Integer> list = new ArrayList<>();
-        String query = "SELECT item.id, SUM(balance) from item " +
+        String name;
+        List<String> list = new ArrayList<>();
+        String query = "SELECT item_translations.name from item_sku " +
+                "JOIN item ON item.id = item_sku.item_id " +
+                "JOIN item_translations ON item.id = item_translations.item_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price > 5000 and filter_id = 155 " +
-                "and item_sku.url is not null " +
-                "group by item_catalog_position.position having SUM(balance) > 1";
+//                "and EXISTS (SELECT * FROM item_sku JOIN storage_stock ON item_sku.id = storage_stock.sku_id where price > 5000 HAVING SUM(balance) > 1) " +
+//                "and EXISTS (SELECT * FROM storage_stock where item_sku.id = storage_stock.sku_id) " +
+                "and EXISTS (SELECT * FROM item_translations WHERE item_translations.locale = 'ru') " +
+                "and EXISTS (SELECT * FROM designer WHERE designer.show = 1) " +
+                "and is_archive = 0 and filter_id = 155 and price > 5000 " +
+                "GROUP BY item.id, item_translations.name, item_catalog_position.position " +
+                "HAVING SUM(storage_stock.balance) > 1 " +
+                "order by item_catalog_position.position "
+
+                ;
         try {
             Statement statement = worker.getCon().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                id = resultSet.getInt("id");
-                list.add(id);
-
+                name = resultSet.getString("name");
+                list.add(name);
+//                System.out.println(name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(list);
+        System.out.println("Название товара с остатком более 1 штуки и ценой не менее 5000: " + list.get(0));
         worker.getSession().disconnect();
     }
 

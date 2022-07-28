@@ -332,61 +332,61 @@ public class ProductCardsTest extends TestBase {
     }
 
 
-
     //Тесты товаров из блока "Украшения из образа" нельзя перенести в корзину Баг: https://tracker.yandex.ru/PD-2156
+    //Оказывается так задумано инфа от Ромы
 
-    /**
-     * Проверяем, что товары из блока "Украшения из образа" можно перенести в корзину.
-     * Проверка по разделам:
-     */
-    @Test
-    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Серьги")
-    public void checkBasketSergi() {
-        earrings = new Earrings(driver);
-        String s = earrings.getItemsFromSet().get(0);
-        driver.get(getUrl + "catalog/sergi/" + s);
-        basket.clickToOkButton();
-        basket.clickToSetItemInBasketButton();
-        String number = basket.getBasketNumber();
-        assertEquals("1", number);
-    }
-
-    @Test
-    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Браслеты")
-    public void checkBasketBraslety() {
-        bracelets = new Bracelets(driver);
-        String s = bracelets.getItemsFromSet().get(0);
-        driver.get(getUrl + "catalog/braslety/" + s);
-        basket.clickToOkButton();
-        basket.clickToSetItemInBasketButton();
-        String number = basket.getBasketNumber();
-        assertEquals("1", number);
-    }
-
-    @Test
-    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Колье")
-    public void checkBasketKole() {
-        necklaces = new Necklaces(driver);
-        String s = necklaces.getItemsFromSet().get(0);
-        driver.get(getUrl + "catalog/kole/" + s);
-        basket.clickToOkButton();
-        basket.clickToSetItemInBasketButton();
-        String number = basket.getBasketNumber();
-        assertEquals("1", number);
-    }
-
-    @Test
-    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Кольца")
-    public void checkBasketKoltsa() {
-        set = new Set(driver);
-        rings = new Rings(driver);
-        String s = rings.getItemsFromSet().get(0);
-        driver.get(getUrl + "catalog/koltsa/" + s);
-        basket.clickToOkButton();
-        basket.clickToSetItemInBasketButton();
-        String number = basket.getBasketNumber();
-        assertEquals("1", number);
-    }
+//    /**
+//     * Проверяем, что товары из блока "Украшения из образа" можно перенести в корзину.
+//     * Проверка по разделам:
+//     */
+//    @Test
+//    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Серьги")
+//    public void checkBasketSergi() {
+//        earrings = new Earrings(driver);
+//        String s = earrings.getItemsFromSet().get(0);
+//        driver.get(getUrl + "catalog/sergi/" + s);
+//        basket.clickToOkButton();
+//        basket.clickToSetItemInBasketButton();
+//        String number = basket.getBasketNumber();
+//        assertEquals("1", number);
+//    }
+//
+//    @Test
+//    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Браслеты")
+//    public void checkBasketBraslety() {
+//        bracelets = new Bracelets(driver);
+//        String s = bracelets.getItemsFromSet().get(0);
+//        driver.get(getUrl + "catalog/braslety/" + s);
+//        basket.clickToOkButton();
+//        basket.clickToSetItemInBasketButton();
+//        String number = basket.getBasketNumber();
+//        assertEquals("1", number);
+//    }
+//
+//    @Test
+//    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Колье")
+//    public void checkBasketKole() {
+//        necklaces = new Necklaces(driver);
+//        String s = necklaces.getItemsFromSet().get(0);
+//        driver.get(getUrl + "catalog/kole/" + s);
+//        basket.clickToOkButton();
+//        basket.clickToSetItemInBasketButton();
+//        String number = basket.getBasketNumber();
+//        assertEquals("1", number);
+//    }
+//
+//    @Test
+//    @Description("Проверяем, что товары из блока 'Украшения из образа' можно перенести в корзину. Проверка по разделам: Кольца")
+//    public void checkBasketKoltsa() {
+//        set = new Set(driver);
+//        rings = new Rings(driver);
+//        String s = rings.getItemsFromSet().get(0);
+//        driver.get(getUrl + "catalog/koltsa/" + s);
+//        basket.clickToOkButton();
+//        basket.clickToSetItemInBasketButton();
+//        String number = basket.getBasketNumber();
+//        assertEquals("1", number);
+//    }
 
     /**
      * Проверяем отображение блока дизайнеры(фото, название, описание).
@@ -565,7 +565,6 @@ public class ProductCardsTest extends TestBase {
 //                () -> assertEquals("Shop the look", shopTheLookHeader),
 //                () -> assertEquals("Пожаловаться", frisbuyMarker));
 //    }
-
 
 
     //Ошибка в разделе "оплата, возврат" в карточке https://tracker.yandex.ru/PD-2157
@@ -869,7 +868,7 @@ public class ProductCardsTest extends TestBase {
         driver.get(getUrl + "catalog/braslety/");
         collection.clickOnFirstHref();
         String firstName = basket.getHeader();
-        collection.clickOnFirstItem();
+        collection.clickOnSecondItem();
         String secondName = basket.getHeader();
         assertNotEquals(firstName, secondName);
     }

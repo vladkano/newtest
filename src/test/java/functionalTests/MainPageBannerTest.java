@@ -89,7 +89,7 @@ public class MainPageBannerTest extends TestBase {
     @Description("Проверяем, что блок бестселлеров отображается на главной странице в правильном порядке(По стоимости изделия)")
     public void bestsellersPrice() {
         List<Integer> bestsellers = new ArrayList<>();
-        List<WebElement> best = driver.findElements(By.xpath("//span[@class='price-block__price']"));
+        List<WebElement> best = driver.findElements(By.xpath("//div[@class='price-block__main']/span[1]"));
         for (WebElement name : best) {
             String s = name.getAttribute("textContent");
             String replace = s.replace(" ", "");

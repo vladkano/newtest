@@ -14,6 +14,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -125,6 +127,7 @@ public class TestBase {
     public void mainSetUp() {
         ChromeOptions options = new ChromeOptions();
 //        EdgeOptions options = new EdgeOptions();
+//        FirefoxOptions options = new FirefoxOptions();
         WebDriverManager.chromedriver().setup();
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();

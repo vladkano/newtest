@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class CatalogNavigation extends Base {
 
-    By showMoreButton = By.xpath("//span[text()='Показать ещё']");
+    By showMoreButton = By.xpath("//div[@class='catalog__more']/button/span");
     By numberOfPages = By.xpath("//button[@class='pagination__link'][6]");
 
 

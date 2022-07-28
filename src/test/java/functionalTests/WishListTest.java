@@ -221,7 +221,7 @@ public class WishListTest extends TestBase {
         String basketProductName = wishlist.getBasketProductName();
         Assertions.assertAll(
                 () -> assertEquals(itemName, itemNameFromWishlist),
-                () -> assertEquals(itemNameFromWishlist, basketProductName));
+                () -> assertEquals(itemNameFromWishlist.substring(0,30), basketProductName.substring(0,30)));
     }
 
     /**
