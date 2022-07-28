@@ -364,18 +364,14 @@ public class SectionsTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         List<String> sqlList = jewelry.getNames();
-        int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
             siteList.add(s);
         }
-        //Сравниваем 1,8 и последние элементы, размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
-                () -> assertEquals(sqlSize, numberOnly),
-                () -> assertEquals(sqlList.get(0).substring(0, 24), siteList.get(0).substring(0, 24)),
-                () -> assertEquals(sqlList.get(7), siteList.get(7)),
-                () -> assertEquals(sqlList.get(19).substring(0, 20), siteList.get(19).substring(0, 20)));
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     /**
@@ -503,7 +499,7 @@ public class SectionsTest extends TestBase {
         String description = trends.listOfDescription().get(2);
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals(description.substring(0, 20), header.substring(0, 20)));
+                () -> assertEquals(description, header));
     }
 
     /**
@@ -537,7 +533,7 @@ public class SectionsTest extends TestBase {
         String description = trends.listOfDescription().get(4);
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals(description.substring(0, 20), header.substring(0, 20)));
+                () -> assertEquals(description, header));
     }
 
 
@@ -545,7 +541,7 @@ public class SectionsTest extends TestBase {
      * Дизайнеры:<p>
      * Отображение баннеров, наименование и порядок их отображения.<p>
      * Новые:<p>
-     * Первый баннер
+     * Первый баннер новинок
      */
     @Test
     @Description("Новые дизайнеры(Отображение баннеров, наименование и порядок их отображения. Первый баннер 'Новые')")
@@ -557,7 +553,6 @@ public class SectionsTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         List<String> sqlList = designers.getFirstLinkNames();
-        int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -565,13 +560,13 @@ public class SectionsTest extends TestBase {
         }
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.size(), numberOnly),
                 () -> assertEquals(sqlList.get(0).substring(0, 20), siteList.get(0).substring(0, 20)),
                 () -> assertEquals(sqlList.get(7).substring(0, 20), siteList.get(7).substring(0, 20)));
     }
 
     /**
-     * Второй баннер
+     * Второй баннер новинок
      */
     @Test
     @Description("Новые дизайнеры(Отображение баннеров, наименование и порядок их отображения. Второй баннер 'Новые')")
@@ -583,7 +578,6 @@ public class SectionsTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         List<String> sqlList = designers.getSecondLinkNames();
-        int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -591,14 +585,14 @@ public class SectionsTest extends TestBase {
         }
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.size(), numberOnly),
                 () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(sqlSize - 1), siteList.get(numberOnly - 1)));
+                () -> assertEquals(sqlList.get(sqlList.size() - 1), siteList.get(numberOnly - 1)));
     }
 
 
     /**
-     * Третий баннер
+     * Третий баннер новинок
      */
     @Test
     @Description("Новые дизайнеры(Отображение баннеров, наименование и порядок их отображения. Третий баннер 'Новые')")
@@ -610,7 +604,6 @@ public class SectionsTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         List<String> sqlList = designers.getThirdLinkNames();
-        int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -618,13 +611,13 @@ public class SectionsTest extends TestBase {
         }
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals(sqlSize, numberOnly),
-                () -> assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly)));
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, numberOnly)));
     }
 
     /**
      * Популярные:<p>
-     * Первый баннер
+     * Первый баннер из популярных дизайнеров
      */
     @Test
     @Description("Популярные дизайнеры(Отображение баннеров, наименование и порядок их отображения. Первый баннер 'Популярные')")
@@ -636,7 +629,6 @@ public class SectionsTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         List<String> sqlList = designers.getFirstPopularLinkNames();
-        int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -644,12 +636,12 @@ public class SectionsTest extends TestBase {
         }
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals(sqlSize, numberOnly),
+                () -> assertEquals(sqlList.size(), numberOnly),
                 () -> assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto)));
     }
 
     /**
-     * Последний баннер
+     * Последний баннер из популярных дизайнеров
      */
     @Test
     @Description("Популярные дизайнеры(Отображение баннеров, наименование и порядок их отображения. Последний баннер 'Популярные')")
@@ -661,7 +653,6 @@ public class SectionsTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         List<String> sqlList = designers.getLastPopularLinkNames();
-        int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -670,9 +661,8 @@ public class SectionsTest extends TestBase {
         assertEquals(href, url);
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals(sqlSize, numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(5), siteList.get(5)));
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto)));
     }
 
     //Создана задача по багу https://tracker.yandex.ru/PD-1390
@@ -707,7 +697,6 @@ public class SectionsTest extends TestBase {
         String countHeader = filters.getCountHeader();
         Integer numberOnly = Integer.valueOf(countHeader.replaceAll("[^0-9]", ""));
         List<String> sqlList = designers.getFirstDesignerNames();
-        int sqlSize = sqlList.size();
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
@@ -715,8 +704,8 @@ public class SectionsTest extends TestBase {
         }
         Assertions.assertAll(
                 () -> assertEquals(href, url),
-                () -> assertEquals(sqlSize, numberOnly),
-                () -> assertEquals(sqlList.subList(0, sqlSize), siteList.subList(0, numberOnly)));
+                () -> assertEquals(sqlList.size(), numberOnly),
+                () -> assertEquals(sqlList.subList(0, sqlList.size()), siteList.subList(0, numberOnly)));
     }
 
     /**
@@ -741,10 +730,11 @@ public class SectionsTest extends TestBase {
         Assertions.assertAll(
                 () -> assertEquals(href, url),
                 () -> assertEquals(sqlSize, numberOnly),
-                () -> assertEquals(sqlList.subList(0, numberOfFoto), siteList.subList(0, numberOfFoto)));
+                () -> assertEquals(sqlList.subList(0, siteSize), siteList.subList(0, siteSize)));
     }
 
     //Создана задача по багу https://tracker.yandex.ru/PD-1390
+
     /**
      * Двадцатый дизайнер из списка
      */
