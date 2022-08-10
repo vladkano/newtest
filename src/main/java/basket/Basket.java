@@ -15,10 +15,10 @@ import java.util.Map;
 
 public class Basket extends Base {
 
-    private final By itemInBasketButton = By.xpath("//span[text()='в корзину']");
+    private final By itemInBasketButton = By.xpath("//button[@class='product-actions__add-to-cart button-fill']/span");
     private final By plusBasketButton = By.xpath("//button[@class='counter__button counter__button_plus']");
     private final By minusBasketButton = By.xpath("//button[@class='counter__button counter__button_minus']");
-    private final By basketButton = By.xpath("//span[text()='Перейти в корзину']");
+    private final By basketButton = By.xpath("//a[@href='/cart']/span");
     private final By catalogButton = By.xpath("//a[@href='/catalog/']");
     private final By newCatalogButton = By.xpath("//a[@href='/catalog/new/']");
     private final By cartCountButton = By.xpath("//a[@href='/cart/']");
@@ -26,7 +26,6 @@ public class Basket extends Base {
 
     private final By plus2 = By.xpath("//input[@name='quantity']");
     private final By max = By.xpath("//div[@class='counter']");
-    //    private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter']");
     private final By cartCount = By.xpath("//a[@href='/cart/']/span[@class='icon-with-counter__counter _with-offset']");
 
     private final By inBasket = By.xpath("//span[text()='в корзине']");
@@ -173,7 +172,7 @@ public class Basket extends Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.get(1);
+        return list.get(0);
     }
 
     public static String findFirstItemLessThan5000() {

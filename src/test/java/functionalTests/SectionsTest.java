@@ -437,7 +437,7 @@ public class SectionsTest extends TestBase {
     public void bannersIsVisible() {
         driver.get(getUrl + "trend/");
         navigation = new CatalogNavigation(driver);
-        navigation.clickOnShowMoreButton();
+        navigation.clickOnShowMoreTrendsButton();
         List<WebElement> banners = driver.findElements(trendBanners);
         List<String> sqlList = trends.getNames();
         List<WebElement> elements = driver.findElements(namesOfTrends);

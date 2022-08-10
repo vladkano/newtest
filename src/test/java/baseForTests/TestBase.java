@@ -133,6 +133,7 @@ public class TestBase {
 //        WebDriverManager.edgedriver().setup();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+//        options.setCapability(CapabilityType.BROWSER_NAME, "firefox");
 //        options.setCapability(CapabilityType.BROWSER_NAME, "MicrosoftEdge");
         driver = new ChromeDriver(options);
 //        driver = new FirefoxDriver(options);
@@ -144,6 +145,8 @@ public class TestBase {
 
     //Бой
     protected String getUrl = "https://poisondrop.ru/";
+
+//    protected String getUrl = "https://poisondrop.com/";
 
     //Тест(Сталинград)
 //    protected String getUrl = "https://stalingrad.poisontestdrop.ru/";

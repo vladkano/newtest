@@ -15,11 +15,11 @@ import java.util.Map;
 
 public class Filters extends Base {
 
-    private final By filterButton = By.xpath("//span[text()='фильтр']");
+    private final By filterButton = By.xpath("//div[@class='filters__label']/span");
     private final By showProductsButton = By.xpath("//button[@class='filters__show-button']");
     private final By priceRangeLeft = By.xpath("//input[@class='filters__input-price']");
     private final By priceRangeRight = By.xpath("(//input[@class='filters__input-price'])[2]");
-    private final By allDiscountsButton = By.xpath("//div[text()='Все скидки']");
+    private final By allDiscountsButton = By.xpath("//div[@class='filters__item-title filters__item-title_discount']");
     private final By tenPercentButton = By.xpath("//div[text()='От 10%']");
     private final By thirtyPercentButton = By.xpath("//div[text()='От 30%']");
     private final By fiftyPercentButton = By.xpath("//div[text()='От 50%']");
@@ -76,7 +76,7 @@ public class Filters extends Base {
     }
 
     public void clickToFilterButton() {
-        sleep(3000);
+        sleep(2000);
         click(filterButton);
     }
 
@@ -84,7 +84,6 @@ public class Filters extends Base {
 //        ((JavascriptExecutor) driver).executeScript(
 //                "arguments[0].click();", driver.findElement(showProductsButton));
         click(showProductsButton);
-//        driver.findElement(showProductsButton).click();
     }
 
     public void clickToAllRingsButton() {

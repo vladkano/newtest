@@ -120,7 +120,6 @@ public class MainPageBannerTest extends TestBase {
     @Test
     @Description("Проверяем ссылки: переход на верную страницу(главный баннер)")
     public void mainBannerLink() {
-//        banner.clickToOkButton();
         String href = banner.getMainCatalogHref();
         banner.clickToMainCatalogHref();
         String header = banner.getFirstCatalogHeader();

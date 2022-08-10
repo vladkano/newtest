@@ -35,7 +35,7 @@ public class WishListTest extends TestBase {
         wishlist.clickToAddToWishlistFromCatalogButton();
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemNameFromFavorites();
-        assertEquals(itemName.substring(0, 15), itemNameFromWishlist.substring(0, 15));
+        assertEquals(itemName.substring(0, 10), itemNameFromWishlist.substring(0, 10));
     }
 
     /**
@@ -45,8 +45,7 @@ public class WishListTest extends TestBase {
     @Description("Проверка того, что товар добавился в избранное из карточки товара + урл и заголовок корректны")
     public void wishListCheckButton() {
         driver.get(getUrl + "catalog/");
-        wishlist.clickToOkButton();
-        wishlist.clickToItemButton();
+        wishlist.clickOnImageLink();
         wishlist.clickToWishListInCardListButton();
         wishlist.clickToWishListButton();
         int numbers = driver.findElements(By.xpath("//h3/a")).size();
@@ -132,7 +131,6 @@ public class WishListTest extends TestBase {
     }
 
 
-    //создан баг https://tracker.yandex.ru/PD-2160
     /**
      * Новинки
      */
@@ -184,7 +182,6 @@ public class WishListTest extends TestBase {
         filters = new Filters(driver);
         size = new Size(driver);
         driver.get(getUrl + "catalog/");
-        filters.clickToOkButton();
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToThirdSizeButton();
@@ -221,7 +218,7 @@ public class WishListTest extends TestBase {
         String basketProductName = wishlist.getBasketProductName();
         Assertions.assertAll(
                 () -> assertEquals(itemName, itemNameFromWishlist),
-                () -> assertEquals(itemNameFromWishlist.substring(0,30), basketProductName.substring(0,30)));
+                () -> assertEquals(itemNameFromWishlist.substring(0, 30), basketProductName.substring(0, 30)));
     }
 
     /**
@@ -235,7 +232,6 @@ public class WishListTest extends TestBase {
         size = new Size(driver);
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/");
-        filters.clickToOkButton();
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToThirdSizeButton();
