@@ -14,6 +14,9 @@ public class Base {
     protected WebDriver driver;
     //Бой
     protected static String mainPageUrl = "https://poisondrop.ru/";
+
+//    protected static String mainPageUrl = "https://poisondrop.com/";
+
     //Тест(Сталинград)
 //    protected static String mainPageUrl = "https://stalingrad.poisontestdrop.ru/";
     //Тест(Севастополь)
@@ -40,7 +43,7 @@ public class Base {
 
     protected By nameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
     protected By designerHeader = By.xpath("//a[@class='product-main-info__designer-link']");
-    protected By priceFromProductCard = By.xpath("//div[@class='price-block price-block_product-card']//span[@class='price-block__price']");
+    protected By priceFromProductCard = By.xpath("//div[@class='price-block catalog-card__price']//span[1]");
     protected By okButton = By.xpath("//button[text()='да']");
 
     protected By goodButton = By.xpath("//button[@class='button-default button-default--black']");

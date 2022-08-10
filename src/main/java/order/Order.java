@@ -33,16 +33,16 @@ public class Order extends Base {
     private final By orderCommentForCourier = By.xpath("//textarea[@id='courierComment']");
     private final By orderComment = By.xpath("//textarea[@name='comment']");
 
-    private final By payButton = By.xpath("//span[text()='Оплатить']");
+    private final By payButton = By.xpath("//button[@class='submit-block__button button-fill']/span");
     private final By orderButton = By.xpath("//span[text()='Оформить заказ']");
     private final By addAddressButton = By.xpath("//span[text()=' Добавить этаж, домофон, комментарий для курьера ']");
     private final By searchBox = By.xpath("//input[@id='searchbox']");
     private final By countrySearchBox = By.xpath("//input[@class='reg']");
     private final By citySearchBox = By.xpath("(//input[@class='reg'])[2]");
-    private final By addCommentButton = By.xpath("//button[text()='Добавить комментарий к заказу']");
+    private final By addCommentButton = By.xpath("//button[@class='comment__trigger']");
 
     private final By authPassword = By.xpath("//input[@id='verificationCode']");
-    private final By whatsAppButton = By.xpath("//span[text()=' Сообщение в WhatsApp ']");
+    private final By whatsAppButton = By.xpath("//label[@for='communicationWhatsapp']/span");
     private final By smsButton = By.xpath("//span[text()=' СМС о статусе заказа ']");
     private final By companyStoreButton = By.xpath("//span[text()=' Забрать в фирменном магазине ']");
     private final By metropolisStoreButton = By.xpath("//span[text()='Poison Drop в ТЦ «Метрополис»']");

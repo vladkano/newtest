@@ -68,7 +68,7 @@ public class CatalogNavigationTest extends TestBase {
     @Test
     public void numberOfPagesKoltsa() {
         driver.get(getUrl + "catalog/koltsa");
-        double count = Math.ceil((double) navigation.countRings() / numberOfFoto);
+        double count = Math.ceil((double) navigation.countRings()/numberOfFoto);
         int countOfRings = (int) count;
         int numberOfPages = Integer.parseInt(navigation.getNumberOfPages());
         assertEquals(countOfRings, numberOfPages);

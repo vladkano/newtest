@@ -14,7 +14,7 @@ import java.util.List;
 public class Size extends Base {
 
 
-    private final By sizeButton = By.xpath("//div[text()='размер кольца']");
+    private final By sizeButton = By.xpath("(//div[@class='filters__list-tab'])[4]");
     private final By firstSizeButton = By.xpath("//div[@class='filters__item-left']/div[text()='14']");
     private final By secondSizeButton = By.xpath("//div[@class='filters__item-left']/div[text()='15.5']");
     private final By thirdSizeButton = By.xpath("//div[@class='filters__item-left']/div[text()='16']");

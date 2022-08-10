@@ -14,18 +14,17 @@ import java.util.List;
 public class Wishlist extends Base {
 
     private final By wishListButton = By.xpath("//a[@href='/wishlist/']");
-    private final By wishListInCardListButton = By.xpath("//button[@aria-label='Добавить в избранное']");
+    private final By wishListInCardListButton = By.xpath("//button[@class='wish-button__button']");
     private final By addToFavoritesFromCatalogButton = By.xpath("//span[@class='wish-button__icon-block']");
-    private final By transferToBasketButton = By.xpath("//span[text()='В корзину']");
+    private final By transferToBasketButton = By.xpath("//button[@class='favorites-card__buy-button']/span");
     private final By transferToBasketWithSizeButton = By.xpath("//button[@class='ring-size-popup__add-to-cart button-fill']/span");
 
-    private final By moveToBasketButton = By.xpath("//span[text()='Оформить заказ']");
-    private final By wishListHeader = By.xpath("//h2[text()='Избранное']");
+    private final By moveToBasketButton = By.xpath("//div[@class='wish-cart__order-btn']/a");
+    private final By wishListHeader = By.xpath("//h2[@class='favorites__title']");
     private final By basketProductName = By.xpath("//h4[@class='cart-item__product-name']");
     private final By wishListProductSize = By.xpath("//div[@class='ring-size-popup__size ring-size-popup__size_current']");
 
     protected By favoriteName = By.xpath("//h3[@class='favorites-card__name']/a");
-
 
 
     public Wishlist(WebDriver driver) {
@@ -46,8 +45,6 @@ public class Wishlist extends Base {
 
     public void clickToTransferToBasketButton() {
         click(transferToBasketButton);
-//        ((JavascriptExecutor) driver).executeScript(
-//                "arguments[0].click();", driver.findElement(transferToBasketButton));
     }
 
     public void clickToTransferToBasketWithSizeButton() {

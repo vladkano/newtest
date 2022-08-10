@@ -6,10 +6,10 @@ import org.openqa.selenium.WebDriver;
 
 public class Subscription extends Base {
 
-    private final By subscriptionText = By.xpath("//h2[text()='подписчики нашей рассылки выбирают самые классные украшения.']");
-    private final By subscriptionButton = By.xpath("//span[text()='подписаться']");
+    private final By subscriptionText = By.xpath("//div[@class='footer__subscription']/h2");
+    private final By subscriptionButton = By.xpath("//button[@class='footer__subscription-button button-fill']/span");
     private final By subscriptionMail = By.xpath("//input[@type='email']");
-    private final By successfulSubscriptionText = By.xpath("//h2[text()='наш почтовый голубь уже вылетел.']");
+    private final By successfulSubscriptionText = By.xpath("//div[@class='footer__success-message']/h2");
     private final By failedSubscriptionText = By.xpath("//p[@class='message message_error']");
 
 

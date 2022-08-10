@@ -592,7 +592,6 @@ public class ProductCardsTest extends TestBase {
         String location = productCard.getLocation();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
-        productCard.clickToAvailabilityButton();
         String tsvetnoy = productCard.clickToAvailabilityButton()
                 .getTsvetnoy();
         String metropolis = productCard.getMetropolis();
@@ -614,7 +613,6 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
-//                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом.", availabilityText),
                 () -> assertEquals("Цветной", tsvetnoy),
                 () -> assertEquals("Метрополис", metropolis),
                 () -> assertEquals("Афимолл", afimoll),
@@ -645,7 +643,6 @@ public class ProductCardsTest extends TestBase {
         String location = productCard.getLocation();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
-        productCard.clickToAvailabilityButton();
         String tsvetnoy = productCard.clickToAvailabilityButton()
                 .getTsvetnoy();
         String metropolis = productCard.getMetropolis();
@@ -667,7 +664,6 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
-//                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом.", availabilityText),
                 () -> assertEquals("Цветной", tsvetnoy),
                 () -> assertEquals("Метрополис", metropolis),
                 () -> assertEquals("Афимолл", afimoll),
@@ -698,7 +694,6 @@ public class ProductCardsTest extends TestBase {
         String location = productCard.getLocation();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
-        productCard.clickToAvailabilityButton();
         String tsvetnoy = productCard.clickToAvailabilityButton()
                 .getTsvetnoy();
         String metropolis = productCard.getMetropolis();
@@ -720,7 +715,6 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
-//                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом.", availabilityText),
                 () -> assertEquals("Цветной", tsvetnoy),
                 () -> assertEquals("Метрополис", metropolis),
                 () -> assertEquals("Афимолл", afimoll),
@@ -751,7 +745,6 @@ public class ProductCardsTest extends TestBase {
         String location = productCard.getLocation();
         productCard.clickToStructureButton();
         String specification = productCard.getSpecification();
-        productCard.clickToAvailabilityButton();
         String tsvetnoy = productCard.clickToAvailabilityButton()
                 .getTsvetnoy();
         String metropolis = productCard.getMetropolis();
@@ -773,7 +766,6 @@ public class ProductCardsTest extends TestBase {
                 .getGuaranteeText();
         Assertions.assertAll(
                 () -> assertEquals("Тип изделия:", specification.substring(0, 12)),
-//                () -> assertEquals("Привезём в любой магазин, если вы оформите заказ на сайте самовывозом.", availabilityText),
                 () -> assertEquals("Цветной", tsvetnoy),
                 () -> assertEquals("Метрополис", metropolis),
                 () -> assertEquals("Афимолл", afimoll),
@@ -924,7 +916,7 @@ public class ProductCardsTest extends TestBase {
         basket.clickOnNameLink();
         String recentlyViewedProductsHeader = productCard.getRecentlyViewedProductsHeader();
         Assertions.assertAll(
-                () -> assertEquals("Вы смотрели", recentlyViewedProductsHeader),
+                () -> assertEquals("вы смотрели", recentlyViewedProductsHeader),
                 () -> assertEquals(productList, viewedProductList));
     }
 
@@ -966,7 +958,7 @@ public class ProductCardsTest extends TestBase {
             basket.clickOnCatalogButton();
         }
         basket.clickOnNameLink();
-        List<WebElement> productList = driver.findElements(By.xpath("//section[@class='products-slider container viewed-products']//div[@class='catalog-card__designer']/a"));
+        List<WebElement> productList = driver.findElements(By.xpath("//section[@class='products-slider viewed-products product-card__products-slider']//div[@class='catalog-card__designer']/a"));
         assertEquals(20, productList.size());
     }
 

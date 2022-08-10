@@ -27,8 +27,6 @@ public class PersonalAreaTest extends TestBase {
         driver.get(getUrl);
         mainPage = new MainPage(driver);
         personalData = new PersonalData(driver);
-//        driver.manage().window().fullscreen();
-//        personalData.clickToOkButton();
         mainPage.sigInWithPhone(phoneForAuthorization);
         String codeToLogin = mainPage.getPhonePasswordForLC();
         mainPage.sigInWithPassword(codeToLogin);

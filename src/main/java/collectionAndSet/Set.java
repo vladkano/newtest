@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 public class Set extends Base {
 
     private final By setWindow = By.id("tns1-ow");
-    private final By setHeader = By.xpath("//h2[text()='украшения из образа']");
+    private final By setHeader = By.xpath("//section[@class='products-slider product-set product-card__products-slider']/h2");
     private final By firstItemFromSet = By.xpath("//h3[@class='catalog-card__name']/a");
 
     public Set(WebDriver driver) {
