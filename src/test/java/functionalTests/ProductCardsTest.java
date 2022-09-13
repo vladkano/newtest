@@ -621,7 +621,7 @@ public class ProductCardsTest extends TestBase {
                 () -> assertEquals("Галерея Краснодар", krasnodar),
                 () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("KazanMall", kazan),
-                () -> assertEquals("получение", receivingText),
+                () -> assertEquals("доставка", receivingText),
                 () -> assertEquals(receivingCity, location),
                 () -> assertEquals("ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося в них спирта).", jewelryCareText),
@@ -672,7 +672,7 @@ public class ProductCardsTest extends TestBase {
                 () -> assertEquals("Галерея Краснодар", krasnodar),
                 () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("KazanMall", kazan),
-                () -> assertEquals("получение", receivingText),
+                () -> assertEquals("доставка", receivingText),
                 () -> assertEquals(receivingCity, location),
                 () -> assertEquals("ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося в них спирта).", jewelryCareText),
@@ -723,7 +723,7 @@ public class ProductCardsTest extends TestBase {
                 () -> assertEquals("Галерея Краснодар", krasnodar),
                 () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("KazanMall", kazan),
-                () -> assertEquals("получение", receivingText),
+                () -> assertEquals("доставка", receivingText),
                 () -> assertEquals(receivingCity, location),
                 () -> assertEquals("ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося в них спирта).", jewelryCareText),
@@ -774,7 +774,7 @@ public class ProductCardsTest extends TestBase {
                 () -> assertEquals("Галерея Краснодар", krasnodar),
                 () -> assertEquals("APR Санкт-Петербург", redBridge),
                 () -> assertEquals("KazanMall", kazan),
-                () -> assertEquals("получение", receivingText),
+                () -> assertEquals("доставка", receivingText),
                 () -> assertEquals(receivingCity, location),
                 () -> assertEquals("ювелирные украшения", jewelryCareHeader),
                 () -> assertEquals("носим не снимая, но помним, что натуральные камни не любят духи (из-за содержащегося в них спирта).", jewelryCareText),
@@ -848,7 +848,7 @@ public class ProductCardsTest extends TestBase {
         driver.get(getUrl + "catalog/sergi/");
         collection.clickOnFirstHref();
         String firstName = basket.getHeader();
-        collection.clickOnFirstItem();
+        collection.clickOnSecondItem();
         String secondName = basket.getHeader();
         assertNotEquals(firstName, secondName);
     }
@@ -884,7 +884,7 @@ public class ProductCardsTest extends TestBase {
         driver.get(getUrl + "catalog/koltsa/");
         collection.clickOnFirstHref();
         String firstName = basket.getHeader();
-        collection.clickOnFirstItem();
+        collection.clickOnSecondItem();
         String secondName = basket.getHeader();
         assertNotEquals(firstName, secondName);
     }

@@ -70,18 +70,19 @@ public class ColorsAndCoverage extends Base {
     public List<String> getListOfGreenColor() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_translations.name from item " +
-                "JOIN item_translations ON item.id = item_translations.item_id " +
+        String query = "SELECT item_translations.name from item_translations " +
+                "JOIN item ON item.id = item_translations.item_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +
                 "JOIN item_color_list ON item.id = item_color_list.item_id " +
                 "JOIN item_color_value ON item_color_list.color_value_id = item_color_value.id " +
                 "JOIN item_color_value_translation ON item_color_value.id = item_color_value_translation.item_color_value_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and filter_id = 155 " +
+                "and is_archive = 0 and item_sku_price.price != 0 and filter_id = 155 " +
                 "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
                 "and item_color_value_translation.locale = 'ru' and item_color_value_translation.name = 'Зеленый' " +
                 "group by item_catalog_position.position";
@@ -102,18 +103,19 @@ public class ColorsAndCoverage extends Base {
     public List<String> getListOfBlueColor() {
         String name;
         List<String> text = new ArrayList<>();
-        String query = "SELECT item_translations.name from item " +
-                "JOIN item_translations ON item.id = item_translations.item_id " +
+        String query = "SELECT item_translations.name from item_translations " +
+                "JOIN item ON item.id = item_translations.item_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +
                 "JOIN item_color_list ON item.id = item_color_list.item_id " +
                 "JOIN item_color_value ON item_color_list.color_value_id = item_color_value.id " +
                 "JOIN item_color_value_translation ON item_color_value.id = item_color_value_translation.item_color_value_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and filter_id = 155 " +
+                "and is_archive = 0 and item_sku_price.price != 0 and filter_id = 155 " +
                 "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
                 "and item_color_value_translation.locale = 'ru' and item_color_value_translation.name = 'Синий' " +
                 "group by item_catalog_position.position";
@@ -139,12 +141,14 @@ public class ColorsAndCoverage extends Base {
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +
                 "JOIN item_color_list ON item.id = item_color_list.item_id " +
                 "JOIN item_color_value ON item_color_list.color_value_id = item_color_value.id " +
                 "JOIN item_color_value_translation ON item_color_value.id = item_color_value_translation.item_color_value_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
+                "and is_archive = 0 and item_sku_price.price != 0 and filter_id = 155 " +
                 "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
                 "and item_color_value_translation.locale = 'ru' and item_color_value_translation.name = 'Мультицвет' " +
                 "group by item_catalog_position.position";
@@ -170,12 +174,13 @@ public class ColorsAndCoverage extends Base {
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +
                 "JOIN item_coverage_list ON item.id = item_coverage_list.item_id " +
                 "JOIN item_coverage_value ON item_coverage_list.coverage_value_id = item_coverage_value.id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and filter_id = 155 " +
+                "and is_archive = 0 and item_sku_price.price != 0 and filter_id = 155 " +
                 "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' and item_coverage_value.name = 'Родий' " +
                 "group by item_catalog_position.position";
         try {
@@ -200,12 +205,13 @@ public class ColorsAndCoverage extends Base {
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +
                 "JOIN item_coverage_list ON item.id = item_coverage_list.item_id " +
                 "JOIN item_coverage_value ON item_coverage_list.coverage_value_id = item_coverage_value.id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and is_archive = 0 and price != 0 and filter_id = 155 " +
+                "and is_archive = 0 and item_sku_price.price != 0 and filter_id = 155 " +
                 "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' and item_coverage_value.name = 'Розовое золото' " +
                 "group by item_catalog_position.position";
         try {

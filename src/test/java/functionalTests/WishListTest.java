@@ -173,6 +173,7 @@ public class WishListTest extends TestBase {
                 () -> assertEquals(itemNameFromWishlist.substring(0, 20), basketProductName.substring(0, 20)));
     }
 
+    //выбор размера в избранном отключен
     /**
      * Товар с размером.
      */
@@ -182,6 +183,7 @@ public class WishListTest extends TestBase {
         filters = new Filters(driver);
         size = new Size(driver);
         driver.get(getUrl + "catalog/");
+        filters.clickToOkButton();
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToThirdSizeButton();
@@ -191,13 +193,15 @@ public class WishListTest extends TestBase {
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemNameFromFavorites();
         wishlist.clickToTransferToBasketButton();
-        String wishListProductSize = wishlist.getWishListProductSize();
-        wishlist.clickToTransferToBasketWithSizeButton();
+//        String wishListProductSize = wishlist.getWishListProductSize();
+//        wishlist.clickToTransferToBasketWithSizeButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
         Assertions.assertAll(
                 () -> assertEquals(itemName, itemNameFromWishlist),
-                () -> assertEquals(itemNameFromWishlist + "\n" + "Размер: " + wishListProductSize, basketProductName));
+                () -> assertEquals(itemNameFromWishlist.substring(0, 30), basketProductName.substring(0, 30))
+//                () -> assertEquals(itemNameFromWishlist + "\n" + "Размер: " + wishListProductSize, basketProductName)
+    );
     }
 
     /**
@@ -221,6 +225,8 @@ public class WishListTest extends TestBase {
                 () -> assertEquals(itemNameFromWishlist.substring(0, 30), basketProductName.substring(0, 30)));
     }
 
+
+    //выбор размера в избранном отключен
     /**
      * Добавление в избранное из карточки товара:<p>
      * Товар из коллекции с размером.
@@ -232,6 +238,7 @@ public class WishListTest extends TestBase {
         size = new Size(driver);
         collection = new Collection(driver);
         driver.get(getUrl + "catalog/");
+        filters.clickToOkButton();
         filters.clickToFilterButton();
         size.clickToSizeButton();
         size.clickToThirdSizeButton();
@@ -242,13 +249,15 @@ public class WishListTest extends TestBase {
         wishlist.clickToWishListButton();
         String itemNameFromWishlist = wishlist.getItemNameFromFavorites();
         wishlist.clickToTransferToBasketButton();
-        String wishListProductSize = wishlist.getWishListProductSize();
-        wishlist.clickToTransferToBasketWithSizeButton();
+//        String wishListProductSize = wishlist.getWishListProductSize();
+//        wishlist.clickToTransferToBasketWithSizeButton();
         wishlist.clickToMoveToBasketButton();
         String basketProductName = wishlist.getBasketProductName();
         Assertions.assertAll(
                 () -> assertEquals(itemName.substring(0, 20), itemNameFromWishlist.substring(0, 20)),
-                () -> assertEquals(itemNameFromWishlist + "\n" + "Размер: " + wishListProductSize, basketProductName));
+                () -> assertEquals(itemNameFromWishlist.substring(0, 30), basketProductName.substring(0, 30))
+//                () -> assertEquals(itemNameFromWishlist + "\n" + "Размер: " + wishListProductSize, basketProductName)
+        );
     }
 
     @AfterEach

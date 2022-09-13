@@ -225,7 +225,7 @@ public class CatalogTest extends TestBase {
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s.substring(0, 5));
+            siteList.add(s.substring(0, 8));
         }
         //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47));
@@ -243,7 +243,7 @@ public class CatalogTest extends TestBase {
         List<WebElement> elements = driver.findElements(numberOfItem);
         for (WebElement text : elements) {
             String s = text.getText();
-            siteList.add(s.substring(0, 4));
+            siteList.add(s.substring(0, 8));
         }
         //Сравниваем первые 9 символов в названии. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         assertEquals(sqlList.subList(0, 48), siteList.subList(0, 48));
@@ -463,7 +463,6 @@ public class CatalogTest extends TestBase {
         driver.get(getUrl + "catalog/broshi");
         brooches = new Brooches(driver);
         List<Integer> sqlList = brooches.getPrice();
-
         getPricesFromSite();
         assertEquals(sqlList.subList(0, 47), priceList.subList(0, 47));
     }

@@ -47,15 +47,17 @@ public class Tags extends Base {
     public String nameEarringsTags() {
         String query = "SELECT item_tag.name from item_sku " +
                 "JOIN item ON item.id = item_sku.item_id " +
+                "JOIN item_translations ON item.id = item_translations.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
-                "and catalog_id=1 and is_archive = 0 and price != 0 and filter_id = 147 " +
-                "and item_sku.url is not null and balance > 0 " +
+                "and catalog_id=1 and is_archive = 0 and item_sku_price.price != 0 and filter_id = 147 " +
+                "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
                 "group by item_catalog_position.position LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -74,15 +76,17 @@ public class Tags extends Base {
     public String nameBroshiTags() {
         String query = "SELECT item_tag.name from item_sku " +
                 "JOIN item ON item.id = item_sku.item_id " +
+                "JOIN item_translations ON item.id = item_translations.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
-                "and catalog_id=4 and is_archive = 0 and price != 0 and filter_id = 151 " +
-                "and item_sku.url is not null and balance > 0 " +
+                "and catalog_id=4 and is_archive = 0 and item_sku_price.price != 0 and filter_id = 151 " +
+                "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
                 "group by item_catalog_position.position LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();
@@ -101,16 +105,17 @@ public class Tags extends Base {
     public String nameOfRingTags() {
         String query = "SELECT item_tag.name from item_sku " +
                 "JOIN item ON item.id = item_sku.item_id " +
+                "JOIN item_translations ON item.id = item_translations.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_tag_list ON item.id = item_tag_list.item_id " +
                 "JOIN item_tag ON item_tag_list.tag_id = item_tag.id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN catalog ON item.catalog_id = catalog.id " +
+                "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item_sku WHERE item.id = item_picture_list.item_id and (item_picture_list.tag_id = 1 or item_picture_list.tag_id = 4)) " +
-                "and catalog_id=5 and is_archive = 0 and price != 0 and filter_id = 149 " +
-                "and item_sku.url is not null and balance > 0 " +
-
+                "and catalog_id=5 and is_archive = 0 and item_sku_price.price != 0 and filter_id = 149 " +
+                "and balance > 0 and designer.show = 1 and item_translations.locale = 'ru' " +
                 "group by item_catalog_position.position LIMIT 1";
         try {
             Statement statement = worker.getCon().createStatement();

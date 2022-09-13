@@ -118,8 +118,9 @@ public class FiltersTest extends TestBase {
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(5).substring(0,20), siteList.get(5).substring(0,20)));
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)),
+                () -> assertEquals(sqlList.get(5).substring(0,20), siteList.get(5).substring(0,20))
+        );
     }
 
     /**
@@ -303,8 +304,7 @@ public class FiltersTest extends TestBase {
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2).substring(0,20), siteList.get(2).substring(0,20)));
+                () -> assertEquals(sqlList.subList(0, 47), siteList.subList(0, 47)));
     }
 
     /**
@@ -323,8 +323,8 @@ public class FiltersTest extends TestBase {
         //Сравниваем 2 элемента и размеры списков. Все сравнить невозможно так как на сайте не полностью отображаются длинные названия
         Assertions.assertAll(
                 () -> assertEquals(sqlList.size(), numberOnly),
-                () -> assertEquals(sqlList.get(0), siteList.get(0)),
-                () -> assertEquals(sqlList.get(2), siteList.get(2)));
+                () -> assertEquals(sqlList.get(0).substring(0,20), siteList.get(0).substring(0,20)),
+                () -> assertEquals(sqlList.get(20).substring(0,20), siteList.get(20).substring(0,20)));
     }
 
 
@@ -516,7 +516,7 @@ public class FiltersTest extends TestBase {
      * 16
      */
     @Test
-    @Description("Проверяем работу фильтров: По размеру кольца(16))")
+    @Description("Проверяем работу фильтров: По размеру кольца(Universal))")
     public void getUniversalSize() {
         getSizeFilter();
         size.clickToUniversalSizeButton();
@@ -693,7 +693,7 @@ public class FiltersTest extends TestBase {
         String numberOfProducts5 = filters.getNumberOfProducts();
         Assertions.assertAll(
                 () -> assertNotEquals(numberOfProducts1, numberOfProducts2),
-                () -> assertEquals(numberOfProducts2, numberOfProducts3),
+                () -> assertNotEquals(numberOfProducts2, numberOfProducts3),
                 () -> assertNotEquals(numberOfProducts3, numberOfProducts4),
                 () -> assertNotEquals(numberOfProducts4, numberOfProducts5));
     }

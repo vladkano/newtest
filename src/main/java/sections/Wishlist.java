@@ -19,7 +19,7 @@ public class Wishlist extends Base {
     private final By transferToBasketButton = By.xpath("//button[@class='favorites-card__buy-button']/span");
     private final By transferToBasketWithSizeButton = By.xpath("//button[@class='ring-size-popup__add-to-cart button-fill']/span");
 
-    private final By moveToBasketButton = By.xpath("//div[@class='wish-cart__order-btn']/a");
+    private final By moveToBasketButton = By.xpath("//span[@class='icon-with-counter__counter _with-offset']");
     private final By wishListHeader = By.xpath("//h2[@class='favorites__title']");
     private final By basketProductName = By.xpath("//h4[@class='cart-item__product-name']");
     private final By wishListProductSize = By.xpath("//div[@class='ring-size-popup__size ring-size-popup__size_current']");

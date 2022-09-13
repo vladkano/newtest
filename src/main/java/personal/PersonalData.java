@@ -22,10 +22,10 @@ public class PersonalData extends Base {
     private final By profilePhone = By.id("profilePhone");
     private final By profileEmail = By.xpath("//input[@placeholder='mail@mail.ru']");
     private final By profileDeliveryCity = By.id("addressArea");
-    private final By apartmentsDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[5]");
-    private final By entranceDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[6]");
-    private final By floorDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[7]");
-    private final By intercomDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[8]");
+    private final By apartmentsDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[4]");
+    private final By entranceDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[5]");
+    private final By floorDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[6]");
+    private final By intercomDeliveryAddress = By.xpath("(//input[@class='text-input__input'])[7]");
     private final By ordersButton = By.xpath("//span[@class='profile-nav__section my-orders']");
     private final By saveAddressButton = By.xpath("(//button[@class='submit-block__button button-border']/span)[2]");
     private final By chooseAddressButton = By.xpath("//ul[@class='autocomplete-list']/li");

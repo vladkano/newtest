@@ -204,17 +204,19 @@ public class SectionsTest extends TestBase {
     }
 
     /**
-     * Пользовательское соглашение
+     * Пользовательское соглашение/Акции
      */
     @Test()
-    @Description("Проверка разделов футера. Пользовательское соглашение.")
+//    @Description("Проверка разделов футера. Пользовательское соглашение.")
+    @Description("Проверка разделов футера. Акции.")
     public void soglashenieButton() {
         footer.clickToSoglashenieButton();
         String url = driver.getCurrentUrl();
         String header = footer.getSoglashenieHeader();
         Assertions.assertAll(
-                () -> assertEquals(getUrl + "soglashenie-na-ispolzovanie-polzovatelskikh-materialov/", url),
-                () -> assertEquals("Соглашение на использование пользовательских материалов", header));
+                () -> assertEquals(getUrl + "promotion/", url),
+                () -> assertEquals("Правила проведения и участия в акции «-20% на второе украшение, " +
+                        "-30% на третье и следующие украшения».", header));
     }
 
     /**

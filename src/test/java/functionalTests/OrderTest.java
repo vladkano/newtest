@@ -6,13 +6,14 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import order.Order;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
 
 import static java.lang.Integer.parseInt;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @Epic("Тесты оформления заказов")
 public class OrderTest extends TestBase {
@@ -31,10 +32,15 @@ public class OrderTest extends TestBase {
      * Запрос кода подтверждения при оплате онлайн и переход на экран ввода реквизитов карты + проверка заголовка на странице ввода реквизитов.
      */
     public void payConfirmAndHeaderCheck() {
+        int cartPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
         String code2 = order.getPhonePassword();
         order.confirmWithPassword(code2);
         String header = order.getPayHeader();
-        assertEquals("Оплата заказа", header.substring(0, 13));
+        int cloudPrice = parseInt(order.getCloudPrice().replaceAll("[^A-Za-z0-9]", ""));
+        Assertions.assertAll(
+                () -> assertEquals("Оплата заказа", header.substring(0, 13)),
+                () -> assertEquals(cartPrice, cloudPrice));
+        ;
     }
 
     /**
@@ -342,6 +348,8 @@ public class OrderTest extends TestBase {
         order.internationalWithPhone(phoneForOrder, email, testNameForOrder,
                 "Минск", "улица Пушкина 12", "Test");
         int finalPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
+        System.out.println(price);
+        System.out.println(finalPrice);
         assertTrue(finalPrice > price);
         payConfirmAndHeaderCheck();
     }
