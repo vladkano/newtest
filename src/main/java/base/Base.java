@@ -18,13 +18,13 @@ public class Base {
 //    protected static String mainPageUrl = "https://poisondrop.com/";
 
     //Тест(Сталинград)
-//    protected static String mainPageUrl = "https://stalingrad.poisontestdrop.ru/";
+//    protected static String mainPageUrl = "https://ru.stalingrad.poisontestdrop.ru/";
     //Тест(Севастополь)
-//    protected static String mainPageUrl = "https://sevastopol.poisontestdrop.ru/";
+//    protected static String mainPageUrl = "https://ru.sevastopol.poisontestdrop.ru/";
     //Тест(Курск)
-//    protected static String mainPageUrl = "https://kursk.poisontestdrop.ru/";
+//    protected static String mainPageUrl = "https://ru.kursk.poisontestdrop.ru/";
     //Тест(Тула)
-//    protected static String mainPageUrl = "https://tula.poisontestdrop.ru/";
+//    protected static String mainPageUrl = "https://ru.tula.poisontestdrop.ru/";
 
 
     protected static String getUrl = mainPageUrl + "catalog/";
@@ -44,7 +44,7 @@ public class Base {
     protected By nameHeader = By.xpath("//h1[@class='product-main-info__product-name']");
     protected By designerHeader = By.xpath("//a[@class='product-main-info__designer-link']");
     protected By priceFromProductCard = By.xpath("//div[@class='price-block catalog-card__price']//span[1]");
-    protected By okButton = By.xpath("//button[text()='да']");
+    protected By okButton = By.xpath("//button[@class='location-detect__button _yes']");
 
     protected By goodButton = By.xpath("//button[@class='button-default button-default--black']");
 

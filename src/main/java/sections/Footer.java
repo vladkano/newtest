@@ -11,7 +11,7 @@ public class Footer extends Base {
     private final By contactsButton = By.xpath("//a[@href='/contacts/']");
     private final By shopsButton = By.xpath("//a[@href='/shops/']");
     private final By vacancyButton = By.xpath("//a[@href='/vacancy/']");
-    private final By soglashenieButton = By.xpath("//a[@href='/soglashenie-na-ispolzovanie-polzovatelskikh-materialov/']");
+    private final By soglashenieButton = By.xpath("//a[@href='/promotion/']");
     private final By dostavkaButton = By.xpath("//a[@href='/dostavka-i-oplata/']");
     private final By obmenButton = By.xpath("//a[@href='/obmen-i-vozvrat/']");
     private final By garantiiButton = By.xpath("//a[@href='/garantii/']");

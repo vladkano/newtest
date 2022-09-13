@@ -1,6 +1,7 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import basket.Basket;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -45,12 +46,16 @@ public class MainPageTest extends TestBase {
         WebDriverManager.firefoxdriver().setup();
 //        options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
         options.setCapability(CapabilityType.BROWSER_NAME, "firefox");
+        options.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
         driver = new FirefoxDriver(options);
 //        driver = new ChromeDriver(options);
         driver.get(getUrl);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
         mainPage = new MainPage(driver);
+        basket = new Basket(driver);
+        basket.clickToOkButton();
+        sleep(1000);
     }
 
 
@@ -58,35 +63,37 @@ public class MainPageTest extends TestBase {
      * Позитивные Тесты <p>
      * Регистрация по номеру телефона
      */
-    @Test
-    @Description("Поверяем возможность зарегистрироваться по номеру телефона")
-    public void registrationWithPhoneNumber() {
-        personalData = new PersonalData(driver);
-        int random_number = a + (int) (Math.random() * b);
-        System.out.println("Случайное число: " + random_number);
-        //телефон
-        driver.navigate().to("https://ru.temporary-phone-number.com/Russia-Phone-Number/");
-        String s = mainPage.getPhoneFromSite();
-        String phoneFromSite = s.replace(" ", "");
-        System.out.println("phone: " + phoneFromSite);
-        //почта
-        driver.navigate().to("https://temp-mail.org/ru/");
-        sleep(5000);
-        String mailFromSite = mainPage.getMailFromSite();
-        System.out.println("mail: " + mailFromSite);
-        //заполняем форму
-        driver.get(getUrl);
-//        ((JavascriptExecutor) driver).executeScript(
-//                "arguments[0].click();", driver.findElement(By.xpath("//span[text()='Закрыть и больше не показывать']")));
-        sleep(2000);
-        mainPage.sigInWithPhone(phoneFromSite);
-        String code = mainPage.getPhonePassword();
-        mainPage.registerWithPhoneNumber(code, mailFromSite, "Test Phone" + random_number);
-        personalData.clickOnPersonalDataButton();
-        sleep(2000);
-        String name = personalData.getName();
-        assertEquals("Test Phone" + random_number, name);
-    }
+
+    //Тест неактуален, ибо на одноразовые номера более не отправляется смс
+//    @Test
+//    @Description("Поверяем возможность зарегистрироваться по номеру телефона")
+//    public void registrationWithPhoneNumber() {
+//        personalData = new PersonalData(driver);
+//        int random_number = a + (int) (Math.random() * b);
+//        System.out.println("Случайное число: " + random_number);
+//        //телефон
+//        driver.navigate().to("https://ru.temporary-phone-number.com/Russia-Phone-Number/");
+//        String s = mainPage.getPhoneFromSite();
+//        String phoneFromSite = s.replace(" ", "");
+//        System.out.println("phone: " + phoneFromSite);
+//        //почта
+//        driver.navigate().to("https://temp-mail.org/ru/");
+//        sleep(5000);
+//        String mailFromSite = mainPage.getMailFromSite();
+//        System.out.println("mail: " + mailFromSite);
+//        //заполняем форму
+//        driver.get(getUrl);
+////        ((JavascriptExecutor) driver).executeScript(
+////                "arguments[0].click();", driver.findElement(By.xpath("//span[text()='Закрыть и больше не показывать']")));
+//        sleep(2000);
+//        mainPage.sigInWithPhone(phoneFromSite);
+//        String code = mainPage.getPhonePassword();
+//        mainPage.registerWithPhoneNumber(code, mailFromSite, "Test Phone" + random_number);
+//        personalData.clickOnPersonalDataButton();
+//        sleep(2000);
+//        String name = personalData.getName();
+//        assertEquals("Test Phone" + random_number, name);
+//    }
 
     /**
      * Авторизация по номеру телефона + проверка, что отображаются надписи 'Вход или регистрация', 'Вход'
@@ -141,7 +148,7 @@ public class MainPageTest extends TestBase {
     @Test
     @Description("Проверяем, что кнопка 'Зарегистрироваться' неактивна, если не заполнено поле 'Электронная почта'")
     public void registrationWithoutEmail() {
-        mainPage.sigInWithPhone("+79956766482");
+        mainPage.sigInWithPhone("9956766482");
         String code = mainPage.getPhonePassword();
         mainPage.registerWithPhoneNumber(code, "", "Test Name");
         Boolean registerButtonAttribute = mainPage.getRegisterButtonAttribute();
@@ -154,7 +161,7 @@ public class MainPageTest extends TestBase {
     @Test
     @Description("Проверяем, что кнопка 'Зарегистрироваться' неактивна, если не заполнено поле 'Имя, можно с фамилией'")
     public void registrationWithoutName() {
-        mainPage.sigInWithPhone("+79956766482");
+        mainPage.sigInWithPhone("9956766482");
         String code = mainPage.getPhonePassword();
         mainPage.registerWithPhoneNumber(code, "test13@mail.com", "");
         Boolean registerButtonAttribute = mainPage.getRegisterButtonAttribute();
@@ -168,7 +175,7 @@ public class MainPageTest extends TestBase {
     @Description("Проверяем, что кнопка 'Зарегистрироваться' неактивна, если не проставлена галочка напротив поля: " +
             "'даю согласие на обработку персональных данных'")
     public void registrationWithoutConsent() {
-        mainPage.sigInWithPhone("+79956766482");
+        mainPage.sigInWithPhone("9956766482");
         String code = mainPage.getPhonePassword();
         mainPage.registerWithoutConsent(code, "test13@mail.com", "Test Name");
         Boolean registerButtonAttribute = mainPage.getRegisterButtonAttribute();
@@ -182,9 +189,9 @@ public class MainPageTest extends TestBase {
     @Test
     @Description("Поверяем что нельзя авторизоваться при вводе неверного номера телефона + проверка отображения подсказки")
     public void signInWithIncorrectPhoneNumber() {
-        MainPage head = mainPage.sigInWithPhone("+7912645932");
+        MainPage head = mainPage.sigInWithPhone("912645932d");
         String heading = head.getIncorrectSigInHeader();
-        assertEquals("+7912645932 - по техническим причинам отправка SMS на данный номер невозможна.", heading);
+        assertEquals("телефон указан неверно", heading);
     }
 
     /**

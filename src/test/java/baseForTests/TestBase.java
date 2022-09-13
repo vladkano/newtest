@@ -17,6 +17,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -83,14 +84,15 @@ public class TestBase {
     protected By nameLink = By.xpath("//h3[@class='catalog-card__name']/a");
     protected By showMore = By.xpath("//span[text()='Показать ещё']");
     protected By designerName = By.xpath("//div[@class='catalog-card__designer']/a");
+
     protected By price = By.xpath("//div[@class='price-block__main']/span[1]");
 
-    protected String phoneForAuthorization = "+79501978905";
+    protected String phoneForAuthorization = "9501978905";
     protected String phoneForOrder = "9126459328";
     protected String testNameForOrder = "Александр Тест";
     protected String subscriptionName = "подписаться";
     protected String subscriptionHeader = "подписчики нашей рассылки выбирают самые классные украшения.";
-    protected String email = "test13@mail.com";
+    protected String email = "ran.owen@rambler.ru";
     protected List<String> siteList = new ArrayList<>();
     protected List<Integer> priceList = new ArrayList<>();
     protected int siteSize = 0;
@@ -133,6 +135,7 @@ public class TestBase {
 //        WebDriverManager.edgedriver().setup();
         options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+//        options.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
 //        options.setCapability(CapabilityType.BROWSER_NAME, "firefox");
 //        options.setCapability(CapabilityType.BROWSER_NAME, "MicrosoftEdge");
         driver = new ChromeDriver(options);
@@ -149,15 +152,15 @@ public class TestBase {
 //    protected String getUrl = "https://poisondrop.com/";
 
     //Тест(Сталинград)
-//    protected String getUrl = "https://stalingrad.poisontestdrop.ru/";
+//    protected String getUrl = "https://ru.stalingrad.poisontestdrop.ru/";
 
     //Тест(Севастополь)
-//    protected String getUrl = "https://sevastopol.poisontestdrop.ru/";
+//    protected String getUrl = "https://ru.sevastopol.poisontestdrop.ru/";
 
     //Тест(Курск)
-//    protected String getUrl = "https://kursk.poisontestdrop.ru/";
+//    protected String getUrl = "https://ru.kursk.poisontestdrop.ru/";
 
     //Тест(Тула)
-//    protected static String getUrl = "https://tula.poisontestdrop.ru/";
+//    protected static String getUrl = "https://ru.tula.poisontestdrop.ru/";
 
 }

@@ -36,9 +36,9 @@ public class CatalogNavigation extends Base {
 
     public int countRings() {
         int id = 0;
-        String query = "SELECT COUNT(distinct item_catalog_position.item_id) as count from item " +
+        String query = "SELECT COUNT(distinct item_translations.item_id) as count from item_translations " +
+                "JOIN item ON item.id = item_translations.item_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
-                "JOIN item_translations ON item.id = item_translations.item_id " +
                 "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
                 "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +

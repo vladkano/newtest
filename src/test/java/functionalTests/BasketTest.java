@@ -29,7 +29,7 @@ public class BasketTest extends TestBase {
         driver.navigate().to(getUrl + "catalog");
         basket = new Basket(driver);
         basket.clickToOkButton();
-//        sleep(1000);
+//        sleep(3000);
         this.testMethodName = testInfo.getTestMethod().get().getName();
     }
 
@@ -94,6 +94,7 @@ public class BasketTest extends TestBase {
     public void inBasketButton() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
     }
@@ -103,6 +104,7 @@ public class BasketTest extends TestBase {
     public void plusButton() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         basket.clickToPlusBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("2", number, "Ошибка увеличения количества товара при добавлении в корзину");
@@ -113,6 +115,7 @@ public class BasketTest extends TestBase {
     public void minusButton() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         basket.clickToPlusBasketButton();
         basket.clickToMinusBasketButton();
         String number = basket.getBasketNumber();
@@ -132,6 +135,7 @@ public class BasketTest extends TestBase {
         filters.clickToShowProductsButton();
         basket.clickToRingButton();
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
     }
@@ -146,6 +150,7 @@ public class BasketTest extends TestBase {
         filters.clickToShowProductsButton();
         basket.clickToRingButton();
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         basket.clickToPlusBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("2", number);
@@ -161,6 +166,7 @@ public class BasketTest extends TestBase {
         filters.clickToShowProductsButton();
         basket.clickToRingButton();
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         basket.clickToPlusBasketButton();
         basket.clickToMinusBasketButton();
         String number = basket.getBasketNumber();
@@ -176,6 +182,7 @@ public class BasketTest extends TestBase {
     public void inBasketButtonWithCollection() {
         driver.navigate().to(basket.getSecondLinkOfCollection());
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
     }
@@ -185,6 +192,7 @@ public class BasketTest extends TestBase {
     public void plusButtonWithCollection() {
         driver.navigate().to(basket.getSecondLinkOfCollection());
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         basket.clickToPlusBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("2", number);
@@ -195,6 +203,7 @@ public class BasketTest extends TestBase {
     public void minusButtonWithCollection() {
         driver.navigate().to(basket.getSecondLinkOfCollection());
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         basket.clickToPlusBasketButton();
         basket.clickToMinusBasketButton();
         String number = basket.getBasketNumber();
@@ -210,6 +219,7 @@ public class BasketTest extends TestBase {
     public void inBasketButtonWithCollectionAndSize() {
         driver.navigate().to(basket.getFirstLinkOfCollection());
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("1", number);
     }
@@ -219,6 +229,7 @@ public class BasketTest extends TestBase {
     public void plusButtonWithCollectionAndSize() {
         driver.navigate().to(basket.getFirstLinkOfCollection());
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         basket.clickToPlusBasketButton();
         String number = basket.getBasketNumber();
         assertEquals("2", number);
@@ -229,6 +240,7 @@ public class BasketTest extends TestBase {
     public void minusButtonWithCollectionAndSize() {
         driver.navigate().to(basket.getFirstLinkOfCollection());
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         basket.clickToPlusBasketButton();
         basket.clickToMinusBasketButton();
         String number = basket.getBasketNumber();
@@ -246,6 +258,7 @@ public class BasketTest extends TestBase {
         Integer balance = basket.getBalance();
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
+        basket.clickToGoToBasketButton();
         Integer dataMax = basket.getDataMax();
         assertEquals(balance, dataMax, "Неверный data-max в счётчике товаров");
         for (int i = 0; i < balance - 1; i++) {
@@ -271,15 +284,15 @@ public class BasketTest extends TestBase {
 
 
     /**
-     * Если товар уже находится в корзине, в карточке товара отображается кнопка "В корзине"
+     * Если товар уже находится в корзине, в карточке товара отображается кнопка "перейти в корзину"
      */
     @Test
-    @Description("Проверка изменения кнопки 'В корзину' -> 'В корзине', при добавлении товара в корзину")
+    @Description("Проверка изменения кнопки 'В корзину' -> 'перейти в корзину', при добавлении товара в корзину")
     public void inBasket() {
         basket.clickToItemButton();
         basket.clickToItemInBasketButton();
-        String header = basket.getInBasketHeader();
-        assertEquals("в корзине", header);
+        String header = basket.getGoToBasketButtonHeader();
+        assertEquals("перейти в корзину", header);
     }
 
     /**

@@ -1,6 +1,7 @@
 package functionalTests;
 
 import baseForTests.TestBase;
+import basket.Basket;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import mainPage.MainPage;
@@ -24,13 +25,17 @@ public class PersonalAreaTest extends TestBase {
     @BeforeEach
     public void setUp() {
         mainSetUp();
-        driver.get(getUrl);
+        basket = new Basket(driver);
         mainPage = new MainPage(driver);
         personalData = new PersonalData(driver);
+        driver.get(getUrl);
+        basket.clickToOkButton();
+        sleep(2000);
         mainPage.sigInWithPhone(phoneForAuthorization);
         String codeToLogin = mainPage.getPhonePasswordForLC();
         mainPage.sigInWithPassword(codeToLogin);
         personalData.clickOnPersonalDataButton();
+
     }
 
     /**
@@ -177,8 +182,8 @@ public class PersonalAreaTest extends TestBase {
         String phone = personalData.getPhone();
         String email = personalData.getEmail();
         Assertions.assertAll(
-                () -> assertEquals("+7(950)197-89-05", phone),
-                () -> assertEquals("test13@mail.com", email));
+                () -> assertEquals("+7 950 197 89 05", phone),
+                () -> assertEquals("ran.owen@rambler.ru", email));
     }
 
     /**

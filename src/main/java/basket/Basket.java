@@ -23,6 +23,7 @@ public class Basket extends Base {
     private final By newCatalogButton = By.xpath("//a[@href='/catalog/new/']");
     private final By cartCountButton = By.xpath("//a[@href='/cart/']");
     private final By setItemInBasketButton = By.xpath("(//span[text()='В корзину'])[2]");
+    private final By goToBasketButton = By.xpath("//a[@class='product-actions__add-to-cart button-go-to-cart']/span");
 
     private final By plus2 = By.xpath("//input[@name='quantity']");
     private final By max = By.xpath("//div[@class='counter']");
@@ -38,6 +39,10 @@ public class Basket extends Base {
 
     public String getNoBasketHeader() {
         return driver.findElement(noBasketHeader).getText();
+    }
+
+    public String getGoToBasketButtonHeader() {
+        return driver.findElement(goToBasketButton).getText();
     }
 
     public void clickToItemButton() {
@@ -91,6 +96,10 @@ public class Basket extends Base {
 //        ((JavascriptExecutor) driver).executeScript(
 //                "arguments[0].click();", driver.findElement(basketButton));
         click(basketButton);
+    }
+
+    public void clickToGoToBasketButton() {
+        click(goToBasketButton);
     }
 
     public void clickToCatalogButton() {
@@ -149,16 +158,19 @@ public class Basket extends Base {
     public static String findFirstRing() {
         String name;
         List<String> list = new ArrayList<>();
-        String query = "SELECT item.name, SUM(balance) from item " +
+        String query = "SELECT item_translations.name, SUM(balance) from item_translations " +
+                "JOIN item ON item.id = item_translations.item_id " +
                 "JOIN item_catalog_position ON item.id = item_catalog_position.item_id " +
+                "JOIN designer ON item.designer_id = designer.id " +
                 "JOIN item_sku ON item.id = item_sku.item_id " +
+                "JOIN item_sku_price ON item_sku.id = item_sku_price.item_sku_id " +
                 "JOIN sku_characteristic_list ON item_sku.id = sku_characteristic_list.sku_id " +
                 "JOIN sku_characteristic_value ON sku_characteristic_list.characteristic_value_id = sku_characteristic_value.id " +
                 "JOIN item_picture_list ON item.id = item_picture_list.item_id " +
                 "JOIN storage_stock ON item_sku.id = storage_stock.sku_id " +
                 "where EXISTS (SELECT * FROM item WHERE item.id = item_picture_list.item_id and (tag_id = 1 or tag_id = 4)) " +
-                "and catalog_id=5 and is_archive = 0 and price != 0 and filter_id = 155 " +
-                "and item_sku.url is not null and sku_characteristic_value.characteristic_value = 'Универсальный'" +
+                "and catalog_id=5 and is_archive = 0 and item_sku_price.price != 0 and filter_id = 155 " +
+                "and designer.show = 1 and item_translations.locale = 'ru' and sku_characteristic_value.characteristic_value = 'Universal' " +
                 "group by item_catalog_position.position having SUM(balance) > 1";
         try {
             Statement statement = worker.getCon().createStatement();
