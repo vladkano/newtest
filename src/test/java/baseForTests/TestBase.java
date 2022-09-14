@@ -133,9 +133,9 @@ public class TestBase {
         WebDriverManager.chromedriver().setup();
 //        WebDriverManager.firefoxdriver().setup();
 //        WebDriverManager.edgedriver().setup();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-//        options.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
+        options.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
 //        options.setCapability(CapabilityType.BROWSER_NAME, "firefox");
 //        options.setCapability(CapabilityType.BROWSER_NAME, "MicrosoftEdge");
         driver = new ChromeDriver(options);
@@ -149,7 +149,7 @@ public class TestBase {
     //Бой
     protected String getUrl = "https://poisondrop.ru/";
 
-//    protected String getUrl = "https://poisondrop.com/";
+    protected String getComUrl = "https://poisondrop.com/";
 
     //Тест(Сталинград)
 //    protected String getUrl = "https://ru.stalingrad.poisontestdrop.ru/";

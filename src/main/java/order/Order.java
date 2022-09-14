@@ -65,6 +65,7 @@ public class Order extends Base {
     private final By firstPrice = By.xpath("//b[@class='cart-price__total']");
     private final By finalPrice = By.xpath("//div[@class='order-summary__row order-summary__row_total']/span[2]");
     private final By cloudPrice = By.xpath("//div[@class='header-component__cost']");
+    private final By checkoutPrice = By.xpath("//h1[@class='Summarystyles__TotalPrice-vv6evz-2 iTuHTB']");
     private final By frame = By.xpath("//iframe[@src='https://pickpoint.ru/select/?&ikn=9990653812']");
     private final By payFrame = By.xpath("//iframe[@class=' with-appled']");
     private final By ordinaryDeliveryButton = By.xpath("//label[@for='ordinaryDelivery']/span[@class='order-delivery__courier-type-variant']");
@@ -77,7 +78,7 @@ public class Order extends Base {
     private final By payHeader = By.xpath("//span[contains(text(), 'Оплата заказа')]");
     private final By orderHeader = By.xpath("//span[text()='Мы приняли ваш заказ']");
     private final By interHeader = By.xpath("//p[@class='order-delivery__tab-text']");
-
+    private final By payComHeader = By.id("payment-methods");
 
     public Order(WebDriver driver) {
         super(driver);
@@ -128,11 +129,19 @@ public class Order extends Base {
         return driver.findElement(payHeader).getText();
     }
 
+    public String getPayComHeader() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(payComHeader));
+        return driver.findElement(payComHeader).getText();
+    }
+
     public String getCloudPrice() {
         return driver.findElement(cloudPrice).getText();
     }
 
-
+    public String getCheckoutPrice() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(checkoutPrice));
+        return driver.findElement(checkoutPrice).getText();
+    }
 
     public String getOrderHeader() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -687,6 +696,18 @@ public class Order extends Base {
         this.typeLocationSearch(city);
         sleep(1000);
         this.clickOnLocationButton();
+    }
+
+    //Доставить в другую страну(Dubai):
+    public void deliveryToDubai(String phone, String email, String fio, String city, String comment) {
+        driver.findElement(orderPhone).clear();
+        basicParameters(phone, email, fio);
+        clickOnChangeCityButton();
+        typeLocationSearch(city);
+        clickOnLocationButton();
+        clickOnAddCommentButton();
+        typeComment(comment);
+        clickOnPayButton();
     }
 
 

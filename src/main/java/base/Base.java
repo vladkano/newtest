@@ -15,7 +15,7 @@ public class Base {
     //Бой
     protected static String mainPageUrl = "https://poisondrop.ru/";
 
-//    protected static String mainPageUrl = "https://poisondrop.com/";
+    protected static String mainPageComUrl = "https://poisondrop.com/";
 
     //Тест(Сталинград)
 //    protected static String mainPageUrl = "https://ru.stalingrad.poisontestdrop.ru/";
@@ -26,13 +26,7 @@ public class Base {
     //Тест(Тула)
 //    protected static String mainPageUrl = "https://ru.tula.poisontestdrop.ru/";
 
-
     protected static String getUrl = mainPageUrl + "catalog/";
-
-
-    public By getImageLink() {
-        return imageLink;
-    }
 
 
     private By imageLink = By.xpath("//picture/img");
@@ -45,8 +39,10 @@ public class Base {
     protected By designerHeader = By.xpath("//a[@class='product-main-info__designer-link']");
     protected By priceFromProductCard = By.xpath("//div[@class='price-block catalog-card__price']//span[1]");
     protected By okButton = By.xpath("//button[@class='location-detect__button _yes']");
-
+    protected By noButton = By.xpath("//button[@class='location-detect__button _no']");
     protected By goodButton = By.xpath("//button[@class='button-default button-default--black']");
+    protected By catalogLocationButton = By.xpath("//li[@class='location-choose__variant _initial']/p");
+
 
     public Base(WebDriver driver) {
         this.driver = driver;
@@ -92,10 +88,20 @@ public class Base {
         click(okButton);
     }
 
+    public void chooseDubai() {
+        click(noButton);
+        click(catalogLocationButton);
+        sleep(1000);
+    }
+
     public void clickToGoodButton() {
         click(goodButton);
     }
 
+
+    public By getImageLink() {
+        return imageLink;
+    }
 
     public String getPriceFromProductCard() {
         return driver.findElement(priceFromProductCard).getText();
@@ -109,6 +115,7 @@ public class Base {
     public void clickOnImageLink() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", driver.findElement(imageLink));
+//        click(imageLink);
     }
 
     public void clickOnSecondImageLink() {

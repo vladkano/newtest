@@ -29,7 +29,7 @@ public class OrderTest extends TestBase {
 
     /**
      * Вспомогательные методы для тестов: <p>
-     * Запрос кода подтверждения при оплате онлайн и переход на экран ввода реквизитов карты + проверка заголовка на странице ввода реквизитов.
+     * Запрос кода подтверждения при оплате онлайн и переход на экран ввода реквизитов карты + проверка заголовка и стоимости заказа на странице ввода реквизитов.
      */
     public void payConfirmAndHeaderCheck() {
         int cartPrice = parseInt(order.getFinalPrice().replaceAll("[^A-Za-z0-9]", ""));
@@ -40,7 +40,6 @@ public class OrderTest extends TestBase {
         Assertions.assertAll(
                 () -> assertEquals("Оплата заказа", header.substring(0, 13)),
                 () -> assertEquals(cartPrice, cloudPrice));
-        ;
     }
 
     /**
